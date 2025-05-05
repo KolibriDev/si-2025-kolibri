@@ -49,7 +49,7 @@ export const { GET } = route({
         )
       }
     })
-    .handler(async (req, ctx, params) => {
+    .handler(async (req) => {
       const url = new URL(req.url)
       const nationalId = url.searchParams.get('nationalId')
       console.log('Received request:', nationalId)
