@@ -71,7 +71,6 @@ export const Tooltip: FC<React.PropsWithChildren<TooltipProps>> = ({
   children,
   fullWidth,
 }) => {
-  console.log('Tooltip', text, placement)
   if (!text) {
     return null
   }
@@ -96,27 +95,6 @@ export const Tooltip: FC<React.PropsWithChildren<TooltipProps>> = ({
         </ReakitTooltip>
         {children}
       </TooltipProvider>
-      {/* {children ? (
-        <TooltipReference {...tooltip} {...children.props}>
-          {(referenceProps) => React.cloneElement(children, referenceProps)}
-        </TooltipReference>
-      ) : (
-        <TooltipReference {...tooltip} as={as} className={cn(styles.icon)}>
-          <Icon icon="informationCircle" color={color} size={iconSize} />
-        </TooltipReference>
-      )} */}
-      {/* <ReakitTooltip {...tooltip} unstable_portal={renderInPortal}>
-        <div
-          className={cn(styles.tooltip, {
-            [styles.fullWidth]: fullWidth,
-          })}
-        >
-          <TooltipArrow {...tooltip}>
-            <ArrowIcon placement={tooltip.placement} />
-          </TooltipArrow>
-          {text}
-        </div>
-      </ReakitTooltip> */}
     </>
   )
 }
