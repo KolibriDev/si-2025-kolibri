@@ -1,5 +1,5 @@
-import * as React from "react";
-import type { SvgProps as SVGRProps } from "../types";
+import * as React from 'react'
+import type { SvgProps as SVGRProps } from '../types'
 
 const SwapHorizontal = ({
   titleId,
@@ -52,7 +52,7 @@ const SwapHorizontal = ({
         strokeWidth="32"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default SwapHorizontal;
+export default SwapHorizontal

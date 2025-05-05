@@ -1,5 +1,5 @@
-import * as React from "react";
-import type { SvgProps as SVGRProps } from "../types";
+import * as React from 'react'
+import type { SvgProps as SVGRProps } from '../types'
 
 const SvgTimeOutline = ({
   titleId,
@@ -23,6 +23,6 @@ const SvgTimeOutline = ({
       />
       <path d="M233.38 278.63l-79-113a8.13 8.13 0 0111.32-11.32l113 79a32.5 32.5 0 01-37.25 53.26 33.21 33.21 0 01-8.07-7.94z" />
     </svg>
-  );
-};
-export default SvgTimeOutline;
+  )
+}
+export default SvgTimeOutline

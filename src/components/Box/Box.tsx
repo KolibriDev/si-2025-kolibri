@@ -1,14 +1,13 @@
-"use client";
-import { createElement, forwardRef } from "react";
+'use client'
+import { createElement, forwardRef } from 'react'
 
-import { BoxProps } from "./types";
-import { useBoxStyles } from "./useBoxStyles";
+import { BoxProps } from './types'
+import { useBoxStyles } from './useBoxStyles'
 
-// eslint-disable-next-line react/display-name
 export const Box = forwardRef<HTMLElement, BoxProps>(
   (
     {
-      component = "div",
+      component = 'div',
       padding,
       paddingX,
       paddingY,
@@ -68,7 +67,7 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       className,
       ...restProps
     },
-    ref
+    ref,
   ) => {
     const boxStyles = useBoxStyles({
       component,
@@ -129,12 +128,12 @@ export const Box = forwardRef<HTMLElement, BoxProps>(
       opacity,
       printHidden,
       className,
-    });
+    })
 
     return createElement(component, {
       className: boxStyles,
       ...restProps,
       ref,
-    });
-  }
-);
+    })
+  },
+)

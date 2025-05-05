@@ -1,89 +1,89 @@
-"use client";
-import { style } from "@vanilla-extract/css";
+'use client'
+import { style } from '@vanilla-extract/css'
 
 export const base = style({
   margin: 0,
   padding: 0,
   border: 0,
-  boxSizing: "border-box",
-  fontSize: "100%",
-  font: "inherit",
-  verticalAlign: "baseline",
-  WebkitTapHighlightColor: "transparent",
-});
+  boxSizing: 'border-box',
+  fontSize: '100%',
+  font: 'inherit',
+  verticalAlign: 'baseline',
+  WebkitTapHighlightColor: 'transparent',
+})
 
 // HTML5 display-role reset for older browsers
 const block = style({
-  display: "block",
-});
+  display: 'block',
+})
 
 const body = style({
   lineHeight: 1,
-});
+})
 
 const list = style({
-  listStyle: "none",
-});
+  listStyle: 'none',
+})
 
 const quote = style({
-  quotes: "none",
+  quotes: 'none',
   selectors: {
-    "&:before, &:after": {
+    '&:before, &:after': {
       content: "''",
     },
   },
-});
+})
 
 const table = style({
-  borderCollapse: "collapse",
+  borderCollapse: 'collapse',
   borderSpacing: 0,
-});
+})
 
 const appearance = style({
-  appearance: "none",
-});
+  appearance: 'none',
+})
 
-const field = [block, appearance];
+const field = [block, appearance]
 
 // Custom reset rules
 const mark = style({
-  backgroundColor: "transparent",
-  color: "inherit",
-});
+  backgroundColor: 'transparent',
+  color: 'inherit',
+})
 
 const select = [
   ...field,
   style({
     selectors: {
-      "&::-ms-expand": {
-        display: "none",
+      '&::-ms-expand': {
+        display: 'none',
       },
     },
   }),
-];
+]
 
 const input = [
   ...field,
   style({
     selectors: {
-      "&::-ms-clear": {
-        display: "none",
+      '&::-ms-clear': {
+        display: 'none',
       },
-      "&::-webkit-search-cancel-button": {
-        WebkitAppearance: "none",
+      '&::-webkit-search-cancel-button': {
+        WebkitAppearance: 'none',
       },
     },
   }),
-];
+]
 
 const button = style({
-  background: "none",
-});
+  background: 'none',
+})
 
 const a = style({
-  textDecoration: "none",
-  color: "inherit",
-});
+  textDecoration: 'none',
+  color: 'inherit',
+})
 
 export const element = {
   article: block,
@@ -109,4 +109,4 @@ export const element = {
   button,
   textarea: field,
   input,
-};
+}

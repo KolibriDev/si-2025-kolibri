@@ -14,9 +14,9 @@ async function nationalRegistry(nationalId: string) {
 }
 
 export async function GET(request: Request) {
-  const secret = request.headers.get("x-internal-secret");
+  const secret = request.headers.get('x-internal-secret')
   if (secret !== process.env.INTERNAL_API_SECRET) {
-    return new Response("Unauthorized", { status: 401 });
+    return new Response('Unauthorized', { status: 401 })
   }
 
   const { searchParams } = new URL(request.url);

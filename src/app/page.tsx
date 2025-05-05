@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import Image from "next/image";
-import styles from "./page.module.css";
-import TestC from "@/components/TestC/TestC";
-import { useEffect, useState } from "react";
+import Image from 'next/image'
+import styles from './page.module.css'
+import TestC from '@/components/TestC/TestC'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
-  const [data, setData] = useState("Ekkert komið");
+  const [data, setData] = useState('Ekkert komið')
 
   useEffect(() => {
     const fetchHello = async () => {
@@ -123,5 +123,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  );
+  )
 }
