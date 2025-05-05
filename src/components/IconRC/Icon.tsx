@@ -1,10 +1,10 @@
 import React, { Suspense, useEffect, useMemo, useState } from "react";
 import cn from "classnames";
+import { theme } from "../Theme/theme";
 import iconMap from "./iconMap";
 import { Box } from "../Box/Box";
 import * as styles from "./Icon.css";
 import type { IconProps, SvgProps, PlaceholderProps } from "./types";
-import { theme } from "../Theme/theme";
 
 const colors = theme.color;
 
@@ -39,7 +39,7 @@ export const Icon = ({
   titleId,
   skipPlaceholderSize,
   ariaHidden,
-}: IconProps & { color: keyof typeof colors }) => {
+}: IconProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const path = iconMap[type][icon];
   const IconSvg = useMemo(
@@ -90,7 +90,7 @@ export const Icon = ({
         aria-hidden={ariaHidden}
         fill={colors[color]}
         color={colors[color]}
-        stroke={useStroke ? colors[color] : undefined}
+        stroke={useStroke && colors[color]}
         {...optionalProps}
       />
     </Suspense>

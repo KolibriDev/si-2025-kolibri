@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import { Text } from "../Text/Text";
+import { Input } from "../Input/Input";
 import { Button } from "../Button/Button";
 
 const TestC: FC = () => {
@@ -11,6 +12,7 @@ const TestC: FC = () => {
       <Text variant="h2" as="h5" color="red200">
         This is TestC component.
       </Text>
+      <Input name="asd" label="asd" tooltip="sdf" />
       <Button
         variant="primary"
         onClick={() => {

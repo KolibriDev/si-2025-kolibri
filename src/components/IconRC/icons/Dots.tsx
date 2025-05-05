@@ -1,5 +1,5 @@
 import * as React from "react";
-import { SvgProps as SVGRProps } from "../types";
+import type { SvgProps as SVGRProps } from "../types";
 
 const SvgDots = ({
   title,
