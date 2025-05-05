@@ -1,74 +1,57 @@
-import { route, routeOperation, TypedNextResponse } from 'next-rest-framework'
+import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import postgres from 'postgres'
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
+
+const querySchema = z.object({
+  nationalId: z.string(),
+})
 
 const nationalRegistrySchema = z.object({
   national_id: z.string(),
   name: z.string(),
 })
 
-export const { GET } = route({
-  getNationalRegistry: routeOperation({
-    method: 'GET',
-  })
-    .input({
-      query: z.object({
-        nationalId: z.string(),
-      }),
-    })
-    .outputs([
-      {
-        status: 200,
-        contentType: 'application/json',
-        body: z.array(nationalRegistrySchema),
-      },
-      {
-        status: 400,
-        contentType: 'application/json',
-        body: z.object({ error: z.string() }),
-      },
-      {
-        status: 401,
-        contentType: 'application/json',
-        body: z.object({ error: z.string() }),
-      },
-      {
-        status: 500,
-        contentType: 'application/json',
-        body: z.object({ error: z.string() }),
-      },
-    ])
-    .middleware(async (req) => {
-      const secret = req.headers.get('x-internal-secret')
-      if (secret !== process.env.INTERNAL_API_SECRET) {
-        return TypedNextResponse.json(
-          { error: 'Unauthorized' },
-          { status: 401 },
-        )
-      }
-    })
-    .handler(async (req, ctx, params) => {
-      const url = new URL(req.url)
-      const nationalId = url.searchParams.get('nationalId')
-      console.log('Received request:', nationalId)
-      try {
-        type NationalRegistryEntry = z.infer<typeof nationalRegistrySchema>
+export async function GET(req: NextRequest) {
+  const secret = req.headers.get('x-internal-secret')
+  if (secret !== process.env.INTERNAL_API_SECRET) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
 
-        const data = await sql<NationalRegistryEntry[]>`
-          SELECT *
-          FROM national_registry
-          WHERE national_id = ${nationalId};
-        `
+  const url = new URL(req.url)
+  const nationalId = url.searchParams.get('nationalId')
 
-        return TypedNextResponse.json(data, { status: 200 })
-      } catch (error) {
-        console.error('Database error:', error)
-        return TypedNextResponse.json(
-          { error: 'Internal Server Error' },
-          { status: 500 },
-        )
-      }
-    }),
-})
+  const parsed = querySchema.safeParse({ nationalId })
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: 'Missing or invalid nationalId' },
+      { status: 400 },
+    )
+  }
+
+  try {
+    const data = await sql`
+      SELECT *
+      FROM national_registry
+      WHERE national_id = ${parsed.data.nationalId};
+    `
+
+    // Optional: Validate response shape using Zod (to catch DB mismatches)
+    const validated = z.array(nationalRegistrySchema).safeParse(data)
+    if (!validated.success) {
+      return NextResponse.json(
+        { error: 'Unexpected data format' },
+        { status: 500 },
+      )
+    }
+
+    return NextResponse.json(validated.data, { status: 200 })
+  } catch (error) {
+    console.error('Database error:', error)
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    )
+  }
+}
