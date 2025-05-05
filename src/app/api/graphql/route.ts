@@ -14,8 +14,34 @@ const { handleRequest } = createYoga<NextContext>({
     `,
     resolvers: {
       Query: {
-        greetings: () =>
-          "This is the `greetings` field of the root `Query` type",
+        async greetings(): Promise<string> {
+          const res = await fetch(
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "x-internal-secret": process.env.INTERNAL_API_SECRET ?? "",
+              },
+            }
+          );
+          const data = await res.json();
+
+          const nationalRegistryResponse = await fetch(
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "x-internal-secret": process.env.INTERNAL_API_SECRET ?? "",
+              },
+            }
+          );
+
+          const data2 = await nationalRegistryResponse.json();
+
+          return `GraphQL got: ${data.message} ${data2.message}`;
+        },
       },
     },
   }),
