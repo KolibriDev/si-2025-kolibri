@@ -1,13 +1,13 @@
-import cn from "classnames";
-import React, { forwardRef, useLayoutEffect, useRef, useState } from "react";
-import { resolveResponsiveProp } from "../Utils/responsiveProp";
-import { Box } from "../Box/Box";
-import { UseBoxStylesProps } from "../Box/useBoxStyles";
-import { Icon } from "../IconRC/Icon";
-import { Tooltip } from "../Tooltip/Tooltip";
-import { ErrorMessage } from "./ErrorMessage";
+import cn from 'classnames'
+import React, { forwardRef, useLayoutEffect, useRef, useState } from 'react'
+import { resolveResponsiveProp } from '../Utils/responsiveProp'
+import { Box } from '../Box/Box'
+import { UseBoxStylesProps } from '../Box/useBoxStyles'
+import { Icon } from '../IconRC/Icon'
+import { Tooltip } from '../Tooltip/Tooltip'
+import { ErrorMessage } from './ErrorMessage'
 
-import * as styles from "./Input.css";
+import * as styles from './Input.css'
 import {
   AriaError,
   InputBackgroundColor,
@@ -15,33 +15,33 @@ import {
   InputProps,
   InputIcon,
   AsideProps,
-} from "./types";
-import { useMergeRefs } from "../Utils/hooks/useMergeRefs";
+} from './types'
+import { useMergeRefs } from '../Utils/hooks/useMergeRefs'
 
 // eslint-disable-next-line react/display-name
 const InputHOC = forwardRef(
   (
-    props: Omit<InputComponentProps, "size">,
-    ref: React.Ref<HTMLInputElement>
-  ) => <input ref={ref} {...props} />
-);
+    props: Omit<InputComponentProps, 'size'>,
+    ref: React.Ref<HTMLInputElement>,
+  ) => <input ref={ref} {...props} />,
+)
 // eslint-disable-next-line react/display-name
 const TextareaHOC = forwardRef(
   (props: InputComponentProps, ref: React.Ref<HTMLTextAreaElement>) => (
     <textarea ref={ref} {...props} />
-  )
-);
+  ),
+)
 
 // eslint-disable-next-line react/display-name
 export const Input = forwardRef(
   (
     props: InputProps,
-    ref?: React.Ref<HTMLInputElement | HTMLTextAreaElement>
+    ref?: React.Ref<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const {
       name,
       label,
-      errorMessage = "",
+      errorMessage = '',
       maxLength,
       max,
       min,
@@ -54,7 +54,7 @@ export const Input = forwardRef(
       rightAlign,
       placeholder,
       tooltip,
-      backgroundColor = "white",
+      backgroundColor = 'white',
       onFocus,
       onBlur,
       readOnly,
@@ -64,60 +64,60 @@ export const Input = forwardRef(
       type,
       icon,
       step,
-      size = "md",
+      size = 'md',
       fixedFocusState,
       autoExpand,
       loading,
       buttons,
       ...inputProps
-    } = props;
-    const [hasFocus, setHasFocus] = useState(false);
+    } = props
+    const [hasFocus, setHasFocus] = useState(false)
 
-    const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null);
-    const mergedRefs = useMergeRefs(inputRef, ref || null);
+    const inputRef = useRef<HTMLInputElement | HTMLTextAreaElement>(null)
+    const mergedRefs = useMergeRefs(inputRef, ref || null)
 
-    const hasLabel = Boolean(label);
-    const showFocus = hasFocus || !!fixedFocusState;
+    const hasLabel = Boolean(label)
+    const showFocus = hasFocus || !!fixedFocusState
 
-    const errorId = `${id}-error`;
+    const errorId = `${id}-error`
     const ariaError = hasError
-      ? { "aria-invalid": true, "aria-describedby": errorId }
-      : {};
+      ? { 'aria-invalid': true, 'aria-describedby': errorId }
+      : {}
 
-    const InputComponent = textarea ? TextareaHOC : InputHOC;
+    const InputComponent = textarea ? TextareaHOC : InputHOC
     const mapBlue = (color: InputBackgroundColor) =>
-      color === "blue" ? "blue100" : color;
+      color === 'blue' ? 'blue100' : color
     const containerBackground = Array.isArray(backgroundColor)
       ? backgroundColor.map(mapBlue)
-      : mapBlue(backgroundColor as InputBackgroundColor);
+      : mapBlue(backgroundColor as InputBackgroundColor)
 
     useLayoutEffect(() => {
-      const input = inputRef.current;
+      const input = inputRef.current
 
       if (autoExpand?.on && input) {
         const handler = () => {
-          input.style.height = "auto";
+          input.style.height = 'auto'
           // The +1 here prevents a scrollbar from appearing in the textarea
-          input.style.height = `${input.scrollHeight + 1}px`;
+          input.style.height = `${input.scrollHeight + 1}px`
           input.style.maxHeight = autoExpand.maxHeight
             ? `${autoExpand.maxHeight}px`
-            : `${window.innerHeight - 50}px`;
-        };
+            : `${window.innerHeight - 50}px`
+        }
 
-        handler();
+        handler()
 
-        input.addEventListener("input", handler, false);
+        input.addEventListener('input', handler, false)
 
         return function cleanup() {
-          input.removeEventListener("input", handler);
-        };
+          input.removeEventListener('input', handler)
+        }
       }
-    }, [autoExpand?.maxHeight, autoExpand?.on, inputRef]);
+    }, [autoExpand?.maxHeight, autoExpand?.on, inputRef])
 
     return (
       <div>
         {/* If size is xs then the label is above the input box */}
-        {size === "xs" && label && (
+        {size === 'xs' && label && (
           <label
             htmlFor={id}
             className={cn(
@@ -126,13 +126,13 @@ export const Input = forwardRef(
                 readOnly,
                 disabled,
               }),
-              styles.labelSizes[size]
+              styles.labelSizes[size],
             )}
           >
             {label}
             {required && (
               <span aria-hidden="true" className={styles.isRequiredStar}>
-                {" "}
+                {' '}
                 *
               </span>
             )}
@@ -145,7 +145,7 @@ export const Input = forwardRef(
         )}
 
         <Box
-          background={containerBackground as UseBoxStylesProps["background"]}
+          background={containerBackground as UseBoxStylesProps['background']}
           className={styles.container({
             disabled: Boolean(disabled),
             readOnly,
@@ -153,14 +153,14 @@ export const Input = forwardRef(
             hasFocus: showFocus,
           })}
           onClick={(e) => {
-            e.preventDefault();
+            e.preventDefault()
             if (inputRef.current) {
-              inputRef.current.focus();
+              inputRef.current.focus()
             }
           }}
         >
           <Box flexGrow={1} className={styles.containerSizes[size]}>
-            {size !== "xs" && label && (
+            {size !== 'xs' && label && (
               <label
                 htmlFor={id}
                 className={cn(
@@ -169,13 +169,13 @@ export const Input = forwardRef(
                     readOnly,
                     disabled,
                   }),
-                  styles.labelSizes[size]
+                  styles.labelSizes[size],
                 )}
               >
                 {label}
                 {required && (
                   <span aria-hidden="true" className={styles.isRequiredStar}>
-                    {" "}
+                    {' '}
                     *
                   </span>
                 )}
@@ -195,9 +195,9 @@ export const Input = forwardRef(
                   styles.inputBackgroundSm,
                   styles.inputBackgroundMd,
                   styles.inputBackgroundLg,
-                  styles.inputBackgroundXl
+                  styles.inputBackgroundXl,
                 ),
-                { [styles.inputSize[size]]: !textarea }
+                { [styles.inputSize[size]]: !textarea },
               )}
               id={id}
               disabled={disabled}
@@ -208,25 +208,25 @@ export const Input = forwardRef(
               maxLength={maxLength}
               defaultValue={defaultValue}
               onFocus={(e) => {
-                setHasFocus(true);
+                setHasFocus(true)
                 if (onFocus) {
-                  onFocus(e);
+                  onFocus(e)
                 }
               }}
               onClick={(e) => {
                 if (onClick) {
-                  onClick(e);
+                  onClick(e)
                 }
               }}
               onKeyDown={(e) => {
                 if (onKeyDown) {
-                  onKeyDown(e);
+                  onKeyDown(e)
                 }
               }}
               onBlur={(e) => {
-                setHasFocus(false);
+                setHasFocus(false)
                 if (onBlur) {
-                  onBlur(e);
+                  onBlur(e)
                 }
               }}
               readOnly={readOnly}
@@ -236,7 +236,7 @@ export const Input = forwardRef(
               min={min}
               {...(ariaError as AriaError)}
               {...inputProps}
-              {...(required && { "aria-required": true })}
+              {...(required && { 'aria-required': true })}
             />
           </Box>
 
@@ -253,14 +253,14 @@ export const Input = forwardRef(
           <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
         )}
       </div>
-    );
-  }
-);
+    )
+  },
+)
 
 function AsideIcons({ icon, size, loading, hasError, hasLabel }: AsideProps) {
   const displayedIcon: InputIcon | undefined = hasError
-    ? { name: "warning" }
-    : icon;
+    ? { name: 'warning' }
+    : icon
 
   const renderIcon = (item: InputIcon) => (
     <Icon
@@ -270,7 +270,7 @@ function AsideIcons({ icon, size, loading, hasError, hasLabel }: AsideProps) {
       className={styles.icon({ size, hasLabel, hasError })}
       ariaHidden
     />
-  );
+  )
 
   return (
     <div className={styles.aside}>
@@ -286,5 +286,5 @@ function AsideIcons({ icon, size, loading, hasError, hasLabel }: AsideProps) {
         </div>
       ) : null}
     </div>
-  );
+  )
 }

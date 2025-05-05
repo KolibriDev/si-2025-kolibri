@@ -1,18 +1,18 @@
-import React, { Suspense, useEffect, useMemo, useState } from "react";
-import cn from "classnames";
-import { theme } from "../Theme/theme";
-import iconMap from "./iconMap";
-import { Box } from "../Box/Box";
-import * as styles from "./Icon.css";
-import type { IconProps, SvgProps, PlaceholderProps } from "./types";
+import React, { Suspense, useEffect, useMemo, useState } from 'react'
+import cn from 'classnames'
+import { theme } from '../Theme/theme'
+import iconMap from './iconMap'
+import { Box } from '../Box/Box'
+import * as styles from './Icon.css'
+import type { IconProps, SvgProps, PlaceholderProps } from './types'
 
-const colors = theme.color;
+const colors = theme.color
 
 const sizes = {
-  small: "16px",
-  medium: "24px",
-  large: "32px",
-};
+  small: '16px',
+  medium: '24px',
+  large: '32px',
+}
 
 const Placeholder = ({
   skipPlaceholderSize,
@@ -26,30 +26,30 @@ const Placeholder = ({
       [styles.placeholder[size]]: !skipPlaceholderSize && size,
     })}
   />
-);
+)
 
 export const Icon = ({
   icon,
-  type = "filled",
-  color = "currentColor",
+  type = 'filled',
+  color = 'currentColor',
   useStroke,
-  size = "medium",
+  size = 'medium',
   className,
   title,
   titleId,
   skipPlaceholderSize,
   ariaHidden,
 }: IconProps) => {
-  const [isMounted, setIsMounted] = useState(false);
-  const path = iconMap[type][icon];
+  const [isMounted, setIsMounted] = useState(false)
+  const path = iconMap[type][icon]
   const IconSvg = useMemo(
-    () => React.lazy(() => import("./icons/" + path)),
-    [path]
-  );
+    () => React.lazy(() => import('./icons/' + path)),
+    [path],
+  )
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    setIsMounted(true)
+  }, [])
 
   if (!isMounted) {
     return (
@@ -58,22 +58,22 @@ export const Icon = ({
         size={size}
         className={className}
       />
-    );
+    )
   }
 
-  const optionalProps: SvgProps = {};
+  const optionalProps: SvgProps = {}
   if (className) {
-    optionalProps.className = className;
+    optionalProps.className = className
   }
   if (title) {
-    optionalProps.title = title;
+    optionalProps.title = title
   }
   if (titleId) {
-    optionalProps.titleId = titleId;
+    optionalProps.titleId = titleId
   }
   if (size) {
-    optionalProps.width = sizes[size];
-    optionalProps.height = sizes[size];
+    optionalProps.width = sizes[size]
+    optionalProps.height = sizes[size]
   }
   return (
     <Suspense
@@ -94,5 +94,5 @@ export const Icon = ({
         {...optionalProps}
       />
     </Suspense>
-  );
-};
+  )
+}

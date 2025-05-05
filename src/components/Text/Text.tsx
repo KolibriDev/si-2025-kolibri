@@ -1,9 +1,9 @@
-'use client";';
-import { Colors } from "../Theme/theme";
-import cn from "classnames";
-import React, { forwardRef } from "react";
-import { Box } from "../Box/Box";
-import { ResponsiveSpace } from "../Box/useBoxStyles";
+'use client";'
+import { Colors } from '../Theme/theme'
+import cn from 'classnames'
+import React, { forwardRef } from 'react'
+import { Box } from '../Box/Box'
+import { ResponsiveSpace } from '../Box/useBoxStyles'
 import {
   variantStyles,
   base,
@@ -19,71 +19,71 @@ import {
   textAlign as textAlignStyle,
   capitalizeFirstLetter as capitalizeFirstLetterStyle,
   disabledText,
-} from "./Text.css";
+} from './Text.css'
 
 type TextElements =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "p"
-  | "span"
-  | "div"
-  | "label"
-  | "caption"
-  | "pre";
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'p'
+  | 'span'
+  | 'div'
+  | 'label'
+  | 'caption'
+  | 'pre'
 
 export interface TextProps {
-  id?: string;
-  children?: React.ReactNode;
-  as?: TextElements;
-  paddingTop?: ResponsiveSpace;
-  paddingBottom?: ResponsiveSpace;
-  paddingY?: ResponsiveSpace;
-  marginTop?: ResponsiveSpace;
-  marginBottom?: ResponsiveSpace;
-  marginY?: ResponsiveSpace;
-  variant?: TextVariants;
-  color?: Colors;
-  truncate?: boolean;
-  fontWeight?: keyof typeof fontWeightStyles;
-  lineHeight?: keyof typeof lineHeightStyles;
-  title?: string;
-  strikethrough?: boolean;
+  id?: string
+  children?: React.ReactNode
+  as?: TextElements
+  paddingTop?: ResponsiveSpace
+  paddingBottom?: ResponsiveSpace
+  paddingY?: ResponsiveSpace
+  marginTop?: ResponsiveSpace
+  marginBottom?: ResponsiveSpace
+  marginY?: ResponsiveSpace
+  variant?: TextVariants
+  color?: Colors
+  truncate?: boolean
+  fontWeight?: keyof typeof fontWeightStyles
+  lineHeight?: keyof typeof lineHeightStyles
+  title?: string
+  strikethrough?: boolean
   whiteSpace?:
-    | "normal"
-    | "nowrap"
-    | "pre"
-    | "preWrap"
-    | "preLine"
-    | "breakSpaces";
-  capitalizeFirstLetter?: boolean;
-  translate?: "yes" | "no";
-  textAlign?: "left" | "right" | "center" | "justify";
-  disabled?: boolean;
+    | 'normal'
+    | 'nowrap'
+    | 'pre'
+    | 'preWrap'
+    | 'preLine'
+    | 'breakSpaces'
+  capitalizeFirstLetter?: boolean
+  translate?: 'yes' | 'no'
+  textAlign?: 'left' | 'right' | 'center' | 'justify'
+  disabled?: boolean
 }
 
 type GetTextStylesProps = Pick<
   TextProps,
-  | "variant"
-  | "color"
-  | "truncate"
-  | "fontWeight"
-  | "lineHeight"
-  | "strikethrough"
-  | "whiteSpace"
-  | "textAlign"
-  | "capitalizeFirstLetter"
-  | "disabled"
->;
+  | 'variant'
+  | 'color'
+  | 'truncate'
+  | 'fontWeight'
+  | 'lineHeight'
+  | 'strikethrough'
+  | 'whiteSpace'
+  | 'textAlign'
+  | 'capitalizeFirstLetter'
+  | 'disabled'
+>
 
 export const getTextStyles = ({
   color,
   truncate,
   fontWeight,
   lineHeight,
-  variant = "default",
+  variant = 'default',
   strikethrough,
   whiteSpace,
   textAlign,
@@ -103,7 +103,7 @@ export const getTextStyles = ({
     [textAlignStyle[textAlign!]]: textAlign,
     [capitalizeFirstLetterStyle]: capitalizeFirstLetter,
     [disabledText]: disabled,
-  });
+  })
 
 // eslint-disable-next-line react/display-name
 export const Text = forwardRef<HTMLElement, TextProps>(
@@ -121,9 +121,9 @@ export const Text = forwardRef<HTMLElement, TextProps>(
       marginY,
       fontWeight,
       lineHeight,
-      variant = "default",
+      variant = 'default',
       title,
-      as = "p",
+      as = 'p',
       strikethrough,
       whiteSpace,
       textAlign,
@@ -131,7 +131,7 @@ export const Text = forwardRef<HTMLElement, TextProps>(
       translate,
       disabled,
     },
-    ref
+    ref,
   ) => {
     return (
       <Box
@@ -161,6 +161,6 @@ export const Text = forwardRef<HTMLElement, TextProps>(
       >
         {children}
       </Box>
-    );
-  }
-);
+    )
+  },
+)
