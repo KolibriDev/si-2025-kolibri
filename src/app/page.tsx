@@ -1,8 +1,27 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
 import TestC from "@/components/TestC/TestC";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [data, setData] = useState("Ekkert komið");
+
+  useEffect(() => {
+    const fetchHello = async () => {
+      const res = await fetch("/api/graphql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: "{ greetings }" }),
+      });
+      const data = await res.json();
+      console.log("GraphQL response:", data);
+      setData(data.data.greetings);
+    };
+    fetchHello();
+  }, []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -19,6 +38,7 @@ export default function Home() {
             Get started by editing <code>src/app/page.tsx</code>.
           </li>
           <li>Save and see your changes instantly.</li>
+          <li>{data}</li>
         </ol>
 
         <TestC />
