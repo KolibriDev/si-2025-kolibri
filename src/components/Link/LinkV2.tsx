@@ -28,7 +28,6 @@ export const LinkV2: React.FC<React.PropsWithChildren<LinkProps>> = ({
   children,
   href,
   as,
-  replace,
   scroll,
   shallow,
   prefetch,
@@ -40,7 +39,6 @@ export const LinkV2: React.FC<React.PropsWithChildren<LinkProps>> = ({
   pureChildren,
   newTab = false,
   dataTestId = undefined,
-  onClick,
   ...linkProps
 }) => {
   const isInternal = !shouldLinkOpenInNewWindow(href as string)
