@@ -1,36 +1,36 @@
-import React, { ElementType, FC, ReactElement } from "react";
-import cn from "classnames";
+import React, { ElementType, FC, ReactElement } from 'react'
+import cn from 'classnames'
 import {
   Tooltip as ReakitTooltip,
   TooltipAnchor,
   TooltipArrow,
   TooltipProvider,
-} from "@ariakit/react";
-import * as styles from "./Tooltip.css";
-import { Icon } from "../IconRC/Icon";
-import { Size } from "../IconRC/types";
-import { Colors } from "../Theme/theme";
+} from '@ariakit/react'
+import * as styles from './Tooltip.css'
+import { Icon } from '../IconRC/Icon'
+import { Size } from '../IconRC/types'
+import { Colors } from '../Theme/theme'
 
-type Placement = "top" | "right" | "bottom" | "left";
+type Placement = 'top' | 'right' | 'bottom' | 'left'
 
 interface ArrowIconProps {
-  placement: string;
+  placement: string
 }
 
 const ArrowIcon: FC<React.PropsWithChildren<ArrowIconProps>> = ({
   placement,
 }) => {
-  let deg = 0;
+  let deg = 0
 
-  if (placement.startsWith("left")) {
-    deg = -90;
-  } else if (placement.startsWith("right")) {
-    deg = 90;
-  } else if (placement.startsWith("bottom")) {
-    deg = 180;
+  if (placement.startsWith('left')) {
+    deg = -90
+  } else if (placement.startsWith('right')) {
+    deg = 90
+  } else if (placement.startsWith('bottom')) {
+    deg = 180
   }
 
-  const transform = `rotate(${deg}deg)`;
+  const transform = `rotate(${deg}deg)`
 
   return (
     <svg
@@ -49,31 +49,31 @@ const ArrowIcon: FC<React.PropsWithChildren<ArrowIconProps>> = ({
         clipRule="evenodd"
       ></path>
     </svg>
-  );
-};
+  )
+}
 
 interface TooltipProps {
-  placement?: Placement;
-  text: React.ReactNode;
-  iconSize?: Size;
-  color?: Colors;
-  children?: ReactElement;
-  fullWidth?: boolean;
-  renderInPortal?: boolean;
-  as?: ElementType;
+  placement?: Placement
+  text: React.ReactNode
+  iconSize?: Size
+  color?: Colors
+  children?: ReactElement
+  fullWidth?: boolean
+  renderInPortal?: boolean
+  as?: ElementType
 }
 
 export const Tooltip: FC<React.PropsWithChildren<TooltipProps>> = ({
   placement,
   text,
-  iconSize = "small",
-  color = "dark200",
+  iconSize = 'small',
+  color = 'dark200',
   children,
   fullWidth,
 }) => {
-  console.log("Tooltip", text, placement);
+  console.log('Tooltip', text, placement)
   if (!text) {
-    return null;
+    return null
   }
 
   return (
@@ -118,5 +118,5 @@ export const Tooltip: FC<React.PropsWithChildren<TooltipProps>> = ({
         </div>
       </ReakitTooltip> */}
     </>
-  );
-};
+  )
+}

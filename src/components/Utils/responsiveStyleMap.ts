@@ -1,66 +1,66 @@
-import { style } from "@vanilla-extract/css";
-import isObject from "lodash/isObject";
-import * as CSS from "csstype";
+import { style } from '@vanilla-extract/css'
+import isObject from 'lodash/isObject'
+import * as CSS from 'csstype'
 
-import { theme } from "../Theme/theme";
+import { theme } from '../Theme/theme'
 
-type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";
+type Breakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type ResponsiveProps<T> = {
-  [Type in Breakpoint]?: T;
-};
+  [Type in Breakpoint]?: T
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const resolveBreakpoints = (variant: any, attr: any, acc: any) => {
   if (isObject(variant[attr])) {
-    (Object.keys(variant[attr]) as Breakpoint[]).reduce(
+    ;(Object.keys(variant[attr]) as Breakpoint[]).reduce(
       (acc, breakpointKey) => {
         const handleBreakpoint = Object.prototype.hasOwnProperty.call(
           theme.breakpoints,
-          breakpointKey
-        );
+          breakpointKey,
+        )
 
         if (!handleBreakpoint) {
-          acc[attr] = variant[attr];
-          return acc;
+          acc[attr] = variant[attr]
+          return acc
         }
 
-        if (breakpointKey === "xs") {
-          acc[attr] = variant[attr].xs;
+        if (breakpointKey === 'xs') {
+          acc[attr] = variant[attr].xs
         } else {
-          if (!acc["@media"]) {
-            acc["@media"] = {};
+          if (!acc['@media']) {
+            acc['@media'] = {}
           }
           if (
-            !acc["@media"][`(min-width: ${theme.breakpoints[breakpointKey]}px)`]
+            !acc['@media'][`(min-width: ${theme.breakpoints[breakpointKey]}px)`]
           ) {
-            acc["@media"][
+            acc['@media'][
               `(min-width: ${theme.breakpoints[breakpointKey]}px)`
-            ] = {};
+            ] = {}
           }
-          acc["@media"][`(min-width: ${theme.breakpoints[breakpointKey]}px)`] =
+          acc['@media'][`(min-width: ${theme.breakpoints[breakpointKey]}px)`] =
             {
-              ...acc["@media"][
+              ...acc['@media'][
                 `(min-width: ${theme.breakpoints[breakpointKey]}px)`
               ],
               [attr]: variant[attr][breakpointKey],
-            };
+            }
         }
-        return acc;
+        return acc
       },
-      acc
-    );
+      acc,
+    )
   } else {
-    acc[attr] = variant[attr];
+    acc[attr] = variant[attr]
   }
-  return acc;
-};
+  return acc
+}
 
 export const responsiveStyleMap = (
-  styleObj: CSS.Properties<string | ResponsiveProps<string | number>>
+  styleObj: CSS.Properties<string | ResponsiveProps<string | number>>,
 ) =>
   style(
     Object.keys(styleObj).reduce(
       (acc, attr) => resolveBreakpoints(styleObj, attr, acc),
-      {}
-    )
-  );
+      {},
+    ),
+  )

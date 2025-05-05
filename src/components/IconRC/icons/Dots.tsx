@@ -1,5 +1,5 @@
-import * as React from "react";
-import type { SvgProps as SVGRProps } from "../types";
+import * as React from 'react'
+import type { SvgProps as SVGRProps } from '../types'
 
 const SvgDots = ({
   title,
@@ -19,7 +19,7 @@ const SvgDots = ({
         fill="#0061FF"
       />
     </svg>
-  );
-};
+  )
+}
 
-export default SvgDots;
+export default SvgDots

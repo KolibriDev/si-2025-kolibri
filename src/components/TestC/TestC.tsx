@@ -1,9 +1,9 @@
-"use client";
+'use client'
 
-import { FC } from "react";
-import { Text } from "../Text/Text";
-import { Input } from "../Input/Input";
-import { Button } from "../Button/Button";
+import { FC } from 'react'
+import { Text } from '../Text/Text'
+import { Input } from '../Input/Input'
+import { Button } from '../Button/Button'
 
 const TestC: FC = () => {
   return (
@@ -16,13 +16,13 @@ const TestC: FC = () => {
       <Button
         variant="primary"
         onClick={() => {
-          console.log("Button clicked");
+          console.log('Button clicked')
         }}
       >
         Click Me
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default TestC;
+export default TestC

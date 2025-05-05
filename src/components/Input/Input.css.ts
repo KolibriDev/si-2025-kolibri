@@ -1,29 +1,29 @@
-import { keyframes, style, styleVariants } from "@vanilla-extract/css";
-import { recipe } from "@vanilla-extract/recipes";
-import { Theme, theme, themeUtils } from "../Theme/theme";
-import * as mixins from "./Input.mixins";
-import mapValues from "lodash/mapValues";
+import { keyframes, style, styleVariants } from '@vanilla-extract/css'
+import { recipe } from '@vanilla-extract/recipes'
+import { Theme, theme, themeUtils } from '../Theme/theme'
+import * as mixins from './Input.mixins'
+import mapValues from 'lodash/mapValues'
 
 export const container = recipe({
   base: {
     ...mixins.containerWithBefore,
-    boxSizing: "border-box",
-    display: "flex",
-    alignContent: "center",
-    position: "relative",
+    boxSizing: 'border-box',
+    display: 'flex',
+    alignContent: 'center',
+    position: 'relative',
     zIndex: 0,
-    overflow: "hidden",
+    overflow: 'hidden',
   },
   variants: {
     disabled: {
       true: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
       },
       false: {},
     },
     readOnly: {
       true: {
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
       },
     },
     hasError: {
@@ -48,29 +48,29 @@ export const container = recipe({
       },
       style: {
         selectors: {
-          "&:hover::before": {
+          '&:hover::before': {
             boxShadow: `inset 0 0 0 1px ${theme.color.blue400}`,
           },
         },
       },
     },
   ],
-});
+})
 
-export const containerSizes = styleVariants(mixins.containerSizes);
+export const containerSizes = styleVariants(mixins.containerSizes)
 
 export const input = recipe({
   base: {
     ...mixins.input,
-    "::placeholder": mixins.inputPlaceholder,
-    ":focus": mixins.inputFocus,
+    '::placeholder': mixins.inputPlaceholder,
+    ':focus': mixins.inputFocus,
     selectors: {
-      "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
+      '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
         margin: 0,
-        WebkitAppearance: "none",
+        WebkitAppearance: 'none',
       },
-      "&[type=number]": {
-        MozAppearance: "textfield",
+      '&[type=number]': {
+        MozAppearance: 'textfield',
       },
     },
   },
@@ -88,49 +88,49 @@ export const input = recipe({
     },
     rightAlign: {
       true: {
-        textAlign: "right",
+        textAlign: 'right',
       },
     },
     textarea: {
       true: {
         ...mixins.textarea,
-        resize: "vertical",
+        resize: 'vertical',
       },
     },
   },
-});
+})
 
-export const inputSize = styleVariants(mixins.inputSizes);
+export const inputSize = styleVariants(mixins.inputSizes)
 
 const backgroundColorRules = {
   white: theme.color.white,
   blue: theme.color.blue100,
-};
+}
 
 // To handle styling auto-fill states
-const makeInputBackground = (breakpoint: keyof Theme["breakpoints"]) =>
+const makeInputBackground = (breakpoint: keyof Theme['breakpoints']) =>
   styleVariants(
     mapValues(backgroundColorRules, (color) =>
       themeUtils.responsiveStyle({
         [breakpoint]: {
           selectors: {
-            "&:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover":
+            '&:-webkit-autofill, &:-webkit-autofill:focus, &:-webkit-autofill:hover':
               {
                 boxShadow: `0 0 0px 1000px ${color} inset`,
               },
           },
         },
-      })
-    )
-  );
+      }),
+    ),
+  )
 
-export const inputBackgroundXs = makeInputBackground("xs");
-export const inputBackgroundSm = makeInputBackground("sm");
-export const inputBackgroundMd = makeInputBackground("md");
-export const inputBackgroundLg = makeInputBackground("lg");
-export const inputBackgroundXl = makeInputBackground("xl");
+export const inputBackgroundXs = makeInputBackground('xs')
+export const inputBackgroundSm = makeInputBackground('sm')
+export const inputBackgroundMd = makeInputBackground('md')
+export const inputBackgroundLg = makeInputBackground('lg')
+export const inputBackgroundXl = makeInputBackground('xl')
 
-export const errorMessage = style(mixins.errorMessage);
+export const errorMessage = style(mixins.errorMessage)
 
 export const label = recipe({
   base: {
@@ -147,49 +147,49 @@ export const label = recipe({
       true: mixins.labelDisabledEmptyInput,
     },
   },
-});
+})
 
-export const labelSizes = styleVariants(mixins.labelSizes);
+export const labelSizes = styleVariants(mixins.labelSizes)
 
 export const isRequiredStar = style({
   color: theme.color.red600,
-});
+})
 
 export const aside = style({
-  display: "flex",
-  alignSelf: "stretch",
-  alignItems: "center",
-  justifyContent: "flex-end",
-});
+  display: 'flex',
+  alignSelf: 'stretch',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+})
 
 export const inputButton = recipe({
   base: {
-    backgroundColor: "transparent",
+    backgroundColor: 'transparent',
     borderLeft: `1px solid ${theme.color.blue200}`,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "background-color .25s",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'background-color .25s',
     borderTop: `transparent`,
     borderRight: `transparent`,
     borderBottom: `transparent`,
-    position: "relative",
-    height: "100%",
+    position: 'relative',
+    height: '100%',
 
-    ":hover": {
+    ':hover': {
       backgroundColor: theme.color.blue200,
     },
-    ":active": {
+    ':active': {
       backgroundColor: theme.color.blue200,
     },
 
-    ":focus-visible": {
-      outline: "none",
+    ':focus-visible': {
+      outline: 'none',
       backgroundColor: theme.color.mint200,
     },
 
-    ":disabled": {
-      cursor: "default",
+    ':disabled': {
+      cursor: 'default',
       backgroundColor: theme.color.blue100,
     },
   },
@@ -230,19 +230,19 @@ export const inputButton = recipe({
       true: {
         borderLeftColor: theme.color.red600,
 
-        ":disabled": {
+        ':disabled': {
           backgroundColor: theme.color.red100,
         },
       },
     },
   },
-});
+})
 
 export const iconWrapper = recipe({
   base: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   variants: {
     size: {
@@ -257,7 +257,7 @@ export const iconWrapper = recipe({
       },
     },
   },
-});
+})
 
 export const spinner = style({
   width: 24,
@@ -267,16 +267,16 @@ export const spinner = style({
   borderBottomColor: theme.color.blue400,
   animationName: keyframes({
     from: {
-      transform: "rotate(0deg)",
+      transform: 'rotate(0deg)',
     },
     to: {
-      transform: "rotate(360deg)",
+      transform: 'rotate(360deg)',
     },
   }),
-  animationDuration: "1.5s",
-  animationIterationCount: "infinite",
-  animationTimingFunction: "linear",
-});
+  animationDuration: '1.5s',
+  animationIterationCount: 'infinite',
+  animationTimingFunction: 'linear',
+})
 
 export const icon = recipe({
   base: {
@@ -329,4 +329,4 @@ export const icon = recipe({
       },
     },
   },
-});
+})

@@ -1,29 +1,28 @@
-import * as React from "react";
-import { forwardRef } from "react";
-import { Button as ReaButton } from "@ariakit/react";
-import cn from "classnames";
-import { Box } from "../Box/Box";
-import * as styles from "./Button.css";
-import { Icon } from "../IconRC/Icon";
-import type { IconProps } from "../IconRC/types";
-import type { ButtonProps, ButtonTypes } from "./types";
+import * as React from 'react'
+import { forwardRef } from 'react'
+import { Button as ReaButton } from '@ariakit/react'
+import cn from 'classnames'
+import { Box } from '../Box/Box'
+import * as styles from './Button.css'
+import { Icon } from '../IconRC/Icon'
+import type { IconProps } from '../IconRC/types'
+import type { ButtonProps, ButtonTypes } from './types'
 
-export type ButtonBaseProps = ButtonProps & ButtonTypes;
+export type ButtonBaseProps = ButtonProps & ButtonTypes
 
-// eslint-disable-next-line react/display-name
 export const Button = forwardRef<HTMLButtonElement, ButtonBaseProps>(
   (
     {
-      variant = "primary",
-      colorScheme = "default",
-      size = "default",
+      variant = 'primary',
+      colorScheme = 'default',
+      size = 'default',
       icon,
-      iconType = "filled",
+      iconType = 'filled',
       preTextIcon,
-      preTextIconType = "filled",
+      preTextIconType = 'filled',
       children,
       circle,
-      type = "button",
+      type = 'button',
       fluid,
       disabled,
       loading,
@@ -37,45 +36,45 @@ export const Button = forwardRef<HTMLButtonElement, ButtonBaseProps>(
       name,
       ...buttonProps
     },
-    ref
+    ref,
   ) => {
     return (
       <Box
         component={ReaButton}
-        as={as ? (as as string) : variant === "text" ? "span" : "button"}
-        role={role ? role : as ? "undefined" : "button"}
+        as={as ? (as as string) : variant === 'text' ? 'span' : 'button'}
+        role={role ? role : as ? 'undefined' : 'button'}
         ref={ref}
         value={value}
         name={name}
-        type={as === "span" ? undefined : type}
+        type={as === 'span' ? undefined : type}
         className={cn(
           styles.variants[variant],
           (styles.colors[variant] as Record<string, string>)[colorScheme],
           {
             [styles.truncate]: truncate,
             [styles.size[size]]:
-              variant !== "utility" && !circle && variant !== "text",
+              variant !== 'utility' && !circle && variant !== 'text',
             [styles.fluid]: fluid,
             [styles.nowrap]: nowrap,
-            [styles.size.utility]: variant === "utility",
-            [styles.size.textSmall]: variant === "text" && size === "small",
-            [styles.size.text]: variant === "text",
+            [styles.size.utility]: variant === 'utility',
+            [styles.size.textSmall]: variant === 'text' && size === 'small',
+            [styles.size.text]: variant === 'text',
             [styles.circleSizes[size]]: circle,
             [styles.circle]: circle,
             [styles.padding[size]]:
-              variant !== "utility" && variant !== "text" && !circle,
-            [styles.padding.text]: variant === "text",
-            [styles.padding.utility]: variant === "utility",
+              variant !== 'utility' && variant !== 'text' && !circle,
+            [styles.padding.text]: variant === 'text',
+            [styles.padding.utility]: variant === 'utility',
             [styles.isEmpty]: !children,
             [styles.loading]: loading,
-          }
+          },
         )}
-        display={variant === "text" ? "inline" : inline ? "inlineFlex" : "flex"}
+        display={variant === 'text' ? 'inline' : inline ? 'inlineFlex' : 'flex'}
         disabled={disabled || loading}
         {...(unfocusable && { tabIndex: -1 })}
         {...buttonProps}
       >
-        {loading && variant !== "text" ? (
+        {loading && variant !== 'text' ? (
           <>
             {preTextIcon && (
               <ButtonIcon
@@ -100,7 +99,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonBaseProps>(
             {preTextIcon && (
               <ButtonIcon icon={preTextIcon} type={preTextIconType} preText />
             )}
-            {typeof children === "string" && variant !== "text" ? (
+            {typeof children === 'string' && variant !== 'text' ? (
               <span>{children}</span>
             ) : (
               children
@@ -109,26 +108,26 @@ export const Button = forwardRef<HTMLButtonElement, ButtonBaseProps>(
           </>
         )}
       </Box>
-    );
-  }
-);
+    )
+  },
+)
 
 type ButtonIconProps = {
-  icon: IconProps["icon"];
-  type: IconProps["type"];
-  transparent?: boolean;
-  preText?: boolean;
-};
+  icon: IconProps['icon']
+  type: IconProps['type']
+  transparent?: boolean
+  preText?: boolean
+}
 
 const ButtonIcon = ({ icon, type, transparent, preText }: ButtonIconProps) => (
   <Icon
     icon={icon}
     type={type}
-    color={transparent ? "transparent" : "currentColor"}
+    color={transparent ? 'transparent' : 'currentColor'}
     className={cn(
       styles.icon,
-      preText ? styles.iconPreText : styles.iconPostText
+      preText ? styles.iconPreText : styles.iconPostText,
     )}
     skipPlaceholderSize
   />
-);
+)
