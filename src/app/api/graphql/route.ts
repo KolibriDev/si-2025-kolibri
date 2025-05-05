@@ -9,14 +9,17 @@ const { handleRequest } = createYoga<NextContext>({
   schema: createSchema({
     typeDefs: /* GraphQL */ `
       type Query {
-        greetings: String
+        greetings(nationalId: String!): String
       }
     `,
     resolvers: {
       Query: {
-        async greetings(): Promise<string> {
+        async greetings(
+          _: unknown,
+          args: { nationalId: string }
+        ): Promise<string> {
           const res = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/?nationalId=${args.nationalId}`,
             {
               method: "GET",
               headers: {
@@ -28,7 +31,7 @@ const { handleRequest } = createYoga<NextContext>({
           const data = await res.json();
 
           const nationalRegistryResponse = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?nationalId=${args.nationalId}`,
             {
               method: "GET",
               headers: {
@@ -40,7 +43,7 @@ const { handleRequest } = createYoga<NextContext>({
 
           const data2 = await nationalRegistryResponse.json();
 
-          return `GraphQL got: ${data.message} ${data2.message}`;
+          return `GraphQL got:  ${data2[0].name}: ${data[0].email}`;
         },
       },
     },
