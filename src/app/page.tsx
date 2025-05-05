@@ -4,7 +4,7 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import TestC from '@/components/TestC/TestC'
 import { useState } from 'react'
-import { useGetGreetingsQuery } from '@/generated/graphql'
+import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -13,8 +13,8 @@ export default function Home() {
     variables: {
       nationalId: '0000000000',
     },
-    onCompleted: (data: { greetings?: string }) => {
-      setData(data.greetings ?? 'Fékk ekki svar')
+    onCompleted: (data: GetGreetingsQuery) => {
+      setData(data.greetings || 'Fékk ekki svar')
     },
     onError: (error: Error) => {
       console.error('Error fetching greetings:', error)

@@ -16,7 +16,7 @@ const { handleRequest } = createYoga<NextContext>({
       Query: {
         async greetings(
           _: unknown,
-          args: { nationalId: string }
+          args: { nationalId: string },
         ): Promise<string> {
           const res = await fetch(
             `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/?nationalId=${args.nationalId}`,
@@ -43,7 +43,7 @@ const { handleRequest } = createYoga<NextContext>({
 
           const data2 = await nationalRegistryResponse.json()
 
-          return `GraphQL got:  ${data2[0].name}: ${data[0].email}`;
+          return `GraphQL got:  ${data2[0].name}: ${data[0].email}`
         },
       },
     },
