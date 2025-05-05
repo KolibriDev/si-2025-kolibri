@@ -18,21 +18,18 @@ import {
 } from './types'
 import { useMergeRefs } from '../Utils/hooks/useMergeRefs'
 
-// eslint-disable-next-line react/display-name
 const InputHOC = forwardRef(
   (
     props: Omit<InputComponentProps, 'size'>,
     ref: React.Ref<HTMLInputElement>,
   ) => <input ref={ref} {...props} />,
 )
-// eslint-disable-next-line react/display-name
 const TextareaHOC = forwardRef(
   (props: InputComponentProps, ref: React.Ref<HTMLTextAreaElement>) => (
     <textarea ref={ref} {...props} />
   ),
 )
 
-// eslint-disable-next-line react/display-name
 export const Input = forwardRef(
   (
     props: InputProps,

@@ -10,7 +10,6 @@ import type { ButtonProps, ButtonTypes } from './types'
 
 export type ButtonBaseProps = ButtonProps & ButtonTypes
 
-// eslint-disable-next-line react/display-name
 export const Button = forwardRef<HTMLButtonElement, ButtonBaseProps>(
   (
     {

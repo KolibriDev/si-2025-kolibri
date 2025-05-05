@@ -100,7 +100,6 @@ export type Icon =
   | 'list'
   | 'hammer'
 
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   filled: {
     archive: 'Archive',

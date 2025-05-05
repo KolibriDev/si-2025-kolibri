@@ -1,7 +1,6 @@
 import js from '@eslint/js'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
-import pluginReact from 'eslint-plugin-react'
 import css from '@eslint/css'
 import { defineConfig } from 'eslint/config'
 
@@ -16,7 +15,6 @@ export default defineConfig([
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
   tseslint.configs.recommended,
-  pluginReact.configs.flat.recommended,
   {
     files: ['**/*.css'],
     plugins: { css },

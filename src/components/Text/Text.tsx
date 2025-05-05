@@ -105,7 +105,6 @@ export const getTextStyles = ({
     [disabledText]: disabled,
   })
 
-// eslint-disable-next-line react/display-name
 export const Text = forwardRef<HTMLElement, TextProps>(
   (
     {

@@ -4,7 +4,6 @@ import { createElement, forwardRef } from 'react'
 import { BoxProps } from './types'
 import { useBoxStyles } from './useBoxStyles'
 
-// eslint-disable-next-line react/display-name
 export const Box = forwardRef<HTMLElement, BoxProps>(
   (
     {
