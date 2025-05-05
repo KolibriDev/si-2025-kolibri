@@ -2,6 +2,7 @@
 
 import { FC } from "react";
 import { Text } from "../Text/Text";
+import { Input } from "../Input/Input";
 
 const TestC: FC = () => {
   return (
@@ -10,6 +11,7 @@ const TestC: FC = () => {
       <Text variant="h2" as="h5" color="red200">
         This is TestC component.
       </Text>
+      <Input name="asd" label="asd" tooltip="sdf" />
     </div>
   );
 };
