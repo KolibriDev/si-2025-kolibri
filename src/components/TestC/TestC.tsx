@@ -3,6 +3,7 @@
 import { FC } from "react";
 import { Text } from "../Text/Text";
 import { Input } from "../Input/Input";
+import { Button } from "../Button/Button";
 
 const TestC: FC = () => {
   return (
@@ -12,6 +13,14 @@ const TestC: FC = () => {
         This is TestC component.
       </Text>
       <Input name="asd" label="asd" tooltip="sdf" />
+      <Button
+        variant="primary"
+        onClick={() => {
+          console.log("Button clicked");
+        }}
+      >
+        Click Me
+      </Button>
     </div>
   );
 };

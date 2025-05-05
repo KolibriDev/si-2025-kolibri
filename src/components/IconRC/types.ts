@@ -1,8 +1,7 @@
 import { theme } from "../Theme/theme";
 import { Icon as IconType, Type } from "./iconMap";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const colors = theme.color;
+type Colors = typeof theme.color;
 
 export type Size = "small" | "medium" | "large";
 export type IconMapType = Type;
@@ -13,7 +12,7 @@ export interface IconProps {
   icon: IconType;
   title?: string;
   titleId?: string;
-  color?: keyof typeof colors;
+  color?: keyof Colors;
   useStroke?: boolean;
   size?: Size;
   className?: string;
