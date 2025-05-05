@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import postgres from "postgres";
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
@@ -13,13 +12,8 @@ async function nationalRegistry(nationalId: string) {
   return data;
 }
 
-export async function GET(request: Request) {
-  const secret = request.headers.get('x-internal-secret')
-  if (secret !== process.env.INTERNAL_API_SECRET) {
-    return new Response('Unauthorized', { status: 401 })
-  }
-
-  const { searchParams } = new URL(request.url);
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
   const nationalId = searchParams.get("nationalId");
 
   if (!nationalId) {
@@ -28,11 +22,8 @@ export async function GET(request: Request) {
 
   try {
     const result = await nationalRegistry(nationalId);
-
     return Response.json(result);
   } catch (error) {
     return Response.json({ error }, { status: 500 });
   }
-
-  return NextResponse.json({ message: "Hello from national registry" });
 }

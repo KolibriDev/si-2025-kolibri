@@ -10,17 +10,26 @@ export default function Home() {
 
   useEffect(() => {
     const fetchHello = async () => {
-      const res = await fetch('/api/graphql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: '{ greetings }' }),
-      })
-      const data = await res.json()
-      console.log('GraphQL response:', data)
-      setData(data.data.greetings)
-    }
-    fetchHello()
-  }, [])
+      const nationalId = "0000000000";
+
+      const res = await fetch("/api/graphql", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `query ($nationalId: String!) {
+            greetings(nationalId: $nationalId)
+          }`,
+          variables: { nationalId },
+        }),
+      });
+
+      const data = await res.json();
+
+      setData(data.data.greetings);
+    };
+
+    fetchHello();
+  }, []);
 
   return (
     <div className={styles.page}>
