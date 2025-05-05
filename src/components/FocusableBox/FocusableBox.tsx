@@ -46,8 +46,6 @@ export const FocusableBox = forwardRef<HTMLElement, Props>(
       color = 'purple',
       children,
       className,
-      onFocus,
-      onBlur,
       ...rest
     },
     ref,

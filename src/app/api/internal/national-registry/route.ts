@@ -1,16 +1,16 @@
-import { NextResponse } from "next/server";
-import postgres from "postgres";
+import { NextResponse } from 'next/server'
+import postgres from 'postgres'
 
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: "require" });
+const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
 async function nationalRegistry(nationalId: string) {
   const data = await sql`
     SELECT *
     FROM national_registry
     WHERE national_id = ${nationalId};
-  `;
+  `
 
-  return data;
+  return data
 }
 
 export async function GET(request: Request) {
@@ -19,20 +19,20 @@ export async function GET(request: Request) {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  const { searchParams } = new URL(request.url);
-  const nationalId = searchParams.get("nationalId");
+  const { searchParams } = new URL(request.url)
+  const nationalId = searchParams.get('nationalId')
 
   if (!nationalId) {
-    return Response.json({ error: "Missing nationalId" }, { status: 400 });
+    return Response.json({ error: 'Missing nationalId' }, { status: 400 })
   }
 
   try {
-    const result = await nationalRegistry(nationalId);
+    const result = await nationalRegistry(nationalId)
 
-    return Response.json(result);
+    return Response.json(result)
   } catch (error) {
-    return Response.json({ error }, { status: 500 });
+    return Response.json({ error }, { status: 500 })
   }
 
-  return NextResponse.json({ message: "Hello from national registry" });
+  return NextResponse.json({ message: 'Hello from national registry' })
 }

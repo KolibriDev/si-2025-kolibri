@@ -8,7 +8,6 @@ import React, {
   useEffect,
 } from 'react'
 import cn from 'classnames'
-import { useUpdateEffect } from 'react-use'
 
 import * as styles from './ModalBase.css'
 import {
@@ -108,21 +107,14 @@ export type ModalBaseProps = {
 }
 
 export const ModalBase: FC<ModalBaseProps> = ({
-  disclosure,
-  baseId,
-  initialVisibility,
   toggleClose,
   children,
   className,
-  onVisibilityChange,
-  renderDisclosure = (disclosure) => disclosure,
   backdropWhite,
   modalLabel,
   removeOnClose,
   isVisible,
-  hideOnClickOutside,
   tabIndex,
-  hideOnEsc,
   preventBodyScroll,
 }) => {
   const modal = useDialogStore({
