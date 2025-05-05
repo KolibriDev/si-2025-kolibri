@@ -43,11 +43,7 @@ export type PropsBase = {
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore make web strict
 declare module 'react-select/dist/declarations/src/Select' {
-  export interface Props<
-    Option,
-    IsMulti extends boolean,
-    Group extends GroupBase<Option>,
-  > extends PropsBase {}
+  // Module augmentation can be used here if needed in the future.
 }
 
 // The typescript declaration customizations above does not allow to change existing props signature.

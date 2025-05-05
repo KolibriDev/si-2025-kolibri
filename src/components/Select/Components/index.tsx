@@ -80,7 +80,7 @@ export const Option = <
   // @ts-ignore make web strict
   props: OptionProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: size is not explicitly defined in selectProps but is expected to be handled */
   const { size = 'md' } = props.selectProps
 
   const description = props.data?.description
@@ -150,7 +150,7 @@ export const IndicatorsContainer = <
 >(
   props: IndicatorsContainerProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: icon and size are not explicitly defined in selectProps but are expected to be handled */
   const { icon, size = 'md' } = props.selectProps
   return (
     <components.IndicatorsContainer
@@ -172,7 +172,7 @@ export const DropdownIndicator = <
 >(
   props: DropdownIndicatorProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: export the following error */
   const { icon = 'chevronDown', hasError, size = 'md' } = props.selectProps
 
   return (
@@ -201,7 +201,7 @@ export const SingleValue = <
   // @ts-ignore make web strict
   props: SingleValueProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: export the following error */
   const { size = 'md' } = props.selectProps
   return (
     <components.SingleValue
@@ -244,7 +244,7 @@ export const Placeholder = <
   // @ts-ignore make web strict
   props: PlaceholderProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: export the following error */
   const { size = 'md' } = props.selectProps
 
   return (
@@ -272,7 +272,7 @@ export const Input = <
   // @ts-ignore make web strict
   props: InputProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: export the following error */
   const { ariaError } = props.selectProps
   return (
     <components.Input
@@ -293,7 +293,7 @@ export const Control = <
   // @ts-ignore make web strict
   props: ControlProps<OptionType<Value>, IsMulti, Group>,
 ) => {
-  /* @ts-ignore */
+  /* @ts-expect-error: export the following error */
   const { size = 'md' } = props.selectProps
   const label = (
     <label
@@ -304,7 +304,7 @@ export const Control = <
         [styles.labelDisabled]: props.selectProps.isDisabled,
       })}
     >
-      {/* @ts-ignore */}
+      {/* @ts-expect-error: export the following error */}
       {props.selectProps.label}
       {props.selectProps.required && (
         <span aria-hidden="true" className={styles.isRequiredStar}>
@@ -321,7 +321,7 @@ export const Control = <
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore make web strict
         className={cn(styles.container, styles.containerSizes[size], {
-          /* @ts-ignore */
+          /* @ts-expect-error: export the following error */
           [styles.hasError]: props.selectProps.hasError,
         })}
         {...props}
@@ -373,6 +373,7 @@ export const customStyles = <
   }),
 })
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const NoOptionsMessage = (props: any) => {
   return (
     <components.NoOptionsMessage {...props}>

@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-computed-key */
 import { style } from '@vanilla-extract/css'
 import { theme } from '../../Theme/theme'
 

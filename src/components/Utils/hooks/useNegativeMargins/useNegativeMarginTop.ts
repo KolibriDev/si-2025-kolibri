@@ -2,6 +2,7 @@ import classnames from 'classnames'
 import { resolveResponsiveProp, ResponsiveProp } from '../../responsiveProp'
 import * as styleRefs from './useNegativeMarginTop.css'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const useNegativeMarginTop = (space: ResponsiveProp<any>) => {
   const styles = {
     ...styleRefs,

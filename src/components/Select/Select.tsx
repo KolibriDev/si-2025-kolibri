@@ -43,11 +43,9 @@ export const Select = <
   errorMessage = '',
   placeholder = '',
   defaultValue,
-  icon = 'chevronDown',
   isSearchable = true,
   isMulti,
   closeMenuOnSelect = !isMulti,
-  size = 'md',
   backgroundColor = 'white',
   required,
   formatGroupLabel,
@@ -84,7 +82,7 @@ export const Select = <
         classNamePrefix="island-select"
         onChange={onChange}
         options={options}
-        // @ts-ignore
+        // @ts-expect-error: extra props
         label={label}
         value={value}
         // icon={icon}
