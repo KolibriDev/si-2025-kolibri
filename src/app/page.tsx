@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 import TestC from '@/components/TestC/TestC'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useGetGreetingsQuery } from '@/generated/graphql'
 
 export default function Home() {
@@ -13,10 +13,10 @@ export default function Home() {
     variables: {
       nationalId: '0000000000',
     },
-    onCompleted: (data) => {
+    onCompleted: (data: { greetings?: string }) => {
       setData(data.greetings ?? 'Fékk ekki svar')
     },
-    onError: (error) => {
+    onError: (error: Error) => {
       console.error('Error fetching greetings:', error)
       setData('Fékk villu')
     },
