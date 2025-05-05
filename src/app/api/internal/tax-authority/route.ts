@@ -53,7 +53,6 @@ export const { GET } = route({
       const url = new URL(req.url)
       const nationalId = url.searchParams.get('nationalId')
       console.log('Received request:', nationalId)
-      // const { nationalId } = { nationalId: undefined }
 
       if (!nationalId) {
         return TypedNextResponse.json(
