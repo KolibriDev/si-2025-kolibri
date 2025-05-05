@@ -5,6 +5,7 @@ import styles from './page.module.css'
 import TestC from '@/components/TestC/TestC'
 import { useState } from 'react'
 import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
+import { Header } from '@/components/Header/Header'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -24,6 +25,7 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
+      <Header userName="asdf" authenticated />
       <main className={styles.main}>
         <Image
           className={styles.logo}
