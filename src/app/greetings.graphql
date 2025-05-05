@@ -1,0 +1,3 @@
+query GetGreetings($nationalId: String!) {
+  greetings(nationalId: $nationalId)
+}

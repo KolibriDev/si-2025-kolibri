@@ -4,23 +4,23 @@ import Image from 'next/image'
 import styles from './page.module.css'
 import TestC from '@/components/TestC/TestC'
 import { useEffect, useState } from 'react'
+import { useGetGreetingsQuery } from '@/generated/graphql'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
 
-  useEffect(() => {
-    const fetchHello = async () => {
-      const res = await fetch('/api/graphql', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: '{ greetings }' }),
-      })
-      const data = await res.json()
-      console.log('GraphQL response:', data)
-      setData(data.data.greetings)
-    }
-    fetchHello()
-  }, [])
+  useGetGreetingsQuery({
+    variables: {
+      nationalId: '0000000000',
+    },
+    onCompleted: (data) => {
+      setData(data.greetings ?? 'Fékk ekki svar')
+    },
+    onError: (error) => {
+      console.error('Error fetching greetings:', error)
+      setData('Fékk villu')
+    },
+  })
 
   return (
     <div className={styles.page}>
