@@ -42,7 +42,7 @@ export default function StepPage() {
   const { user, fetchNationalRegister } = useUserContext()
 
   useEffect(() => {
-    fetchTaxReturn(user?.nationalId ?? '0000000000')
+    fetchTaxReturn(user?.nationalId ?? '1203894569')
   }, [fetchTaxReturn, user?.nationalId])
 
   useEffect(() => {
