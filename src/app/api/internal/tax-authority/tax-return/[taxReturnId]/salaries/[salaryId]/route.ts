@@ -1,4 +1,9 @@
-import { sql, salarySchema, validateSecret } from '@/lib/apiHelper'
+import {
+  sql,
+  salarySchema,
+  validateSecret,
+  updateSalarySchema,
+} from '@/lib/apiHelper'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 
@@ -55,7 +60,7 @@ export async function PUT(req: NextRequest) {
   }
 
   const body = await req.json()
-  const parsed = salarySchema.safeParse(body)
+  const parsed = updateSalarySchema.safeParse(body)
 
   if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })

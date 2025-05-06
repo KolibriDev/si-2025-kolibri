@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import {
+  createAndUpdateTaxReturnSchema,
   nationalIdQuerySchema,
   sql,
   taxReturnSchema,
@@ -13,7 +14,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const parsed = taxReturnSchema.safeParse(body)
+  const parsed = createAndUpdateTaxReturnSchema.safeParse(body)
 
   if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sql, salarySchema, validateSecret } from '@/lib/apiHelper'
+import { sql, validateSecret, createSalarySchema } from '@/lib/apiHelper'
 
 export async function POST(req: NextRequest) {
   if (!validateSecret(req)) {
@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const parsed = salarySchema.safeParse(body)
+  const parsed = createSalarySchema.safeParse(body)
 
   if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
