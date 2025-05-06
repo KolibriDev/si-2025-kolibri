@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Text } from '@/components/Text/Text'
 import { useTaxContext } from '../Utils/context/taxContext'
 import * as T from '../Table/Table'
