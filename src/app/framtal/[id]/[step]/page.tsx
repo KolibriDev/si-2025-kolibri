@@ -32,7 +32,7 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
 
 export default function StepPage() {
   const params = useParams()
-  const step = params.step as string | undefined
+  const step = params?.step as string | undefined
   const validSteps = getFlatRouteSteps()
 
   if (!step || !validSteps.includes(step)) {
