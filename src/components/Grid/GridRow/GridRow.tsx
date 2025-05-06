@@ -3,7 +3,7 @@ import cn from 'classnames'
 import { Box } from '../../Box/Box'
 import { BoxProps } from '../../Box/types'
 import * as styles from './GridRow.css'
-import { ResponsiveProp } from '../../Utils/responsiveProp'
+import { ResponsiveProp } from '@/components/Utils/responsiveProp'
 import { flexDirection, justifyContent } from '../../Box/useBoxStyles.css'
 
 interface Props {

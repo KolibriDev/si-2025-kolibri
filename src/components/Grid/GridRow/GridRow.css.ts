@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css'
-import { theme } from '../../Theme/theme'
+import { theme } from '@/components/Theme/theme'
 
 export const gridRow = style({
   boxSizing: 'border-box',

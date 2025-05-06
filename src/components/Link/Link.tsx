@@ -1,9 +1,6 @@
 import * as React from 'react'
 import cn from 'classnames'
-import NextLink, { LinkProps as NextLinkProps } from 'next/link'
-
-import { shouldLinkBeAnAnchorTag } from '../Utils/shouldLinkBeAnAnchorTag'
-import { shouldLinkOpenInNewWindow } from '../Utils/shouldLinkOpenInNewWindow'
+import { LinkProps as NextLinkProps } from 'next/link'
 
 import * as styles from './Link.css'
 
@@ -27,21 +24,15 @@ export interface LinkProps extends NextLinkProps {
 export const Link: React.FC<React.PropsWithChildren<LinkProps>> = ({
   children,
   href,
-  as,
-  scroll,
-  shallow,
-  prefetch,
   color,
   skipTab,
   className,
   underline,
   underlineVisibility = 'hover',
-  pureChildren,
   newTab = false,
   dataTestId = undefined,
   ...linkProps
 }) => {
-  const isInternal = !shouldLinkOpenInNewWindow(href as string)
   const classNames = cn(
     styles.link,
     color ? styles.colors[color] : undefined,
@@ -51,64 +42,18 @@ export const Link: React.FC<React.PropsWithChildren<LinkProps>> = ({
       : undefined,
     className,
   )
+  const hrefString = href?.toString()
 
-  if (isInternal) {
-    const hrefString = href?.toString()
-
-    if (shouldLinkBeAnAnchorTag(hrefString)) {
-      return (
-        <a
-          className={classNames}
-          data-testid={dataTestId}
-          href={hrefString}
-          {...linkProps}
-          {...(newTab && { target: '_blank' })}
-          tabIndex={skipTab ? -1 : undefined}
-        >
-          {children}
-        </a>
-      )
-    }
-
-    return (
-      <NextLink
-        href={href}
-        as={as}
-        shallow={shallow}
-        scroll={scroll}
-        passHref
-        prefetch={prefetch}
-        data-testid={dataTestId}
-        legacyBehavior
-      >
-        {pureChildren ? (
-          children
-        ) : (
-          <a
-            className={classNames}
-            data-testid={dataTestId}
-            {...linkProps}
-            {...(newTab && { target: '_blank' })}
-            tabIndex={skipTab ? -1 : undefined}
-          >
-            {children}
-          </a>
-        )}
-      </NextLink>
-    )
-  } else {
-    return (
-      <a
-        href={href as string}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={classNames}
-        data-testid={dataTestId}
-        {...linkProps}
-        tabIndex={skipTab ? -1 : undefined}
-      >
-        {children}
-      </a>
-    )
-  }
+  return (
+    <a
+      className={classNames}
+      data-testid={dataTestId}
+      href={hrefString}
+      {...linkProps}
+      {...(newTab && { target: '_blank' })}
+      tabIndex={skipTab ? -1 : undefined}
+    >
+      {children}
+    </a>
+  )
 }

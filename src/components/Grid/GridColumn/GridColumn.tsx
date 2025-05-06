@@ -1,15 +1,15 @@
 import React, { FC } from 'react'
 import cn from 'classnames'
-import { theme } from '../../Theme/theme'
+import { theme } from '@/components/Theme/theme'
 
 import { Box } from '../../Box/Box'
 import { ResponsiveSpace } from '../../Box/useBoxStyles'
 import {
   resolveResponsiveProp,
   ResponsiveProp,
-} from '../../Utils/responsiveProp'
+} from '@/components/Utils/responsiveProp'
 import * as styles from './GridColumn.css'
-import { resolveResponsiveRangeProps } from '../../Utils/responsiveRangeProps'
+import { resolveResponsiveRangeProps } from '@/components/Utils/responsiveRangeProps'
 
 type Breakpoint = keyof (typeof theme)['breakpoints']
 type position = 'relative' | 'fixed' | 'absolute' | 'static'

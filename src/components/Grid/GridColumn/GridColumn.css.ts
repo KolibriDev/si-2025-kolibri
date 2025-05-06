@@ -1,7 +1,7 @@
 import { styleVariants, style } from '@vanilla-extract/css'
 import mapValues from 'lodash/mapValues'
-import { themeUtils, Theme, theme } from '../../Theme/theme'
-import { ResponsiveProp } from '../../Utils/responsiveProp'
+import { themeUtils, Theme, theme } from '@/components/Theme/theme'
+import { ResponsiveProp } from '@/components/Utils/responsiveProp'
 
 const ColumnRange = [
   '12/12',

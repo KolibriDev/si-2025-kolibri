@@ -1,35 +1,56 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
 import postgres from 'postgres'
+
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
-async function getTaxPayer(nationalId: string) {
-  const data = await sql`
-    SELECT *
-    FROM tax_authority_tax_payers
-    WHERE national_id = ${nationalId};
-  `
+const taxpayerSchema = z.object({
+  national_id: z.string(),
+  email: z.string(),
+})
 
-  return data
-}
+const querySchema = z.object({
+  nationalId: z.string(),
+})
 
-export async function GET(request: Request) {
-  const secret = request.headers.get('x-internal-secret')
+export async function GET(req: NextRequest) {
+  const secret = req.headers.get('x-internal-secret')
   if (secret !== process.env.INTERNAL_API_SECRET) {
-    return new Response('Unauthorized', { status: 401 })
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const { searchParams } = new URL(request.url)
+  const url = new URL(req.url)
+  const nationalId = url.searchParams.get('nationalId')
 
-  const nationalId = searchParams.get('nationalId')
-
-  if (!nationalId) {
-    return Response.json({ error: 'Missing nationalId' }, { status: 400 })
+  const parsed = querySchema.safeParse({ nationalId })
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: 'Missing or invalid nationalId' },
+      { status: 400 },
+    )
   }
 
   try {
-    const result = await getTaxPayer(nationalId)
+    const data = await sql`
+      SELECT national_id, email
+      FROM tax_authority_tax_payers
+      WHERE national_id = ${parsed.data.nationalId};
+    `
 
-    return Response.json(result)
+    const validated = z.array(taxpayerSchema).safeParse(data)
+    if (!validated.success) {
+      return NextResponse.json(
+        { error: 'Unexpected data format' },
+        { status: 500 },
+      )
+    }
+
+    return NextResponse.json(validated.data, { status: 200 })
   } catch (error) {
-    return Response.json({ error }, { status: 500 })
+    console.error('Error fetching data:', error)
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    )
   }
 }

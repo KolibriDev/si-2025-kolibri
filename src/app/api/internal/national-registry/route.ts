@@ -1,38 +1,57 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
 import postgres from 'postgres'
 
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
-async function nationalRegistry(nationalId: string) {
-  const data = await sql`
-    SELECT *
-    FROM national_registry
-    WHERE national_id = ${nationalId};
-  `
+const querySchema = z.object({
+  nationalId: z.string(),
+})
 
-  return data
-}
+const nationalRegistrySchema = z.object({
+  national_id: z.string(),
+  name: z.string(),
+})
 
-export async function GET(request: Request) {
-  const secret = request.headers.get('x-internal-secret')
+export async function GET(req: NextRequest) {
+  const secret = req.headers.get('x-internal-secret')
   if (secret !== process.env.INTERNAL_API_SECRET) {
-    return new Response('Unauthorized', { status: 401 })
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const { searchParams } = new URL(request.url)
-  const nationalId = searchParams.get('nationalId')
+  const url = new URL(req.url)
+  const nationalId = url.searchParams.get('nationalId')
 
-  if (!nationalId) {
-    return Response.json({ error: 'Missing nationalId' }, { status: 400 })
+  const parsed = querySchema.safeParse({ nationalId })
+  if (!parsed.success) {
+    return NextResponse.json(
+      { error: 'Missing or invalid nationalId' },
+      { status: 400 },
+    )
   }
 
   try {
-    const result = await nationalRegistry(nationalId)
+    const data = await sql`
+      SELECT *
+      FROM national_registry
+      WHERE national_id = ${parsed.data.nationalId};
+    `
 
-    return Response.json(result)
+    // Optional: Validate response shape using Zod (to catch DB mismatches)
+    const validated = z.array(nationalRegistrySchema).safeParse(data)
+    if (!validated.success) {
+      return NextResponse.json(
+        { error: 'Unexpected data format' },
+        { status: 500 },
+      )
+    }
+
+    return NextResponse.json(validated.data, { status: 200 })
   } catch (error) {
-    return Response.json({ error }, { status: 500 })
+    console.error('Database error:', error)
+    return NextResponse.json(
+      { error: 'Internal Server Error' },
+      { status: 500 },
+    )
   }
-
-  return NextResponse.json({ message: 'Hello from national registry' })
 }
