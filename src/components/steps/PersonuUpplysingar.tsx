@@ -10,7 +10,7 @@ import * as styles from './PersonuUpplysingar.css'
 import { useTaxContext } from '../Utils/context/taxContext'
 
 const PersonuUpplysingar = () => {
-  const { taxReturn, setTaxReturn } = useTaxContext()
+  const { taxReturn, updateTaxReturn } = useTaxContext()
   const [email, setEmail] = useState(taxReturn?.email ?? '')
 
   const [phoneNumber, setPhoneNumber] = useState(taxReturn?.phoneNumber ?? '')
@@ -19,9 +19,9 @@ const PersonuUpplysingar = () => {
     return <Text>Gögn vantar</Text>
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const _onSubmit = () => {
-    setTaxReturn({ ...taxReturn, email, phoneNumber })
+  /* TODO: update the fields when pressing continue */
+  const onBlur = () => {
+    updateTaxReturn({ ...taxReturn, email, phoneNumber })
   }
 
   return (
@@ -67,6 +67,7 @@ const PersonuUpplysingar = () => {
             placeholder="jon.jonsson@gmail.com"
             type="email"
             value={email}
+            onBlur={onBlur}
           />
           <Input
             backgroundColor="blue"
@@ -76,6 +77,7 @@ const PersonuUpplysingar = () => {
             placeholder="5812345"
             type="tel"
             value={phoneNumber}
+            onBlur={onBlur}
           />
         </div>
       </div>
