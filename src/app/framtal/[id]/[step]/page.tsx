@@ -19,7 +19,9 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   'styrkir-og-hlunnindi': dynamic(
     () => import('@/components/steps/StyrkirOgHlunnindi'),
   ),
-  'lifeyrir-og-baetur': dynamic(() => import('@/components/steps/Lifeyrir')),
+  'lifeyrir-og-botagreidslur': dynamic(
+    () => import('@/components/steps/LifeyrirOgBotagreidslur'),
+  ),
   fradrattur: dynamic(() => import('@/components/steps/Fradrattur')),
   'adrar-tekjur': dynamic(() => import('@/components/steps/AdrarTekjur')),
 
