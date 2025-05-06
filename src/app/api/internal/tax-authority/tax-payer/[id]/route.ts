@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { sql, taxpayerSchema, validateSecret } from '@/lib/apiHelper'
+import {
+  sql,
+  taxpayerSchema,
+  updateTaxpayerSchema,
+  validateSecret,
+} from '@/lib/apiHelper'
 
 export async function GET(req: NextRequest) {
   const national_id = req.nextUrl.pathname.split('/').pop()
@@ -55,7 +60,7 @@ export async function PUT(req: NextRequest) {
   }
 
   const body = await req.json()
-  const parsed = taxpayerSchema.safeParse(body)
+  const parsed = updateTaxpayerSchema.safeParse(body)
 
   if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
