@@ -12,6 +12,10 @@ import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Bullet, BulletList } from '@/components/BulletList/BulletList'
+import {
+  InputFileUpload,
+  UploadFile,
+} from '@/components/InputFileUpload/InputFileUpload'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
