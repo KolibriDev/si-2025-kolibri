@@ -6,12 +6,14 @@ export const container = style({
 })
 
 export const processContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
   minHeight: 'calc(100vh - 112px)',
+  width: '100%',
 })
 
 export const formStepperContainer = style({
   position: 'sticky',
-  top: theme.spacing[4],
 })
 
 export const processContent = style({

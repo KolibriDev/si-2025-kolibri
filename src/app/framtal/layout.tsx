@@ -6,136 +6,13 @@ import { GridRow } from '@/components/Grid/GridRow/GridRow'
 import { GridColumn } from '@/components/Grid/GridColumn/GridColumn'
 import { Text } from '@/components/Text/Text'
 import FormStepper from '@/components/FormStepper/FormStepper'
-import { Logo } from '@/components/Logo/Logo'
 import { FC, PropsWithChildren } from 'react'
 import Section from '@/components/Section/Section'
-import { Link } from '@/components/Link/Link'
-import * as linkStyles from '@/components/Link/Link.css'
-import cn from 'classnames'
 import { useParams, useRouter } from 'next/navigation'
-
-export interface RouteSection {
-  name: string
-  href?: string
-  isActive?: boolean
-  children: {
-    name: string
-    href?: string
-    isActive?: boolean
-    onClick?: () => void
-  }[]
-}
-
-const routeSections: RouteSection[] = [
-  {
-    name: 'Forsendur',
-    children: [
-      { name: 'Upplýsingar', href: 'upplysingar' },
-      { name: 'Gagnaöflun', href: 'gagnaoflun' },
-    ],
-  },
-  {
-    name: 'Mínar upplýsingar',
-    href: '/minar-upplysingar',
-    children: [
-      {
-        name: 'Persónuupplýsingar',
-        href: 'personuupplysingar',
-      },
-      {
-        name: 'Bankareikningur',
-        href: 'bankareikningur',
-      },
-      {
-        name: 'Slysatrygging',
-        href: 'slysatrygging',
-      },
-    ],
-  },
-  {
-    name: 'Tekjur',
-    href: '/tekjur',
-    children: [
-      {
-        name: 'Laun',
-        href: 'laun',
-      },
-      {
-        name: 'Hlunnindi og styrkir',
-        href: 'hlunnindi-og-styrkir',
-      },
-      {
-        name: 'Lífeyrir og bætur',
-        href: 'lyfeyrir-og-baetur',
-      },
-      {
-        name: 'Frádráttur',
-        href: 'fradrattur',
-      },
-      {
-        name: 'Aðrar tekjur',
-        href: 'adar-tekjur',
-      },
-    ],
-  },
-  {
-    name: 'Fjármangstekjur',
-    children: [
-      {
-        name: 'Bankainnistæður',
-        href: 'bankainnistadur',
-      },
-      {
-        name: 'Verðbréf',
-        href: 'verdbréf',
-      },
-      {
-        name: 'Aðrar fjármagnstekjur',
-        href: 'adar-fjarmagnstekjur',
-      },
-    ],
-  },
-  {
-    name: 'Eignir',
-    children: [
-      {
-        name: 'Fasteignir',
-        href: 'eignir',
-      },
-      {
-        name: 'Ökutæki',
-        href: 'okutæki',
-      },
-      {
-        name: 'Aðrar eignir',
-        href: 'adar-eignir',
-      },
-    ],
-  },
-  {
-    name: 'Skuldir',
-    children: [
-      {
-        name: 'Íbúðalán',
-        href: 'ibudalán',
-      },
-      {
-        name: 'Aðrar skuldir',
-        href: 'adar-skuldir',
-      },
-    ],
-  },
-  {
-    name: 'Yfirlit',
-    href: '/yfirlit',
-    children: [],
-  },
-  {
-    name: 'Staðfesting',
-    href: '/stadfesting',
-    children: [],
-  },
-]
+import { Header } from '@/components/Header/Header'
+import { RouteSection, routeSections } from './routeSections'
+import cn from 'classnames'
+import * as linkStyles from '@/components/Link/Link.css'
 
 const SubsectionChild: FC<
   PropsWithChildren<{
@@ -169,16 +46,6 @@ const DisplaySection: FC<SectionProps> = ({
       isComplete={activeSection ? index < activeSection : false}
       subSections={section.children.map((subSection, index) =>
         subSection.href ? (
-          <Link
-            href={subSection.href}
-            underline="small"
-            key={`${subSection.name}-${index}`}
-          >
-            <SubsectionChild isActive={subSection.isActive ?? false}>
-              {subSection.name}
-            </SubsectionChild>
-          </Link>
-        ) : subSection.onClick ? (
           <Box
             key={`${subSection.name}-${index}`}
             component="button"
@@ -210,26 +77,25 @@ const SidePanel: FC = () => {
   const router = useRouter()
 
   const step = params.step as string | undefined
-  const id = params.id as string | undefined
 
   const enhancedSections: RouteSection[] = routeSections.map((section) => {
     const isSectionActive =
-      step === section.href?.replace('/', '') ||
-      section.children.some((child) => child.href === id)
+      section.href === step ||
+      section.children.some((child) => child.href === step)
 
     return {
       ...section,
       isActive: isSectionActive,
       children: section.children.map((child) => {
-        const isChildActive = child.href === id
+        const isChildActive = child.href === step
         return {
           ...child,
-          isActive: isChildActive,
           onClick: () => {
-            if (section.href && child.href) {
-              router.push(`${section.href}/${child.href}`)
+            if (child.href) {
+              router.push(child.href)
             }
           },
+          isActive: isChildActive,
         }
       }),
     }
@@ -244,15 +110,6 @@ const SidePanel: FC = () => {
     <GridColumn span={['12/12', '12/12', '4/12', '3/12']}>
       <div className={styles.formStepperContainer}>
         <Box marginLeft={[0, 0, 2]}>
-          <Box marginBottom={7} display={['none', 'none', 'block']}>
-            <Logo />
-          </Box>
-
-          <Box marginBottom={6}>
-            <Text variant="h3" as="h3">
-              Test
-            </Text>
-          </Box>
           <FormStepper
             sections={enhancedSections.map((section, index) => (
               <DisplaySection
@@ -276,27 +133,23 @@ export default function FramtalLayout({
   children: React.ReactNode
 }) {
   return (
-    <Box
-      paddingY={[0, 0, 3, 6]}
-      paddingX={[0, 0, 4]}
-      background="purple100"
-      className={styles.processContainer}
-    >
-      <GridContainer className={styles.container}>
-        <GridRow direction={['columnReverse', 'columnReverse', 'row']}>
-          <GridColumn span={['12/12', '12/12', '8/12', '8/12']}>
-            <Box
-              background="white"
-              borderColor="white"
-              paddingTop={[3, 3, 10, 10]}
-              className={styles.processContent}
-            >
+    <>
+      <Header userName="asdf" authenticated />
+      <Box
+        paddingY={[0, 0, 4, 6]}
+        paddingX={[0, 0, 4, 6]}
+        background="purple100"
+        className={styles.processContainer}
+      >
+        <GridContainer className={styles.container}>
+          <GridRow direction={['columnReverse', 'columnReverse', 'row']}>
+            <GridColumn span={['12/12', '12/12', '8/12', '8/12', '9/12']}>
               {children}
-            </Box>
-          </GridColumn>
-          <SidePanel />
-        </GridRow>
-      </GridContainer>
-    </Box>
+            </GridColumn>
+            <SidePanel />
+          </GridRow>
+        </GridContainer>
+      </Box>
+    </>
   )
 }
