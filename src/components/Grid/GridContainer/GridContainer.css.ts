@@ -3,10 +3,9 @@ import { theme } from '../../Theme/theme'
 
 export const root = style({
   boxSizing: 'border-box',
-  margin: '0 auto',
+
   maxWidth: theme.breakpoints.xl,
-  paddingLeft: theme.spacing[2],
-  paddingRight: theme.spacing[2],
+
   width: '100%',
   selectors: {
     // Opt out of horizontal padding on nested grids
@@ -18,8 +17,6 @@ export const root = style({
 
   '@media': {
     [`screen and (min-width: ${theme.breakpoints.sm}px)`]: {
-      paddingLeft: theme.spacing[3],
-      paddingRight: theme.spacing[3],
       selectors: {
         ['& &']: {
           paddingLeft: 0,
@@ -28,8 +25,6 @@ export const root = style({
       },
     },
     [`screen and (min-width: ${theme.breakpoints.lg}px)`]: {
-      paddingLeft: theme.spacing[6],
-      paddingRight: theme.spacing[6],
       selectors: {
         ['& &']: {
           paddingLeft: 0,

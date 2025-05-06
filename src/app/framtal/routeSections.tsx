@@ -8,7 +8,7 @@ export interface RouteSection {
     name: string
     href: string
     isActive?: boolean
-    onClick: () => void
+    onClick?: () => void
   }[]
 }
 
