@@ -12,8 +12,6 @@ import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Bullet, BulletList } from '@/components/BulletList/BulletList'
-import { LinkV2 } from '@/components/Link/LinkV2'
-import TestSayHi from '@/components/TestSayHi/TestSayHi'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -30,6 +28,8 @@ export default function Home() {
       setData('Fékk villu')
     },
   })
+
+  console.log(data)
 
   return (
     <div className={styles.page}>
