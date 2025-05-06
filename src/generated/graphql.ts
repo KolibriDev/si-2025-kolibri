@@ -24,10 +24,21 @@ export type Benefit = {
   payerNationalId?: Maybe<Scalars['String']['output']>;
 };
 
+export type BenefitInput = {
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  payerName?: InputMaybe<Scalars['String']['input']>;
+  payerNationalId?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Deduction = {
   __typename?: 'Deduction';
   amount?: Maybe<Scalars['Float']['output']>;
   deductionType?: Maybe<DeductionType>;
+};
+
+export type DeductionInput = {
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  deductionType?: InputMaybe<DeductionType>;
 };
 
 export enum DeductionType {
@@ -49,6 +60,20 @@ export type Mortgage = {
   totalAnnualPayments?: Maybe<Scalars['Float']['output']>;
 };
 
+export type MortgageInput = {
+  interestPayments?: InputMaybe<Scalars['Float']['input']>;
+  lenderName?: InputMaybe<Scalars['String']['input']>;
+  lenderNationalId?: InputMaybe<Scalars['String']['input']>;
+  loanAmount?: InputMaybe<Scalars['Float']['input']>;
+  loanNumber?: InputMaybe<Scalars['String']['input']>;
+  loanStartDate?: InputMaybe<Scalars['String']['input']>;
+  loanTermYears?: InputMaybe<Scalars['Int']['input']>;
+  principalPayments?: InputMaybe<Scalars['Float']['input']>;
+  realEstateNumber?: InputMaybe<Scalars['String']['input']>;
+  remainingBalance?: InputMaybe<Scalars['Float']['input']>;
+  totalAnnualPayments?: InputMaybe<Scalars['Float']['input']>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   createTaxReturn?: Maybe<TaxReturn>;
@@ -68,6 +93,7 @@ export type MutationSayHiArgs = {
 
 
 export type MutationUpdateTaxReturnArgs = {
+  input: TaxReturnUpdateInput;
   nationalId: Scalars['String']['input'];
 };
 
@@ -101,11 +127,23 @@ export type RealEstate = {
   number?: Maybe<Scalars['String']['output']>;
 };
 
+export type RealEstateInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  appraisal?: InputMaybe<Scalars['Float']['input']>;
+  number?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Salary = {
   __typename?: 'Salary';
   amount?: Maybe<Scalars['Float']['output']>;
   employerName?: Maybe<Scalars['String']['output']>;
   employerNationalId?: Maybe<Scalars['String']['output']>;
+};
+
+export type SalaryInput = {
+  amount?: InputMaybe<Scalars['Float']['input']>;
+  employerName?: InputMaybe<Scalars['String']['input']>;
+  employerNationalId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type TaxReturn = {
@@ -125,11 +163,31 @@ export type TaxReturn = {
   vehicles?: Maybe<Array<Vehicle>>;
 };
 
+export type TaxReturnUpdateInput = {
+  address?: InputMaybe<Scalars['String']['input']>;
+  bankAccount?: InputMaybe<Scalars['String']['input']>;
+  benefits?: InputMaybe<Array<BenefitInput>>;
+  deductions?: InputMaybe<Array<DeductionInput>>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  hasAccidentInsurance?: InputMaybe<Scalars['Boolean']['input']>;
+  mortgages?: InputMaybe<Array<MortgageInput>>;
+  phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  realEstates?: InputMaybe<Array<RealEstateInput>>;
+  salaries?: InputMaybe<Array<SalaryInput>>;
+  vehicles?: InputMaybe<Array<VehicleInput>>;
+};
+
 export type Vehicle = {
   __typename?: 'Vehicle';
   purchasePrice?: Maybe<Scalars['Float']['output']>;
   registrationNumber?: Maybe<Scalars['String']['output']>;
   yearOfPurchase?: Maybe<Scalars['Int']['output']>;
+};
+
+export type VehicleInput = {
+  purchasePrice?: InputMaybe<Scalars['Float']['input']>;
+  registrationNumber?: InputMaybe<Scalars['String']['input']>;
+  yearOfPurchase?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type SayHiMutationVariables = Exact<{
@@ -159,6 +217,14 @@ export type TaxReturnQueryVariables = Exact<{
 
 
 export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null, address?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisal?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', lenderName?: string | null, loanAmount?: number | null, remainingBalance?: number | null }> | null } | null };
+
+export type UpdateTaxReturnMutationVariables = Exact<{
+  nationalId: Scalars['String']['input'];
+  input: TaxReturnUpdateInput;
+}>;
+
+
+export type UpdateTaxReturnMutation = { __typename?: 'Mutation', updateTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, email?: string | null, address?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, purchasePrice?: number | null }> | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisal?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', lenderName?: string | null, loanAmount?: number | null, remainingBalance?: number | null }> | null } | null };
 
 
 export const SayHiDocument = gql`
@@ -341,3 +407,69 @@ export type TaxReturnQueryHookResult = ReturnType<typeof useTaxReturnQuery>;
 export type TaxReturnLazyQueryHookResult = ReturnType<typeof useTaxReturnLazyQuery>;
 export type TaxReturnSuspenseQueryHookResult = ReturnType<typeof useTaxReturnSuspenseQuery>;
 export type TaxReturnQueryResult = Apollo.QueryResult<TaxReturnQuery, TaxReturnQueryVariables>;
+export const UpdateTaxReturnDocument = gql`
+    mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
+  updateTaxReturn(nationalId: $nationalId, input: $input) {
+    nationalId
+    email
+    address
+    phoneNumber
+    hasAccidentInsurance
+    bankAccount
+    vehicles {
+      registrationNumber
+      yearOfPurchase
+      purchasePrice
+    }
+    salaries {
+      employerName
+      amount
+    }
+    benefits {
+      payerName
+      amount
+    }
+    deductions {
+      deductionType
+      amount
+    }
+    realEstates {
+      number
+      address
+      appraisal
+    }
+    mortgages {
+      lenderName
+      loanAmount
+      remainingBalance
+    }
+  }
+}
+    `;
+export type UpdateTaxReturnMutationFn = Apollo.MutationFunction<UpdateTaxReturnMutation, UpdateTaxReturnMutationVariables>;
+
+/**
+ * __useUpdateTaxReturnMutation__
+ *
+ * To run a mutation, you first call `useUpdateTaxReturnMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateTaxReturnMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateTaxReturnMutation, { data, loading, error }] = useUpdateTaxReturnMutation({
+ *   variables: {
+ *      nationalId: // value for 'nationalId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateTaxReturnMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTaxReturnMutation, UpdateTaxReturnMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateTaxReturnMutation, UpdateTaxReturnMutationVariables>(UpdateTaxReturnDocument, options);
+      }
+export type UpdateTaxReturnMutationHookResult = ReturnType<typeof useUpdateTaxReturnMutation>;
+export type UpdateTaxReturnMutationResult = Apollo.MutationResult<UpdateTaxReturnMutation>;
+export type UpdateTaxReturnMutationOptions = Apollo.BaseMutationOptions<UpdateTaxReturnMutation, UpdateTaxReturnMutationVariables>;
