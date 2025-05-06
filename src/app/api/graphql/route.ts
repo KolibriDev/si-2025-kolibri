@@ -1,7 +1,11 @@
-// Next.js Custom Route Handler: https://nextjs.org/docs/app/building-your-application/routing/router-handlers
+// app/api/graphql/route.ts
+import { createYoga, createSchema } from 'graphql-yoga'
+import {
+  createTaxReturn,
+  getTaxReturnByNationalId,
+  updateTaxReturn,
+} from '@/app/api/graphql/db/taxReturn'
 import { TaxReturn } from '@/lib/application'
-import { insertTaxReturn } from '@/app/api/graphql/db/insertTaxReturn'
-import { createSchema, createYoga } from 'graphql-yoga'
 
 interface NextContext {
   params: Promise<Record<string, string>>
@@ -79,11 +83,25 @@ const { handleRequest } = createYoga<NextContext>({
 
       type Mutation {
         sayHi(name: String!): String
+        createTaxReturn(nationalId: String!): TaxReturn
+        updateTaxReturn(nationalId: String!): TaxReturn
       }
     `,
     resolvers: {
       Query: {
         async taxReturn(
+          _: unknown,
+          args: { nationalId: string },
+        ): Promise<TaxReturn | null> {
+          return await getTaxReturnByNationalId(args.nationalId)
+        },
+      },
+      Mutation: {
+        sayHi: (_: unknown, args: { name: string }): string => {
+          return `Hi: ${args.name}`
+        },
+
+        async createTaxReturn(
           _: unknown,
           args: { nationalId: string },
         ): Promise<TaxReturn> {
@@ -109,33 +127,44 @@ const { handleRequest } = createYoga<NextContext>({
               },
             },
           )
-
           const nationalRegistry = await nationalRegistryResponse.json()
 
           const taxReturn: TaxReturn = {
             nationalId: args.nationalId,
             email: taxPayer.email,
-            name: nationalRegistry[0].name,
+            name: nationalRegistry[0]?.name,
           }
 
-          await insertTaxReturn(args.nationalId, taxReturn)
+          await createTaxReturn(args.nationalId, taxReturn)
 
-          console.log('Saving tax return to DB:', taxReturn)
           return taxReturn
         },
-      },
-      Mutation: {
-        sayHi: (_: unknown, args: { name: string }): string => {
-          return `Hi: ${args.name}`
+
+        async updateTaxReturn(
+          _: unknown,
+          args: { nationalId: string },
+        ): Promise<TaxReturn> {
+          const existing = await getTaxReturnByNationalId(args.nationalId)
+          if (!existing) {
+            throw new Error('Tax return not found.')
+          }
+
+          // You can apply business logic here to update fields
+          const updated: TaxReturn = {
+            ...existing,
+            name: existing.name, // example – keep name the same
+            // potentially modify or merge other fields
+          }
+
+          await updateTaxReturn(args.nationalId, updated)
+
+          return updated
         },
       },
     },
   }),
 
-  // While using Next.js file convention for routing, we need to configure Yoga to use the correct endpoint
   graphqlEndpoint: '/api/graphql',
-
-  // Yoga needs to know how to create a valid Next response
   fetchAPI: { Response },
 })
 
