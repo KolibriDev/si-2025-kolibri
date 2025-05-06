@@ -116,6 +116,7 @@ export const Footer = ({
                             size="default"
                             variant="text"
                             as="span"
+                            role="button"
                           >
                             {title}
                           </Button>
