@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { z } from 'zod'
 import {
   createAndUpdateTaxReturnSchema,
   nationalIdQuerySchema,
   sql,
-  taxReturnSchema,
   validateSecret,
 } from '@/lib/apiHelper'
 
@@ -53,21 +51,71 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const data = await sql`
+    const taxReturns = await sql`
       SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
       FROM tax_return
       WHERE national_id = ${parsed.data.nationalId ?? ''};
     `
 
-    const validated = z.array(taxReturnSchema).safeParse(data)
-    if (!validated.success) {
-      return NextResponse.json(
-        { error: 'Unexpected data format' },
-        { status: 500 },
-      )
+    if (taxReturns.length === 0) {
+      return NextResponse.json({ error: 'Not Found' }, { status: 404 })
     }
 
-    return NextResponse.json(validated.data, { status: 200 })
+    const taxReturn = taxReturns[0]
+
+    taxReturn.salaries = await sql`
+      SELECT employer_national_id, employer_name, amount
+      FROM tax_authority_salaries
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.benefits = await sql`
+      SELECT payer_national_id, benefit_type, payer_name, amount
+      FROM tax_authority_benefits
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.deductions = await sql`
+      select deduction_type, amount
+      FROM tax_authority_deductions
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.realEstates = await sql`
+      SELECT number, address, appraisal_amount
+      FROM tax_authority_real_estates
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.vehicles = await sql`
+      SELECT registration_number, year_of_purchase, appraisal_amount
+      FROM tax_authority_vehicles
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.morgages = await sql`
+      SELECT real_estate_number, lender_national_id, lender_name, loan_number, loan_start_date, loan_amount, loan_term_years, total_annual_payments, principal_payments, interest_payments, remaining_balance
+      FROM tax_authority_mortgages
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.otherDebts = await sql`
+      SELECT lender_national_id, lender_name, interest_payments, remaining_balance
+      FROM tax_authority_other_debts
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    // console.log('Data fetched:', taxReturn)
+    // const validated = taxReturnSchema.safeParse(taxReturn)
+    // if (!validated.success) {
+    //   return NextResponse.json(
+    //     { error: 'Unexpected data format' },
+    //     { status: 500 },
+    //   )
+    // }
+
+    // return NextResponse.json(validated.data, { status: 200 })
+    return NextResponse.json(taxReturn, { status: 200 })
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
