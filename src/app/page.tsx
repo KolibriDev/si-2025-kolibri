@@ -12,9 +12,11 @@ import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Bullet, BulletList } from '@/components/BulletList/BulletList'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
+  const router = useRouter()
 
   useGetGreetingsQuery({
     variables: {
@@ -104,7 +106,12 @@ export default function Home() {
               <Text variant="h3" color="blue600">
                 Skattframtal einstaklinga
               </Text>
-              <Button size="small" icon="open" iconType="outline">
+              <Button
+                size="small"
+                icon="open"
+                iconType="outline"
+                onClick={() => router.push('login')}
+              >
                 Skila framtali
               </Button>
             </Box>
@@ -133,7 +140,7 @@ export default function Home() {
             Pör skráð í sambúð geta valið að telja fram saman og þá eru þau
             samsköttuð frá og með því framtali sem það er valið.
           </Text>
-          <Text variant="h3" as="h3" marginBottom={1}>
+          <Text variant="h3" as="h3" marginBottom={2}>
             Hvað þarf ég að skrá mikið af upplýsingum?
           </Text>
           <Text marginBottom={1}>
