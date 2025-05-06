@@ -27,7 +27,9 @@ export default function StepLayout({
         paddingX={[3, 3, 14, 14]}
         className={styles.container}
       >
-        <Text variant="h2">{headerText}</Text>
+        <Text variant="h2" as="h1">
+          {headerText}
+        </Text>
         <div className={styles.content}>{children}</div>
       </Box>
       <Box
