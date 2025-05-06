@@ -11,12 +11,17 @@ import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Logo } from '@/components/Logo/Logo'
 import { Input } from '@/components/Input/Input'
 import { ActionCard } from '@/components/ActionCard/ActionCard'
+import { useUserContext } from '@/components/Utils/context/userContext'
 
 export default function Home() {
+  const { user } = useUserContext()
   return (
     <div className={styles.page}>
       <Box paddingX={6}>
-        <Header userName="Jökull Þórðarson" authenticated />
+        <Header
+          userName={user?.individual?.name ?? 'Notandi fannst ekki '}
+          authenticated
+        />
       </Box>
       <div className={styles.grid}>
         <aside className={styles.grid_item_side}>

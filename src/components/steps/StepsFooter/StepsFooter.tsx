@@ -8,6 +8,7 @@ import { Button } from '@/components/Button/Button'
 import { Icon } from '@/components/IconRC/Icon'
 import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
 import { useTaxReturnLazyQuery } from '@/generated/graphql'
+import { useTaxContext } from '@/components/Utils/context/taxContext'
 
 export const StepsFooter = () => {
   const params = useParams()
@@ -20,11 +21,13 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
   const isFirstStep = currentStep === 'upplysingar'
+  const { taxReturn, setTaxReturn } = useTaxContext()
 
   const [fetchTaxReturn, { loading }] = useTaxReturnLazyQuery({
     variables: { nationalId: '0000000000' },
     onCompleted: (data) => {
       console.log('Fetched tax return:', data)
+      setTaxReturn(data)
       router.push(`${nextStep}`)
     },
     onError: (error) => {
@@ -47,6 +50,8 @@ export const StepsFooter = () => {
       router.push(`${prevStep}`)
     }
   }
+
+  console.log('taxReturn', taxReturn)
 
   return (
     <Box display="flex" className={styles.footer}>
