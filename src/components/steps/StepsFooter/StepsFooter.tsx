@@ -7,12 +7,12 @@ import * as styles from './StepsFooter.css'
 import { Button } from '@/components/Button/Button'
 import { Icon } from '@/components/IconRC/Icon'
 import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
-import {
-  TaxReturn,
-  TaxReturnQuery,
-  useTaxReturnQuery,
-} from '@/generated/graphql'
-import { useState } from 'react'
+// import {
+//   TaxReturn,
+//   TaxReturnQuery,
+//   useTaxReturnQuery,
+// } from '@/generated/graphql'
+// import { useState } from 'react'
 
 export const StepsFooter = () => {
   const params = useParams()
@@ -25,7 +25,7 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
 
-  const [data, setData] = useState<TaxReturn | undefined>(undefined)
+  // const [data, setData] = useState<TaxReturn | undefined>(undefined)
 
   const handleNext = () => {
     if (!nextStep) return
