@@ -29,6 +29,7 @@
     "next-rest-framework": "^6.0.6",
     "postgres": "^3.4.5",
     "react": "^19.0.0",
+    "react-animate-height": "^3.2.3",
     "react-dom": "^19.0.0",
     "react-keyed-flatten-children": "^5.0.0",
     "react-select": "^5.10.1",
