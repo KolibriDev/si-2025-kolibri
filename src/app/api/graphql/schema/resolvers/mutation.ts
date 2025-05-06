@@ -37,7 +37,7 @@ export const Mutation = {
 
     const taxReturn: TaxReturn = {
       email: prefill.email ?? taxPayer?.email,
-      name: registry?.name,
+      name: prefill.name ?? registry?.name,
       address: prefill?.address ?? registry?.address,
       phoneNumber: prefill?.phoneNumber ?? registry?.phone_number,
       nationalId: prefill?.nationalId,
