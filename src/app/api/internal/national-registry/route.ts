@@ -40,16 +40,15 @@ export async function GET(req: NextRequest) {
     const validated = z.array(nationalRegistrySchema).safeParse(data)
     if (!validated.success) {
       return NextResponse.json(
-        { error: 'Unexpected data format' },
+        { error: 'Unexpected data format', reason: validated.error },
         { status: 500 },
       )
     }
 
     return NextResponse.json(validated.data, { status: 200 })
   } catch (error) {
-    console.error('Database error:', error)
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { error: 'Internal Server Error', reason: error },
       { status: 500 },
     )
   }
