@@ -6,6 +6,7 @@ import { useTaxContext } from '../Utils/context/taxContext'
 import { Box } from '../Box/Box'
 import * as T from '@/components/Table/Table'
 import { Button } from '../Button/Button'
+import { formatISK } from '@/lib/utils'
 
 const StyrkirOgHlunnindi = () => {
   const { taxReturn } = useTaxContext()
@@ -30,9 +31,9 @@ const StyrkirOgHlunnindi = () => {
               <T.Head>
                 <T.Row>
                   <T.HeadData>{/* empty */}</T.HeadData>
-                  <T.HeadData>{'Launagreiðandi'}</T.HeadData>
-                  <T.HeadData>{'Kennitala'}</T.HeadData>
-                  <T.HeadData align="right">{'Launafjárhæð'}</T.HeadData>
+                  <T.HeadData>{'Nafn greiðanda'}</T.HeadData>
+                  <T.HeadData>{'Hlunnindi eða styrkur'}</T.HeadData>
+                  <T.HeadData align="right">{'Upphæð'}</T.HeadData>
                 </T.Row>
               </T.Head>
               <T.Body>
@@ -42,15 +43,15 @@ const StyrkirOgHlunnindi = () => {
                       <Button
                         circle
                         colorScheme="negative"
-                        title="Expand"
+                        title="Breyta"
                         type="icon"
                         icon={'pencil'}
                         onClick={() => {}}
                       />
                     </T.Data>
-                    <T.Data>{'TODO'}</T.Data>
+                    <T.Data>{benefit.payerName}</T.Data>
                     <T.Data>{benefit.amount}</T.Data>
-                    <T.Data align="right">{'sdf'}</T.Data>
+                    <T.Data align="right">{formatISK(benefit.amount)}</T.Data>
                   </T.Row>
                 ))}
               </T.Body>
@@ -60,7 +61,10 @@ const StyrkirOgHlunnindi = () => {
                   <T.Data>{/* empty */}</T.Data>
                   <T.Data>{/* empty */}</T.Data>
                   <T.Data text={{ fontWeight: 'bold' }} align="right">
-                    {/* {formatISK(vehicles.reduce((v, a) => v + a.price, 0))} */}
+                    {
+                      //TODO: Fix ! below
+                      formatISK(benefits.reduce((v, a) => v + a.amount!, 0))
+                    }
                   </T.Data>
                 </T.Row>
               </T.Foot>
