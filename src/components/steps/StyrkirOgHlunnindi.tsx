@@ -7,11 +7,27 @@ import { Box } from '../Box/Box'
 import * as T from '@/components/Table/Table'
 import { Button } from '../Button/Button'
 import { formatISK } from '@/lib/utils'
+import { BenefitType } from '@/generated/graphql'
 
 const StyrkirOgHlunnindi = () => {
   const { taxReturn } = useTaxContext()
 
   const benefits = taxReturn?.benefits
+
+  const mapBenefitType = (benefitType?: BenefitType | null) => {
+    switch (benefitType) {
+      case BenefitType.DailyAllowance:
+        return 'Dagpeningar'
+      case BenefitType.SportAllowance:
+        return 'Íþróttastyrkur'
+      case BenefitType.StudyAllowance:
+        return 'Starfsmenntastyrkur'
+      case BenefitType.Other:
+        return 'Annað'
+      default:
+        return 'Ekki skráð'
+    }
+  }
 
   return (
     <div>
@@ -50,7 +66,7 @@ const StyrkirOgHlunnindi = () => {
                       />
                     </T.Data>
                     <T.Data>{benefit.payerName}</T.Data>
-                    <T.Data>{benefit.amount}</T.Data>
+                    <T.Data>{mapBenefitType(benefit.benefitType)}</T.Data>
                     <T.Data align="right">{formatISK(benefit.amount)}</T.Data>
                   </T.Row>
                 ))}
