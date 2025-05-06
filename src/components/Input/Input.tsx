@@ -38,6 +38,7 @@ export const Input = forwardRef(
     const {
       name,
       label,
+      width,
       errorMessage = '',
       maxLength,
       max,
@@ -112,7 +113,7 @@ export const Input = forwardRef(
     }, [autoExpand?.maxHeight, autoExpand?.on, inputRef])
 
     return (
-      <div>
+      <Box width={width}>
         {/* If size is xs then the label is above the input box */}
         {size === 'xs' && label && (
           <label
@@ -249,7 +250,7 @@ export const Input = forwardRef(
         {hasError && errorMessage && (
           <ErrorMessage id={errorId}>{errorMessage}</ErrorMessage>
         )}
-      </div>
+      </Box>
     )
   },
 )

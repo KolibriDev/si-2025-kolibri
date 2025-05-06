@@ -46,7 +46,15 @@ export default function Home() {
           <Box marginBottom={3}>
             <CompanyLogo />
           </Box>
-          <TableOfContents />
+          <TableOfContents
+            title="Efnisyfirlit"
+            items={[
+              'Skattframtal einstaklinga',
+              'Ítarlegar leiðbeiningar',
+              'Álagning og forsendur hennar',
+              'Eftir skil á framtali',
+            ]}
+          />
           <Box
             display="flex"
             flexDirection="column"

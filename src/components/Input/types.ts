@@ -28,6 +28,7 @@ export interface InputComponentProps {
   min?: number | string
   step?: string
   size?: keyof typeof styles.inputSize
+  width?: 'full' | 'touchable' | 'half'
   onFocus?: (
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void
