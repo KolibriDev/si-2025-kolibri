@@ -13,6 +13,8 @@ import { Header } from '@/components/Header/Header'
 import { RouteSection, routeSections } from './routeSections'
 import cn from 'classnames'
 import * as linkStyles from '@/components/Link/Link.css'
+import { TaxContextProvider } from '@/components/Utils/context/taxContext'
+import { useUserContext } from '@/components/Utils/context/userContext'
 
 const SubsectionChild: FC<
   PropsWithChildren<{
@@ -136,9 +138,14 @@ export default function FramtalLayout({
 }: {
   children: React.ReactNode
 }) {
+  const { user } = useUserContext()
+
   return (
-    <>
-      <Header userName="asdf" authenticated />
+    <TaxContextProvider>
+      <Header
+        userName={user?.individual?.name ?? 'Notandi fannst ekki'}
+        authenticated
+      />
       <Box
         paddingY={[0, 0, 4, 6]}
         paddingX={[0, 0, 4, 6]}
@@ -154,6 +161,6 @@ export default function FramtalLayout({
           </GridRow>
         </GridContainer>
       </Box>
-    </>
+    </TaxContextProvider>
   )
 }
