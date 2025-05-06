@@ -12,8 +12,10 @@ import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Bullet, BulletList } from '@/components/BulletList/BulletList'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+  const router = useRouter()
   const [data, setData] = useState('Ekkert komið')
 
   useGetGreetingsQuery({
@@ -104,7 +106,12 @@ export default function Home() {
               <Text variant="h3" color="blue600">
                 Skattframtal einstaklinga
               </Text>
-              <Button size="small" icon="open" iconType="outline">
+              <Button
+                size="small"
+                icon="open"
+                iconType="outline"
+                onClick={() => router.push('/login')}
+              >
                 Skila framtali
               </Button>
             </Box>
