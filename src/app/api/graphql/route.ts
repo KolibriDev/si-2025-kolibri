@@ -2,7 +2,7 @@ import { createYoga, createSchema } from 'graphql-yoga'
 import { resolvers } from './schema/resolvers'
 import { typeDefs } from './schema/typeDefs'
 
-const { handleRequest } = createYoga({
+const yoga = createYoga({
   schema: createSchema({
     typeDefs,
     resolvers,
@@ -11,4 +11,9 @@ const { handleRequest } = createYoga({
   fetchAPI: { Response },
 })
 
-export { handleRequest as GET, handleRequest as POST, handleRequest as OPTIONS }
+// Wrap the handler to ensure compatibility
+const handler = async (req: Request) => {
+  return yoga.handleRequest(req, {})
+}
+
+export { handler as GET, handler as POST, handler as OPTIONS }
