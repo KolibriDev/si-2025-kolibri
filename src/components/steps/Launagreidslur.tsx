@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { Box } from '@/components/Box/Box'
 import * as T from '@/components/Table/Table'
@@ -8,16 +8,8 @@ import { Button } from '@/components/Button/Button'
 import { formatISK } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
 
-type vehicle = {
-  licenceNumber: string
-  yearPurchesed: string
-  price: number
-}
-
 const Launagreidslur = () => {
   const { taxReturn } = useTaxContext()
-
-  console.log(taxReturn)
 
   const salaryEntries = taxReturn?.salaries
 
