@@ -7,7 +7,6 @@ import * as styles from './StepsFooter.css'
 import { Button } from '@/components/Button/Button'
 import { Icon } from '@/components/IconRC/Icon'
 import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
-import { useTaxReturnLazyQuery } from '@/generated/graphql'
 import { useTaxContext } from '@/components/Utils/context/taxContext'
 import { useUserContext } from '@/components/Utils/context/userContext'
 
@@ -22,25 +21,14 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
   const isFirstStep = currentStep === 'upplysingar'
-  const { taxReturn, setTaxReturn } = useTaxContext()
+  const { taxReturn, createTaxReturn, isLoading } = useTaxContext()
   const { user } = useUserContext()
-
-  const [fetchTaxReturn, { loading }] = useTaxReturnLazyQuery({
-    onCompleted: (data) => {
-      console.log('Fetched tax return:', data)
-      setTaxReturn(data.taxReturn)
-      router.push(`${nextStep}`)
-    },
-    onError: (error) => {
-      console.error('Error fetching tax return:', error)
-    },
-  })
 
   const handleNext = () => {
     if (!nextStep) return
 
-    if (currentStep === 'gagnaoflun' && user?.individual?.nationalId) {
-      fetchTaxReturn({ variables: { nationalId: user.individual.nationalId } })
+    if (currentStep === 'gagnaoflun' && !taxReturn && user?.nationalId) {
+      createTaxReturn(user.nationalId)
     } else {
       router.push(`${nextStep}`)
     }
@@ -52,15 +40,13 @@ export const StepsFooter = () => {
     }
   }
 
-  console.log('taxReturn', taxReturn)
-
   return (
     <Box display="flex" className={styles.footer}>
       <Button
         variant="primary"
         onClick={handleNext}
         disabled={!nextStep}
-        loading={loading}
+        loading={isLoading}
       >
         <div className={styles.primaryButton}>
           <Text variant="h5">Halda áfram</Text>

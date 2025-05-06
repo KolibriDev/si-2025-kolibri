@@ -18,10 +18,7 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <Box paddingX={6}>
-        <Header
-          userName={user?.individual?.name ?? 'Notandi fannst ekki '}
-          authenticated
-        />
+        <Header userName={user?.name ?? 'Notandi fannst ekki '} authenticated />
       </Box>
       <div className={styles.grid}>
         <aside className={styles.grid_item_side}>
