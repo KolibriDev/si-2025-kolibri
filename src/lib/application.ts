@@ -2,6 +2,13 @@ export enum DeductionType {
   OTHER = 'OTHER',
 }
 
+export enum BenefitType {
+  DAILY_ALLOWANCE = 'DAILY_ALLOWANCE',
+  SPORT_ALLOWANCE = 'SPORT_ALLOWANCE',
+  STUDY_ALLOWANCE = 'STUDY_ALLOWANCE',
+  OTHER = 'OTHER',
+}
+
 export interface Salary {
   employerNationalId?: string
   employerName?: string
@@ -9,6 +16,7 @@ export interface Salary {
 }
 
 export interface Benefit {
+  benefitType?: BenefitType
   payerNationalId?: string
   payerName?: string
   amount?: number
@@ -22,13 +30,13 @@ export interface Deduction {
 export interface RealEstate {
   number?: string
   address?: string
-  appraisal?: number
+  appraisalAmount?: number
 }
 
 export interface Vehicle {
   registrationNumber?: string
   yearOfPurchase?: number
-  purchasePrice?: number
+  appraisalAmount?: number
 }
 
 export interface Mortgage {
@@ -41,6 +49,13 @@ export interface Mortgage {
   loanTermYears?: number
   totalAnnualPayments?: number
   principalPayments?: number
+  interestPayments?: number
+  remainingBalance?: number
+}
+
+export interface OtherDebt {
+  lenderNationalId?: string
+  lenderName?: string
   interestPayments?: number
   remainingBalance?: number
 }
@@ -59,4 +74,5 @@ export interface TaxReturn {
   realEstates?: RealEstate[]
   vehicles?: Vehicle[]
   mortgages?: Mortgage[]
+  otherDebts?: OtherDebt[]
 }
