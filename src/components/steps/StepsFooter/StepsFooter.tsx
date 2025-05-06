@@ -7,6 +7,12 @@ import * as styles from './StepsFooter.css'
 import { Button } from '@/components/Button/Button'
 import { Icon } from '@/components/IconRC/Icon'
 import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
+// import {
+//   TaxReturn,
+//   TaxReturnQuery,
+//   useTaxReturnQuery,
+// } from '@/generated/graphql'
+// import { useState } from 'react'
 
 export const StepsFooter = () => {
   const params = useParams()
@@ -19,10 +25,31 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
 
+  // const [data, setData] = useState<TaxReturn | undefined>(undefined)
+
   const handleNext = () => {
-    if (nextStep) {
-      router.push(`${nextStep}`)
-    }
+    if (!nextStep) return
+
+    router.push(`${nextStep}`)
+
+    // console.log('Next step:', nextStep)
+    // if (currentStep === 'gagnaoflun') {
+    //   useTaxReturnQuery({
+    //     variables: {
+    //       nationalId: '0000000000',
+    //     },
+    //     onCompleted: (data: TaxReturnQuery) => {
+    //       console.log('Fetched tax return:', data)
+    //       router.push(`${nextStep}`)
+    //     },
+    //     onError: (error: Error) => {
+    //       console.error('Error fetching tax return:', error)
+    //       setData(undefined)
+    //     },
+    //   })
+    // } else {
+    //   router.push(`${nextStep}`)
+    // }
   }
 
   const handleBack = () => {
