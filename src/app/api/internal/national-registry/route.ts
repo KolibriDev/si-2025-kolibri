@@ -4,11 +4,11 @@ import {
   nationalIdQuerySchema,
   nationalRegistrySchema,
   sql,
+  validateSecret,
 } from '@/lib/apiHelper'
 
 export async function GET(req: NextRequest) {
-  const secret = req.headers.get('x-internal-secret')
-  if (secret !== process.env.INTERNAL_API_SECRET) {
+  if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
