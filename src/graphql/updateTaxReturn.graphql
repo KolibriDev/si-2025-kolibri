@@ -16,6 +16,7 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
       payerNationalId
       payerName
       amount
+      benefitType
     }
     deductions {
       deductionType
