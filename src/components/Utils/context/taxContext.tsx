@@ -1,24 +1,79 @@
 'use client'
 
-import { TaxReturnQuery } from '@/generated/graphql'
-import { createContext, useContext, ReactNode, useState } from 'react'
+import {
+  TaxReturnQuery,
+  useCreateTaxReturnMutation,
+  useTaxReturnLazyQuery,
+} from '@/generated/graphql'
+import {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useCallback,
+  useMemo,
+} from 'react'
 
 interface TaxReturnContextType {
-  taxReturn: TaxReturnQuery | undefined | null
-  setTaxReturn: (taxReturn: TaxReturnQuery | undefined | null) => void
+  taxReturn: TaxReturnQuery['taxReturn'] | undefined | null
+  setTaxReturn: (
+    taxReturn: TaxReturnQuery['taxReturn'] | undefined | null,
+  ) => void
+  fetchTaxReturn: (nationalId: string) => void
+  createTaxReturn: (nationalId: string) => void
+  isLoading: boolean
 }
 
 const TaxContext = createContext<TaxReturnContextType | undefined>(undefined)
-
 export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
-  const [taxReturn, setTaxReturn] = useState<TaxReturnQuery | undefined | null>(
-    undefined,
+  const [taxReturn, setTaxReturn] = useState<
+    TaxReturnQuery['taxReturn'] | undefined | null
+  >(undefined)
+
+  const [executeFetchTaxReturn, { loading }] = useTaxReturnLazyQuery({
+    onCompleted: (data) => {
+      console.log('Fetched tax return:', data)
+      setTaxReturn(data?.taxReturn)
+    },
+    onError: (error) => {
+      console.error('Error fetching tax return:', error)
+    },
+  })
+
+  const [executeCreateTaxReturn] = useCreateTaxReturnMutation({
+    onCompleted: (data) => {
+      setTaxReturn(data?.createTaxReturn)
+    },
+    onError: (error) => {
+      console.error('Error creating tax return:', error)
+    },
+  })
+
+  const createTaxReturn = useCallback(
+    (nationalId: string) => {
+      executeCreateTaxReturn({ variables: { nationalId } })
+    },
+    [executeCreateTaxReturn],
   )
 
-  const value: TaxReturnContextType = {
-    taxReturn: taxReturn,
-    setTaxReturn: setTaxReturn,
-  }
+  const fetchTaxReturn = useCallback(
+    (nationalId: string) => {
+      executeFetchTaxReturn({ variables: { nationalId } })
+    },
+    [executeFetchTaxReturn],
+  )
+
+  const value = useMemo(
+    () => ({
+      taxReturn,
+      setTaxReturn,
+      fetchTaxReturn,
+      createTaxReturn,
+      isLoading: loading,
+    }),
+    [taxReturn, fetchTaxReturn, loading],
+  )
+
   return <TaxContext.Provider value={value}>{children}</TaxContext.Provider>
 }
 export const useTaxContext = () => {

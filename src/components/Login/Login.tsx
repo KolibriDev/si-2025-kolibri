@@ -7,28 +7,17 @@ import { Text } from '@/components/Text/Text'
 import { Logo } from '@/components/Logo/Logo'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { useRouter } from 'next/navigation'
-import { useNationalRegisterLazyQuery } from '@/generated/graphql'
 import { useUserContext } from '../Utils/context/userContext'
 
 export const Login = () => {
   const router = useRouter()
   const [phoneNr, setPhoneNr] = useState<string>('')
-  const { setUser } = useUserContext()
+  const { fetchNationalRegister, isLoading } = useUserContext()
 
-  const [fetchNationalRegister, { loading }] = useNationalRegisterLazyQuery({
-    variables: { phoneNumber: phoneNr },
-    onCompleted: (data) => {
-      setUser(data)
-      router.push('/framtal/nytt/upplysingar')
-    },
-    onError: (error) => {
-      console.error('Error fetching tax return:', error)
-    },
-  })
-
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (phoneNr.length === 7) {
-      fetchNationalRegister()
+      await fetchNationalRegister(phoneNr)
+      router.push('/framtal/nytt/upplysingar')
     }
   }
 
@@ -66,7 +55,7 @@ export const Login = () => {
                 disabled={phoneNr.length !== 7}
                 onClick={handleLogin}
                 fluid
-                loading={loading}
+                loading={isLoading}
               >
                 Auðkenna
               </Button>

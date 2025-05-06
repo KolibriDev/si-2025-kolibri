@@ -150,10 +150,7 @@ export default function FramtalLayout({
 
   return (
     <TaxContextProvider>
-      <Header
-        userName={user?.individual?.name ?? 'Notandi fannst ekki'}
-        authenticated
-      />
+      <Header userName={user?.name ?? 'Notandi fannst ekki'} authenticated />
       <Box
         paddingY={[0, 0, 4, 6]}
         paddingX={[0, 0, 4, 6]}
