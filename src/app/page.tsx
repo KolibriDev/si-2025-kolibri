@@ -18,7 +18,7 @@ export default function Home() {
 
   useGetGreetingsQuery({
     variables: {
-      national_id: '0000000000',
+      nationalId: '0000000000',
     },
     onCompleted: (data: GetGreetingsQuery) => {
       setData(data.greetings || 'Fékk ekki svar')

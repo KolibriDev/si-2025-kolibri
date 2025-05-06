@@ -73,7 +73,7 @@
             "description": "Greets the user",
             "args": [
               {
-                "name": "national_id",
+                "name": "nationalId",
                 "description": null,
                 "type": {
                   "kind": "NON_NULL",

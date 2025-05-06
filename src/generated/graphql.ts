@@ -36,11 +36,11 @@ export type Query = {
 
 
 export type QueryGreetingsArgs = {
-  national_id: Scalars['String']['input'];
+  nationalId: Scalars['String']['input'];
 };
 
 export type GetGreetingsQueryVariables = Exact<{
-  national_id: Scalars['String']['input'];
+  nationalId: Scalars['String']['input'];
 }>;
 
 
@@ -55,8 +55,8 @@ export type SayHiMutation = { __typename?: 'Mutation', sayHi?: string | null };
 
 
 export const GetGreetingsDocument = gql`
-    query GetGreetings($national_id: String!) {
-  greetings(national_id: $national_id)
+    query GetGreetings($nationalId: String!) {
+  greetings(nationalId: $nationalId)
 }
     `;
 
@@ -72,7 +72,7 @@ export const GetGreetingsDocument = gql`
  * @example
  * const { data, loading, error } = useGetGreetingsQuery({
  *   variables: {
- *      national_id: // value for 'national_id'
+ *      nationalId: // value for 'nationalId'
  *   },
  * });
  */
