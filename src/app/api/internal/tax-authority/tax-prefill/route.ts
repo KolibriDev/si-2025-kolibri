@@ -43,9 +43,21 @@ export async function GET(req: NextRequest) {
           },
         ],
         benefits: [
-          { benefitType: BenefitType.DAILY_ALLOWANCE, amount: 120000 },
-          { benefitType: BenefitType.SPORT_ALLOWANCE, amount: 75000 },
-          { benefitType: BenefitType.STUDY_ALLOWANCE, amount: 130000 },
+          {
+            payerName: 'Norðurljós Software ehf.',
+            benefitType: BenefitType.DAILY_ALLOWANCE,
+            amount: 120000,
+          },
+          {
+            payerName: 'Norðurljós Software ehf.',
+            benefitType: BenefitType.SPORT_ALLOWANCE,
+            amount: 75000,
+          },
+          {
+            payerName: 'VR',
+            benefitType: BenefitType.STUDY_ALLOWANCE,
+            amount: 130000,
+          },
         ],
         realEstates: [
           {
