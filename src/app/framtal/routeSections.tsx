@@ -101,16 +101,16 @@ export const routeSections: RouteSection[] = [
     name: 'Tekjur',
     children: [
       {
-        name: 'Laun',
-        href: 'laun',
+        name: 'Launagreiðslur',
+        href: 'launagreidslur',
       },
       {
-        name: 'Hlunnindi og styrkir',
-        href: 'hlunnindi-og-styrkir',
+        name: 'Styrkir og hlunnindi',
+        href: 'styrkir-og-hlunnindi',
       },
       {
-        name: 'Lífeyrir og bætur',
-        href: 'lifeyrir-og-baetur',
+        name: 'Lífeyrir og bótagreiðslur',
+        href: 'lifeyrir-og-botagreidslur',
       },
       {
         name: 'Frádráttur',

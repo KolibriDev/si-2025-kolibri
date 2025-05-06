@@ -3,6 +3,13 @@ export const typeDefs = /* GraphQL */ `
     OTHER
   }
 
+  enum BenefitType {
+    DAILY_ALLOWANCE
+    SPORT_ALLOWANCE
+    STUDY_ALLOWANCE
+    OTHER
+  }
+
   input SalaryInput {
     employerNationalId: String
     employerName: String
@@ -10,6 +17,7 @@ export const typeDefs = /* GraphQL */ `
   }
 
   input BenefitInput {
+    benefitType: BenefitType
     payerNationalId: String
     payerName: String
     amount: Float
@@ -23,7 +31,7 @@ export const typeDefs = /* GraphQL */ `
   input RealEstateInput {
     number: String
     address: String
-    appraisal: Float
+    appraisalAmount: Float
   }
 
   input VehicleInput {
@@ -67,6 +75,7 @@ export const typeDefs = /* GraphQL */ `
   }
 
   type Benefit {
+    benefitType: BenefitType
     payerNationalId: String
     payerName: String
     amount: Float
@@ -80,7 +89,7 @@ export const typeDefs = /* GraphQL */ `
   type RealEstate {
     number: String
     address: String
-    appraisal: Float
+    appraisalAmount: Float
   }
 
   type Vehicle {

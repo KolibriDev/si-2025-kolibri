@@ -16,6 +16,7 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
       payerNationalId
       payerName
       amount
+      benefitType
     }
     deductions {
       deductionType
@@ -24,7 +25,7 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
     realEstates {
       number
       address
-      appraisal
+      appraisalAmount
     }
     vehicles {
       registrationNumber

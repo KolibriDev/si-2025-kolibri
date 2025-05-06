@@ -10,7 +10,12 @@ type DataField = {
   children?: ReactNode
   text?: Pick<
     TextProps,
-    'variant' | 'color' | 'truncate' | 'fontWeight' | 'lineHeight'
+    | 'variant'
+    | 'color'
+    | 'truncate'
+    | 'fontWeight'
+    | 'lineHeight'
+    | 'whiteSpace'
   >
   box?: Omit<UseBoxStylesProps, 'component'>
   borderColor?: keyof typeof theme.color
@@ -90,12 +95,10 @@ export const Data = ({
   align,
   disabled,
   ...props
-}: DataField &
-  Omit<AllHTMLAttributes<HTMLTableDataCellElement>, 'className'>) => {
+}: DataField & Omit<AllHTMLAttributes<HTMLTableCellElement>, 'className'>) => {
   const classNames = cn(
     styles.cell,
     getTextStyles({
-      variant: 'small',
       disabled,
       ...text,
     }),
@@ -124,12 +127,11 @@ export const HeadData = ({
   align = 'left',
   disabled,
   ...props
-}: DataField &
-  Omit<AllHTMLAttributes<HTMLTableHeaderCellElement>, 'className'>) => {
+}: DataField & Omit<AllHTMLAttributes<HTMLTableCellElement>, 'className'>) => {
   const classNames = cn(
     styles.cell,
     getTextStyles({
-      variant: 'h5',
+      variant: 'eyebrow',
       disabled,
       ...text,
     }),

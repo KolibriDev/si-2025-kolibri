@@ -15,11 +15,13 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   ),
   bankareikningur: dynamic(() => import('@/components/steps/Bankareikningur')),
   slysatrygging: dynamic(() => import('@/components/steps/Slysatrygging')),
-  laun: dynamic(() => import('@/components/steps/Laun')),
-  'hlunnindi-og-styrkir': dynamic(
-    () => import('@/components/steps/HlunnindiOgStyrkir'),
+  launagreidslur: dynamic(() => import('@/components/steps/Launagreidslur')),
+  'styrkir-og-hlunnindi': dynamic(
+    () => import('@/components/steps/StyrkirOgHlunnindi'),
   ),
-  'lifeyrir-og-baetur': dynamic(() => import('@/components/steps/Lifeyrir')),
+  'lifeyrir-og-botagreidslur': dynamic(
+    () => import('@/components/steps/LifeyrirOgBotagreidslur'),
+  ),
   fradrattur: dynamic(() => import('@/components/steps/Fradrattur')),
   'adrar-tekjur': dynamic(() => import('@/components/steps/AdrarTekjur')),
 
