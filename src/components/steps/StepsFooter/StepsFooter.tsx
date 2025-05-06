@@ -7,6 +7,7 @@ import * as styles from './StepsFooter.css'
 import { Button } from '@/components/Button/Button'
 import { Icon } from '@/components/IconRC/Icon'
 import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
+
 // import {
 //   TaxReturn,
 //   TaxReturnQuery,
@@ -16,7 +17,8 @@ import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
 
 export const StepsFooter = () => {
   const params = useParams()
-  const currentStep = params.step as string | undefined
+
+  const currentStep = params?.step as string | undefined
   if (!currentStep) {
     return null
   }
@@ -24,6 +26,7 @@ export const StepsFooter = () => {
   const router = useRouter()
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
+  const isFirstStep = currentStep === 'upplysingar'
 
   // const [data, setData] = useState<TaxReturn | undefined>(undefined)
 
@@ -66,8 +69,12 @@ export const StepsFooter = () => {
           <Icon icon="arrowForward" />
         </div>
       </Button>
-      <Button variant="ghost" onClick={handleBack} disabled={!prevStep}>
-        <Text variant="h5">Tilbaka</Text>
+      <Button
+        variant="ghost"
+        colorScheme={isFirstStep ? 'destructive' : 'default'}
+        onClick={handleBack}
+      >
+        <Text variant="h5">{isFirstStep ? 'Hætta við' : 'Til baka'}</Text>
       </Button>
     </Box>
   )
