@@ -1,18 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import postgres from 'postgres'
-
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
-
-const taxpayerSchema = z.object({
-  national_id: z.string(),
-  email: z.string().email(),
-})
-
-function validateSecret(req: NextRequest): boolean {
-  const secret = req.headers.get('x-internal-secret')
-  return secret === process.env.INTERNAL_API_SECRET
-}
+import { sql, taxpayerSchema, validateSecret } from '@/lib/apiHelper'
 
 export async function POST(req: NextRequest) {
   if (!validateSecret(req)) {

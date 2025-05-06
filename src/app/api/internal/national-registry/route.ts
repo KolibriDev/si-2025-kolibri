@@ -1,17 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import postgres from 'postgres'
-
-const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
-
-const querySchema = z.object({
-  national_id: z.string(),
-})
-
-const nationalRegistrySchema = z.object({
-  national_id: z.string().length(10),
-  name: z.string(),
-})
+import {
+  nationalIdQuerySchema,
+  nationalRegistrySchema,
+  sql,
+} from '@/lib/apiHelper'
 
 export async function GET(req: NextRequest) {
   const secret = req.headers.get('x-internal-secret')
@@ -22,7 +15,7 @@ export async function GET(req: NextRequest) {
   const url = new URL(req.url)
   const national_id = url.searchParams.get('national_id')
 
-  const parsed = querySchema.safeParse({ national_id })
+  const parsed = nationalIdQuerySchema.safeParse({ national_id })
   if (!parsed.success) {
     return NextResponse.json(
       { error: 'Missing or invalid national_id' },
