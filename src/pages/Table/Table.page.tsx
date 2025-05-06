@@ -196,6 +196,10 @@ function TableExpand({ subtable }: { subtable: React.ReactNode }) {
 export default function TablePage() {
   return (
     <Box style={{ maxWidth: '1000px', margin: 'auto', marginTop: '24px' }}>
+      <h2>Table Basic</h2>
+      <TableBasic />
+      <h2>Table add</h2>
+      <TableAdd />
       <h2>Table expand</h2>
       <TableExpand subtable={<Text>{'Todo'}</Text>} />
     </Box>
