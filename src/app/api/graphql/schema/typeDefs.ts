@@ -103,6 +103,13 @@ export const typeDefs = /* GraphQL */ `
     remainingBalance: Float
   }
 
+  type OtherDebt {
+    lenderNationalId: String
+    lenderName: String
+    interestPayments: Float
+    remainingBalance: Float
+  }
+
   type TaxReturn {
     nationalId: String!
     name: String
@@ -117,6 +124,7 @@ export const typeDefs = /* GraphQL */ `
     realEstates: [RealEstate!]
     vehicles: [Vehicle!]
     mortgages: [Mortgage!]
+    otherDebts: [OtherDebt!]
   }
 
   type NationalRegistry {

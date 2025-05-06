@@ -18,16 +18,7 @@ export const Query = {
   ): Promise<TaxReturn | null> {
     const taxReturnPrefill = await fetchTaxPrefillByNationalId(args.nationalId)
 
-    console.log('taxReturnPrefill', taxReturnPrefill)
-    if (!taxReturnPrefill) return null
-    const taxReturn: TaxReturn = {
-      nationalId: args.nationalId,
-      email: taxReturnPrefill.email,
-      name: taxReturnPrefill.name,
-      phoneNumber: taxReturnPrefill.phoneNumber,
-    }
-
-    return taxReturn
+    return taxReturnPrefill as TaxReturn
   },
 
   async individual(

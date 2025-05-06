@@ -2,6 +2,53 @@ mutation CreateTaxReturn($nationalId: String!) {
   createTaxReturn(nationalId: $nationalId) {
     nationalId
     name
+    address
     email
+    phoneNumber
+    hasAccidentInsurance
+    bankAccount
+    salaries {
+      employerName
+      employerNationalId
+      amount
+    }
+    benefits {
+      payerNationalId
+      payerName
+      amount
+    }
+    deductions {
+      deductionType
+      amount
+    }
+    realEstates {
+      number
+      address
+      appraisal
+    }
+    vehicles {
+      registrationNumber
+      yearOfPurchase
+      purchasePrice
+    }
+    mortgages {
+      realEstateNumber
+      lenderNationalId
+      lenderName
+      loanNumber
+      loanStartDate
+      loanAmount
+      loanTermYears
+      totalAnnualPayments
+      principalPayments
+      interestPayments
+      remainingBalance
+    }
+    otherDebts {
+      lenderNationalId
+      lenderName
+      interestPayments
+      remainingBalance
+    }
   }
 }

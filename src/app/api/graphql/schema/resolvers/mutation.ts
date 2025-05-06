@@ -19,8 +19,8 @@ export const Mutation = {
     _: unknown,
     args: { nationalId: string },
   ): Promise<TaxReturn> {
-    // const existing = await getTaxReturnByNationalId(args.nationalId)
-    // if (existing) return existing
+    const existing = await getTaxReturnByNationalId(args.nationalId)
+    if (existing) return existing
 
     const taxPayer = await fetchTaxPayerByNationalId(args.nationalId)
     const taxRegistryPrefill = await fetchTaxPrefillByNationalId(

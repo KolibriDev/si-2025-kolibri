@@ -2,16 +2,18 @@ query TaxReturn($nationalId: String!) {
   taxReturn(nationalId: $nationalId) {
     nationalId
     name
-    email
     address
+    email
     phoneNumber
     hasAccidentInsurance
     bankAccount
     salaries {
       employerName
+      employerNationalId
       amount
     }
     benefits {
+      payerNationalId
       payerName
       amount
     }
@@ -26,11 +28,26 @@ query TaxReturn($nationalId: String!) {
     }
     vehicles {
       registrationNumber
+      yearOfPurchase
       purchasePrice
     }
     mortgages {
+      realEstateNumber
+      lenderNationalId
       lenderName
+      loanNumber
+      loanStartDate
       loanAmount
+      loanTermYears
+      totalAnnualPayments
+      principalPayments
+      interestPayments
+      remainingBalance
+    }
+      otherDebts {
+      lenderNationalId
+      lenderName
+      interestPayments
       remainingBalance
     }
   }
