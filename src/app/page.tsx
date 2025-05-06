@@ -2,7 +2,11 @@
 
 import styles from './page.module.css'
 import { useState } from 'react'
-import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
+import {
+  TaxReturn,
+  TaxReturnQuery,
+  useTaxReturnQuery,
+} from '@/generated/graphql'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
 import { Box } from '@/components/Box/Box'
@@ -16,18 +20,18 @@ import { useRouter } from 'next/navigation'
 
 export default function Home() {
   const router = useRouter()
-  const [data, setData] = useState('Ekkert komið')
+  const [data, setData] = useState<TaxReturn | undefined>(undefined)
 
-  useGetGreetingsQuery({
+  useTaxReturnQuery({
     variables: {
       nationalId: '0000000000',
     },
-    onCompleted: (data: GetGreetingsQuery) => {
-      setData(data.greetings || 'Fékk ekki svar')
+    onCompleted: (data: TaxReturnQuery) => {
+      setData(data.taxReturn || undefined)
     },
     onError: (error: Error) => {
       console.error('Error fetching greetings:', error)
-      setData('Fékk villu')
+      setData(undefined)
     },
   })
 
