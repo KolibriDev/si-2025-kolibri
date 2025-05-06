@@ -1,0 +1,37 @@
+mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
+  updateTaxReturn(nationalId: $nationalId, input: $input) {
+    nationalId
+    email
+    address
+    phoneNumber
+    hasAccidentInsurance
+    bankAccount
+    vehicles {
+      registrationNumber
+      yearOfPurchase
+      purchasePrice
+    }
+    salaries {
+      employerName
+      amount
+    }
+    benefits {
+      payerName
+      amount
+    }
+    deductions {
+      deductionType
+      amount
+    }
+    realEstates {
+      number
+      address
+      appraisal
+    }
+    mortgages {
+      lenderName
+      loanAmount
+      remainingBalance
+    }
+  }
+}
