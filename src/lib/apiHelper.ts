@@ -8,9 +8,14 @@ export const idQuerySchema = z.object({
   id: z.string(),
 })
 
-export const nationalIdQuerySchema = z.object({
-  nationalId: z.string(),
-})
+export const nationalIdQuerySchema = z
+  .object({
+    nationalId: z.string().optional(),
+    phoneNumber: z.string().optional(),
+  })
+  .refine((data) => data.nationalId || data.phoneNumber, {
+    message: 'At least one of nationalId or phoneNumber is required',
+  })
 
 export const nationalRegistrySchema = z.object({
   national_id: z.string().length(10),

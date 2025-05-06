@@ -13,21 +13,46 @@ export async function GET(req: NextRequest) {
   }
 
   const url = new URL(req.url)
-  const nationalId = url.searchParams.get('nationalId')
+  const query = {
+    nationalId: url.searchParams.get('nationalId') || undefined,
+    phoneNumber: url.searchParams.get('phoneNumber') || undefined,
+  }
 
-  const parsed = nationalIdQuerySchema.safeParse({ nationalId })
+  const parsed = nationalIdQuerySchema.safeParse(query)
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Missing or invalid nationalId' },
+      { error: 'Invalid query parameters', reason: parsed.error },
       { status: 400 },
     )
   }
 
   try {
+    const conditions = []
+    if (parsed.data.nationalId) {
+      conditions.push(sql`national_id = ${parsed.data.nationalId}`)
+    }
+    if (parsed.data.phoneNumber) {
+      conditions.push(sql`phone_number = ${parsed.data.phoneNumber}`)
+    }
+
+    let whereClause = sql``
+
+    if (conditions.length > 0) {
+      // Start with WHERE and append conditions using AND
+      whereClause = sql`WHERE `
+
+      for (let i = 0; i < conditions.length; i++) {
+        if (i > 0) {
+          whereClause = sql`${whereClause} AND `
+        }
+        whereClause = sql`${whereClause}${conditions[i]}`
+      }
+    }
+
     const data = await sql`
       SELECT *
       FROM national_registry
-      WHERE national_id = ${parsed.data.nationalId};
+      ${whereClause}
     `
 
     const validated = z.array(nationalRegistrySchema).safeParse(data)

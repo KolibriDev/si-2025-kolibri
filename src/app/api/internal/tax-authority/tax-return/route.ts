@@ -56,7 +56,7 @@ export async function GET(req: NextRequest) {
     const data = await sql`
       SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
       FROM tax_return
-      WHERE national_id = ${parsed.data.nationalId};
+      WHERE national_id = ${parsed.data.nationalId ?? ''};
     `
 
     const validated = z.array(taxReturnSchema).safeParse(data)

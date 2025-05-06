@@ -78,6 +78,10 @@ const SidePanel: FC = () => {
 
   const step = params?.step as string | undefined
 
+  if (!step) {
+    return null
+  }
+
   const enhancedSections: RouteSection[] = routeSections.map((section) => {
     const isSectionActive =
       section.href === step ||
