@@ -54,14 +54,16 @@ const PersonuUpplysingar = () => {
             placeholder="jon.jonsson@gmail.com"
             label="Netfang"
             onChange={(x) => setEmail(x.target.value)}
+            backgroundColor="blue"
           />
           <Input
             name="phoneNumber"
-            type="number"
+            type="tel"
             value={phoneNumber}
             placeholder="5812345"
             label="Símanúmer"
             onChange={(x) => setPhoneNumber(x.target.value)}
+            backgroundColor="blue"
           />
         </div>
       </div>
