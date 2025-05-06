@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nationalIdQuerySchema, sql, validateSecret } from '@/lib/apiHelper'
 import { taxReturnSchema } from '@/lib/application'
-import { TaxReturn } from '@/generated/graphql'
 
-function snakeToCamel(obj: any): any {
+function snakeToCamel(
+  obj: unknown,
+): Record<string, unknown> | unknown[] | unknown {
   if (Array.isArray(obj)) {
     return obj.map(snakeToCamel)
   } else if (obj !== null && typeof obj === 'object') {
     return Object.fromEntries(
-      Object.entries(obj).map(([key, value]) => [
+      Object.entries(obj as Record<string, unknown>).map(([key, value]) => [
         key.replace(/_([a-z])/g, (_, char) => char.toUpperCase()),
         snakeToCamel(value),
       ]),
@@ -183,8 +184,6 @@ export async function GET(req: NextRequest) {
     }
 
     return NextResponse.json(validated.data, { status: 200 })
-
-    return formattedData
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
