@@ -27,7 +27,7 @@ export const StepsFooter = () => {
     variables: { nationalId: '0000000000' },
     onCompleted: (data) => {
       console.log('Fetched tax return:', data)
-      setTaxReturn(data)
+      setTaxReturn(data.taxReturn)
       router.push(`${nextStep}`)
     },
     onError: (error) => {
