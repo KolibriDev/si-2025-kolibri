@@ -75,6 +75,33 @@ export async function GET(req: NextRequest) {
             remainingBalance: 28540000,
           },
         ],
+        otherDebts: [
+          {
+            lenderName: 'Eftirstöðvar á korti númer: 4469 88XX XXXX 4567',
+            interestPayments: 39200,
+            remainingBalance: 217000,
+          },
+          {
+            lenderName: 'Aukalán',
+            interestPayments: 86000,
+            remainingBalance: 980000,
+          },
+          {
+            lenderName: '0142-26-732645 Varðan',
+            interestPayments: 14500,
+            remainingBalance: 62000,
+          },
+          {
+            lenderName: 'Kílómetragjald, Skatturinn',
+            interestPayments: 0,
+            remainingBalance: 2370,
+          },
+          {
+            lenderName: 'Þing- og sveitarsjóðsgjöld, Skatturinn',
+            interestPayments: 224,
+            remainingBalance: 0,
+          },
+        ],
       }
     }
 
