@@ -43,6 +43,14 @@ export const taxReturnSchema = z.object({
   bank_account: z.string().length(12),
 })
 
+const salarySchema = z.object({
+  id: z.string(),
+  tax_return_id: z.string(),
+  employer_national_id: z.string().length(10),
+  employer_name: z.string(),
+  amount: z.number(),
+})
+
 export const createAndUpdateTaxReturnSchema = z.object({
   national_id: z.string().length(10),
   name: z.string(),
@@ -51,29 +59,7 @@ export const createAndUpdateTaxReturnSchema = z.object({
   phone_number: z.string(),
   has_accident_insurance: z.boolean(),
   bank_account: z.string().length(12),
-})
-
-export const salarySchema = z.object({
-  id: z.string(),
-  tax_return_id: z.string(),
-  employer_national_id: z.string().length(10),
-  employer_name: z.string(),
-  amount: z.number(),
-})
-
-export const createSalarySchema = z.object({
-  tax_return_id: z.string(),
-  employer_national_id: z.string().length(10),
-  employer_name: z.string(),
-  amount: z.number(),
-})
-
-export const updateSalarySchema = z.object({
-  id: z.string(),
-  tax_return_id: z.string(),
-  employer_national_id: z.string().length(10),
-  employer_name: z.string(),
-  amount: z.number(),
+  salaries: z.array(salarySchema),
 })
 
 export function validateSecret(req: NextRequest): boolean {

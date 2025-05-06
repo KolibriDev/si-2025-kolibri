@@ -48,22 +48,22 @@ const PersonuUpplysingar = () => {
 
         <div className={styles.inputContainer}>
           <Input
+            backgroundColor="blue"
+            label="Netfang"
             name="email"
+            onChange={(x) => setEmail(x.target.value)}
+            placeholder="jon.jonsson@gmail.com"
             type="email"
             value={email}
-            placeholder="jon.jonsson@gmail.com"
-            label="Netfang"
-            onChange={(x) => setEmail(x.target.value)}
-            backgroundColor="blue"
           />
           <Input
+            backgroundColor="blue"
+            label="Símanúmer"
             name="phoneNumber"
+            onChange={(x) => setPhoneNumber(x.target.value)}
+            placeholder="5812345"
             type="tel"
             value={phoneNumber}
-            placeholder="5812345"
-            label="Símanúmer"
-            onChange={(x) => setPhoneNumber(x.target.value)}
-            backgroundColor="blue"
           />
         </div>
       </div>
