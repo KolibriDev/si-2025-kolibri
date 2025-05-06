@@ -19,6 +19,7 @@ export const StepsFooter = () => {
   const router = useRouter()
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
+  const isFirstStep = currentStep === 'upplysingar'
 
   const [fetchTaxReturn, { loading }] = useTaxReturnLazyQuery({
     variables: { nationalId: '0000000000' },
@@ -60,8 +61,12 @@ export const StepsFooter = () => {
           <Icon icon="arrowForward" />
         </div>
       </Button>
-      <Button variant="ghost" onClick={handleBack} disabled={!prevStep}>
-        <Text variant="h5">Tilbaka</Text>
+      <Button
+        variant="ghost"
+        colorScheme={isFirstStep ? 'destructive' : 'default'}
+        onClick={handleBack}
+      >
+        <Text variant="h5">{isFirstStep ? 'Hætta við' : 'Til baka'}</Text>
       </Button>
     </Box>
   )
