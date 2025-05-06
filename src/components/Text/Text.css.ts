@@ -64,6 +64,7 @@ const fontWeightMap = {
   regular: theme.typography.regular,
   medium: theme.typography.medium,
   semiBold: theme.typography.semiBold,
+  bold: theme.typography.bold,
 }
 
 const availableLineHeights = {
