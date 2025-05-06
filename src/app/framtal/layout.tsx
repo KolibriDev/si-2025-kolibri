@@ -15,6 +15,7 @@ import cn from 'classnames'
 import * as linkStyles from '@/components/Link/Link.css'
 import { TaxContextProvider } from '@/components/Utils/context/taxContext'
 import { useUserContext } from '@/components/Utils/context/userContext'
+import Image from 'next/image'
 
 const SubsectionChild: FC<
   PropsWithChildren<{
@@ -129,6 +130,13 @@ const SidePanel: FC = () => {
           />
         </Box>
       </div>
+      <Image
+        src="/companyLogo.svg"
+        alt="Logo skattsins"
+        width={288}
+        height={74}
+        priority
+      />
     </GridColumn>
   )
 }
