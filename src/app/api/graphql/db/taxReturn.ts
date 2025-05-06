@@ -4,15 +4,21 @@ import { TaxReturn } from '@/lib/application'
 export async function createTaxReturn(
   nationalId: string,
   taxReturn: TaxReturn,
-): Promise<void> {
+): Promise<TaxReturn> {
+  const existing = await getTaxReturnByNationalId(nationalId)
+  if (existing) {
+    return existing
+  }
+
   const serialized = JSON.parse(JSON.stringify(taxReturn))
 
   await sql`
-      INSERT INTO application_tax_return (national_id, tax_return_info)
-      VALUES (${nationalId}, ${sql.json(serialized)})
-    `
-}
+    INSERT INTO application_tax_return (national_id, tax_return_info)
+    VALUES (${nationalId}, ${sql.json(serialized)})
+  `
 
+  return taxReturn
+}
 export async function getTaxReturnByNationalId(
   nationalId: string,
 ): Promise<TaxReturn | null> {
