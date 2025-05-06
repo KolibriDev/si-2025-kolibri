@@ -1,38 +1,29 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Text } from '@/components/Text/Text'
-import { Box } from '@/components/Box/Box'
-import * as T from '@/components/Table/Table'
-import { Button } from '@/components/Button/Button'
-import { formatISK } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
+import { Box } from '../Box/Box'
+import * as T from '@/components/Table/Table'
+import { Button } from '../Button/Button'
 
-type vehicle = {
-  licenceNumber: string
-  yearPurchesed: string
-  price: number
-}
-
-const Launagreidslur = () => {
+const StyrkirOgHlunnindi = () => {
   const { taxReturn } = useTaxContext()
 
-  console.log(taxReturn)
-
-  const salaryEntries = taxReturn?.salaries
+  const benefits = taxReturn?.benefits
 
   return (
     <div>
       <Text marginBottom={2}>
-        Hér eru forskráðar allar launa- og verktakagreiðslur sem þú fékkst á
-        síðasta ári. Gögnin eru byggð á því sem launagreiðendur þínir skiluðu
-        inn til Skattsins.
+        Allir styrkir og starfstengd hlunnindi sem þú hefur fengið greidd koma
+        fram hér. Dæmi um þetta eru greiðslur frá vinnuveitendum, styrkir í
+        gegnum stéttarfélög og náms- og vísindastyrkir.
       </Text>
       <Text marginBottom={6}>
-        Ef þú fékkst fleiri launa- eða verktakagreiðslur á árinu þarftu að skrá
-        þær til að framtalið sé rétt.
+        Ef þú fékkst greiddan styrk sem ekki kemur fram hér fyrir neðan þarftu
+        að skrá hann til að framtalið sé rétt.
       </Text>
-      {salaryEntries && (
+      {benefits && (
         <>
           <Box marginBottom={3}>
             <T.Table>
@@ -45,23 +36,21 @@ const Launagreidslur = () => {
                 </T.Row>
               </T.Head>
               <T.Body>
-                {salaryEntries.map((salaryEntry) => (
-                  <T.Row key={salaryEntry.employerName}>
+                {benefits.map((benefit) => (
+                  <T.Row key={benefit.payerName}>
                     <T.Data>
                       <Button
                         circle
                         colorScheme="negative"
-                        title="Expand"
+                        title="Breyta"
                         type="icon"
                         icon={'pencil'}
                         onClick={() => {}}
                       />
                     </T.Data>
-                    <T.Data>{salaryEntry.employerName}</T.Data>
-                    <T.Data>{salaryEntry.employerNationalId}</T.Data>
-                    <T.Data align="right">
-                      {formatISK(salaryEntry.amount)}
-                    </T.Data>
+                    <T.Data>{benefit.payerName}</T.Data>
+                    <T.Data>{benefit.amount}</T.Data>
+                    <T.Data align="right">{benefit.amount}</T.Data>
                   </T.Row>
                 ))}
               </T.Body>
@@ -71,17 +60,14 @@ const Launagreidslur = () => {
                   <T.Data>{/* empty */}</T.Data>
                   <T.Data>{/* empty */}</T.Data>
                   <T.Data text={{ fontWeight: 'bold' }} align="right">
-                    {formatISK(
-                      // TODO: FIX ! below
-                      salaryEntries.reduce((v, a) => v + a.amount! || 0, 0),
-                    )}
+                    {/* {formatISK(vehicles.reduce((v, a) => v + a.price, 0))} */}
                   </T.Data>
                 </T.Row>
               </T.Foot>
             </T.Table>
           </Box>
-          <Button variant="ghost" size="small" icon="add" onClick={() => {}}>
-            Bæta við
+          <Button variant="ghost" size="small" onClick={() => {}}>
+            Add +
           </Button>
         </>
       )}
@@ -89,4 +75,4 @@ const Launagreidslur = () => {
   )
 }
 
-export default Launagreidslur
+export default StyrkirOgHlunnindi
