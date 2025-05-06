@@ -105,8 +105,8 @@ export const routeSections: RouteSection[] = [
         href: 'laun',
       },
       {
-        name: 'Hlunnindi og styrkir',
-        href: 'hlunnindi-og-styrkir',
+        name: 'Styrkir og hlunnindi',
+        href: 'styrkir-og-hlunnindi',
       },
       {
         name: 'Lífeyrir og bætur',
