@@ -7,7 +7,7 @@ import React, {
 } from 'react'
 import cn from 'classnames'
 import { useToggle } from 'react-use'
-import { LinkV2 } from '../Link/LinkV2'
+import { Link } from '../Link/Link'
 import { Box } from '../Box/Box'
 import { UseBoxStylesProps } from '../Box/useBoxStyles'
 import { ColorSchemeContext, ColorSchemes } from '../Utils/ColorSchemeContext'
@@ -41,7 +41,7 @@ type NoNullColorScheme = Exclude<ColorSchemes, null>
 export const FocusableBox = forwardRef<HTMLElement, Props>(
   (
     {
-      component = LinkV2,
+      component = Link,
       display = 'flex',
       color = 'purple',
       children,

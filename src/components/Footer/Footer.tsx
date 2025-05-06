@@ -10,7 +10,7 @@ import { Icon } from '../IconRC/Icon'
 import { GridContainer } from '../Grid/GridContainer/GridContainer'
 import { GridRow } from '../Grid/GridRow/GridRow'
 import { GridColumn } from '../Grid/GridColumn/GridColumn'
-import { LinkV2 } from '../Link/LinkV2'
+import { Link } from '../Link/Link'
 import { Button } from '../Button/Button'
 import Hyphen from '../Hyphen/Hyphen'
 import { LinkContext } from '@/components/Utils/LinkContext'
@@ -80,9 +80,9 @@ export const Footer = ({
                 <LinkContext.Provider
                   value={{
                     linkRenderer: (href: string, children: ReactNode) => (
-                      <LinkV2 href={href} color="blue600" underline="normal">
+                      <Link href={href} color="blue600" underline="normal">
                         {children}
-                      </LinkV2>
+                      </Link>
                     ),
                   }}
                 >
@@ -108,7 +108,7 @@ export const Footer = ({
                     const isInternalLink = !shouldLinkOpenInNewWindow(href)
                     return (
                       <Box marginBottom={isLast ? 0 : 3} key={index}>
-                        <LinkV2 href={href} skipTab>
+                        <Link href={href} skipTab>
                           <Button
                             colorScheme="default"
                             icon={isInternalLink ? 'arrowForward' : undefined}
@@ -120,7 +120,7 @@ export const Footer = ({
                           >
                             {title}
                           </Button>
-                        </LinkV2>
+                        </Link>
                       </Box>
                     )
                   })}
@@ -144,9 +144,9 @@ export const Footer = ({
                       </Box>
 
                       <Text variant="h5" color="blue600" fontWeight="light">
-                        <LinkV2 href={privacyPolicyLink.href}>
+                        <Link href={privacyPolicyLink.href}>
                           {privacyPolicyLink.title}
-                        </LinkV2>
+                        </Link>
                       </Text>
                     </Box>
                     <Inline space={1} alignY="center">
@@ -157,7 +157,7 @@ export const Footer = ({
                         color="blue400"
                       />
                       <Text variant="h5" color="blue600" fontWeight="light">
-                        <LinkV2 href={termsLink.href}>{termsLink.title}</LinkV2>
+                        <Link href={termsLink.href}>{termsLink.title}</Link>
                       </Text>
                     </Inline>
                     {!hideLanguageSwitch && (
@@ -169,12 +169,12 @@ export const Footer = ({
                           color="blue400"
                         />
                         <Text variant="h5" color="blue600" fontWeight="light">
-                          <LinkV2
+                          <Link
                             href={languageSwitchLink.href}
                             onClick={languageSwitchOnClick}
                           >
                             {languageSwitchLink.title}
-                          </LinkV2>
+                          </Link>
                         </Text>
                       </Inline>
                     )}
@@ -182,9 +182,9 @@ export const Footer = ({
                     <Inline space={1} alignY="center">
                       <Icon size="small" icon="facebook" color="blue400" />
                       <Text variant="h5" color="blue600" fontWeight="light">
-                        <LinkV2 href="https://www.facebook.com/islandid">
+                        <Link href="https://www.facebook.com/islandid">
                           Facebook
-                        </LinkV2>
+                        </Link>
                       </Text>
                     </Inline>
                   </Stack>
@@ -211,9 +211,9 @@ export const Footer = ({
                   <LinkContext.Provider
                     value={{
                       linkRenderer: (href: string, children: ReactNode) => (
-                        <LinkV2 href={href} color="blue600" underline="normal">
+                        <Link href={href} color="blue600" underline="normal">
                           {children}
-                        </LinkV2>
+                        </Link>
                       ),
                     }}
                   >
@@ -249,9 +249,9 @@ export const Footer = ({
             <LinkContext.Provider
               value={{
                 linkRenderer: (href: string, children: ReactNode) => (
-                  <LinkV2 href={href} underline="normal">
+                  <Link href={href} underline="normal">
                     {children}
-                  </LinkV2>
+                  </Link>
                 ),
               }}
             >

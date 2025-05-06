@@ -6,6 +6,7 @@ import { Text } from '../Text/Text'
 import { Hidden } from '../Hidden/Hidden'
 import { UserMenu } from './UserMenu/UserMenu'
 import * as styles from './Header.css'
+import { Divider } from '../Divider/Divider'
 
 export interface HeaderProps {
   info?: {
@@ -123,14 +124,31 @@ export const Header = ({
 
   return (
     <Box
-      className={styles.container}
+      className={styles.headerContainer}
       width="full"
       display="flex"
       alignItems="center"
       justifyContent="spaceBetween"
     >
       <Box display="flex" columnGap={2} alignItems="center" flexWrap="nowrap">
-        <Box flexShrink={0}>{renderLogo()}</Box>
+        <Box display="flex" alignItems="center">
+          <Box flexShrink={0} paddingRight={0}>
+            {renderLogo()}
+          </Box>
+          <div className={styles.verticalLine}>
+            <Divider thickness="thick" weight="purple100" />
+          </div>
+          <Box
+            display="flex"
+            justifyContent="center"
+            flexDirection="column"
+            paddingLeft={0}
+            paddingRight={2}
+          >
+            <Text variant="eyebrow">Skatturinn</Text>
+            <Text fontWeight="semiBold">Skattframtal einstaklinga</Text>
+          </Box>
+        </Box>
         {renderInfo()}
       </Box>
       <Box display="flex" alignItems="center" columnGap={2} flexShrink={0}>

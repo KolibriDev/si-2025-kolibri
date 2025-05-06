@@ -1,13 +1,26 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-const defaultOptions = {} as const;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+export type Maybe<T> = T | null
+export type InputMaybe<T> = Maybe<T>
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K]
+}
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never }
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
+    }
+const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: { input: string; output: string; }
@@ -56,8 +69,8 @@ export type Mutation = {
 
 
 export type MutationSayHiArgs = {
-  name: Scalars['String']['input'];
-};
+  name: Scalars['String']['input']
+}
 
 export type Query = {
   __typename?: 'Query';
@@ -115,12 +128,10 @@ export type TaxReturnQueryVariables = Exact<{
 export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null, address?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisal?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', lenderName?: string | null, loanAmount?: number | null, remainingBalance?: number | null }> | null } | null };
 
 export type SayHiMutationVariables = Exact<{
-  name: Scalars['String']['input'];
-}>;
+  name: Scalars['String']['input']
+}>
 
-
-export type SayHiMutation = { __typename?: 'Mutation', sayHi?: string | null };
-
+export type SayHiMutation = { __typename?: 'Mutation'; sayHi?: string | null }
 
 export const TaxReturnDocument = gql`
     query TaxReturn($nationalId: String!) {
@@ -195,11 +206,14 @@ export type TaxReturnLazyQueryHookResult = ReturnType<typeof useTaxReturnLazyQue
 export type TaxReturnSuspenseQueryHookResult = ReturnType<typeof useTaxReturnSuspenseQuery>;
 export type TaxReturnQueryResult = Apollo.QueryResult<TaxReturnQuery, TaxReturnQueryVariables>;
 export const SayHiDocument = gql`
-    mutation SayHi($name: String!) {
-  sayHi(name: $name)
-}
-    `;
-export type SayHiMutationFn = Apollo.MutationFunction<SayHiMutation, SayHiMutationVariables>;
+  mutation SayHi($name: String!) {
+    sayHi(name: $name)
+  }
+`
+export type SayHiMutationFn = Apollo.MutationFunction<
+  SayHiMutation,
+  SayHiMutationVariables
+>
 
 /**
  * __useSayHiMutation__
@@ -218,10 +232,21 @@ export type SayHiMutationFn = Apollo.MutationFunction<SayHiMutation, SayHiMutati
  *   },
  * });
  */
-export function useSayHiMutation(baseOptions?: Apollo.MutationHookOptions<SayHiMutation, SayHiMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SayHiMutation, SayHiMutationVariables>(SayHiDocument, options);
-      }
-export type SayHiMutationHookResult = ReturnType<typeof useSayHiMutation>;
-export type SayHiMutationResult = Apollo.MutationResult<SayHiMutation>;
-export type SayHiMutationOptions = Apollo.BaseMutationOptions<SayHiMutation, SayHiMutationVariables>;
+export function useSayHiMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SayHiMutation,
+    SayHiMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<SayHiMutation, SayHiMutationVariables>(
+    SayHiDocument,
+    options,
+  )
+}
+export type SayHiMutationHookResult = ReturnType<typeof useSayHiMutation>
+export type SayHiMutationResult = Apollo.MutationResult<SayHiMutation>
+export type SayHiMutationOptions = Apollo.BaseMutationOptions<
+  SayHiMutation,
+  SayHiMutationVariables
+>
