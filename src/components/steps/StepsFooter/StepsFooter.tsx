@@ -24,11 +24,12 @@ export const StepsFooter = () => {
   const { taxReturn, createTaxReturn, isLoading } = useTaxContext()
   const { user } = useUserContext()
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (!nextStep) return
 
     if (currentStep === 'gagnaoflun' && !taxReturn && user?.nationalId) {
-      createTaxReturn(user.nationalId)
+      await createTaxReturn(user.nationalId)
+      router.push(`${nextStep}`)
     } else {
       router.push(`${nextStep}`)
     }
