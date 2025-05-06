@@ -19,66 +19,66 @@ export function mapTaxReturnToUpdateInput(
     phoneNumber: taxReturn.phoneNumber ?? undefined,
     hasAccidentInsurance: taxReturn.hasAccidentInsurance ?? undefined,
 
-    benefits: taxReturn.benefits?.map(
-      (b) =>
-        ({
-          amount: b.amount ?? undefined,
-          payerName: b.payerName ?? undefined,
-          payerNationalId: b.payerNationalId ?? undefined,
-          benefitType: b.benefitType ?? undefined,
-        }) as BenefitInput,
-    ),
+    benefits: taxReturn.benefits?.map((b) => {
+      const result: BenefitInput = {
+        amount: b.amount ?? undefined,
+        payerName: b.payerName ?? undefined,
+        payerNationalId: b.payerNationalId ?? undefined,
+        benefitType: b.benefitType ?? undefined,
+      }
+      return result
+    }),
 
-    deductions: taxReturn.deductions?.map(
-      (d) =>
-        ({
-          amount: d.amount ?? undefined,
-          deductionType: d.deductionType ?? undefined,
-        }) as DeductionInput,
-    ),
+    deductions: taxReturn.deductions?.map((d) => {
+      const result: DeductionInput = {
+        amount: d.amount ?? undefined,
+        deductionType: d.deductionType ?? undefined,
+      }
+      return result
+    }),
 
-    mortgages: taxReturn.mortgages?.map(
-      (m) =>
-        ({
-          interestPayments: m.interestPayments ?? undefined,
-          lenderName: m.lenderName ?? undefined,
-          lenderNationalId: m.lenderNationalId ?? undefined,
-          loanAmount: m.loanAmount ?? undefined,
-          loanNumber: m.loanNumber ?? undefined,
-          loanStartDate: m.loanStartDate ?? undefined,
-          loanTermYears: m.loanTermYears ?? undefined,
-          principalPayments: m.principalPayments ?? undefined,
-          realEstateNumber: m.realEstateNumber ?? undefined,
-          remainingBalance: m.remainingBalance ?? undefined,
-          totalAnnualPayments: m.totalAnnualPayments ?? undefined,
-        }) as MortgageInput,
-    ),
+    mortgages: taxReturn.mortgages?.map((m) => {
+      const result: MortgageInput = {
+        interestPayments: m.interestPayments ?? undefined,
+        lenderName: m.lenderName ?? undefined,
+        lenderNationalId: m.lenderNationalId ?? undefined,
+        loanAmount: m.loanAmount ?? undefined,
+        loanNumber: m.loanNumber ?? undefined,
+        loanStartDate: m.loanStartDate ?? undefined,
+        loanTermYears: m.loanTermYears ?? undefined,
+        principalPayments: m.principalPayments ?? undefined,
+        realEstateNumber: m.realEstateNumber ?? undefined,
+        remainingBalance: m.remainingBalance ?? undefined,
+        totalAnnualPayments: m.totalAnnualPayments ?? undefined,
+      }
+      return result
+    }),
 
-    realEstates: taxReturn.realEstates?.map(
-      (r) =>
-        ({
-          address: r.address ?? undefined,
-          appraisal: r.appraisalAmount ?? undefined,
-          number: r.number ?? undefined,
-        }) as RealEstateInput,
-    ),
+    realEstates: taxReturn.realEstates?.map((r) => {
+      const result: RealEstateInput = {
+        address: r.address ?? undefined,
+        appraisalAmount: r.appraisalAmount ?? undefined,
+        number: r.number ?? undefined,
+      }
+      return result
+    }),
 
-    salaries: taxReturn.salaries?.map(
-      (s) =>
-        ({
-          amount: s.amount ?? undefined,
-          employerName: s.employerName ?? undefined,
-          employerNationalId: s.employerNationalId ?? undefined,
-        }) as SalaryInput,
-    ),
+    salaries: taxReturn.salaries?.map((s) => {
+      const result: SalaryInput = {
+        amount: s.amount ?? undefined,
+        employerName: s.employerName ?? undefined,
+        employerNationalId: s.employerNationalId ?? undefined,
+      }
+      return result
+    }),
 
-    vehicles: taxReturn.vehicles?.map(
-      (v) =>
-        ({
-          purchasePrice: v.purchasePrice ?? undefined,
-          registrationNumber: v.registrationNumber ?? undefined,
-          yearOfPurchase: v.yearOfPurchase ?? undefined,
-        }) as VehicleInput,
-    ),
+    vehicles: taxReturn.vehicles?.map((v) => {
+      const result: VehicleInput = {
+        purchasePrice: v.purchasePrice ?? undefined,
+        registrationNumber: v.registrationNumber ?? undefined,
+        yearOfPurchase: v.yearOfPurchase ?? undefined,
+      }
+      return result
+    }),
   }
 }
