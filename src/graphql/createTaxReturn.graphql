@@ -1,0 +1,7 @@
+mutation CreateTaxReturn($nationalId: String!) {
+  createTaxReturn(nationalId: $nationalId) {
+    nationalId
+    name
+    email
+  }
+}
