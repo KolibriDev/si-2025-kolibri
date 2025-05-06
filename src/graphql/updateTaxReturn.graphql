@@ -1,21 +1,19 @@
 mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
   updateTaxReturn(nationalId: $nationalId, input: $input) {
     nationalId
-    email
+    name
     address
+    email
     phoneNumber
     hasAccidentInsurance
     bankAccount
-    vehicles {
-      registrationNumber
-      yearOfPurchase
-      purchasePrice
-    }
     salaries {
       employerName
+      employerNationalId
       amount
     }
     benefits {
+      payerNationalId
       payerName
       amount
     }
@@ -28,9 +26,28 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
       address
       appraisal
     }
+    vehicles {
+      registrationNumber
+      yearOfPurchase
+      purchasePrice
+    }
     mortgages {
+      realEstateNumber
+      lenderNationalId
       lenderName
+      loanNumber
+      loanStartDate
       loanAmount
+      loanTermYears
+      totalAnnualPayments
+      principalPayments
+      interestPayments
+      remainingBalance
+    }
+    otherDebts {
+      lenderNationalId
+      lenderName
+      interestPayments
       remainingBalance
     }
   }
