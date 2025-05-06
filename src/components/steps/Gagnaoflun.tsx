@@ -4,7 +4,6 @@ import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { Icon } from '../IconRC/Icon'
 import { Box } from '../Box/Box'
-import { Input } from '../Input/Input'
 import { Checkbox } from '../Checkbox/Checkbox'
 
 const Gagnaoflun = () => {
