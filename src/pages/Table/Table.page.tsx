@@ -3,7 +3,6 @@
 import * as T from '@/components/Table/Table'
 import { Box } from '@/components/Box/Box'
 import { Button } from '@/components/Button/Button'
-import { Text } from '@/components/Text/Text'
 import AnimateHeight from 'react-animate-height'
 import { SubTable } from '@/components/SubTable/SubTable'
 
