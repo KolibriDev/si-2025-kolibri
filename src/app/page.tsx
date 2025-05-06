@@ -15,6 +15,7 @@ import { Text } from '@/components/Text/Text'
 import { Button } from '@/components/Button/Button'
 import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
+import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -84,7 +85,15 @@ export default function Home() {
               </Box>
             </Box>
           </div>
-          <p>snkdjfsjkdnfkjsdn fkjsnds sdf sdf </p>
+          <div>
+            <Breadcrumbs
+              items={[
+                { title: 'Ísland.is' },
+                { title: 'Fjármál og skattar' },
+                { title: 'Skattframtal einstaklinga', isTag: true },
+              ]}
+            />
+          </div>
         </div>
       </main>
       <Footer />
