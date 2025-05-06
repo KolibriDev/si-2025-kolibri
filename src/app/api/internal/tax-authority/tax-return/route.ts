@@ -1,6 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nationalIdQuerySchema, sql, validateSecret } from '@/lib/apiHelper'
 import { taxReturnSchema } from '@/lib/application'
+import { TaxReturn } from '@/generated/graphql'
+
+function snakeToCamel(obj: any): any {
+  if (Array.isArray(obj)) {
+    return obj.map(snakeToCamel)
+  } else if (obj !== null && typeof obj === 'object') {
+    return Object.fromEntries(
+      Object.entries(obj).map(([key, value]) => [
+        key.replace(/_([a-z])/g, (_, char) => char.toUpperCase()),
+        snakeToCamel(value),
+      ]),
+    )
+  }
+  return obj
+}
 
 export async function POST(req: NextRequest) {
   if (!validateSecret(req)) {
@@ -144,7 +159,7 @@ export async function GET(req: NextRequest) {
       WHERE tax_return_id = ${taxReturn.id}
     `
 
-    taxReturn.morgages = await sql`
+    taxReturn.mortgages = await sql`
       SELECT real_estate_number, lender_national_id, lender_name, loan_number, loan_start_date, loan_amount, loan_term_years, total_annual_payments, principal_payments, interest_payments, remaining_balance
       FROM tax_authority_mortgages
       WHERE tax_return_id = ${taxReturn.id}
@@ -156,17 +171,20 @@ export async function GET(req: NextRequest) {
       WHERE tax_return_id = ${taxReturn.id}
     `
 
-    // console.log('Data fetched:', taxReturn)
-    // const validated = taxReturnSchema.safeParse(taxReturn)
-    // if (!validated.success) {
-    //   return NextResponse.json(
-    //     { error: 'Unexpected data format' },
-    //     { status: 500 },
-    //   )
-    // }
+    const formattedData = snakeToCamel(taxReturn)
 
-    // return NextResponse.json(validated.data, { status: 200 })
-    return NextResponse.json(taxReturn, { status: 200 })
+    const validated = taxReturnSchema.safeParse(formattedData)
+    if (!validated.success) {
+      console.error('Validation failed:', validated.error)
+      return NextResponse.json(
+        { error: 'Unexpected data format' },
+        { status: 500 },
+      )
+    }
+
+    return NextResponse.json(validated.data, { status: 200 })
+
+    return formattedData
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(
