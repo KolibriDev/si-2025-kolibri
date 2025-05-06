@@ -1,0 +1,7 @@
+query NationalRegister($phoneNumber: String!) {
+  individual(phoneNumber: $phoneNumber) {
+    nationalId
+    name
+    phoneNumber
+  }
+}

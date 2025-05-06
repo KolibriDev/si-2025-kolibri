@@ -1,152 +1,238 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-const defaultOptions = {} as const;
+import { gql } from '@apollo/client'
+import * as Apollo from '@apollo/client'
+export type Maybe<T> = T | null
+export type InputMaybe<T> = Maybe<T>
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K]
+}
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>
+}
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>
+}
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never }
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
+    }
+const defaultOptions = {} as const
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-};
+  ID: { input: string; output: string }
+  String: { input: string; output: string }
+  Boolean: { input: boolean; output: boolean }
+  Int: { input: number; output: number }
+  Float: { input: number; output: number }
+}
 
 export type Benefit = {
-  __typename?: 'Benefit';
-  amount?: Maybe<Scalars['Float']['output']>;
-  payerName?: Maybe<Scalars['String']['output']>;
-  payerNationalId?: Maybe<Scalars['String']['output']>;
-};
+  __typename?: 'Benefit'
+  amount?: Maybe<Scalars['Float']['output']>
+  payerName?: Maybe<Scalars['String']['output']>
+  payerNationalId?: Maybe<Scalars['String']['output']>
+}
 
 export type Deduction = {
-  __typename?: 'Deduction';
-  amount?: Maybe<Scalars['Float']['output']>;
-  deductionType?: Maybe<DeductionType>;
-};
+  __typename?: 'Deduction'
+  amount?: Maybe<Scalars['Float']['output']>
+  deductionType?: Maybe<DeductionType>
+}
 
 export enum DeductionType {
-  Other = 'OTHER'
+  Other = 'OTHER',
 }
 
 export type Mortgage = {
-  __typename?: 'Mortgage';
-  interestPayments?: Maybe<Scalars['Float']['output']>;
-  lenderName?: Maybe<Scalars['String']['output']>;
-  lenderNationalId?: Maybe<Scalars['String']['output']>;
-  loanAmount?: Maybe<Scalars['Float']['output']>;
-  loanNumber?: Maybe<Scalars['String']['output']>;
-  loanStartDate?: Maybe<Scalars['String']['output']>;
-  loanTermYears?: Maybe<Scalars['Int']['output']>;
-  principalPayments?: Maybe<Scalars['Float']['output']>;
-  realEstateNumber?: Maybe<Scalars['String']['output']>;
-  remainingBalance?: Maybe<Scalars['Float']['output']>;
-  totalAnnualPayments?: Maybe<Scalars['Float']['output']>;
-};
+  __typename?: 'Mortgage'
+  interestPayments?: Maybe<Scalars['Float']['output']>
+  lenderName?: Maybe<Scalars['String']['output']>
+  lenderNationalId?: Maybe<Scalars['String']['output']>
+  loanAmount?: Maybe<Scalars['Float']['output']>
+  loanNumber?: Maybe<Scalars['String']['output']>
+  loanStartDate?: Maybe<Scalars['String']['output']>
+  loanTermYears?: Maybe<Scalars['Int']['output']>
+  principalPayments?: Maybe<Scalars['Float']['output']>
+  realEstateNumber?: Maybe<Scalars['String']['output']>
+  remainingBalance?: Maybe<Scalars['Float']['output']>
+  totalAnnualPayments?: Maybe<Scalars['Float']['output']>
+}
 
 export type Mutation = {
-  __typename?: 'Mutation';
-  createTaxReturn?: Maybe<TaxReturn>;
-  sayHi?: Maybe<Scalars['String']['output']>;
-  updateTaxReturn?: Maybe<TaxReturn>;
-};
-
+  __typename?: 'Mutation'
+  createTaxReturn?: Maybe<TaxReturn>
+  sayHi?: Maybe<Scalars['String']['output']>
+  updateTaxReturn?: Maybe<TaxReturn>
+}
 
 export type MutationCreateTaxReturnArgs = {
-  nationalId: Scalars['String']['input'];
-};
-
+  nationalId: Scalars['String']['input']
+}
 
 export type MutationSayHiArgs = {
-  name: Scalars['String']['input'];
-};
-
+  name: Scalars['String']['input']
+}
 
 export type MutationUpdateTaxReturnArgs = {
-  nationalId: Scalars['String']['input'];
-};
+  nationalId: Scalars['String']['input']
+}
+
+export type NationalRegistry = {
+  __typename?: 'NationalRegistry'
+  name?: Maybe<Scalars['String']['output']>
+  nationalId: Scalars['String']['output']
+  phoneNumber?: Maybe<Scalars['String']['output']>
+}
 
 export type Query = {
-  __typename?: 'Query';
-  taxReturn?: Maybe<TaxReturn>;
-};
+  __typename?: 'Query'
+  individual?: Maybe<NationalRegistry>
+  taxReturn?: Maybe<TaxReturn>
+}
 
+export type QueryIndividualArgs = {
+  phoneNumber: Scalars['String']['input']
+}
 
 export type QueryTaxReturnArgs = {
-  nationalId: Scalars['String']['input'];
-};
+  nationalId: Scalars['String']['input']
+}
 
 export type RealEstate = {
-  __typename?: 'RealEstate';
-  address?: Maybe<Scalars['String']['output']>;
-  appraisal?: Maybe<Scalars['Float']['output']>;
-  number?: Maybe<Scalars['String']['output']>;
-};
+  __typename?: 'RealEstate'
+  address?: Maybe<Scalars['String']['output']>
+  appraisal?: Maybe<Scalars['Float']['output']>
+  number?: Maybe<Scalars['String']['output']>
+}
 
 export type Salary = {
-  __typename?: 'Salary';
-  amount?: Maybe<Scalars['Float']['output']>;
-  employerName?: Maybe<Scalars['String']['output']>;
-  employerNationalId?: Maybe<Scalars['String']['output']>;
-};
+  __typename?: 'Salary'
+  amount?: Maybe<Scalars['Float']['output']>
+  employerName?: Maybe<Scalars['String']['output']>
+  employerNationalId?: Maybe<Scalars['String']['output']>
+}
 
 export type TaxReturn = {
-  __typename?: 'TaxReturn';
-  address?: Maybe<Scalars['String']['output']>;
-  bankAccount?: Maybe<Scalars['String']['output']>;
-  benefits?: Maybe<Array<Benefit>>;
-  deductions?: Maybe<Array<Deduction>>;
-  email?: Maybe<Scalars['String']['output']>;
-  hasAccidentInsurance?: Maybe<Scalars['Boolean']['output']>;
-  mortgages?: Maybe<Array<Mortgage>>;
-  name?: Maybe<Scalars['String']['output']>;
-  nationalId: Scalars['String']['output'];
-  phoneNumber?: Maybe<Scalars['String']['output']>;
-  realEstates?: Maybe<Array<RealEstate>>;
-  salaries?: Maybe<Array<Salary>>;
-  vehicles?: Maybe<Array<Vehicle>>;
-};
+  __typename?: 'TaxReturn'
+  address?: Maybe<Scalars['String']['output']>
+  bankAccount?: Maybe<Scalars['String']['output']>
+  benefits?: Maybe<Array<Benefit>>
+  deductions?: Maybe<Array<Deduction>>
+  email?: Maybe<Scalars['String']['output']>
+  hasAccidentInsurance?: Maybe<Scalars['Boolean']['output']>
+  mortgages?: Maybe<Array<Mortgage>>
+  name?: Maybe<Scalars['String']['output']>
+  nationalId: Scalars['String']['output']
+  phoneNumber?: Maybe<Scalars['String']['output']>
+  realEstates?: Maybe<Array<RealEstate>>
+  salaries?: Maybe<Array<Salary>>
+  vehicles?: Maybe<Array<Vehicle>>
+}
 
 export type Vehicle = {
-  __typename?: 'Vehicle';
-  purchasePrice?: Maybe<Scalars['Float']['output']>;
-  registrationNumber?: Maybe<Scalars['String']['output']>;
-  yearOfPurchase?: Maybe<Scalars['Int']['output']>;
-};
+  __typename?: 'Vehicle'
+  purchasePrice?: Maybe<Scalars['Float']['output']>
+  registrationNumber?: Maybe<Scalars['String']['output']>
+  yearOfPurchase?: Maybe<Scalars['Int']['output']>
+}
 
 export type SayHiMutationVariables = Exact<{
-  name: Scalars['String']['input'];
-}>;
+  name: Scalars['String']['input']
+}>
 
-
-export type SayHiMutation = { __typename?: 'Mutation', sayHi?: string | null };
+export type SayHiMutation = { __typename?: 'Mutation'; sayHi?: string | null }
 
 export type CreateTaxReturnMutationVariables = Exact<{
-  nationalId: Scalars['String']['input'];
-}>;
+  nationalId: Scalars['String']['input']
+}>
 
+export type CreateTaxReturnMutation = {
+  __typename?: 'Mutation'
+  createTaxReturn?: {
+    __typename?: 'TaxReturn'
+    nationalId: string
+    name?: string | null
+    email?: string | null
+  } | null
+}
 
-export type CreateTaxReturnMutation = { __typename?: 'Mutation', createTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null } | null };
+export type NationalRegisterQueryVariables = Exact<{
+  phoneNumber: Scalars['String']['input']
+}>
+
+export type NationalRegisterQuery = {
+  __typename?: 'Query'
+  individual?: {
+    __typename?: 'NationalRegistry'
+    nationalId: string
+    name?: string | null
+    phoneNumber?: string | null
+  } | null
+}
 
 export type TaxReturnQueryVariables = Exact<{
-  nationalId: Scalars['String']['input'];
-}>;
+  nationalId: Scalars['String']['input']
+}>
 
-
-export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null, address?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisal?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', lenderName?: string | null, loanAmount?: number | null, remainingBalance?: number | null }> | null } | null };
-
+export type TaxReturnQuery = {
+  __typename?: 'Query'
+  taxReturn?: {
+    __typename?: 'TaxReturn'
+    nationalId: string
+    name?: string | null
+    email?: string | null
+    address?: string | null
+    phoneNumber?: string | null
+    hasAccidentInsurance?: boolean | null
+    bankAccount?: string | null
+    salaries?: Array<{
+      __typename?: 'Salary'
+      employerName?: string | null
+      amount?: number | null
+    }> | null
+    benefits?: Array<{
+      __typename?: 'Benefit'
+      payerName?: string | null
+      amount?: number | null
+    }> | null
+    deductions?: Array<{
+      __typename?: 'Deduction'
+      deductionType?: DeductionType | null
+      amount?: number | null
+    }> | null
+    realEstates?: Array<{
+      __typename?: 'RealEstate'
+      number?: string | null
+      address?: string | null
+      appraisal?: number | null
+    }> | null
+    vehicles?: Array<{
+      __typename?: 'Vehicle'
+      registrationNumber?: string | null
+      purchasePrice?: number | null
+    }> | null
+    mortgages?: Array<{
+      __typename?: 'Mortgage'
+      lenderName?: string | null
+      loanAmount?: number | null
+      remainingBalance?: number | null
+    }> | null
+  } | null
+}
 
 export const SayHiDocument = gql`
-    mutation SayHi($name: String!) {
-  sayHi(name: $name)
-}
-    `;
-export type SayHiMutationFn = Apollo.MutationFunction<SayHiMutation, SayHiMutationVariables>;
+  mutation SayHi($name: String!) {
+    sayHi(name: $name)
+  }
+`
+export type SayHiMutationFn = Apollo.MutationFunction<
+  SayHiMutation,
+  SayHiMutationVariables
+>
 
 /**
  * __useSayHiMutation__
@@ -165,23 +251,37 @@ export type SayHiMutationFn = Apollo.MutationFunction<SayHiMutation, SayHiMutati
  *   },
  * });
  */
-export function useSayHiMutation(baseOptions?: Apollo.MutationHookOptions<SayHiMutation, SayHiMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SayHiMutation, SayHiMutationVariables>(SayHiDocument, options);
-      }
-export type SayHiMutationHookResult = ReturnType<typeof useSayHiMutation>;
-export type SayHiMutationResult = Apollo.MutationResult<SayHiMutation>;
-export type SayHiMutationOptions = Apollo.BaseMutationOptions<SayHiMutation, SayHiMutationVariables>;
-export const CreateTaxReturnDocument = gql`
-    mutation CreateTaxReturn($nationalId: String!) {
-  createTaxReturn(nationalId: $nationalId) {
-    nationalId
-    name
-    email
-  }
+export function useSayHiMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SayHiMutation,
+    SayHiMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<SayHiMutation, SayHiMutationVariables>(
+    SayHiDocument,
+    options,
+  )
 }
-    `;
-export type CreateTaxReturnMutationFn = Apollo.MutationFunction<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>;
+export type SayHiMutationHookResult = ReturnType<typeof useSayHiMutation>
+export type SayHiMutationResult = Apollo.MutationResult<SayHiMutation>
+export type SayHiMutationOptions = Apollo.BaseMutationOptions<
+  SayHiMutation,
+  SayHiMutationVariables
+>
+export const CreateTaxReturnDocument = gql`
+  mutation CreateTaxReturn($nationalId: String!) {
+    createTaxReturn(nationalId: $nationalId) {
+      nationalId
+      name
+      email
+    }
+  }
+`
+export type CreateTaxReturnMutationFn = Apollo.MutationFunction<
+  CreateTaxReturnMutation,
+  CreateTaxReturnMutationVariables
+>
 
 /**
  * __useCreateTaxReturnMutation__
@@ -200,52 +300,150 @@ export type CreateTaxReturnMutationFn = Apollo.MutationFunction<CreateTaxReturnM
  *   },
  * });
  */
-export function useCreateTaxReturnMutation(baseOptions?: Apollo.MutationHookOptions<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>(CreateTaxReturnDocument, options);
-      }
-export type CreateTaxReturnMutationHookResult = ReturnType<typeof useCreateTaxReturnMutation>;
-export type CreateTaxReturnMutationResult = Apollo.MutationResult<CreateTaxReturnMutation>;
-export type CreateTaxReturnMutationOptions = Apollo.BaseMutationOptions<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>;
-export const TaxReturnDocument = gql`
-    query TaxReturn($nationalId: String!) {
-  taxReturn(nationalId: $nationalId) {
-    nationalId
-    name
-    email
-    address
-    phoneNumber
-    hasAccidentInsurance
-    bankAccount
-    salaries {
-      employerName
-      amount
-    }
-    benefits {
-      payerName
-      amount
-    }
-    deductions {
-      deductionType
-      amount
-    }
-    realEstates {
-      number
-      address
-      appraisal
-    }
-    vehicles {
-      registrationNumber
-      purchasePrice
-    }
-    mortgages {
-      lenderName
-      loanAmount
-      remainingBalance
+export function useCreateTaxReturnMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CreateTaxReturnMutation,
+    CreateTaxReturnMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useMutation<
+    CreateTaxReturnMutation,
+    CreateTaxReturnMutationVariables
+  >(CreateTaxReturnDocument, options)
+}
+export type CreateTaxReturnMutationHookResult = ReturnType<
+  typeof useCreateTaxReturnMutation
+>
+export type CreateTaxReturnMutationResult =
+  Apollo.MutationResult<CreateTaxReturnMutation>
+export type CreateTaxReturnMutationOptions = Apollo.BaseMutationOptions<
+  CreateTaxReturnMutation,
+  CreateTaxReturnMutationVariables
+>
+export const NationalRegisterDocument = gql`
+  query NationalRegister($phoneNumber: String!) {
+    individual(phoneNumber: $phoneNumber) {
+      nationalId
+      name
+      phoneNumber
     }
   }
+`
+
+/**
+ * __useNationalRegisterQuery__
+ *
+ * To run a query within a React component, call `useNationalRegisterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNationalRegisterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNationalRegisterQuery({
+ *   variables: {
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useNationalRegisterQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    NationalRegisterQuery,
+    NationalRegisterQueryVariables
+  > &
+    (
+      | { variables: NationalRegisterQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<NationalRegisterQuery, NationalRegisterQueryVariables>(
+    NationalRegisterDocument,
+    options,
+  )
 }
-    `;
+export function useNationalRegisterLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    NationalRegisterQuery,
+    NationalRegisterQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    NationalRegisterQuery,
+    NationalRegisterQueryVariables
+  >(NationalRegisterDocument, options)
+}
+export function useNationalRegisterSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        NationalRegisterQuery,
+        NationalRegisterQueryVariables
+      >,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<
+    NationalRegisterQuery,
+    NationalRegisterQueryVariables
+  >(NationalRegisterDocument, options)
+}
+export type NationalRegisterQueryHookResult = ReturnType<
+  typeof useNationalRegisterQuery
+>
+export type NationalRegisterLazyQueryHookResult = ReturnType<
+  typeof useNationalRegisterLazyQuery
+>
+export type NationalRegisterSuspenseQueryHookResult = ReturnType<
+  typeof useNationalRegisterSuspenseQuery
+>
+export type NationalRegisterQueryResult = Apollo.QueryResult<
+  NationalRegisterQuery,
+  NationalRegisterQueryVariables
+>
+export const TaxReturnDocument = gql`
+  query TaxReturn($nationalId: String!) {
+    taxReturn(nationalId: $nationalId) {
+      nationalId
+      name
+      email
+      address
+      phoneNumber
+      hasAccidentInsurance
+      bankAccount
+      salaries {
+        employerName
+        amount
+      }
+      benefits {
+        payerName
+        amount
+      }
+      deductions {
+        deductionType
+        amount
+      }
+      realEstates {
+        number
+        address
+        appraisal
+      }
+      vehicles {
+        registrationNumber
+        purchasePrice
+      }
+      mortgages {
+        lenderName
+        loanAmount
+        remainingBalance
+      }
+    }
+  }
+`
 
 /**
  * __useTaxReturnQuery__
@@ -263,19 +461,56 @@ export const TaxReturnDocument = gql`
  *   },
  * });
  */
-export function useTaxReturnQuery(baseOptions: Apollo.QueryHookOptions<TaxReturnQuery, TaxReturnQueryVariables> & ({ variables: TaxReturnQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TaxReturnQuery, TaxReturnQueryVariables>(TaxReturnDocument, options);
-      }
-export function useTaxReturnLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TaxReturnQuery, TaxReturnQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TaxReturnQuery, TaxReturnQueryVariables>(TaxReturnDocument, options);
-        }
-export function useTaxReturnSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<TaxReturnQuery, TaxReturnQueryVariables>) {
-          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
-          return Apollo.useSuspenseQuery<TaxReturnQuery, TaxReturnQueryVariables>(TaxReturnDocument, options);
-        }
-export type TaxReturnQueryHookResult = ReturnType<typeof useTaxReturnQuery>;
-export type TaxReturnLazyQueryHookResult = ReturnType<typeof useTaxReturnLazyQuery>;
-export type TaxReturnSuspenseQueryHookResult = ReturnType<typeof useTaxReturnSuspenseQuery>;
-export type TaxReturnQueryResult = Apollo.QueryResult<TaxReturnQuery, TaxReturnQueryVariables>;
+export function useTaxReturnQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    TaxReturnQuery,
+    TaxReturnQueryVariables
+  > &
+    (
+      | { variables: TaxReturnQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    ),
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<TaxReturnQuery, TaxReturnQueryVariables>(
+    TaxReturnDocument,
+    options,
+  )
+}
+export function useTaxReturnLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    TaxReturnQuery,
+    TaxReturnQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<TaxReturnQuery, TaxReturnQueryVariables>(
+    TaxReturnDocument,
+    options,
+  )
+}
+export function useTaxReturnSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<TaxReturnQuery, TaxReturnQueryVariables>,
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions }
+  return Apollo.useSuspenseQuery<TaxReturnQuery, TaxReturnQueryVariables>(
+    TaxReturnDocument,
+    options,
+  )
+}
+export type TaxReturnQueryHookResult = ReturnType<typeof useTaxReturnQuery>
+export type TaxReturnLazyQueryHookResult = ReturnType<
+  typeof useTaxReturnLazyQuery
+>
+export type TaxReturnSuspenseQueryHookResult = ReturnType<
+  typeof useTaxReturnSuspenseQuery
+>
+export type TaxReturnQueryResult = Apollo.QueryResult<
+  TaxReturnQuery,
+  TaxReturnQueryVariables
+>

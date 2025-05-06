@@ -12,7 +12,7 @@ export default function StepLayout({
   children: React.ReactNode
 }>) {
   const params = useParams()
-  const step = params.step as string | undefined
+  const step = params?.step as string | undefined
   if (!step) {
     return null
   }
@@ -27,7 +27,9 @@ export default function StepLayout({
         paddingX={[3, 3, 14, 14]}
         className={styles.container}
       >
-        <Text variant="h2">{headerText}</Text>
+        <Text variant="h2" as="h1">
+          {headerText}
+        </Text>
         <div className={styles.content}>{children}</div>
       </Box>
       <Box

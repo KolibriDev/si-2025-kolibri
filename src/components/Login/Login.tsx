@@ -7,10 +7,28 @@ import { Text } from '@/components/Text/Text'
 import { Logo } from '@/components/Logo/Logo'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { useRouter } from 'next/navigation'
+import { useNationalRegisterLazyQuery } from '@/generated/graphql'
 
 export const Login = () => {
   const router = useRouter()
   const [phoneNr, setPhoneNr] = useState<string>('')
+
+  const [fetchNationalRegister, { loading }] = useNationalRegisterLazyQuery({
+    variables: { phoneNumber: phoneNr },
+    onCompleted: (data) => {
+      console.log('Fetched national register:', data)
+      router.push('/framtal/nytt/upplysingar')
+    },
+    onError: (error) => {
+      console.error('Error fetching tax return:', error)
+    },
+  })
+
+  const handleLogin = () => {
+    if (phoneNr.length === 7) {
+      fetchNationalRegister()
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -44,8 +62,9 @@ export const Login = () => {
             <div className={styles.buttonContainerInner}>
               <Button
                 disabled={phoneNr.length !== 7}
-                onClick={() => router.push('/framtal/feikID/upplysingar')}
+                onClick={handleLogin}
                 fluid
+                loading={loading}
               >
                 Auðkenna
               </Button>

@@ -5,7 +5,7 @@ import {
   getTaxReturnByNationalId,
   updateTaxReturn,
 } from '@/app/api/graphql/db/taxReturn'
-import { TaxReturn } from '@/lib/application'
+import { TaxReturn, NationalRegistry } from '@/lib/application'
 
 interface NextContext {
   params: Promise<Record<string, string>>
@@ -77,8 +77,15 @@ const { handleRequest } = createYoga<NextContext>({
         mortgages: [Mortgage!]
       }
 
+      type NationalRegistry {
+        nationalId: String!
+        name: String
+        phoneNumber: String
+      }
+
       type Query {
         taxReturn(nationalId: String!): TaxReturn
+        individual(phoneNumber: String!): NationalRegistry
       }
 
       type Mutation {
@@ -94,6 +101,27 @@ const { handleRequest } = createYoga<NextContext>({
           args: { nationalId: string },
         ): Promise<TaxReturn | null> {
           return await getTaxReturnByNationalId(args.nationalId)
+        },
+
+        async individual(
+          _: unknown,
+          args: { phoneNumber: string },
+        ): Promise<NationalRegistry | null> {
+          const res = await fetch(
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?phoneNumber=${args.phoneNumber}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'x-internal-secret': process.env.INTERNAL_API_SECRET ?? '',
+              },
+            },
+          )
+          const nationalRegistry = await res.json()
+          if (nationalRegistry.length === 0) {
+            return null
+          }
+          return nationalRegistry[0] as NationalRegistry
         },
       },
       Mutation: {
