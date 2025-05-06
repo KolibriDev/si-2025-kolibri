@@ -76,7 +76,7 @@ const SidePanel: FC = () => {
   const params = useParams()
   const router = useRouter()
 
-  const step = params.step as string | undefined
+  const step = params?.step as string | undefined
 
   const enhancedSections: RouteSection[] = routeSections.map((section) => {
     const isSectionActive =
