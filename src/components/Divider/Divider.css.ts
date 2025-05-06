@@ -10,6 +10,7 @@ export const weight = styleVariants({
   faded: { background: theme.border.color.blue100 },
   strong: { background: theme.border.color.focus },
   alternate: { background: theme.color.purple200 },
+  purple100: { background: theme.color.purple100 },
   purple400: { background: theme.color.purple400 },
   purple200: { background: theme.color.purple200 },
   blue300: { background: theme.color.blue300 },
