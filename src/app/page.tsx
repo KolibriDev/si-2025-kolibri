@@ -16,17 +16,22 @@ import {
   UserProvider,
   useUserContext,
 } from '@/components/Utils/context/userContext'
+import { useEffect } from 'react'
 
 export default function Home() {
   const router = useRouter()
-  const { user } = useUserContext()
+  const { user, fetchNationalRegister } = useUserContext()
+
+  useEffect(() => {
+    fetchNationalRegister(user?.phoneNumber ?? '7884888')
+  }, [fetchNationalRegister, user?.phoneNumber])
 
   return (
     <UserProvider>
       <div className={styles.page}>
         <Box paddingX={6}>
           <Header
-            userName={user?.individual?.name ?? 'Notandi fannst ekki'}
+            userName={user?.name ?? 'Notandi fannst ekki'}
             authenticated
           />
         </Box>

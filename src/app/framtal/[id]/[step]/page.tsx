@@ -3,6 +3,9 @@ import { notFound } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
 import { getFlatRouteSteps } from '../../routeSections'
+import { useTaxContext } from '@/components/Utils/context/taxContext'
+import { useEffect } from 'react'
+import { useUserContext } from '@/components/Utils/context/userContext'
 
 const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   upplysingar: dynamic(() => import('@/components/steps/Upplysingar')),
@@ -34,6 +37,13 @@ export default function StepPage() {
   const params = useParams()
   const step = params?.step as string | undefined
   const validSteps = getFlatRouteSteps()
+
+  const { fetchTaxReturn } = useTaxContext()
+  const { user } = useUserContext()
+
+  useEffect(() => {
+    fetchTaxReturn(user?.nationalId ?? '0000000000')
+  }, [fetchTaxReturn, user?.nationalId])
 
   if (!step || !validSteps.includes(step)) {
     notFound()
