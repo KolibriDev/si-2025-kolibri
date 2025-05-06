@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  TaxReturnDocument,
   TaxReturnQuery,
   useCreateTaxReturnMutation,
   useTaxReturnLazyQuery,
@@ -15,6 +16,7 @@ import {
   useMemo,
 } from 'react'
 import { mapTaxReturnToUpdateInput } from './mappers'
+import { useApolloClient } from '@apollo/client'
 
 interface TaxReturnContextType {
   taxReturn: TaxReturnQuery['taxReturn'] | undefined | null
@@ -32,6 +34,7 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
   const [taxReturn, setTaxReturn] = useState<
     TaxReturnQuery['taxReturn'] | undefined | null
   >(undefined)
+  const apolloClient = useApolloClient()
 
   const [executeFetchTaxReturn, { loading }] = useTaxReturnLazyQuery({
     onCompleted: (data) => {
@@ -55,6 +58,15 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
   const [executePutTaxReturn] = useUpdateTaxReturnMutation({
     onCompleted: (data) => {
       setTaxReturn(data?.updateTaxReturn)
+      if (!data?.updateTaxReturn) {
+        console.error('No tax return data returned from update')
+        return
+      }
+      apolloClient.writeQuery({
+        query: TaxReturnDocument,
+        variables: { nationalId: data.updateTaxReturn.nationalId },
+        data: { taxReturn: data.updateTaxReturn },
+      })
     },
     onError: (error) => {
       console.error('Error updating tax return:', error)
