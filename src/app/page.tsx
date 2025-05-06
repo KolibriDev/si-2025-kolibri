@@ -7,6 +7,14 @@ import { useState } from 'react'
 import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
+import { Box } from '@/components/Box/Box'
+import { GridContainer } from '@/components/Grid/GridContainer/GridContainer'
+import { GridColumn } from '@/components/Grid/GridColumn/GridColumn'
+import { GridRow } from '@/components/Grid/GridRow/GridRow'
+import { Text } from '@/components/Text/Text'
+import { Button } from '@/components/Button/Button'
+import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
+import TableOfContents from '@/components/TableOfContents/TableOfContents'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -26,50 +34,57 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <Header userName="asdf" authenticated />
+      <Box paddingX={6}>
+        <Header userName="Jökull Þórðarson" authenticated />
+      </Box>
       <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>src/app/page.tsx</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-          <li>{data}</li>
-        </ol>
-
-        <TestC />
-
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
-          >
-            Read our docs
-          </a>
+        <div className={styles.grid}>
+          <div>
+            <Box marginBottom={3}>
+              <Button variant="text" size="small" preTextIcon="arrowBack">
+                Fjármál og skattar
+              </Button>
+            </Box>
+            <Box
+              display="flex"
+              background="purple100"
+              columnGap={2}
+              padding={4}
+              marginBottom={3}
+              borderRadius="large"
+            >
+              <CompanyLogo />
+            </Box>
+            <TableOfContents />
+            <Box
+              display="flex"
+              flexDirection="column"
+              borderRadius="large"
+              background="purple100"
+              columnGap={2}
+              padding={4}
+            >
+              <Text variant="eyebrow" color="blueberry600" marginBottom={2}>
+                Tengt efni
+              </Text>
+              <Box
+                component="ul"
+                display="flex"
+                flexDirection="column"
+                rowGap={1}
+              >
+                <li>
+                  <Text color="blueberry600">
+                    Skattframtal barns undir 16 ára
+                  </Text>
+                </li>
+                <li>
+                  <Text color="blueberry600">Skattframtal lögaðila</Text>
+                </li>
+              </Box>
+            </Box>
+          </div>
+          <p>snkdjfsjkdnfkjsdn fkjsnds sdf sdf </p>
         </div>
       </main>
       <Footer />
