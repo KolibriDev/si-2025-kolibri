@@ -1,11 +1,11 @@
+import { sql, taxReturnSchema, validateSecret } from '@/lib/apiHelper'
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
-import { sql, taxpayerSchema, validateSecret } from '@/lib/apiHelper'
 
 export async function GET(req: NextRequest) {
-  const national_id = req.nextUrl.pathname.split('/').pop()
+  const id = req.nextUrl.pathname.split('/').pop()
 
-  if (!national_id) {
+  if (!id) {
     return NextResponse.json({ error: 'Missing ID' }, { status: 400 })
   }
 
@@ -15,12 +15,12 @@ export async function GET(req: NextRequest) {
 
   try {
     const data = await sql`
-      SELECT national_id, email
-      FROM tax_authority_tax_payers
-      WHERE national_id = ${national_id};
+      SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
+      FROM tax_return
+      WHERE id = ${id};
     `
 
-    const validated = z.array(taxpayerSchema).safeParse(data)
+    const validated = z.array(taxReturnSchema).safeParse(data)
 
     if (!validated.success) {
       return NextResponse.json(
@@ -44,9 +44,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const national_id = req.nextUrl.pathname.split('/').pop()
+  const id = req.nextUrl.pathname.split('/').pop()
 
-  if (!national_id) {
+  if (!id) {
     return NextResponse.json({ error: 'Missing ID' }, { status: 400 })
   }
 
@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest) {
   }
 
   const body = await req.json()
-  const parsed = taxpayerSchema.safeParse(body)
+  const parsed = taxReturnSchema.safeParse(body)
 
   if (!parsed.success) {
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
@@ -63,9 +63,15 @@ export async function PUT(req: NextRequest) {
 
   try {
     const result = await sql`
-      UPDATE tax_authority_tax_payers
-      SET email = ${parsed.data.email}
-      WHERE national_id = ${national_id};
+      UPDATE tax_return
+      SET national_id = ${parsed.data.national_id},
+          name = ${parsed.data.name},
+          address = ${parsed.data.address},
+          email = ${parsed.data.email},
+          phone_number = ${parsed.data.phone_number},
+          has_accident_insurance = ${parsed.data.has_accident_insurance},
+          bank_account = ${parsed.data.bank_account}
+      WHERE id = ${id};
     `
 
     if (result.count === 0) {
