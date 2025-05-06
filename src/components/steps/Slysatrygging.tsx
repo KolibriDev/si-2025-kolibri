@@ -8,14 +8,14 @@ import * as styles from './Slysatrygging.css'
 import { useTaxContext } from '../Utils/context/taxContext'
 
 const Slysatrygging = () => {
-  const { taxReturn, setTaxReturn } = useTaxContext()
+  const { taxReturn, updateTaxReturn } = useTaxContext()
 
   if (!taxReturn) {
     return null
   }
 
   const handleOnChange = (value: boolean) => () => {
-    setTaxReturn({
+    updateTaxReturn({
       ...taxReturn,
       hasAccidentInsurance: value,
     })
