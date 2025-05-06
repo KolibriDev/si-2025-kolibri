@@ -87,8 +87,8 @@ export const routeSections: RouteSection[] = [
         href: 'personuupplysingar',
       },
       {
-        name: 'Bankaupplýsingar',
-        href: 'bankaupplysingar',
+        name: 'Bankareikningur',
+        href: 'bankareikningur',
       },
       {
         name: 'Slysatrygging',
