@@ -61,8 +61,6 @@ export const StepsFooter = () => {
     }
   }
 
-  console.log(params)
-
   return (
     <Box display="flex" className={styles.footer}>
       <Button variant="primary" onClick={handleNext} disabled={!nextStep}>
