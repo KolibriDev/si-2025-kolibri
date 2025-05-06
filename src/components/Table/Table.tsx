@@ -10,7 +10,12 @@ type DataField = {
   children?: ReactNode
   text?: Pick<
     TextProps,
-    'variant' | 'color' | 'truncate' | 'fontWeight' | 'lineHeight'
+    | 'variant'
+    | 'color'
+    | 'truncate'
+    | 'fontWeight'
+    | 'lineHeight'
+    | 'whiteSpace'
   >
   box?: Omit<UseBoxStylesProps, 'component'>
   borderColor?: keyof typeof theme.color
