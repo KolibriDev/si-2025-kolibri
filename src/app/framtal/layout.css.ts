@@ -14,6 +14,7 @@ export const processContainer = style({
 
 export const formStepperContainer = style({
   position: 'sticky',
+  height: '87%',
 })
 
 export const processContent = style({
