@@ -24,8 +24,6 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   'adrar-tekjur': dynamic(() => import('@/components/steps/AdrarTekjur')),
 
   eignir: dynamic(() => import('@/components/steps/Eignir')),
-  okutaeki: dynamic(() => import('@/components/steps/Okutaeki')),
-  'adrar-eignir': dynamic(() => import('@/components/steps/AdrarEignir')),
   ibudalan: dynamic(() => import('@/components/steps/Ibudalan')),
   'adrar-skuldir': dynamic(() => import('@/components/steps/AdrarSkuldir')),
   fylgiskjol: dynamic(() => import('@/components/steps/Fylgiskjol')),
