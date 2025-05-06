@@ -32,7 +32,7 @@ export async function fetchIndividualByPhone(phoneNumber: string) {
 
   const nationalRegistry: NationalRegistry = {
     name: data[0]?.name ?? '',
-    nationalId: data[0]?.national_Id ?? '',
+    nationalId: data[0]?.national_id ?? '',
     phoneNumber: data[0]?.phone_number,
   }
 
