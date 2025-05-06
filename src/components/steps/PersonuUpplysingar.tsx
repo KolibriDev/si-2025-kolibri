@@ -62,7 +62,7 @@ const PersonuUpplysingar = () => {
             name="phoneNumber"
             onChange={(x) => setPhoneNumber(x.target.value)}
             placeholder="5812345"
-            type="number"
+            type="tel"
             value={phoneNumber}
           />
         </div>
