@@ -25,6 +25,7 @@ export function mapTaxReturnToUpdateInput(
           amount: b.amount ?? undefined,
           payerName: b.payerName ?? undefined,
           payerNationalId: b.payerNationalId ?? undefined,
+          benefitType: b.benefitType ?? undefined,
         }) as BenefitInput,
     ),
 
