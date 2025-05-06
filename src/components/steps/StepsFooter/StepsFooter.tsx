@@ -18,7 +18,7 @@ import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
 export const StepsFooter = () => {
   const params = useParams()
 
-  const currentStep = params.step as string | undefined
+  const currentStep = params?.step as string | undefined
   if (!currentStep) {
     return null
   }
