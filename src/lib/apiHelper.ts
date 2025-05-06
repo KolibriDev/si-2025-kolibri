@@ -20,6 +20,7 @@ export const nationalIdQuerySchema = z
 export const nationalRegistrySchema = z.object({
   national_id: z.string().length(10),
   name: z.string(),
+  phone_number: z.string().optional(),
 })
 
 export const taxpayerSchema = z.object({
