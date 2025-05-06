@@ -9,7 +9,17 @@ const { handleRequest } = createYoga<NextContext>({
   schema: createSchema({
     typeDefs: /* GraphQL */ `
       type Query {
+        """
+        Greets the user
+        """
         greetings(nationalId: String!): String
+      }
+
+      type Mutation {
+        """
+        Says hi to the name
+        """
+        sayHi(name: String!): String
       }
     `,
     resolvers: {
@@ -45,6 +55,11 @@ const { handleRequest } = createYoga<NextContext>({
           const data2 = await nationalRegistryResponse.json()
 
           return `GraphQL got:  ${data2[0].name}: ${data.email}`
+        },
+      },
+      Mutation: {
+        sayHi: (_: unknown, args: { name: string }): string => {
+          return `Hi: ${args.name}`
         },
       },
     },

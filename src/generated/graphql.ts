@@ -30,8 +30,19 @@ export type Scalars = {
   Float: { input: number; output: number }
 }
 
+export type Mutation = {
+  __typename?: 'Mutation'
+  /** Says hi to the name */
+  sayHi?: Maybe<Scalars['String']['output']>
+}
+
+export type MutationSayHiArgs = {
+  name: Scalars['String']['input']
+}
+
 export type Query = {
   __typename?: 'Query'
+  /** Greets the user */
   greetings?: Maybe<Scalars['String']['output']>
 }
 
