@@ -6,16 +6,13 @@
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 24px;
+  padding: 64px 48px 120px;
 }
 
 .grid_item_side {
   grid-column: 1 / 4;
 }
 
-.grid_item_main {
-  grid-column: 5 / 12;
-}
-
 .main {
-  padding: 64px 48px 120px;
+  grid-column: 5 / 12;
 }
