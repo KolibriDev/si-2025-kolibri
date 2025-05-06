@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { z } from 'zod'
-import {
-  nationalIdQuerySchema,
-  taxReturnSchema,
-  validateSecret,
-} from '@/lib/apiHelper'
-import { BenefitType, TaxReturn } from '@/lib/application'
+import { nationalIdQuerySchema, validateSecret } from '@/lib/apiHelper'
+import { BenefitType, TaxReturn, taxReturnSchema } from '@/lib/application'
 
 export async function GET(req: NextRequest) {
   if (!validateSecret(req)) {
@@ -22,6 +17,8 @@ export async function GET(req: NextRequest) {
       { status: 400 },
     )
   }
+
+  console.log('Parsed nationalId:', parsed.data.nationalId)
 
   try {
     let data: TaxReturn = { nationalId: parsed.data.nationalId }
@@ -105,13 +102,7 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    const validated = z.array(taxReturnSchema).safeParse(data)
-    if (!validated.success) {
-      return NextResponse.json(
-        { error: 'Unexpected data format' },
-        { status: 500 },
-      )
-    }
+    const validated = taxReturnSchema.safeParse(data)
 
     return NextResponse.json(validated.data, { status: 200 })
   } catch (error) {
