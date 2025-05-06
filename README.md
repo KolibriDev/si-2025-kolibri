@@ -36,3 +36,13 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
 # si-2025-kolibri
+
+## Graphql API
+
+You can view the documentation of the graphql schema and test out the queries and mutation in graphiql under `/api/graphql`. [http://localhost:3000/api/graphql](http://localhost:3000/api/graphql)
+
+## Testing 
+
+- Run `npm run test` to run the unit test (via `vitest`)
+- Run `npm run coverage` to generate a test coverage report. View the generated report in your browser `open coverage/index.html`. 
+

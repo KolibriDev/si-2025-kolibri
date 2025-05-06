@@ -9,17 +9,27 @@ const { handleRequest } = createYoga<NextContext>({
   schema: createSchema({
     typeDefs: /* GraphQL */ `
       type Query {
-        greetings(nationalId: String!): String
+        """
+        Greets the user
+        """
+        greetings(national_id: String!): String
+      }
+
+      type Mutation {
+        """
+        Says hi to the name
+        """
+        sayHi(name: String!): String
       }
     `,
     resolvers: {
       Query: {
         async greetings(
           _: unknown,
-          args: { nationalId: string },
+          args: { national_id: string },
         ): Promise<string> {
           const res = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/?nationalId=${args.nationalId}`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/tax-payer/${args.national_id}`,
             {
               method: 'GET',
               headers: {
@@ -29,9 +39,10 @@ const { handleRequest } = createYoga<NextContext>({
             },
           )
           const data = await res.json()
+          console.log('GraphQL data:', data)
 
           const nationalRegistryResponse = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?nationalId=${args.nationalId}`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?national_id=${args.national_id}`,
             {
               method: 'GET',
               headers: {
@@ -43,7 +54,12 @@ const { handleRequest } = createYoga<NextContext>({
 
           const data2 = await nationalRegistryResponse.json()
 
-          return `GraphQL got:  ${data2[0].name}: ${data[0].email}`
+          return `GraphQL got:  ${data2[0].name}: ${data.email}`
+        },
+      },
+      Mutation: {
+        sayHi: (_: unknown, args: { name: string }): string => {
+          return `Hi: ${args.name}`
         },
       },
     },

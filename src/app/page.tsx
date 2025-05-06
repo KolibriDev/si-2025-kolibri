@@ -13,13 +13,14 @@ import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Bullet, BulletList } from '@/components/BulletList/BulletList'
 import { LinkV2 } from '@/components/Link/LinkV2'
+import TestSayHi from '@/components/TestSayHi/TestSayHi'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
 
   useGetGreetingsQuery({
     variables: {
-      nationalId: '0000000000',
+      national_id: '0000000000',
     },
     onCompleted: (data: GetGreetingsQuery) => {
       setData(data.greetings || 'Fékk ekki svar')
