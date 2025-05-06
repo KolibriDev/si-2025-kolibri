@@ -43,24 +43,7 @@ const Eignir = () => {
 }
 
 const Fasteignir = () => {
-  const { taxReturn, setTaxReturn } = useTaxContext()
-
-  useEffect(() => {
-    if (!taxReturn) return
-
-    setTimeout(() => {
-      setTaxReturn({
-        ...taxReturn,
-        realEstates: [
-          {
-            address: 'Borgartun',
-            number: '654654',
-            appraisalAmount: 80_000_000,
-          },
-        ],
-      })
-    }, 500)
-  }, [])
+  const { taxReturn } = useTaxContext()
 
   if (!taxReturn?.realEstates) {
     return (
