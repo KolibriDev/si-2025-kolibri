@@ -1,21 +1,17 @@
 'use client'
 
-import Image from 'next/image'
 import styles from './page.module.css'
-import TestC from '@/components/TestC/TestC'
 import { useState } from 'react'
 import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
 import { Box } from '@/components/Box/Box'
-import { GridContainer } from '@/components/Grid/GridContainer/GridContainer'
-import { GridColumn } from '@/components/Grid/GridColumn/GridColumn'
-import { GridRow } from '@/components/Grid/GridRow/GridRow'
 import { Text } from '@/components/Text/Text'
 import { Button } from '@/components/Button/Button'
 import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
+import { Bullet, BulletList } from '@/components/BulletList/BulletList'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -40,20 +36,13 @@ export default function Home() {
       </Box>
       <main className={styles.main}>
         <div className={styles.grid}>
-          <div>
+          <div className={styles.grid_item_side}>
             <Box marginBottom={3}>
               <Button variant="text" size="small" preTextIcon="arrowBack">
                 Fjármál og skattar
               </Button>
             </Box>
-            <Box
-              display="flex"
-              background="purple100"
-              columnGap={2}
-              padding={4}
-              marginBottom={3}
-              borderRadius="large"
-            >
+            <Box marginBottom={3}>
               <CompanyLogo />
             </Box>
             <TableOfContents />
@@ -85,14 +74,94 @@ export default function Home() {
               </Box>
             </Box>
           </div>
-          <div>
-            <Breadcrumbs
-              items={[
-                { title: 'Ísland.is' },
-                { title: 'Fjármál og skattar' },
-                { title: 'Skattframtal einstaklinga', isTag: true },
-              ]}
-            />
+          <div className={styles.grid_item_main}>
+            <Box marginBottom={4}>
+              <Breadcrumbs
+                items={[
+                  { title: 'Ísland.is' },
+                  { title: 'Fjármál og skattar' },
+                  { title: 'Skattframtal einstaklinga', isTag: true },
+                ]}
+              />
+            </Box>
+            <Text variant="h1" as="h1" marginBottom={4}>
+              Skattframtal einstaklinga
+            </Text>
+            <Box
+              display="flex"
+              background="blue100"
+              borderRadius="large"
+              padding={4}
+              marginBottom={4}
+            >
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="spaceBetween"
+                width="full"
+              >
+                <Text variant="h3" color="blue600">
+                  Skattframtal einstaklinga
+                </Text>
+                <Button size="small" icon="open" iconType="outline">
+                  Skila framtali
+                </Button>
+              </Box>
+            </Box>
+            <Text marginBottom={6}>
+              Allir einstaklingar 16 ára og eldri þurfa að skila skattframtali
+              árlega. Fyrir flesta einstaklinga er nóg að yfirfara forskráðar
+              upplýsingar og staðfesta að þær séu réttar.
+            </Text>
+            <Text variant="h2" marginBottom={2}>
+              Skil á skattframtali og álagning
+            </Text>
+            <Text marginBottom={6}>
+              Opnað er fyrir skil á skattframtali í febrúar ár hvert. Frestur
+              til að skila framtali fyrir árið 2024 er til{' '}
+              <strong>14. mars 2025.</strong> Álagning og útborgun inneignar fer
+              fram <strong>1. júní 2025.</strong>
+            </Text>
+            <Text variant="h3" marginBottom={2}>
+              Getur fólk í hjónabandi eða sambúð skilað sameiginlegu framtali?
+            </Text>
+            <Text marginBottom={1}>
+              Hjón eru samsköttuð og er nóg er að annað hjóna skili framtali.
+            </Text>
+            <Text marginBottom={6}>
+              Pör skráð í sambúð geta valið að telja fram saman og þá eru þau
+              samsköttuð frá og með því framtali sem það er valið.
+            </Text>
+            <Text variant="h3" marginBottom={1}>
+              Hvað þarf ég að skrá mikið af upplýsingum?
+            </Text>
+            <Text marginBottom={1}>
+              Langmest af upplýsingum á skattframtali kemur forskráð frá
+              launagreiðendum, fjármálafyrirtækjum og öðrum aðilum sem skila
+              gögnum til skattsins.
+            </Text>
+            <Text marginBottom={1}>
+              Í flestum tilfellum þarftu eingöngu að yfirfara og samþykkja þessi
+              gögn. Þá skilarðu skattframtali án þess að fara af Ísland.is.
+            </Text>
+            <Text marginBottom={1}>
+              Ef þú þarft að leiðrétta gögn eða skila fylgigögnum þarftu að opna
+              almennt framtal hjá Skattinum.
+            </Text>
+            <Text marginBottom={2}>Til dæmis:</Text>
+            <Box marginBottom={10}>
+              <BulletList>
+                <Bullet>
+                  Ef þú keyptir eða seldir fasteign, ökutæki eða verðbréf á
+                  árinu
+                </Bullet>
+                <Bullet>Ef þú tókst nýtt íbúðalán eða endurfjármagnaðir</Bullet>
+                <Bullet>
+                  Ef þú þarft að skila rekstrarblöðum eða öðrum fylgiskjölum
+                </Bullet>
+              </BulletList>
+            </Box>
+            <CompanyLogo href="ad" />
           </div>
         </div>
       </main>

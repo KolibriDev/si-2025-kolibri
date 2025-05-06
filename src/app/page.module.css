@@ -4,7 +4,16 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 318px 1fr;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.grid_item_side {
+  grid-column: 1 / 4;
+}
+
+.grid_item_main {
+  grid-column: 5 / 12;
 }
 
 .main {
