@@ -19,7 +19,7 @@ const { handleRequest } = createYoga<NextContext>({
           args: { nationalId: string },
         ): Promise<string> {
           const res = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/?nationalId=${args.nationalId}`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/tax-payer/${args.nationalId}`,
             {
               method: 'GET',
               headers: {
@@ -29,6 +29,7 @@ const { handleRequest } = createYoga<NextContext>({
             },
           )
           const data = await res.json()
+          console.log('GraphQL data:', data)
 
           const nationalRegistryResponse = await fetch(
             `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?nationalId=${args.nationalId}`,
@@ -43,7 +44,7 @@ const { handleRequest } = createYoga<NextContext>({
 
           const data2 = await nationalRegistryResponse.json()
 
-          return `GraphQL got:  ${data2[0].name}: ${data[0].email}`
+          return `GraphQL got:  ${data2[0].name}: ${data.email}`
         },
       },
     },
