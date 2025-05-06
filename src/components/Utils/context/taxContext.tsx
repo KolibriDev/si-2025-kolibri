@@ -1,6 +1,10 @@
 'use client'
 
-import { TaxReturnQuery, useTaxReturnLazyQuery } from '@/generated/graphql'
+import {
+  TaxReturnQuery,
+  useCreateTaxReturnMutation,
+  useTaxReturnLazyQuery,
+} from '@/generated/graphql'
 import {
   createContext,
   useContext,
@@ -16,6 +20,7 @@ interface TaxReturnContextType {
     taxReturn: TaxReturnQuery['taxReturn'] | undefined | null,
   ) => void
   fetchTaxReturn: (nationalId: string) => void
+  createTaxReturn: (nationalId: string) => void
   isLoading: boolean
 }
 
@@ -35,6 +40,22 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
     },
   })
 
+  const [executeCreateTaxReturn] = useCreateTaxReturnMutation({
+    onCompleted: (data) => {
+      setTaxReturn(data?.createTaxReturn)
+    },
+    onError: (error) => {
+      console.error('Error creating tax return:', error)
+    },
+  })
+
+  const createTaxReturn = useCallback(
+    (nationalId: string) => {
+      executeCreateTaxReturn({ variables: { nationalId } })
+    },
+    [executeCreateTaxReturn],
+  )
+
   const fetchTaxReturn = useCallback(
     (nationalId: string) => {
       executeFetchTaxReturn({ variables: { nationalId } })
@@ -47,6 +68,7 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
       taxReturn,
       setTaxReturn,
       fetchTaxReturn,
+      createTaxReturn,
       isLoading: loading,
     }),
     [taxReturn, fetchTaxReturn, loading],

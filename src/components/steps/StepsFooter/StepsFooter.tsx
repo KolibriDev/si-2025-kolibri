@@ -21,14 +21,14 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
   const isFirstStep = currentStep === 'upplysingar'
-  const { taxReturn, fetchTaxReturn, isLoading } = useTaxContext()
+  const { taxReturn, createTaxReturn, isLoading } = useTaxContext()
   const { user } = useUserContext()
 
   const handleNext = () => {
     if (!nextStep) return
 
-    if (currentStep === 'gagnaoflun' && user?.nationalId) {
-      fetchTaxReturn(user.nationalId)
+    if (currentStep === 'gagnaoflun' && !taxReturn && user?.nationalId) {
+      createTaxReturn(user.nationalId)
     } else {
       router.push(`${nextStep}`)
     }
@@ -39,8 +39,6 @@ export const StepsFooter = () => {
       router.push(`${prevStep}`)
     }
   }
-
-  console.log('taxReturn', taxReturn)
 
   return (
     <Box display="flex" className={styles.footer}>

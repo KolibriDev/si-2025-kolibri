@@ -39,11 +39,15 @@ export default function StepPage() {
   const validSteps = getFlatRouteSteps()
 
   const { fetchTaxReturn } = useTaxContext()
-  const { user } = useUserContext()
+  const { user, fetchNationalRegister } = useUserContext()
 
   useEffect(() => {
     fetchTaxReturn(user?.nationalId ?? '0000000000')
   }, [fetchTaxReturn, user?.nationalId])
+
+  useEffect(() => {
+    fetchNationalRegister(user?.phoneNumber ?? '7884888')
+  }, [fetchNationalRegister, user?.phoneNumber])
 
   if (!step || !validSteps.includes(step)) {
     notFound()
