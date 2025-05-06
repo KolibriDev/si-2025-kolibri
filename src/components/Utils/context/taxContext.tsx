@@ -4,6 +4,7 @@ import {
   TaxReturnQuery,
   useCreateTaxReturnMutation,
   useTaxReturnLazyQuery,
+  useUpdateTaxReturnMutation,
 } from '@/generated/graphql'
 import {
   createContext,
@@ -13,6 +14,7 @@ import {
   useCallback,
   useMemo,
 } from 'react'
+import { mapTaxReturnToUpdateInput } from './mappers'
 
 interface TaxReturnContextType {
   taxReturn: TaxReturnQuery['taxReturn'] | undefined | null
@@ -21,6 +23,7 @@ interface TaxReturnContextType {
   ) => void
   fetchTaxReturn: (nationalId: string) => void
   createTaxReturn: (nationalId: string) => void
+  updateTaxReturn: (taxReturn: TaxReturnQuery['taxReturn']) => void
   isLoading: boolean
 }
 
@@ -49,6 +52,31 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
     },
   })
 
+  const [executePutTaxReturn] = useUpdateTaxReturnMutation({
+    onCompleted: (data) => {
+      setTaxReturn(data?.updateTaxReturn)
+    },
+    onError: (error) => {
+      console.error('Error updating tax return:', error)
+    },
+  })
+  const updateTaxReturn = useCallback(
+    (taxReturn: TaxReturnQuery['taxReturn']) => {
+      if (!taxReturn) {
+        console.error('No tax return provided for update')
+        return
+      }
+      const taxReturnUpdateInput = mapTaxReturnToUpdateInput(taxReturn)
+      executePutTaxReturn({
+        variables: {
+          nationalId: taxReturn.nationalId,
+          input: taxReturnUpdateInput,
+        },
+      })
+    },
+    [executePutTaxReturn],
+  )
+
   const createTaxReturn = useCallback(
     (nationalId: string) => {
       executeCreateTaxReturn({ variables: { nationalId } })
@@ -69,6 +97,7 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
       setTaxReturn,
       fetchTaxReturn,
       createTaxReturn,
+      updateTaxReturn,
       isLoading: loading,
     }),
     [taxReturn, fetchTaxReturn, loading],
