@@ -12,7 +12,7 @@ const { handleRequest } = createYoga<NextContext>({
         """
         Greets the user
         """
-        greetings(nationalId: String!): String
+        greetings(national_id: String!): String
       }
 
       type Mutation {
@@ -26,10 +26,10 @@ const { handleRequest } = createYoga<NextContext>({
       Query: {
         async greetings(
           _: unknown,
-          args: { nationalId: string },
+          args: { national_id: string },
         ): Promise<string> {
           const res = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/tax-payer/${args.nationalId}`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/tax-payer/${args.national_id}`,
             {
               method: 'GET',
               headers: {
@@ -42,7 +42,7 @@ const { handleRequest } = createYoga<NextContext>({
           console.log('GraphQL data:', data)
 
           const nationalRegistryResponse = await fetch(
-            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?nationalId=${args.nationalId}`,
+            `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?national_id=${args.national_id}`,
             {
               method: 'GET',
               headers: {
