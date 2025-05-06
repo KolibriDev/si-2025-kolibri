@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   try {
     let data: TaxReturn = { nationalId: parsed.data.nationalId }
 
-    if (data.nationalId === '1203894569') {
+    if (data.nationalId === '1203894569' || data.nationalId === '0108912488') {
       data = {
         ...data,
         name: 'Jökull Þórðarson',
@@ -31,8 +31,16 @@ export async function GET(req: NextRequest) {
         email: 'jokull.thordarson@email.is',
         phoneNumber: '7728391',
         salaries: [
-          { employerName: 'Norðurljós Software ehf', amount: 9360000 },
-          { employerName: 'Mús & Merki ehf.', amount: 900000 },
+          {
+            employerName: 'Norðurljós Software ehf',
+            amount: 9360000,
+            employerNationalId: '5305082559',
+          },
+          {
+            employerName: 'Mús & Merki ehf.',
+            amount: 900000,
+            employerNationalId: '4802101249',
+          },
         ],
         benefits: [
           { benefitType: BenefitType.DAILY_ALLOWANCE, amount: 120000 },
