@@ -8,7 +8,7 @@ export default defineConfig({
     environment: 'jsdom',
     exclude: [
       '**/node_modules/**',
-      'tests/**',
+      'tests/**', // playwrite test folder 
       '**/dist/**',
       '**/cypress/**',
       '**/.{idea,git,cache,output,temp}/**',
