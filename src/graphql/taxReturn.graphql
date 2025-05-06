@@ -16,6 +16,7 @@ query TaxReturn($nationalId: String!) {
       payerNationalId
       payerName
       amount
+      benefitType
     }
     deductions {
       deductionType
@@ -44,7 +45,7 @@ query TaxReturn($nationalId: String!) {
       interestPayments
       remainingBalance
     }
-      otherDebts {
+    otherDebts {
       lenderNationalId
       lenderName
       interestPayments

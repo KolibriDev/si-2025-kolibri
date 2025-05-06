@@ -15,7 +15,7 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   ),
   bankareikningur: dynamic(() => import('@/components/steps/Bankareikningur')),
   slysatrygging: dynamic(() => import('@/components/steps/Slysatrygging')),
-  laun: dynamic(() => import('@/components/steps/Laun')),
+  launagreidslur: dynamic(() => import('@/components/steps/Launagreidslur')),
   'styrkir-og-hlunnindi': dynamic(
     () => import('@/components/steps/StyrkirOgHlunnindi'),
   ),
@@ -24,8 +24,6 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   'adrar-tekjur': dynamic(() => import('@/components/steps/AdrarTekjur')),
 
   eignir: dynamic(() => import('@/components/steps/Eignir')),
-  okutaeki: dynamic(() => import('@/components/steps/Okutaeki')),
-  'adrar-eignir': dynamic(() => import('@/components/steps/AdrarEignir')),
   ibudalan: dynamic(() => import('@/components/steps/Ibudalan')),
   'adrar-skuldir': dynamic(() => import('@/components/steps/AdrarSkuldir')),
   fylgiskjol: dynamic(() => import('@/components/steps/Fylgiskjol')),

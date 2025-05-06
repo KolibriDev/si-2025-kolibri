@@ -13,6 +13,7 @@ mutation CreateTaxReturn($nationalId: String!) {
       amount
     }
     benefits {
+      benefitType
       payerNationalId
       payerName
       amount
