@@ -10,9 +10,7 @@ import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Logo } from '@/components/Logo/Logo'
 import { Input } from '@/components/Input/Input'
-import { Select } from '@/components/Select/Select'
 import { ActionCard } from '@/components/ActionCard/ActionCard'
-import { Tag } from '@/components/Tag/Tag'
 
 export default function Home() {
   return (
