@@ -57,7 +57,7 @@ export function mapTaxReturnToUpdateInput(
       (r) =>
         ({
           address: r.address ?? undefined,
-          appraisal: r.appraisal ?? undefined,
+          appraisal: r.appraisalAmount ?? undefined,
           number: r.number ?? undefined,
         }) as RealEstateInput,
     ),

@@ -55,7 +55,7 @@ const Fasteignir = () => {
           {
             address: 'Borgartun',
             number: '654654',
-            appraisal: 80_000_000,
+            appraisalAmount: 80_000_000,
           },
         ],
       })
@@ -74,7 +74,10 @@ const Fasteignir = () => {
   }
 
   const sum =
-    taxReturn?.realEstates?.reduce((acc, x) => acc + (x.appraisal ?? 0), 0) ?? 0
+    taxReturn?.realEstates?.reduce(
+      (acc, x) => acc + (x.appraisalAmount ?? 0),
+      0,
+    ) ?? 0
 
   return (
     <>
@@ -94,7 +97,7 @@ const Fasteignir = () => {
             <T.Row key={x.number}>
               <T.Data>{x.number}</T.Data>
               <T.Data>{x.address}</T.Data>
-              <T.Data align="right">{formatISK(x.appraisal ?? 0)}</T.Data>
+              <T.Data align="right">{formatISK(x.appraisalAmount ?? 0)}</T.Data>
             </T.Row>
           ))}
         </T.Body>

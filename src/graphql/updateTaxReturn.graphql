@@ -25,7 +25,7 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
     realEstates {
       number
       address
-      appraisal
+      appraisalAmount
     }
     vehicles {
       registrationNumber
