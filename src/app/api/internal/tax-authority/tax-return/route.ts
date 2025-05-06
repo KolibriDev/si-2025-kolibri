@@ -37,18 +37,17 @@ export async function POST(req: NextRequest) {
 }
 
 export async function GET(req: NextRequest) {
-  const secret = req.headers.get('x-internal-secret')
-  if (secret !== process.env.INTERNAL_API_SECRET) {
+  if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const url = new URL(req.url)
-  const national_id = url.searchParams.get('national_id')
+  const nationalId = url.searchParams.get('nationalId')
 
-  const parsed = nationalIdQuerySchema.safeParse({ national_id })
+  const parsed = nationalIdQuerySchema.safeParse({ nationalId })
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Missing or invalid national_id' },
+      { error: 'Missing or invalid nationalId' },
       { status: 400 },
     )
   }
@@ -57,7 +56,7 @@ export async function GET(req: NextRequest) {
     const data = await sql`
       SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
       FROM tax_return
-      WHERE national_id = ${parsed.data.national_id};
+      WHERE national_id = ${parsed.data.nationalId};
     `
 
     const validated = z.array(taxReturnSchema).safeParse(data)

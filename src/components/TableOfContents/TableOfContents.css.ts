@@ -11,6 +11,9 @@ export const container = style({
 })
 
 export const title = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: theme.spacing[2],
   padding: `${theme.spacing[3]}px ${theme.spacing[4]}px`,
   color: theme.color.purple600,
   borderBottom: `1px solid ${theme.color.blue200}`,

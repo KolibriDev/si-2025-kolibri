@@ -1,8 +1,7 @@
 'use client'
 
 import styles from './page.module.css'
-import { useState } from 'react'
-import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
+
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
 import { Box } from '@/components/Box/Box'
@@ -12,24 +11,10 @@ import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
 import { Bullet, BulletList } from '@/components/BulletList/BulletList'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const [data, setData] = useState('Ekkert komið')
-
-  useGetGreetingsQuery({
-    variables: {
-      national_id: '0000000000',
-    },
-    onCompleted: (data: GetGreetingsQuery) => {
-      setData(data.greetings || 'Fékk ekki svar')
-    },
-    onError: (error: Error) => {
-      console.error('Error fetching greetings:', error)
-      setData('Fékk villu')
-    },
-  })
-
-  console.log(data)
+  const router = useRouter()
 
   return (
     <div className={styles.page}>
@@ -46,7 +31,15 @@ export default function Home() {
           <Box marginBottom={3}>
             <CompanyLogo />
           </Box>
-          <TableOfContents />
+          <TableOfContents
+            title="Efnisyfirlit"
+            items={[
+              'Skattframtal einstaklinga',
+              'Ítarlegar leiðbeiningar',
+              'Álagning og forsendur hennar',
+              'Eftir skil á framtali',
+            ]}
+          />
           <Box
             display="flex"
             flexDirection="column"
@@ -104,7 +97,12 @@ export default function Home() {
               <Text variant="h3" color="blue600">
                 Skattframtal einstaklinga
               </Text>
-              <Button size="small" icon="open" iconType="outline">
+              <Button
+                size="small"
+                icon="open"
+                iconType="outline"
+                onClick={() => router.push('/login')}
+              >
                 Skila framtali
               </Button>
             </Box>

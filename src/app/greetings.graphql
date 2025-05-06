@@ -1,3 +1,37 @@
-query GetGreetings($national_id: String!) {
-  greetings(national_id: $national_id)
+query TaxReturn($nationalId: String!) {
+  taxReturn(nationalId: $nationalId) {
+    nationalId
+    name
+    email
+    address
+    phoneNumber
+    hasAccidentInsurance
+    bankAccount
+    salaries {
+      employerName
+      amount
+    }
+    benefits {
+      payerName
+      amount
+    }
+    deductions {
+      deductionType
+      amount
+    }
+    realEstates {
+      number
+      address
+      appraisal
+    }
+    vehicles {
+      registrationNumber
+      purchasePrice
+    }
+    mortgages {
+      lenderName
+      loanAmount
+      remainingBalance
+    }
+  }
 }

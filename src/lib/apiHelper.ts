@@ -9,7 +9,7 @@ export const idQuerySchema = z.object({
 })
 
 export const nationalIdQuerySchema = z.object({
-  national_id: z.string(),
+  nationalId: z.string(),
 })
 
 export const nationalRegistrySchema = z.object({

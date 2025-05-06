@@ -4,21 +4,21 @@ import {
   nationalIdQuerySchema,
   nationalRegistrySchema,
   sql,
+  validateSecret,
 } from '@/lib/apiHelper'
 
 export async function GET(req: NextRequest) {
-  const secret = req.headers.get('x-internal-secret')
-  if (secret !== process.env.INTERNAL_API_SECRET) {
+  if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const url = new URL(req.url)
-  const national_id = url.searchParams.get('national_id')
+  const nationalId = url.searchParams.get('nationalId')
 
-  const parsed = nationalIdQuerySchema.safeParse({ national_id })
+  const parsed = nationalIdQuerySchema.safeParse({ nationalId })
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Missing or invalid national_id' },
+      { error: 'Missing or invalid nationalId' },
       { status: 400 },
     )
   }
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
     const data = await sql`
       SELECT *
       FROM national_registry
-      WHERE national_id = ${parsed.data.national_id};
+      WHERE national_id = ${parsed.data.nationalId};
     `
 
     const validated = z.array(nationalRegistrySchema).safeParse(data)
