@@ -3,7 +3,10 @@ import {
   getTaxReturnByNationalId,
   updateTaxReturn as dbUpdate,
 } from '@/app/api/graphql/db/taxReturn'
-import { fetchTaxPayerByNationalId } from '@/app/api/graphql/services/taxAuthority'
+import {
+  fetchTaxPayerByNationalId,
+  fetchTaxPrefillByNationalId,
+} from '@/app/api/graphql/services/taxAuthority'
 import { fetchIndividualByNationalId } from '@/app/api/graphql/services/nationalRegistry'
 import { TaxReturn } from '@/lib/application'
 
@@ -16,10 +19,13 @@ export const Mutation = {
     _: unknown,
     args: { nationalId: string },
   ): Promise<TaxReturn> {
-    const existing = await getTaxReturnByNationalId(args.nationalId)
-    if (existing) return existing
+    // const existing = await getTaxReturnByNationalId(args.nationalId)
+    // if (existing) return existing
 
     const taxPayer = await fetchTaxPayerByNationalId(args.nationalId)
+    const taxRegistryPrefill = await fetchTaxPrefillByNationalId(
+      args.nationalId,
+    )
     const registry = await fetchIndividualByNationalId(args.nationalId)
 
     const taxReturn: TaxReturn = {
@@ -27,6 +33,8 @@ export const Mutation = {
       email: taxPayer.email,
       name: registry?.name,
     }
+
+    console.log('registry', registry)
 
     return await dbCreate(args.nationalId, taxReturn)
   },

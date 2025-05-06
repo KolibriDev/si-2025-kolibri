@@ -128,6 +128,7 @@ export const typeDefs = /* GraphQL */ `
   type Query {
     taxReturn(nationalId: String!): TaxReturn
     individual(phoneNumber: String!): NationalRegistry
+    taxReturnPrefill(nationalId: String!): TaxReturn
   }
 
   type Mutation {
