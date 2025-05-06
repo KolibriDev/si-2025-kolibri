@@ -7,7 +7,7 @@ import * as T from '@/components/Table/Table'
 import { Button } from '../Button/Button'
 import { formatISK } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
-import { InputFileUpload, UploadFile } from '../InputFileUpload/InputFileUpload'
+import { InputFileUpload } from '../InputFileUpload/InputFileUpload'
 
 const Fradrattur = () => {
   const { taxReturn } = useTaxContext()
