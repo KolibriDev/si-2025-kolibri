@@ -44,7 +44,7 @@ const Gagnaoflun = () => {
         backgroundColor="blue"
         label="Ég skil að ofangreindra gagna verður aflað í ferlinu"
         large
-      ></Checkbox>
+      />
     </div>
   )
 }
