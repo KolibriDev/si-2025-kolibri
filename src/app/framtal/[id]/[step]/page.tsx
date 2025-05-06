@@ -15,7 +15,7 @@ const stepComponentMap: Record<string, React.ComponentType<unknown>> = {
   ),
   bankareikningur: dynamic(() => import('@/components/steps/Bankareikningur')),
   slysatrygging: dynamic(() => import('@/components/steps/Slysatrygging')),
-  laun: dynamic(() => import('@/components/steps/Laun')),
+  launagreidslur: dynamic(() => import('@/components/steps/Launagreidslur')),
   'hlunnindi-og-styrkir': dynamic(
     () => import('@/components/steps/HlunnindiOgStyrkir'),
   ),

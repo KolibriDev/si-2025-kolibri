@@ -101,8 +101,8 @@ export const routeSections: RouteSection[] = [
     name: 'Tekjur',
     children: [
       {
-        name: 'Laun',
-        href: 'laun',
+        name: 'Launagreiðslur',
+        href: 'launagreidslur',
       },
       {
         name: 'Hlunnindi og styrkir',
