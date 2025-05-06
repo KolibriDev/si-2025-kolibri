@@ -12,7 +12,7 @@ export default function StepLayout({
   children: React.ReactNode
 }>) {
   const params = useParams()
-  const step = params.step as string | undefined
+  const step = params?.step as string | undefined
   if (!step) {
     return null
   }
