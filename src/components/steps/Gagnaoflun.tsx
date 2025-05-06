@@ -1,12 +1,13 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { Text } from '@/components/Text/Text'
 import { Icon } from '../IconRC/Icon'
 import { Box } from '../Box/Box'
 import { Checkbox } from '../Checkbox/Checkbox'
 
 const Gagnaoflun = () => {
+  const [isAcceptingTerms, setIsAcceptingTerms] = useState<boolean>(false)
   return (
     <div>
       <Box display="flex" alignItems="center" columnGap={2} marginBottom={5}>
@@ -43,6 +44,8 @@ const Gagnaoflun = () => {
       <Checkbox
         backgroundColor="blue"
         label="Ég skil að ofangreindra gagna verður aflað í ferlinu"
+        onChange={(evt) => setIsAcceptingTerms(evt.target.checked)}
+        checked={isAcceptingTerms}
         large
       />
     </div>
