@@ -86,7 +86,7 @@ const Fradrattur = () => {
         description="Tekið er við skjölum með endingu: .pdf, .docx, .rtf"
         buttonLabel="Velja skjöl til að hlaða upp"
         files={[]}
-        onRemove={function (file: UploadFile): void {
+        onRemove={() => {
           throw new Error('Function not implemented.')
         }}
       />
