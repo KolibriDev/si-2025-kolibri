@@ -51,12 +51,24 @@ export type Mortgage = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createTaxReturn?: Maybe<TaxReturn>;
   sayHi?: Maybe<Scalars['String']['output']>;
+  updateTaxReturn?: Maybe<TaxReturn>;
+};
+
+
+export type MutationCreateTaxReturnArgs = {
+  nationalId: Scalars['String']['input'];
 };
 
 
 export type MutationSayHiArgs = {
   name: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateTaxReturnArgs = {
+  nationalId: Scalars['String']['input'];
 };
 
 export type Query = {
