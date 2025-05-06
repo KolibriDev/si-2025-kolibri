@@ -8,15 +8,17 @@ import { Logo } from '@/components/Logo/Logo'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { useRouter } from 'next/navigation'
 import { useNationalRegisterLazyQuery } from '@/generated/graphql'
+import { useUserContext } from '../Utils/context/userContext'
 
 export const Login = () => {
   const router = useRouter()
   const [phoneNr, setPhoneNr] = useState<string>('')
+  const { setUser } = useUserContext()
 
   const [fetchNationalRegister, { loading }] = useNationalRegisterLazyQuery({
     variables: { phoneNumber: phoneNr },
     onCompleted: (data) => {
-      console.log('Fetched national register:', data)
+      setUser(data)
       router.push('/framtal/nytt/upplysingar')
     },
     onError: (error) => {

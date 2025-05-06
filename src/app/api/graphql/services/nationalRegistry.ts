@@ -1,3 +1,5 @@
+import { NationalRegistry } from '@/lib/application'
+
 export async function fetchIndividualByNationalId(nationalId: string) {
   const res = await fetch(
     `${process.env.INTERNAL_API_BASE_URL}/api/internal/national-registry/?nationalId=${nationalId}`,
@@ -23,5 +25,16 @@ export async function fetchIndividualByPhone(phoneNumber: string) {
     },
   )
   const data = await res.json()
-  return data[0] ?? null
+
+  if (!data || data.length === 0) {
+    return null
+  }
+
+  const nationalRegistry: NationalRegistry = {
+    name: data[0]?.name ?? '',
+    nationalId: data[0]?.national_Id ?? '',
+    phoneNumber: data[0]?.phone_number,
+  }
+
+  return nationalRegistry
 }
