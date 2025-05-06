@@ -14,9 +14,9 @@ function validateSecret(req: NextRequest): boolean {
 }
 
 export async function GET(req: NextRequest) {
-  const nationalId = req.nextUrl.pathname.split('/').pop()
+  const national_id = req.nextUrl.pathname.split('/').pop()
 
-  if (!nationalId) {
+  if (!national_id) {
     return NextResponse.json({ error: 'Missing ID' }, { status: 400 })
   }
 
@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
     const data = await sql`
       SELECT national_id, email
       FROM tax_authority_tax_payers
-      WHERE national_id = ${nationalId};
+      WHERE national_id = ${national_id};
     `
 
     const validated = z
@@ -62,9 +62,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const nationalId = req.nextUrl.pathname.split('/').pop()
+  const national_id = req.nextUrl.pathname.split('/').pop()
 
-  if (!nationalId) {
+  if (!national_id) {
     return NextResponse.json({ error: 'Missing ID' }, { status: 400 })
   }
 
@@ -83,7 +83,7 @@ export async function PUT(req: NextRequest) {
     const result = await sql`
       UPDATE tax_authority_tax_payers
       SET email = ${parsed.data.email}
-      WHERE national_id = ${nationalId};
+      WHERE national_id = ${national_id};
     `
 
     if (result.count === 0) {

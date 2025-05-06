@@ -5,11 +5,11 @@ import postgres from 'postgres'
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' })
 
 const querySchema = z.object({
-  nationalId: z.string(),
+  national_id: z.string(),
 })
 
 const nationalRegistrySchema = z.object({
-  national_id: z.string(),
+  national_id: z.string().length(10),
   name: z.string(),
 })
 
@@ -20,12 +20,12 @@ export async function GET(req: NextRequest) {
   }
 
   const url = new URL(req.url)
-  const nationalId = url.searchParams.get('nationalId')
+  const national_id = url.searchParams.get('national_id')
 
-  const parsed = querySchema.safeParse({ nationalId })
+  const parsed = querySchema.safeParse({ national_id })
   if (!parsed.success) {
     return NextResponse.json(
-      { error: 'Missing or invalid nationalId' },
+      { error: 'Missing or invalid national_id' },
       { status: 400 },
     )
   }
@@ -34,10 +34,9 @@ export async function GET(req: NextRequest) {
     const data = await sql`
       SELECT *
       FROM national_registry
-      WHERE national_id = ${parsed.data.nationalId};
+      WHERE national_id = ${parsed.data.national_id};
     `
 
-    // Optional: Validate response shape using Zod (to catch DB mismatches)
     const validated = z.array(nationalRegistrySchema).safeParse(data)
     if (!validated.success) {
       return NextResponse.json(
