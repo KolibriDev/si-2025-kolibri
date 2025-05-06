@@ -23,7 +23,7 @@ export default function StepLayout({
       <Box
         background="white"
         borderColor="white"
-        paddingTop={[3, 3, 10, 10]}
+        paddingY={[3, 3, 10, 10]}
         paddingX={[3, 3, 14, 14]}
         className={styles.container}
       >
