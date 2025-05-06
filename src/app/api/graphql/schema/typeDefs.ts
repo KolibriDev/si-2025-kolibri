@@ -31,7 +31,7 @@ export const typeDefs = /* GraphQL */ `
   input RealEstateInput {
     number: String
     address: String
-    appraisal: Float
+    appraisalAmount: Float
   }
 
   input VehicleInput {
@@ -89,7 +89,7 @@ export const typeDefs = /* GraphQL */ `
   type RealEstate {
     number: String
     address: String
-    appraisal: Float
+    appraisalAmount: Float
   }
 
   type Vehicle {
