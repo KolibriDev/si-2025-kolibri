@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import {
-  createAndUpdateTaxReturnSchema,
-  nationalIdQuerySchema,
-  sql,
-  validateSecret,
-} from '@/lib/apiHelper'
+import { nationalIdQuerySchema, sql, validateSecret } from '@/lib/apiHelper'
+import { taxReturnSchema } from '@/lib/application'
 
 export async function POST(req: NextRequest) {
   if (!validateSecret(req)) {
@@ -12,26 +8,81 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json()
-  const parsed = createAndUpdateTaxReturnSchema.safeParse(body)
+  const parsed = taxReturnSchema.safeParse(body)
 
   if (!parsed.success) {
+    console.error('Validation error:', parsed.error)
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
   }
 
-  try {
-    await sql`
-      INSERT INTO tax_return (national_id, name, address, email, phone_number, has_accident_insurance, bank_account)
-      VALUES (${parsed.data.national_id}, ${parsed.data.name}, ${parsed.data.address}, ${parsed.data.email}, ${parsed.data.phone_number},${parsed.data.has_accident_insurance}, ${parsed.data.bank_account})
-    `
+  await sql
+    .begin(async (sql) => {
+      const result = await sql`
+        INSERT INTO tax_authority_tax_return (national_id, name, address, email, phone_number, has_accident_insurance, bank_account)
+        VALUES (${parsed.data.nationalId}, ${parsed.data.name ?? null}, ${parsed.data.address ?? null}, ${parsed.data.email ?? null}, ${parsed.data.phoneNumber ?? null}, ${parsed.data.hasAccidentInsurance ?? null}, ${parsed.data.bankAccount ?? null})
+        RETURNING id
+      `
 
-    return NextResponse.json({ message: 'Created' }, { status: 201 })
-  } catch (error) {
-    console.error('Error creating record:', error)
-    return NextResponse.json(
-      { error: 'Internal Server Error' },
-      { status: 500 },
-    )
-  }
+      const taxReturnId = result[0].id
+
+      for (const salary of parsed.data.salaries ?? []) {
+        await sql`
+        INSERT INTO tax_authority_salaries (tax_return_id, employer_national_id, employer_name, amount)
+        VALUES (${taxReturnId}, ${salary.employerNationalId ?? null}, ${salary.employerName ?? null}, ${salary.amount ?? null})
+      `
+      }
+
+      for (const benefit of parsed.data.benefits ?? []) {
+        await sql`
+        INSERT INTO tax_authority_benefits (tax_return_id, payer_national_id, benefit_type, payer_name, amount)
+        VALUES (${taxReturnId}, ${benefit.payerNationalId ?? null}, ${benefit.benefitType ?? null}, ${benefit.payerName ?? null}, ${benefit.amount ?? null})
+      `
+      }
+
+      for (const deduction of parsed.data.deductions ?? []) {
+        await sql`
+        INSERT INTO tax_authority_deductions (tax_return_id, deduction_type, amount)
+        VALUES (${taxReturnId}, ${deduction.deductionType ?? null}, ${deduction.amount ?? null})
+      `
+      }
+
+      for (const realEstate of parsed.data.realEstates ?? []) {
+        await sql`
+        INSERT INTO tax_authority_real_estates (tax_return_id, number, address, appraisal_amount)
+        VALUES (${taxReturnId}, ${realEstate.number ?? null}, ${realEstate.address ?? null}, ${realEstate.appraisalAmount ?? null})
+      `
+      }
+
+      for (const vehicle of parsed.data.vehicles ?? []) {
+        await sql`
+        INSERT INTO tax_authority_vehicles (tax_return_id, registration_number, year_of_purchase, appraisal_amount)
+        VALUES (${taxReturnId}, ${vehicle.registrationNumber ?? null}, ${vehicle.yearOfPurchase ?? null}, ${vehicle.appraisalAmount ?? null})
+      `
+      }
+
+      for (const mortgage of parsed.data.mortgages ?? []) {
+        await sql`
+        INSERT INTO tax_authority_mortgages (tax_return_id, real_estate_number, lender_national_id, lender_name, loan_number, loan_start_date, loan_amount, loan_term_years, total_annual_payments, principal_payments, interest_payments, remaining_balance)
+        VALUES (${taxReturnId}, ${mortgage.realEstateNumber ?? null}, ${mortgage.lenderNationalId ?? null}, ${mortgage.lenderName ?? null}, ${mortgage.loanNumber ?? null}, ${mortgage.loanStartDate ?? null}, ${mortgage.loanAmount ?? null}, ${mortgage.loanTermYears ?? null}, ${mortgage.totalAnnualPayments ?? null}, ${mortgage.principalPayments ?? null}, ${mortgage.interestPayments ?? null}, ${mortgage.remainingBalance ?? null})
+      `
+      }
+
+      for (const otherDebt of parsed.data.otherDebts ?? []) {
+        await sql`
+        INSERT INTO tax_authority_other_debts (tax_return_id, lender_national_id, lender_name, interest_payments, remaining_balance)
+        VALUES (${taxReturnId}, ${otherDebt.lenderNationalId ?? null}, ${otherDebt.lenderName ?? null}, ${otherDebt.interestPayments ?? null}, ${otherDebt.remainingBalance ?? null})
+      `
+      }
+    })
+    .catch((error) => {
+      console.error('Error creating record:', error)
+      return NextResponse.json(
+        { error: 'Internal Server Error' },
+        { status: 500 },
+      )
+    })
+
+  return NextResponse.json({ message: 'Created' }, { status: 201 })
 }
 
 export async function GET(req: NextRequest) {
@@ -43,7 +94,7 @@ export async function GET(req: NextRequest) {
   const nationalId = url.searchParams.get('nationalId')
 
   const parsed = nationalIdQuerySchema.safeParse({ nationalId })
-  if (!parsed.success) {
+  if (!parsed.success || !parsed.data.nationalId) {
     return NextResponse.json(
       { error: 'Missing or invalid nationalId' },
       { status: 400 },
@@ -53,8 +104,8 @@ export async function GET(req: NextRequest) {
   try {
     const taxReturns = await sql`
       SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
-      FROM tax_return
-      WHERE national_id = ${parsed.data.nationalId ?? ''};
+      FROM tax_authority_tax_return
+      WHERE national_id = ${parsed.data.nationalId}
     `
 
     if (taxReturns.length === 0) {
