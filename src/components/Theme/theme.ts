@@ -80,6 +80,7 @@ export const theme = {
     regular: 400,
     medium: 500,
     semiBold: 600,
+    bold: 700,
     headingsFontWeight: 600,
     baseFontSize: 18,
     baseLineHeight: 1.5,
