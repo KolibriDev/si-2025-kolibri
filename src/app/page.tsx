@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { GetGreetingsQuery, useGetGreetingsQuery } from '@/generated/graphql'
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
+import TestSayHi from '@/components/TestSayHi/TestSayHi'
 
 export default function Home() {
   const [data, setData] = useState('Ekkert komið')
@@ -43,6 +44,8 @@ export default function Home() {
           <li>Save and see your changes instantly.</li>
           <li>{data}</li>
         </ol>
+
+        <TestSayHi />
 
         <TestC />
 
