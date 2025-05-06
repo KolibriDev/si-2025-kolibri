@@ -23,7 +23,7 @@ export const taxpayerSchema = z.object({
 })
 
 export const taxReturnSchema = z.object({
-  id: z.number(),
+  id: z.string(),
   national_id: z.string().length(10),
   name: z.string(),
   address: z.string(),
@@ -31,6 +31,14 @@ export const taxReturnSchema = z.object({
   phone_number: z.string(),
   has_accident_insurance: z.boolean(),
   bank_account: z.string().length(12),
+})
+
+export const salarySchema = z.object({
+  id: z.string(),
+  tax_return_id: z.string(),
+  employer_national_id: z.string().length(10),
+  employer_name: z.string(),
+  amount: z.number(),
 })
 
 export function validateSecret(req: NextRequest): boolean {
