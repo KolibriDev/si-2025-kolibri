@@ -1,6 +1,6 @@
 export async function fetchTaxPayerByNationalId(nationalId: string) {
   const res = await fetch(
-    `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/?nationalId=${nationalId}`,
+    `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/tax-payer/${nationalId}`,
     {
       headers: {
         'Content-Type': 'application/json',

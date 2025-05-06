@@ -5,11 +5,6 @@ export async function createTaxReturn(
   nationalId: string,
   taxReturn: TaxReturn,
 ): Promise<TaxReturn> {
-  const existing = await getTaxReturnByNationalId(nationalId)
-  if (existing) {
-    return existing
-  }
-
   const serialized = JSON.parse(JSON.stringify(taxReturn))
 
   await sql`

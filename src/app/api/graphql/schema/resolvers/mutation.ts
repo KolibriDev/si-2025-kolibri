@@ -23,20 +23,37 @@ export const Mutation = {
     if (existing) return existing
 
     const taxPayer = await fetchTaxPayerByNationalId(args.nationalId)
+
     const taxRegistryPrefill = await fetchTaxPrefillByNationalId(
       args.nationalId,
     )
+
     const registry = await fetchIndividualByNationalId(args.nationalId)
+    const prefill = taxRegistryPrefill as TaxReturn
+
+    console.log('Tax registry prefill:', taxRegistryPrefill)
+    console.log('Tax payer:', taxPayer)
+    console.log('Registry:', registry)
 
     const taxReturn: TaxReturn = {
-      nationalId: args.nationalId,
-      email: taxPayer.email,
+      email: prefill.email ?? taxPayer?.email,
       name: registry?.name,
+      address: prefill?.address ?? registry?.address,
+      phoneNumber: prefill?.phoneNumber ?? registry?.phone_number,
+      nationalId: prefill?.nationalId,
+      bankAccount: prefill?.bankAccount,
+      salaries: prefill?.salaries,
+      benefits: prefill?.benefits,
+      deductions: prefill?.deductions,
+      realEstates: prefill?.realEstates,
+      vehicles: prefill?.vehicles,
+      mortgages: prefill?.mortgages,
+      otherDebts: prefill?.otherDebts,
     }
 
-    console.log('registry', registry)
+    await dbCreate(args.nationalId, taxReturn)
 
-    return await dbCreate(args.nationalId, taxReturn)
+    return taxReturn
   },
 
   async updateTaxReturn(
