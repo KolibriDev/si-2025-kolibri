@@ -2,10 +2,10 @@
 
 import * as T from '@/components/Table/Table'
 import { Box } from '@/components/Box/Box'
-import * as G from '@/components/Grid'
 import { Button } from '@/components/Button/Button'
 import { Text } from '@/components/Text/Text'
 import AnimateHeight from 'react-animate-height'
+import { SubTable } from '@/components/SubTable/SubTable'
 
 import { formatISK } from '@/lib/utils'
 import { useState } from 'react'
@@ -201,7 +201,22 @@ export default function TablePage() {
       <h2>Table add</h2>
       <TableAdd />
       <h2>Table expand</h2>
-      <TableExpand subtable={<Text>{'Todo'}</Text>} />
+      <TableExpand
+        subtable={
+          <Box padding={2} background={'blue100'}>
+            <SubTable
+              data={[
+                { label: 'Sibbi', value: 'Bestur', useWhiteBackground: true },
+                { label: 'Sibbi2', value: 'Bestur', useWhiteBackground: true },
+                { label: 'Sibbi3', value: 'Bestur' },
+                { label: 'Sibbi4', value: 'Bestur' },
+                { label: 'Sibbi5', value: 'Bestur', useWhiteBackground: true },
+                { label: 'Sibbi6', value: 'Bestur', useWhiteBackground: true },
+              ]}
+            />
+          </Box>
+        }
+      />
     </Box>
   )
 }
