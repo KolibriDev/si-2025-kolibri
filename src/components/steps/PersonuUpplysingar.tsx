@@ -7,11 +7,23 @@ import { Box } from '@/components/Box/Box'
 import { Divider } from '../Divider/Divider'
 
 import * as styles from './PersonuUpplysingar.css'
+import { useTaxContext } from '../Utils/context/taxContext'
 
 const PersonuUpplysingar = () => {
-  const [email, setEmail] = useState('jokull.thordarson@email.is')
-  const [phoneNumber, setPhoneNumber] = useState('7778391')
-  const address = 'Bláfjallagata 12, 105 Reykjavík'
+  const { taxReturn, setTaxReturn } = useTaxContext()
+  const [email, setEmail] = useState(taxReturn?.email ?? '')
+
+  const [phoneNumber, setPhoneNumber] = useState(taxReturn?.phoneNumber ?? '')
+
+  if (!taxReturn) {
+    return <Text>Gögn vantar</Text>
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _onSubmit = () => {
+    setTaxReturn({ ...taxReturn, email, phoneNumber })
+  }
+
   return (
     <div>
       <Box marginBottom={6}>
@@ -30,7 +42,7 @@ const PersonuUpplysingar = () => {
       <div className={styles.tranparentCard}>
         <div>
           <Text variant="h4">{'Lögheimili'}</Text>
-          <Text>{address}</Text>
+          <Text>{taxReturn.address ?? 'Lögheimili fannst ekki'}</Text>
         </div>
 
         <Box paddingY={4}>
