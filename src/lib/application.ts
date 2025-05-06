@@ -76,3 +76,9 @@ export interface TaxReturn {
   mortgages?: Mortgage[]
   otherDebts?: OtherDebt[]
 }
+
+export interface NationalRegistry {
+  nationalId: string
+  name: string
+  phoneNumber?: string
+}

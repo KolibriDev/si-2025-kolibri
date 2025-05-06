@@ -71,9 +71,22 @@ export type MutationUpdateTaxReturnArgs = {
   nationalId: Scalars['String']['input'];
 };
 
+export type NationalRegistry = {
+  __typename?: 'NationalRegistry';
+  name?: Maybe<Scalars['String']['output']>;
+  nationalId: Scalars['String']['output'];
+  phoneNumber?: Maybe<Scalars['String']['output']>;
+};
+
 export type Query = {
   __typename?: 'Query';
+  individual?: Maybe<NationalRegistry>;
   taxReturn?: Maybe<TaxReturn>;
+};
+
+
+export type QueryIndividualArgs = {
+  phoneNumber: Scalars['String']['input'];
 };
 
 
@@ -132,6 +145,13 @@ export type CreateTaxReturnMutationVariables = Exact<{
 
 
 export type CreateTaxReturnMutation = { __typename?: 'Mutation', createTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null } | null };
+
+export type NationalRegisterQueryVariables = Exact<{
+  phoneNumber: Scalars['String']['input'];
+}>;
+
+
+export type NationalRegisterQuery = { __typename?: 'Query', individual?: { __typename?: 'NationalRegistry', nationalId: string, name?: string | null, phoneNumber?: string | null } | null };
 
 export type TaxReturnQueryVariables = Exact<{
   nationalId: Scalars['String']['input'];
@@ -207,6 +227,48 @@ export function useCreateTaxReturnMutation(baseOptions?: Apollo.MutationHookOpti
 export type CreateTaxReturnMutationHookResult = ReturnType<typeof useCreateTaxReturnMutation>;
 export type CreateTaxReturnMutationResult = Apollo.MutationResult<CreateTaxReturnMutation>;
 export type CreateTaxReturnMutationOptions = Apollo.BaseMutationOptions<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>;
+export const NationalRegisterDocument = gql`
+    query NationalRegister($phoneNumber: String!) {
+  individual(phoneNumber: $phoneNumber) {
+    nationalId
+    name
+    phoneNumber
+  }
+}
+    `;
+
+/**
+ * __useNationalRegisterQuery__
+ *
+ * To run a query within a React component, call `useNationalRegisterQuery` and pass it any options that fit your needs.
+ * When your component renders, `useNationalRegisterQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useNationalRegisterQuery({
+ *   variables: {
+ *      phoneNumber: // value for 'phoneNumber'
+ *   },
+ * });
+ */
+export function useNationalRegisterQuery(baseOptions: Apollo.QueryHookOptions<NationalRegisterQuery, NationalRegisterQueryVariables> & ({ variables: NationalRegisterQueryVariables; skip?: boolean; } | { skip: boolean; }) ) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<NationalRegisterQuery, NationalRegisterQueryVariables>(NationalRegisterDocument, options);
+      }
+export function useNationalRegisterLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<NationalRegisterQuery, NationalRegisterQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<NationalRegisterQuery, NationalRegisterQueryVariables>(NationalRegisterDocument, options);
+        }
+export function useNationalRegisterSuspenseQuery(baseOptions?: Apollo.SkipToken | Apollo.SuspenseQueryHookOptions<NationalRegisterQuery, NationalRegisterQueryVariables>) {
+          const options = baseOptions === Apollo.skipToken ? baseOptions : {...defaultOptions, ...baseOptions}
+          return Apollo.useSuspenseQuery<NationalRegisterQuery, NationalRegisterQueryVariables>(NationalRegisterDocument, options);
+        }
+export type NationalRegisterQueryHookResult = ReturnType<typeof useNationalRegisterQuery>;
+export type NationalRegisterLazyQueryHookResult = ReturnType<typeof useNationalRegisterLazyQuery>;
+export type NationalRegisterSuspenseQueryHookResult = ReturnType<typeof useNationalRegisterSuspenseQuery>;
+export type NationalRegisterQueryResult = Apollo.QueryResult<NationalRegisterQuery, NationalRegisterQueryVariables>;
 export const TaxReturnDocument = gql`
     query TaxReturn($nationalId: String!) {
   taxReturn(nationalId: $nationalId) {
