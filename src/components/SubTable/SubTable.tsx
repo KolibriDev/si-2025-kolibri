@@ -4,10 +4,12 @@ import { Text } from '@/components/Text/Text'
 import * as styles from './SubTable.css'
 
 const Label = ({ children }: { children: React.ReactNode }) => (
-  <Text variant="h5">{children}</Text>
+  <Text variant="small" fontWeight="bold">
+    {children}
+  </Text>
 )
 const Value = ({ children }: { children: React.ReactNode }) => (
-  <Text>{children}</Text>
+  <Text variant="small">{children}</Text>
 )
 
 type labelValue = {
