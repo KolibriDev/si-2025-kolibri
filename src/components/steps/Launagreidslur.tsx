@@ -6,7 +6,6 @@ import { Box } from '@/components/Box/Box'
 import * as T from '@/components/Table/Table'
 import { Button } from '@/components/Button/Button'
 import { formatISK } from '@/lib/utils'
-import { Icon } from '../IconRC/Icon'
 
 type vehicle = {
   licenceNumber: string
