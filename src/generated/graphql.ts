@@ -107,13 +107,6 @@ export type Vehicle = {
   yearOfPurchase?: Maybe<Scalars['Int']['output']>;
 };
 
-export type TaxReturnQueryVariables = Exact<{
-  nationalId: Scalars['String']['input'];
-}>;
-
-
-export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null, address?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisal?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', lenderName?: string | null, loanAmount?: number | null, remainingBalance?: number | null }> | null } | null };
-
 export type SayHiMutationVariables = Exact<{
   name: Scalars['String']['input'];
 }>;
@@ -121,7 +114,87 @@ export type SayHiMutationVariables = Exact<{
 
 export type SayHiMutation = { __typename?: 'Mutation', sayHi?: string | null };
 
+export type CreateTaxReturnMutationVariables = Exact<{
+  nationalId: Scalars['String']['input'];
+}>;
 
+
+export type CreateTaxReturnMutation = { __typename?: 'Mutation', createTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null } | null };
+
+export type TaxReturnQueryVariables = Exact<{
+  nationalId: Scalars['String']['input'];
+}>;
+
+
+export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, email?: string | null, address?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisal?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', lenderName?: string | null, loanAmount?: number | null, remainingBalance?: number | null }> | null } | null };
+
+
+export const SayHiDocument = gql`
+    mutation SayHi($name: String!) {
+  sayHi(name: $name)
+}
+    `;
+export type SayHiMutationFn = Apollo.MutationFunction<SayHiMutation, SayHiMutationVariables>;
+
+/**
+ * __useSayHiMutation__
+ *
+ * To run a mutation, you first call `useSayHiMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSayHiMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sayHiMutation, { data, loading, error }] = useSayHiMutation({
+ *   variables: {
+ *      name: // value for 'name'
+ *   },
+ * });
+ */
+export function useSayHiMutation(baseOptions?: Apollo.MutationHookOptions<SayHiMutation, SayHiMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SayHiMutation, SayHiMutationVariables>(SayHiDocument, options);
+      }
+export type SayHiMutationHookResult = ReturnType<typeof useSayHiMutation>;
+export type SayHiMutationResult = Apollo.MutationResult<SayHiMutation>;
+export type SayHiMutationOptions = Apollo.BaseMutationOptions<SayHiMutation, SayHiMutationVariables>;
+export const CreateTaxReturnDocument = gql`
+    mutation CreateTaxReturn($nationalId: String!) {
+  createTaxReturn(nationalId: $nationalId) {
+    nationalId
+    name
+    email
+  }
+}
+    `;
+export type CreateTaxReturnMutationFn = Apollo.MutationFunction<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>;
+
+/**
+ * __useCreateTaxReturnMutation__
+ *
+ * To run a mutation, you first call `useCreateTaxReturnMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateTaxReturnMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createTaxReturnMutation, { data, loading, error }] = useCreateTaxReturnMutation({
+ *   variables: {
+ *      nationalId: // value for 'nationalId'
+ *   },
+ * });
+ */
+export function useCreateTaxReturnMutation(baseOptions?: Apollo.MutationHookOptions<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>(CreateTaxReturnDocument, options);
+      }
+export type CreateTaxReturnMutationHookResult = ReturnType<typeof useCreateTaxReturnMutation>;
+export type CreateTaxReturnMutationResult = Apollo.MutationResult<CreateTaxReturnMutation>;
+export type CreateTaxReturnMutationOptions = Apollo.BaseMutationOptions<CreateTaxReturnMutation, CreateTaxReturnMutationVariables>;
 export const TaxReturnDocument = gql`
     query TaxReturn($nationalId: String!) {
   taxReturn(nationalId: $nationalId) {
@@ -194,34 +267,3 @@ export type TaxReturnQueryHookResult = ReturnType<typeof useTaxReturnQuery>;
 export type TaxReturnLazyQueryHookResult = ReturnType<typeof useTaxReturnLazyQuery>;
 export type TaxReturnSuspenseQueryHookResult = ReturnType<typeof useTaxReturnSuspenseQuery>;
 export type TaxReturnQueryResult = Apollo.QueryResult<TaxReturnQuery, TaxReturnQueryVariables>;
-export const SayHiDocument = gql`
-    mutation SayHi($name: String!) {
-  sayHi(name: $name)
-}
-    `;
-export type SayHiMutationFn = Apollo.MutationFunction<SayHiMutation, SayHiMutationVariables>;
-
-/**
- * __useSayHiMutation__
- *
- * To run a mutation, you first call `useSayHiMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSayHiMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [sayHiMutation, { data, loading, error }] = useSayHiMutation({
- *   variables: {
- *      name: // value for 'name'
- *   },
- * });
- */
-export function useSayHiMutation(baseOptions?: Apollo.MutationHookOptions<SayHiMutation, SayHiMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<SayHiMutation, SayHiMutationVariables>(SayHiDocument, options);
-      }
-export type SayHiMutationHookResult = ReturnType<typeof useSayHiMutation>;
-export type SayHiMutationResult = Apollo.MutationResult<SayHiMutation>;
-export type SayHiMutationOptions = Apollo.BaseMutationOptions<SayHiMutation, SayHiMutationVariables>;
