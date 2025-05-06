@@ -6,8 +6,10 @@ import { Button } from '@/components/Button/Button'
 import { Text } from '@/components/Text/Text'
 import { Logo } from '@/components/Logo/Logo'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
+import { useRouter } from 'next/navigation'
 
 export const Login = () => {
+  const router = useRouter()
   const [phoneNr, setPhoneNr] = useState<string>('')
 
   return (
@@ -42,7 +44,7 @@ export const Login = () => {
             <div className={styles.buttonContainerInner}>
               <Button
                 disabled={phoneNr.length !== 7}
-                onClick={() => console.log('TODO: handle login')}
+                onClick={() => router.push('/framtal/feikID/upplysingar')}
                 fluid
               >
                 Auðkenna

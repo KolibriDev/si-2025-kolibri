@@ -110,7 +110,7 @@ export default function Home() {
                 size="small"
                 icon="open"
                 iconType="outline"
-                onClick={() => router.push('/framtal/feikID/upplysingar')}
+                onClick={() => router.push('/login')}
               >
                 Skila framtali
               </Button>
