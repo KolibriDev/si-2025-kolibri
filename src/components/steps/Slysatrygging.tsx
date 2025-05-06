@@ -1,13 +1,26 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { RadioButton } from '../RadioButton/RadioButton'
 
 import * as styles from './Slysatrygging.css'
+import { useTaxContext } from '../Utils/context/taxContext'
 
 const Slysatrygging = () => {
-  const [state, setState] = useState<'yes' | 'no' | undefined>(undefined)
+  const { taxReturn, setTaxReturn } = useTaxContext()
+
+  if (!taxReturn) {
+    return null
+  }
+
+  const handleOnChange = (value: boolean) => () => {
+    setTaxReturn({
+      ...taxReturn,
+      hasAccidentInsurance: value,
+    })
+  }
+
   return (
     <div>
       <Text marginBottom={2}>
@@ -30,16 +43,16 @@ const Slysatrygging = () => {
             backgroundColor="blue"
             label="Já, ég vil fá slysatryggingu"
             large
-            onChange={() => setState('yes')}
-            checked={state === 'yes'}
+            onChange={handleOnChange(true)}
+            checked={taxReturn.hasAccidentInsurance === true}
           />
           <RadioButton
             name="no"
             backgroundColor="blue"
             label="Nei, ég afþakka slysatryggingu"
             large
-            onChange={() => setState('no')}
-            checked={state === 'no'}
+            onChange={handleOnChange(false)}
+            checked={taxReturn.hasAccidentInsurance === false}
           />
         </div>
       </div>
