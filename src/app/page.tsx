@@ -51,7 +51,7 @@ export default function Home() {
                     </Button>
                   </Box>
                   <Box marginBottom={3}>
-                    <CompanyLogo center />
+                    <CompanyLogo />
                   </Box>
                   <TableOfContents
                     title="Efnisyfirlit"
