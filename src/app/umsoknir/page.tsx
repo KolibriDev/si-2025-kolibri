@@ -13,10 +13,16 @@ import { Input } from '@/components/Input/Input'
 import { ActionCard } from '@/components/ActionCard/ActionCard'
 import { useUserContext } from '@/components/Utils/context/userContext'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Home() {
-  const { user } = useUserContext()
+  const { user, fetchNationalRegister } = useUserContext()
   const router = useRouter()
+
+  useEffect(() => {
+    fetchNationalRegister(user?.phoneNumber ?? '7884888')
+  }, [fetchNationalRegister, user?.phoneNumber])
+
   return (
     <div className={styles.page}>
       <Box paddingX={6}>
