@@ -140,14 +140,38 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "CAR_ALLOWANCE",
+            "description": "Car allowance payments",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "DAILY_ALLOWANCE",
             "description": "Daily allowance payments",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "OTHER",
+            "name": "DRIVING_ALLOWANCE",
+            "description": "Driving allowance payments",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HOUSING_ALLOWANCE",
+            "description": "Housing allowance payments",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OTHER_ALLOWANCE",
             "description": "Other miscellaneous benefits",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "RESEARCH_ALLOWANCE",
+            "description": "Research or scientific allowance",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -160,6 +184,12 @@
           {
             "name": "STUDY_ALLOWANCE",
             "description": "Educational and study-related allowance",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TRANSPORT_ALLOWANCE",
+            "description": "Transport allowance payments",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -259,8 +289,20 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "FITNESS_GRANT_OFFSET",
-            "description": "Deduction against fitness/wellness grants\n(Frádráttur á móti líkamsræktarstyrk)",
+            "name": "CHARITY_DEDUCTION",
+            "description": "Deduction for charity contributions\n(Frádráttur vegna framlaga til almannaheillafélaga)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DAILY_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for daily allowances\n(Frádráttur á móti dagpeningum)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DRIVING_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for driving allowances\n(Frádráttur á móti ökutækjastyrk)",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -271,20 +313,26 @@
             "deprecationReason": null
           },
           {
-            "name": "PENSION_OFFSET",
-            "description": "Deduction against pension fund contributions\n(Frádráttur á móti lífeyrisiðgjaldi)",
+            "name": "PENSION_FUND_DEDUCTION",
+            "description": "Deduction for pension fund contributions\n(Frádráttur á móti iðgjaldi í lífeyrissjóð)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "PER_DIEM_OFFSET",
-            "description": "Deduction against per diem allowances\n(Frádráttur á móti dagpeningum)",
+            "name": "PRIVATE_PENSION_FUND_DEDUCTION",
+            "description": "Deduction for private pension fund contributions\n(Frádráttur á móti iðgjaldi í séreignarsjóð)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
-            "name": "PRIVATE_PENSION_OFFSET",
-            "description": "Deduction against private pension fund contributions\n(Frádráttur á móti séreignarsjóðsiðgjaldi)",
+            "name": "SPORT_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for sport and wellness allowances\n(Frádráttur á móti íþróttastyrk)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TRANSPORT_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for transport allowances\n(Frádráttur á móti samgöngustyrk)",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -826,6 +874,96 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "OtherIncomeType",
+        "description": "Types of other income that may be tax-exempt",
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "FOREIGN_INCOME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OTHER_TAX_EXEMPT_INCOME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_LOTTERY_PRIZES",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_SOCIAL_SECURITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "PensionType",
+        "description": "Types of pension and social security benefits",
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "MUNICIPAL_FINANCIAL_AID",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRIVATE_PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SOCIAL_SECURITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "UNEMPLOYMENT_BENEFITS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {

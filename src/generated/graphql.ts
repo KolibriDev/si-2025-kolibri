@@ -44,14 +44,24 @@ export type BenefitInput = {
 
 /** Types of benefits received from employers or other entities */
 export enum BenefitType {
+  /** Car allowance payments */
+  CAR_ALLOWANCE = 'CAR_ALLOWANCE',
   /** Daily allowance payments */
-  DailyAllowance = 'DAILY_ALLOWANCE',
+  DAILY_ALLOWANCE = 'DAILY_ALLOWANCE',
+  /** Driving allowance payments */
+  DRIVING_ALLOWANCE = 'DRIVING_ALLOWANCE',
+  /** Housing allowance payments */
+  HOUSING_ALLOWANCE = 'HOUSING_ALLOWANCE',
   /** Other miscellaneous benefits */
-  Other = 'OTHER',
+  OTHER_ALLOWANCE = 'OTHER_ALLOWANCE',
+  /** Research or scientific allowance */
+  RESEARCH_ALLOWANCE = 'RESEARCH_ALLOWANCE',
   /** Sport and wellness allowance */
-  SportAllowance = 'SPORT_ALLOWANCE',
+  SPORT_ALLOWANCE = 'SPORT_ALLOWANCE',
   /** Educational and study-related allowance */
-  StudyAllowance = 'STUDY_ALLOWANCE'
+  STUDY_ALLOWANCE = 'STUDY_ALLOWANCE',
+  /** Transport allowance payments */
+  TRANSPORT_ALLOWANCE = 'TRANSPORT_ALLOWANCE'
 }
 
 /** Type representing tax deductions */
@@ -74,30 +84,45 @@ export type DeductionInput = {
 /** Types of deductions that can be claimed on a tax return */
 export enum DeductionType {
   /**
-   * Deduction against fitness/wellness grants
-   * (Frádráttur á móti líkamsræktarstyrk)
+   * Deduction for charity contributions
+   * (Frádráttur vegna framlaga til almannaheillafélaga)
    */
-  FitnessGrantOffset = 'FITNESS_GRANT_OFFSET',
+  CHARITY_DEDUCTION = 'CHARITY_DEDUCTION',
+  /**
+   * Deduction for daily allowances
+   * (Frádráttur á móti dagpeningum)
+   */
+  DAILY_ALLOWANCE_DEDUCTION = 'DAILY_ALLOWANCE_DEDUCTION',
+  /**
+   * Deduction for driving allowances
+   * (Frádráttur á móti ökutækjastyrk)
+   */
+  DRIVING_ALLOWANCE_DEDUCTION = 'DRIVING_ALLOWANCE_DEDUCTION',
   /**
    * Other miscellaneous deductions
    * (Aðrir ýmsir frádrættir)
    */
-  Other = 'OTHER',
+  OTHER = 'OTHER',
   /**
-   * Deduction against pension fund contributions
-   * (Frádráttur á móti lífeyrisiðgjaldi)
+   * Deduction for pension fund contributions
+   * (Frádráttur á móti iðgjaldi í lífeyrissjóð)
    */
-  PensionOffset = 'PENSION_OFFSET',
+  PENSION_FUND_DEDUCTION = 'PENSION_FUND_DEDUCTION',
   /**
-   * Deduction against per diem allowances
-   * (Frádráttur á móti dagpeningum)
+   * Deduction for private pension fund contributions
+   * (Frádráttur á móti iðgjaldi í séreignarsjóð)
    */
-  PerDiemOffset = 'PER_DIEM_OFFSET',
+  PRIVATE_PENSION_FUND_DEDUCTION = 'PRIVATE_PENSION_FUND_DEDUCTION',
   /**
-   * Deduction against private pension fund contributions
-   * (Frádráttur á móti séreignarsjóðsiðgjaldi)
+   * Deduction for sport and wellness allowances
+   * (Frádráttur á móti íþróttastyrk)
    */
-  PrivatePensionOffset = 'PRIVATE_PENSION_OFFSET'
+  SPORT_ALLOWANCE_DEDUCTION = 'SPORT_ALLOWANCE_DEDUCTION',
+  /**
+   * Deduction for transport allowances
+   * (Frádráttur á móti samgöngustyrk)
+   */
+  TRANSPORT_ALLOWANCE_DEDUCTION = 'TRANSPORT_ALLOWANCE_DEDUCTION'
 }
 
 /** Type representing mortgage loan information */
@@ -202,6 +227,25 @@ export type OtherDebt = {
   /** Remaining balance of the loan */
   remainingBalance?: Maybe<Scalars['Float']['output']>;
 };
+
+/** Types of other income that may be tax-exempt */
+export enum OtherIncomeType {
+  FOREIGN_INCOME = 'FOREIGN_INCOME',
+  OTHER_TAX_EXEMPT_INCOME = 'OTHER_TAX_EXEMPT_INCOME',
+  TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND = 'TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND',
+  TAX_EXEMPT_LOTTERY_PRIZES = 'TAX_EXEMPT_LOTTERY_PRIZES',
+  TAX_EXEMPT_SOCIAL_SECURITY = 'TAX_EXEMPT_SOCIAL_SECURITY',
+  TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND = 'TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND'
+}
+
+/** Types of pension and social security benefits */
+export enum PensionType {
+  MUNICIPAL_FINANCIAL_AID = 'MUNICIPAL_FINANCIAL_AID',
+  PENSION_FUND = 'PENSION_FUND',
+  PRIVATE_PENSION_FUND = 'PRIVATE_PENSION_FUND',
+  SOCIAL_SECURITY = 'SOCIAL_SECURITY',
+  UNEMPLOYMENT_BENEFITS = 'UNEMPLOYMENT_BENEFITS'
+}
 
 export type Query = {
   __typename?: 'Query';

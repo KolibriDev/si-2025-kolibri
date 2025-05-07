@@ -10,28 +10,46 @@ export const typeDefs = /* GraphQL */ `
     OTHER
 
     """
-    Deduction against per diem allowances
+    Deduction for daily allowances
     (Frádráttur á móti dagpeningum)
     """
-    PER_DIEM_OFFSET
+    DAILY_ALLOWANCE_DEDUCTION
 
     """
-    Deduction against fitness/wellness grants
-    (Frádráttur á móti líkamsræktarstyrk)
+    Deduction for driving allowances
+    (Frádráttur á móti ökutækjastyrk)
     """
-    FITNESS_GRANT_OFFSET
+    DRIVING_ALLOWANCE_DEDUCTION
 
     """
-    Deduction against pension fund contributions
-    (Frádráttur á móti lífeyrisiðgjaldi)
+    Deduction for pension fund contributions
+    (Frádráttur á móti iðgjaldi í lífeyrissjóð)
     """
-    PENSION_OFFSET
+    PENSION_FUND_DEDUCTION
 
     """
-    Deduction against private pension fund contributions
-    (Frádráttur á móti séreignarsjóðsiðgjaldi)
+    Deduction for private pension fund contributions
+    (Frádráttur á móti iðgjaldi í séreignarsjóð)
     """
-    PRIVATE_PENSION_OFFSET
+    PRIVATE_PENSION_FUND_DEDUCTION
+
+    """
+    Deduction for sport and wellness allowances
+    (Frádráttur á móti íþróttastyrk)
+    """
+    SPORT_ALLOWANCE_DEDUCTION
+
+    """
+    Deduction for transport allowances
+    (Frádráttur á móti samgöngustyrk)
+    """
+    TRANSPORT_ALLOWANCE_DEDUCTION
+
+    """
+    Deduction for charity contributions
+    (Frádráttur vegna framlaga til almannaheillafélaga)
+    """
+    CHARITY_DEDUCTION
   }
 
   """
@@ -40,12 +58,45 @@ export const typeDefs = /* GraphQL */ `
   enum BenefitType {
     "Daily allowance payments"
     DAILY_ALLOWANCE
+    "Driving allowance payments"
+    DRIVING_ALLOWANCE
+    "Car allowance payments"
+    CAR_ALLOWANCE
+    "Housing allowance payments"
+    HOUSING_ALLOWANCE
     "Sport and wellness allowance"
     SPORT_ALLOWANCE
+    "Transport allowance payments"
+    TRANSPORT_ALLOWANCE
     "Educational and study-related allowance"
     STUDY_ALLOWANCE
+    "Research or scientific allowance"
+    RESEARCH_ALLOWANCE
     "Other miscellaneous benefits"
-    OTHER
+    OTHER_ALLOWANCE
+  }
+
+  """
+  Types of pension and social security benefits
+  """
+  enum PensionType {
+    PENSION_FUND
+    PRIVATE_PENSION_FUND
+    SOCIAL_SECURITY
+    UNEMPLOYMENT_BENEFITS
+    MUNICIPAL_FINANCIAL_AID
+  }
+
+  """
+  Types of other income that may be tax-exempt
+  """
+  enum OtherIncomeType {
+    FOREIGN_INCOME
+    TAX_EXEMPT_SOCIAL_SECURITY
+    TAX_EXEMPT_LOTTERY_PRIZES
+    OTHER_TAX_EXEMPT_INCOME
+    TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND
+    TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND
   }
 
   """

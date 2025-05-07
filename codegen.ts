@@ -15,6 +15,10 @@ const config: CodegenConfig = {
         withHooks: true,
         withHOC: false,
         withComponent: false,
+        namingConvention: {
+          enumValues: 'keep',
+        },
+        enumsAsTypes: false,
       },
     },
     './graphql.schema.json': {

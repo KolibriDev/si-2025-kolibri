@@ -12,12 +12,20 @@ import { DeductionType } from '@/generated/graphql'
 
 export function mapDeductionType(deduction: DeductionType): string {
   const map: Record<DeductionType, string> = {
-    [DeductionType.Other]: 'Aðrir frádrættir',
-    [DeductionType.FitnessGrantOffset]: 'Frádráttur á móti líkamsræktarstyrk',
-    [DeductionType.PensionOffset]: 'Frádráttur á móti lífeyrisiðgjaldi',
-    [DeductionType.PerDiemOffset]: 'Frádráttur á móti dagpeningum',
-    [DeductionType.PrivatePensionOffset]:
+    [DeductionType.OTHER]: 'Aðrir frádrættir',
+    [DeductionType.SPORT_ALLOWANCE_DEDUCTION]:
+      'Frádráttur á móti líkamsræktarstyrk',
+    [DeductionType.PENSION_FUND_DEDUCTION]:
+      'Frádráttur á móti lífeyrisiðgjaldi',
+    [DeductionType.DAILY_ALLOWANCE_DEDUCTION]: 'Frádráttur á móti dagpeningum',
+    [DeductionType.PRIVATE_PENSION_FUND_DEDUCTION]:
       'Frádráttur á móti séreignarsjóðsiðgjaldi',
+    [DeductionType.CHARITY_DEDUCTION]:
+      'Frádráttur vegna framlaga til almannaheillafélaga',
+    [DeductionType.DRIVING_ALLOWANCE_DEDUCTION]:
+      'Frádráttur á móti ökutækjastyrk',
+    [DeductionType.TRANSPORT_ALLOWANCE_DEDUCTION]:
+      'Frádráttur á móti samgöngustyrk',
   }
 
   return map[deduction] || deduction

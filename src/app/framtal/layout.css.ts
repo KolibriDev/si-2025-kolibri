@@ -12,11 +12,6 @@ export const processContainer = style({
   width: '100%',
 })
 
-export const formStepperContainer = style({
-  position: 'sticky',
-  height: '87%',
-})
-
 export const processContent = style({
   minHeight: '644px',
   paddingBottom: theme.spacing[5],
