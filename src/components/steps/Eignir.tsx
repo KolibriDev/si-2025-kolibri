@@ -99,7 +99,7 @@ export const Fasteignir = () => {
 }
 
 export const Okutaeki = () => {
-  const { taxReturn, setTaxReturn } = useTaxContext()
+  const { taxReturn } = useTaxContext()
 
   if (!taxReturn?.vehicles) {
     return <Text>Engin ökutæki eru skráð á þig.</Text>
