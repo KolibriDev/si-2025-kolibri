@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text } from '@/components/Text/Text'
-import { Input } from '../Input/Input'
+import { Input } from '@/components/Input/Input'
 
 import * as styles from './Bankareikningur.css'
+import { useTaxContext } from '../Utils/context/taxContext'
 
 type accountNumberSection = {
   value: string
@@ -12,18 +13,41 @@ type accountNumberSection = {
 }
 
 const Bankareikningur = () => {
+  const { taxReturn, updateTaxReturn } = useTaxContext()
+
   const [bank, setBank] = useState<accountNumberSection>({
-    value: '0137',
+    value: taxReturn?.bankAccount?.substring(0, 3) ?? '',
     errorMessage: '',
   })
   const [hb, setHb] = useState<accountNumberSection>({
-    value: '26',
+    value: taxReturn?.bankAccount?.substring(3, 5) ?? '',
     errorMessage: '',
   })
   const [accountNumber, setAccountNumber] = useState<accountNumberSection>({
-    value: '005010',
+    value: taxReturn?.bankAccount?.substring(5) ?? '',
     errorMessage: '',
   })
+
+  useEffect(() => {
+    if (taxReturn) {
+      setBank({
+        value: taxReturn?.bankAccount?.substring(0, 4) ?? '',
+        errorMessage: '',
+      })
+      setHb({
+        value: taxReturn?.bankAccount?.substring(4, 6) ?? '',
+        errorMessage: '',
+      })
+      setAccountNumber({
+        value: taxReturn?.bankAccount?.substring(6) ?? '',
+        errorMessage: '',
+      })
+    }
+  }, [taxReturn])
+
+  const formatDisplay = (digits: string, maxLength: number) => {
+    return digits.slice(0, maxLength)
+  }
 
   const onBankiChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -55,6 +79,16 @@ const Bankareikningur = () => {
     })
   }
 
+  /* TODO: update the fields when pressing continue */
+  const onBlur = () => {
+    if (taxReturn) {
+      updateTaxReturn({
+        ...taxReturn,
+        bankAccount: bank.value + hb.value + accountNumber.value,
+      })
+    }
+  }
+
   return (
     <div>
       <Text marginBottom={6}>
@@ -70,18 +104,20 @@ const Bankareikningur = () => {
             label="Banki"
             name="Banki"
             type="number"
-            value={bank.value}
+            value={formatDisplay(bank.value, 4)}
             onChange={onBankiChange}
             errorMessage={bank.errorMessage}
+            onBlur={onBlur}
           />
           <Input
             backgroundColor="blue"
             label="Hb."
             name="Hb."
             type="number"
-            value={hb.value}
+            value={formatDisplay(hb.value, 2)}
             onChange={onHbChange}
             errorMessage={hb.errorMessage}
+            onBlur={onBlur}
           />
         </div>
         <div className={styles.rn}>
@@ -90,9 +126,10 @@ const Bankareikningur = () => {
             label="Reikningsnúmer."
             name="Reikningsnúmer"
             type="number"
-            value={accountNumber.value}
+            value={formatDisplay(accountNumber.value, 6)}
             onChange={onAccuntNumberChange}
             errorMessage={accountNumber.errorMessage}
+            onBlur={onBlur}
           />
         </div>
       </div>

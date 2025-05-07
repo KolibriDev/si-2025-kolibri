@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text } from '@/components/Text/Text'
 import { Input } from '@/components/Input/Input'
 import { Box } from '@/components/Box/Box'
@@ -14,6 +14,13 @@ const PersonuUpplysingar = () => {
   const [email, setEmail] = useState(taxReturn?.email ?? '')
 
   const [phoneNumber, setPhoneNumber] = useState(taxReturn?.phoneNumber ?? '')
+
+  useEffect(() => {
+    if (taxReturn) {
+      setEmail(taxReturn?.email ?? '')
+      setPhoneNumber(taxReturn?.phoneNumber ?? '')
+    }
+  }, [taxReturn])
 
   if (!taxReturn) {
     return <Text>Gögn vantar</Text>
