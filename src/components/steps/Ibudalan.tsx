@@ -16,7 +16,7 @@ const Ibudalan = () => {
   if (!taxReturn?.mortgages) {
     return (
       <>
-        <Text>Engin íbúðarlán eru skráðar á þig.</Text>
+        <Text>Engin íbúðarlán eru skráð á þig.</Text>
       </>
     )
   }
