@@ -2,30 +2,35 @@ import { NextRequest, NextResponse } from 'next/server'
 import { nationalIdQuerySchema, sql, validateSecret } from '@/lib/apiHelper'
 import { taxReturnSchema } from '@/lib/application'
 
-function snakeToCamel(
-  obj: unknown,
-): Record<string, unknown> | unknown[] | unknown {
+function snakeToCamel(obj: unknown): unknown {
   if (Array.isArray(obj)) {
     return obj.map(snakeToCamel)
-  } else if (obj !== null && typeof obj === 'object') {
+  }
+
+  if (obj && typeof obj === 'object' && obj.constructor === Object) {
     return Object.fromEntries(
-      Object.entries(obj as Record<string, unknown>).map(([key, value]) => [
+      Object.entries(obj).map(([key, value]) => [
         key.replace(/_([a-z])/g, (_, char) => char.toUpperCase()),
         snakeToCamel(value),
       ]),
     )
   }
+
   return obj
 }
 
 export async function POST(req: NextRequest) {
+  console.log('POST request received')
+
   if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const body = await req.json()
+  console.log('Request body:', body)
   const parsed = taxReturnSchema.safeParse(body)
 
+  console.log('Parsed data:', parsed)
   if (!parsed.success) {
     console.error('Validation error:', parsed.error)
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
@@ -40,12 +45,15 @@ export async function POST(req: NextRequest) {
       `
 
       const taxReturnId = result[0].id
+      console.log('Inserted tax return ID:', taxReturnId)
 
+      console.log(parsed.data.salaries)
       for (const salary of parsed.data.salaries ?? []) {
         await sql`
         INSERT INTO tax_authority_salaries (tax_return_id, employer_national_id, employer_name, amount)
         VALUES (${taxReturnId}, ${salary.employerNationalId ?? null}, ${salary.employerName ?? null}, ${salary.amount ?? null})
       `
+        console.log('Inserted salary:', salary)
       }
 
       for (const benefit of parsed.data.benefits ?? []) {
@@ -106,6 +114,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  console.log('GET request received')
+
   const url = new URL(req.url)
   const nationalId = url.searchParams.get('nationalId')
 
@@ -119,16 +129,19 @@ export async function GET(req: NextRequest) {
 
   try {
     const taxReturns = await sql`
-      SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
-      FROM tax_authority_tax_return
-      WHERE national_id = ${parsed.data.nationalId}
-    `
+  SELECT id, national_id, name, address, email, phone_number, has_accident_insurance, bank_account
+  FROM tax_authority_tax_return
+  WHERE national_id = ${parsed.data.nationalId}
+  ORDER BY created DESC
+`
 
     if (taxReturns.length === 0) {
       return NextResponse.json({ error: 'Not Found' }, { status: 404 })
     }
 
     const taxReturn = taxReturns[0]
+
+    console.log('Tax return found:', taxReturn)
 
     taxReturn.salaries = await sql`
       SELECT employer_national_id, employer_name, amount
@@ -174,16 +187,7 @@ export async function GET(req: NextRequest) {
 
     const formattedData = snakeToCamel(taxReturn)
 
-    const validated = taxReturnSchema.safeParse(formattedData)
-    if (!validated.success) {
-      console.error('Validation failed:', validated.error)
-      return NextResponse.json(
-        { error: 'Unexpected data format' },
-        { status: 500 },
-      )
-    }
-
-    return NextResponse.json(validated.data, { status: 200 })
+    return NextResponse.json(formattedData, { status: 200 })
   } catch (error) {
     console.error('Database error:', error)
     return NextResponse.json(

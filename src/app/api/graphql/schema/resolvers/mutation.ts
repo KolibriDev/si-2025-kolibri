@@ -6,6 +6,7 @@ import {
 import {
   fetchTaxPayerByNationalId,
   fetchTaxPrefillByNationalId,
+  submitTaxReturn,
 } from '@/app/api/graphql/services/taxAuthority'
 import { fetchIndividualByNationalId } from '@/app/api/graphql/services/nationalRegistry'
 import { TaxReturn } from '@/lib/application'
@@ -30,10 +31,6 @@ export const Mutation = {
 
     const registry = await fetchIndividualByNationalId(args.nationalId)
     const prefill = taxRegistryPrefill as TaxReturn
-
-    console.log('Tax registry prefill:', taxRegistryPrefill)
-    console.log('Tax payer:', taxPayer)
-    console.log('Registry:', registry)
 
     const taxReturn: TaxReturn = {
       email: prefill.email ?? taxPayer?.email,
@@ -70,5 +67,19 @@ export const Mutation = {
 
     await dbUpdate(args.nationalId, updated)
     return updated
+  },
+
+  async submitTaxReturn(
+    _: unknown,
+    args: { nationalId: string },
+  ): Promise<TaxReturn> {
+    const taxReturn = await getTaxReturnByNationalId(args.nationalId)
+    if (!taxReturn) throw new Error('Tax return not found.')
+
+    console.log('Submitting tax return:', taxReturn)
+
+    await submitTaxReturn(taxReturn)
+
+    return taxReturn
   },
 }
