@@ -17,12 +17,33 @@ export const nationalIdQuerySchema = z
     message: 'At least one of nationalId or phoneNumber is required',
   })
 
+export const addressSchema = z.object({
+  street: z.string().optional(),
+  apartment_number: z.number().optional(),
+  postal_code: z.number().optional(),
+  town: z.string().optional(),
+  country: z.string().optional(),
+  municipality: z.string().optional(),
+})
+
+export const residenceSchema = z.object({
+  code: z.number().optional(),
+  municipality: z.number().optional(),
+  country: z.string().optional(),
+})
+
 export const nationalRegistrySchema = z.object({
   national_id: z.string().length(10),
   name: z.string(),
   phone_number: z.string().optional(),
+  permanent_address: addressSchema.optional(),
+  legal_residence: residenceSchema.optional(),
+  family_national_id: z.string().optional(),
+  partner_national_id: z.string().optional(),
+  gender: z.string().optional(),
+  age: z.number().optional(),
+  type: z.string().optional(),
 })
-
 export const taxpayerSchema = z.object({
   national_id: z.string(),
   email: z.string().email(),
