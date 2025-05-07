@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text } from '@/components/Text/Text'
 import * as T from '@/components/Table/Table'
 import { useTaxContext } from '../Utils/context/taxContext'
