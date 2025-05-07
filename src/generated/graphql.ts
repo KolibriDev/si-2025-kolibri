@@ -384,7 +384,7 @@ export type TaxReturnUpdateInput = {
 export type Vehicle = {
   __typename?: 'Vehicle';
   /** Original purchase price of the vehicle */
-  purchasePrice?: Maybe<Scalars['Float']['output']>;
+  appraisalAmount?: Maybe<Scalars['Float']['output']>;
   /** Vehicle registration number */
   registrationNumber?: Maybe<Scalars['String']['output']>;
   /** Year the vehicle was purchased */
@@ -394,7 +394,7 @@ export type Vehicle = {
 /** Input type for vehicle information */
 export type VehicleInput = {
   /** Original purchase price of the vehicle */
-  purchasePrice?: InputMaybe<Scalars['Float']['input']>;
+  appraisalAmount?: InputMaybe<Scalars['Float']['input']>;
   /** Vehicle registration number */
   registrationNumber?: InputMaybe<Scalars['String']['input']>;
   /** Year the vehicle was purchased */
@@ -413,7 +413,7 @@ export type CreateTaxReturnMutationVariables = Exact<{
 }>;
 
 
-export type CreateTaxReturnMutation = { __typename?: 'Mutation', createTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, address?: string | null, email?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, employerNationalId?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', benefitType?: BenefitType | null, payerNationalId?: string | null, payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisalAmount?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', realEstateNumber?: string | null, lenderNationalId?: string | null, lenderName?: string | null, loanNumber?: string | null, loanStartDate?: string | null, loanAmount?: number | null, loanTermYears?: number | null, totalAnnualPayments?: number | null, principalPayments?: number | null, interestPayments?: number | null, remainingBalance?: number | null }> | null, otherDebts?: Array<{ __typename?: 'OtherDebt', lenderNationalId?: string | null, lenderName?: string | null, interestPayments?: number | null, remainingBalance?: number | null }> | null } | null };
+export type CreateTaxReturnMutation = { __typename?: 'Mutation', createTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, address?: string | null, email?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, employerNationalId?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', benefitType?: BenefitType | null, payerNationalId?: string | null, payerName?: string | null, amount?: number | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisalAmount?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, appraisalAmount?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', realEstateNumber?: string | null, lenderNationalId?: string | null, lenderName?: string | null, loanNumber?: string | null, loanStartDate?: string | null, loanAmount?: number | null, loanTermYears?: number | null, totalAnnualPayments?: number | null, principalPayments?: number | null, interestPayments?: number | null, remainingBalance?: number | null }> | null, otherDebts?: Array<{ __typename?: 'OtherDebt', lenderNationalId?: string | null, lenderName?: string | null, interestPayments?: number | null, remainingBalance?: number | null }> | null } | null };
 
 export type NationalRegisterQueryVariables = Exact<{
   phoneNumber: Scalars['String']['input'];
@@ -427,7 +427,7 @@ export type TaxReturnQueryVariables = Exact<{
 }>;
 
 
-export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, address?: string | null, email?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, employerNationalId?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerNationalId?: string | null, payerName?: string | null, amount?: number | null, benefitType?: BenefitType | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisalAmount?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', realEstateNumber?: string | null, lenderNationalId?: string | null, lenderName?: string | null, loanNumber?: string | null, loanStartDate?: string | null, loanAmount?: number | null, loanTermYears?: number | null, totalAnnualPayments?: number | null, principalPayments?: number | null, interestPayments?: number | null, remainingBalance?: number | null }> | null, otherDebts?: Array<{ __typename?: 'OtherDebt', lenderNationalId?: string | null, lenderName?: string | null, interestPayments?: number | null, remainingBalance?: number | null }> | null } | null };
+export type TaxReturnQuery = { __typename?: 'Query', taxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, address?: string | null, email?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, employerNationalId?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerNationalId?: string | null, payerName?: string | null, amount?: number | null, benefitType?: BenefitType | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisalAmount?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, appraisalAmount?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', realEstateNumber?: string | null, lenderNationalId?: string | null, lenderName?: string | null, loanNumber?: string | null, loanStartDate?: string | null, loanAmount?: number | null, loanTermYears?: number | null, totalAnnualPayments?: number | null, principalPayments?: number | null, interestPayments?: number | null, remainingBalance?: number | null }> | null, otherDebts?: Array<{ __typename?: 'OtherDebt', lenderNationalId?: string | null, lenderName?: string | null, interestPayments?: number | null, remainingBalance?: number | null }> | null } | null };
 
 export type UpdateTaxReturnMutationVariables = Exact<{
   nationalId: Scalars['String']['input'];
@@ -435,7 +435,7 @@ export type UpdateTaxReturnMutationVariables = Exact<{
 }>;
 
 
-export type UpdateTaxReturnMutation = { __typename?: 'Mutation', updateTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, address?: string | null, email?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, employerNationalId?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerNationalId?: string | null, payerName?: string | null, amount?: number | null, benefitType?: BenefitType | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisalAmount?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, purchasePrice?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', realEstateNumber?: string | null, lenderNationalId?: string | null, lenderName?: string | null, loanNumber?: string | null, loanStartDate?: string | null, loanAmount?: number | null, loanTermYears?: number | null, totalAnnualPayments?: number | null, principalPayments?: number | null, interestPayments?: number | null, remainingBalance?: number | null }> | null, otherDebts?: Array<{ __typename?: 'OtherDebt', lenderNationalId?: string | null, lenderName?: string | null, interestPayments?: number | null, remainingBalance?: number | null }> | null } | null };
+export type UpdateTaxReturnMutation = { __typename?: 'Mutation', updateTaxReturn?: { __typename?: 'TaxReturn', nationalId: string, name?: string | null, address?: string | null, email?: string | null, phoneNumber?: string | null, hasAccidentInsurance?: boolean | null, bankAccount?: string | null, salaries?: Array<{ __typename?: 'Salary', employerName?: string | null, employerNationalId?: string | null, amount?: number | null }> | null, benefits?: Array<{ __typename?: 'Benefit', payerNationalId?: string | null, payerName?: string | null, amount?: number | null, benefitType?: BenefitType | null }> | null, deductions?: Array<{ __typename?: 'Deduction', deductionType?: DeductionType | null, amount?: number | null }> | null, realEstates?: Array<{ __typename?: 'RealEstate', number?: string | null, address?: string | null, appraisalAmount?: number | null }> | null, vehicles?: Array<{ __typename?: 'Vehicle', registrationNumber?: string | null, yearOfPurchase?: number | null, appraisalAmount?: number | null }> | null, mortgages?: Array<{ __typename?: 'Mortgage', realEstateNumber?: string | null, lenderNationalId?: string | null, lenderName?: string | null, loanNumber?: string | null, loanStartDate?: string | null, loanAmount?: number | null, loanTermYears?: number | null, totalAnnualPayments?: number | null, principalPayments?: number | null, interestPayments?: number | null, remainingBalance?: number | null }> | null, otherDebts?: Array<{ __typename?: 'OtherDebt', lenderNationalId?: string | null, lenderName?: string | null, interestPayments?: number | null, remainingBalance?: number | null }> | null } | null };
 
 
 export const SayHiDocument = gql`
@@ -502,7 +502,7 @@ export const CreateTaxReturnDocument = gql`
     vehicles {
       registrationNumber
       yearOfPurchase
-      purchasePrice
+      appraisalAmount
     }
     mortgages {
       realEstateNumber
@@ -627,7 +627,7 @@ export const TaxReturnDocument = gql`
     vehicles {
       registrationNumber
       yearOfPurchase
-      purchasePrice
+      appraisalAmount
     }
     mortgages {
       realEstateNumber
@@ -717,7 +717,7 @@ export const UpdateTaxReturnDocument = gql`
     vehicles {
       registrationNumber
       yearOfPurchase
-      purchasePrice
+      appraisalAmount
     }
     mortgages {
       realEstateNumber

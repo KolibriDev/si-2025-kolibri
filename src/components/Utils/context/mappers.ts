@@ -74,7 +74,7 @@ export function mapTaxReturnToUpdateInput(
 
     vehicles: taxReturn.vehicles?.map((v) => {
       const result: VehicleInput = {
-        purchasePrice: v.purchasePrice ?? undefined,
+        appraisalAmount: v.appraisalAmount ?? undefined,
         registrationNumber: v.registrationNumber ?? undefined,
         yearOfPurchase: v.yearOfPurchase ?? undefined,
       }
