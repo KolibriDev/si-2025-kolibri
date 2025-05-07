@@ -36,7 +36,7 @@ const Ibudalan = () => {
 
       <Box marginTop={6}>
         <Button variant="ghost" size="small" icon="add">
-          Bæta við íbúðarláni
+          Bæta við íbúðaláni
         </Button>
       </Box>
     </Box>
