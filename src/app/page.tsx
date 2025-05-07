@@ -198,7 +198,7 @@ export default function Home() {
             <Text marginBottom={10}>
               Ef þú þarft að skila rekstrar- eða erfðafjárskýrslum þarftu eins
               og er að opna
-              <FakeLink>{` almennt framtal hjá Skattinum `}</FakeLink>.
+              <FakeLink>{` almennt framtal hjá Skattinum`}</FakeLink>.
             </Text>
             <div className={styles.cta}>
               <Box
