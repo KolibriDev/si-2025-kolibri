@@ -17,7 +17,16 @@ export interface NationalRegistry {
 
 import { z } from 'zod'
 
-const deductionTypeSchema = z.enum(['OTHER'])
+const deductionTypeSchema = z.enum([
+  'OTHER',
+  'SPORT_ALLOWANCE_DEDUCTION',
+  'PENSION_FUND_DEDUCTION',
+  'DAILY_ALLOWANCE_DEDUCTION',
+  'PRIVATE_PENSION_FUND_DEDUCTION',
+  'CHARITY_DEDUCTION',
+  'DRIVING_ALLOWANCE_DEDUCTION',
+  'TRANSPORT_ALLOWANCE_DEDUCTION',
+])
 const benefitTypeSchema = z.enum([
   'DAILY_ALLOWANCE',
   'SPORT_ALLOWANCE',
