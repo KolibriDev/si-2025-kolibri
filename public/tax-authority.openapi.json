@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Tax Authority API",
+    "title": "Skatturinn API",
     "version": "1.0.0",
-    "description": "API for interacting with national registry, taxpayer, and tax return records."
+    "description": "API for interacting with tax payers and tax return records."
   },
   "paths": {
     "/api/taxpayer": {
@@ -31,7 +31,10 @@
                 "schema": { "$ref": "#/components/schemas/Taxpayer" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
         }
       },
       "put": {
@@ -60,7 +63,10 @@
                 "schema": { "$ref": "#/components/schemas/Taxpayer" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
         }
       }
     },
@@ -89,7 +95,10 @@
                 "schema": { "$ref": "#/components/schemas/TaxReturn" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
         }
       },
       "put": {
@@ -126,7 +135,10 @@
                 "schema": { "$ref": "#/components/schemas/TaxReturn" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
         }
       }
     },
@@ -159,130 +171,43 @@
                 "schema": { "$ref": "#/components/schemas/TaxReturn" }
               }
             }
-          }
+          },
+          "400": { "$ref": "#/components/responses/BadRequest" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/InternalServerError" }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "Address": {
-        "type": "object",
-        "properties": {
-          "street": { "type": "string" },
-          "apartment_number": { "type": "integer" },
-          "postal_code": { "type": "integer" },
-          "town": { "type": "string" },
-          "country": { "type": "string" },
-          "municipality": { "type": "string" }
-        }
-      },
-      "Residence": {
-        "type": "object",
-        "properties": {
-          "code": { "type": "integer" },
-          "municipality": { "type": "integer" },
-          "country": { "type": "string" }
-        }
-      },
-      "NationalRegistryEntry": {
-        "type": "object",
-        "properties": {
-          "national_id": { "type": "string", "minLength": 10, "maxLength": 10 },
-          "name": { "type": "string" },
-          "phone_number": { "type": "string" },
-          "permanent_address": { "$ref": "#/components/schemas/Address" },
-          "legal_residence": { "$ref": "#/components/schemas/Residence" },
-          "family_national_id": { "type": "string" },
-          "partner_national_id": { "type": "string" },
-          "gender": { "type": "string" },
-          "age": { "type": "integer" },
-          "type": { "type": "string" }
-        },
-        "required": ["national_id", "name"]
-      },
       "Taxpayer": {
         "type": "object",
         "properties": {
-          "national_id": { "type": "string" },
-          "email": { "type": "string", "format": "email" }
-        },
-        "required": ["national_id", "email"]
+          "nationalId": { "type": "string" },
+          "name": { "type": "string" }
+        }
       },
       "UpdateTaxpayer": {
         "type": "object",
         "properties": {
-          "national_id": { "type": "string" },
-          "email": { "type": "string", "format": "email" }
-        },
-        "required": ["national_id", "email"]
-      },
-      "Salary": {
-        "type": "object",
-        "properties": {
-          "id": { "type": "string" },
-          "tax_return_id": { "type": "string" },
-          "employer_national_id": {
-            "type": "string",
-            "minLength": 10,
-            "maxLength": 10
-          },
-          "employer_name": { "type": "string" },
-          "amount": { "type": "number" }
+          "name": { "type": "string" }
         }
       },
       "TaxReturn": {
         "type": "object",
         "properties": {
           "id": { "type": "string" },
-          "national_id": { "type": "string", "minLength": 10, "maxLength": 10 },
-          "name": { "type": "string" },
-          "address": { "type": "string" },
-          "email": { "type": "string", "format": "email" },
-          "phone_number": { "type": "string" },
-          "has_accident_insurance": { "type": "boolean" },
-          "bank_account": { "type": "string", "minLength": 12, "maxLength": 12 }
-        },
-        "required": [
-          "id",
-          "national_id",
-          "name",
-          "address",
-          "email",
-          "phone_number",
-          "has_accident_insurance",
-          "bank_account"
-        ]
+          "nationalId": { "type": "string" },
+          "amount": { "type": "number" }
+        }
       },
       "CreateAndUpdateTaxReturn": {
         "type": "object",
         "properties": {
-          "national_id": { "type": "string", "minLength": 10, "maxLength": 10 },
-          "name": { "type": "string" },
-          "address": { "type": "string" },
-          "email": { "type": "string", "format": "email" },
-          "phone_number": { "type": "string" },
-          "has_accident_insurance": { "type": "boolean" },
-          "bank_account": {
-            "type": "string",
-            "minLength": 12,
-            "maxLength": 12
-          },
-          "salaries": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/Salary" }
-          }
-        },
-        "required": [
-          "national_id",
-          "name",
-          "address",
-          "email",
-          "phone_number",
-          "has_accident_insurance",
-          "bank_account",
-          "salaries"
-        ]
+          "nationalId": { "type": "string" },
+          "amount": { "type": "number" }
+        }
       }
     },
     "responses": {
