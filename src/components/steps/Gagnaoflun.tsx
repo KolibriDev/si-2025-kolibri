@@ -56,7 +56,7 @@ const Gagnaoflun = () => {
         name="gagnaoflun-samthyggi"
         hasError={hasError}
         errorMessage="Samþykkja þarf gagnaöflun"
-        backgroundColor={hasError ? 'red' : 'blue'}
+        backgroundColor="blue"
         label="Ég skil að ofangreindra gagna verður aflað í ferlinu"
         onChange={(evt) => user.setIsAcceptingTerms(evt.target.checked)}
         checked={!!taxReturn || user.isAcceptingTerms}

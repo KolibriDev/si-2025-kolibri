@@ -64,12 +64,11 @@ export const Checkbox = ({
       }
     : {}
 
-  const background =
-    backgroundColor && backgroundColor === 'blue'
+  const background = hasError
+    ? 'red100'
+    : backgroundColor && backgroundColor === 'blue'
       ? 'blue100'
-      : hasError
-        ? 'red100'
-        : undefined
+      : undefined
 
   // If defaultCheck is specified, we will use it as our initial state.
   const [internalChecked, setInternalChecked] = useState(
