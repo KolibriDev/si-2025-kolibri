@@ -32,14 +32,9 @@ export default function StepLayout({
         </Text>
         <div className={styles.content}>{children}</div>
       </Box>
-      <Box
-        borderColor="white"
-        background="white"
-        paddingY={[3, 3, 5, 5]}
-        paddingX={[3, 3, 14, 14]}
-      >
+      <div className={styles.footerContainer}>
         <StepsFooter />
-      </Box>
+      </div>
     </div>
   )
 }
