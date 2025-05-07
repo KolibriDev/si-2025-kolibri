@@ -10,7 +10,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
-  minHeight: '776px',
+  minHeight: '576px',
 })
 
 export const content = style({
