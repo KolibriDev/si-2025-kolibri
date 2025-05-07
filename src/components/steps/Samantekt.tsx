@@ -193,7 +193,9 @@ const Samantekt = () => {
       />
     ),
     bankareikningur: (
-      <Bankareikningur bankAccount={taxReturn?.bankAccount ?? ''} />
+      <Bankareikningur
+        bankAccount={`${taxReturn?.bankAccount?.substring(0, 4) ?? ''}-${taxReturn?.bankAccount?.substring(4, 6) ?? ' '}-${taxReturn?.bankAccount?.substring(6) ?? ''}`}
+      />
     ),
     slysatrygging: (
       <Slysatrygging hasAccidentInsurance={!!taxReturn?.hasAccidentInsurance} />
