@@ -167,10 +167,11 @@ export default function Home() {
               Skil á skattframtali og álagning
             </Text>
             <Text marginBottom={[5, 6]}>
-              Opnað er fyrir skil á skattframtali í febrúar ár hvert. Frestur
-              til að skila framtali fyrir árið 2024 er til{' '}
-              <strong>14. mars 2025.</strong> Álagning og útborgun inneignar fer
-              fram <strong>1. júní 2025.</strong>
+              Opnað er fyrir skil á skattframtali í febrúar ár hvert. Allir
+              skattskyldir aðilar fá tilkynningu í stafrænt pósthólf Ísland.is
+              þegar framtal er opnað. Frestur til að skila skattframtali 2025
+              (fyrir árið 2024) er til <strong>14. mars 2025.</strong> Álagning
+              og útborgun inneignar fer fram <strong>1. júní 2025.</strong>
             </Text>
             <Text variant="h3" as="h3" marginBottom={2}>
               Getur fólk í hjónabandi eða sambúð skilað sameiginlegu framtali?
@@ -188,29 +189,21 @@ export default function Home() {
             <Text marginBottom={1}>
               Langmest af upplýsingum á skattframtali kemur forskráð frá
               launagreiðendum, fjármálafyrirtækjum og öðrum aðilum sem skila
-              gögnum til skattsins.
+              gögnum til Skattsins.
             </Text>
             <Text marginBottom={1}>
               Í flestum tilfellum þarftu eingöngu að yfirfara og samþykkja þessi
-              gögn. Þá skilarðu skattframtali án þess að fara af Ísland.is.
+              gögn. Algengar leiðréttingar og viðbætur eru einnig í boði á
+              Ísland.is.
             </Text>
-            <Text marginBottom={1}>
-              Ef þú þarft að leiðrétta gögn eða skila fylgigögnum þarftu að opna
-              almennt framtal hjá Skattinum.
+            <Text marginBottom={10}>
+              Ef þú þarft að skila rekstrar- eða erfðafjárskýrslum þarftu eins
+              og er að opna
+              <span
+                className={styles.link}
+              >{` almennt framtal hjá Skattinum`}</span>
+              .
             </Text>
-            <Text marginBottom={2}>Til dæmis:</Text>
-            <Box marginBottom={4}>
-              <BulletList>
-                <Bullet>
-                  Ef þú keyptir eða seldir fasteign, ökutæki eða verðbréf á
-                  árinu
-                </Bullet>
-                <Bullet>Ef þú tókst nýtt íbúðalán eða endurfjármagnaðir</Bullet>
-                <Bullet>
-                  Ef þú þarft að skila rekstrarblöðum eða öðrum fylgiskjölum
-                </Bullet>
-              </BulletList>
-            </Box>
             <div className={styles.cta}>
               <Box
                 display="flex"
