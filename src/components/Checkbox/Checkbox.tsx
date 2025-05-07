@@ -67,7 +67,7 @@ export const Checkbox = ({
   const background =
     backgroundColor && backgroundColor === 'blue'
       ? 'blue100'
-      : backgroundColor === 'red'
+      : hasError
         ? 'red100'
         : undefined
 

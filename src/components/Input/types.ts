@@ -4,7 +4,7 @@ import * as styles from './Input.css'
 import { Icon as IconType, Type } from '../IconRC/iconMap'
 import { ResponsiveProp } from '../Utils/responsiveProp'
 
-export type InputBackgroundColor = 'white' | 'blue' | 'red'
+export type InputBackgroundColor = 'white' | 'blue'
 
 export interface AriaError {
   'aria-invalid': boolean
