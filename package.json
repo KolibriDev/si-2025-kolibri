@@ -36,6 +36,7 @@
     "react-keyed-flatten-children": "^5.0.0",
     "react-select": "^5.10.1",
     "react-use": "^17.6.0",
+    "redoc": "^2.5.0",
     "zod": "^3.24.4"
   },
   "devDependencies": {

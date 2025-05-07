@@ -50,23 +50,21 @@ describe('GET handler', () => {
   })
 
   it('returns 200 for valid request', async () => {
-    mockSql.mockResolvedValueOnce([
-      { national_id: '1234567890', name: 'Alice' },
-    ])
+    mockSql.mockResolvedValue([{ national_id: '1234567890', name: 'Alice' }])
     const req = makeRequest(
-      { national_id: '1234567890' },
+      { nationalId: '1234567890' },
       { 'x-internal-secret': 'test-secret' },
     )
     const res = await GET(req)
-    expect(res.status).toBe(200)
     const data = await res.json()
     expect(data).toEqual([{ national_id: '1234567890', name: 'Alice' }])
+    expect(res.status).toBe(200)
   })
 
   it('returns 500 if DB throws', async () => {
-    mockSql.mockRejectedValueOnce(new Error('db failed'))
+    mockSql.mockRejectedValue(new Error('db failed'))
     const req = makeRequest(
-      { national_id: '1234567890' },
+      { nationalId: '1234567890' },
       { 'x-internal-secret': 'test-secret' },
     )
     const res = await GET(req)
