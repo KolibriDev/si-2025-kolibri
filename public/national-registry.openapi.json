@@ -1,0 +1,142 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "National Registry API",
+    "version": "1.0.0",
+    "description": "API for querying national registry records based on national ID or phone number."
+  },
+  "paths": {
+    "/api/national-registry": {
+      "get": {
+        "summary": "Fetch national registry data",
+        "description": "Returns individuals from the national registry filtered by `nationalId` or `phoneNumber`.",
+        "parameters": [
+          {
+            "name": "nationalId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "The national ID (kennitala) of the individual."
+          },
+          {
+            "name": "phoneNumber",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": "The phone number of the individual."
+          },
+          {
+            "name": "x-internal-secret",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Internal API secret for authentication."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "National registry entry",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/NationalRegistryEntry"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid query parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "NationalRegistryEntry": {
+        "type": "object",
+        "properties": {
+          "national_id": { "type": "string", "minLength": 10, "maxLength": 10 },
+          "name": { "type": "string" },
+          "phone_number": { "type": "string" },
+          "permanent_address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "legal_residence": {
+            "$ref": "#/components/schemas/Residence"
+          },
+          "family_national_id": { "type": "string" },
+          "partner_national_id": { "type": "string" },
+          "gender": { "type": "string" },
+          "age": { "type": "integer" },
+          "type": { "type": "string" }
+        },
+        "required": ["national_id", "name"]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": { "type": "string" },
+          "apartment_number": { "type": "integer" },
+          "postal_code": { "type": "integer" },
+          "town": { "type": "string" },
+          "country": { "type": "string" },
+          "municipality": { "type": "string" }
+        }
+      },
+      "Residence": {
+        "type": "object",
+        "properties": {
+          "code": { "type": "integer" },
+          "municipality": { "type": "integer" },
+          "country": { "type": "string" }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    }
+  }
+}

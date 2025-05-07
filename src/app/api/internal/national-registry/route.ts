@@ -9,65 +9,64 @@ import {
 
 export async function GET(req: NextRequest) {
   if (!validateSecret(req)) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    return jsonError('Unauthorized', 401)
   }
 
-  const url = new URL(req.url)
-  const query = {
-    nationalId: url.searchParams.get('nationalId') || undefined,
-    phoneNumber: url.searchParams.get('phoneNumber') || undefined,
-  }
+  const query = getQueryParams(req)
 
   const parsed = nationalIdQuerySchema.safeParse(query)
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: 'Invalid query parameters', reason: parsed.error },
-      { status: 400 },
-    )
+    return jsonError('Invalid query parameters', 400, parsed.error)
   }
 
   try {
-    const conditions = []
-    if (parsed.data.nationalId) {
-      conditions.push(sql`national_id = ${parsed.data.nationalId}`)
-    }
-    if (parsed.data.phoneNumber) {
-      conditions.push(sql`phone_number = ${parsed.data.phoneNumber}`)
-    }
-
-    let whereClause = sql``
-
-    if (conditions.length > 0) {
-      // Start with WHERE and append conditions using AND
-      whereClause = sql`WHERE `
-
-      for (let i = 0; i < conditions.length; i++) {
-        if (i > 0) {
-          whereClause = sql`${whereClause} AND `
-        }
-        whereClause = sql`${whereClause}${conditions[i]}`
-      }
-    }
-
-    const data = await sql`
-      SELECT *
-      FROM national_registry
-      ${whereClause}
-    `
+    const data = await queryNationalRegistry(parsed.data)
 
     const validated = z.array(nationalRegistrySchema).safeParse(data)
     if (!validated.success) {
-      return NextResponse.json(
-        { error: 'Unexpected data format', reason: validated.error },
-        { status: 500 },
-      )
+      return jsonError('Unexpected data format', 500, validated.error)
     }
 
-    return NextResponse.json(validated.data, { status: 200 })
+    return NextResponse.json(validated.data)
   } catch (error) {
-    return NextResponse.json(
-      { error: 'Internal Server Error', reason: error },
-      { status: 500 },
-    )
+    return jsonError('Internal Server Error', 500, error)
   }
+}
+
+function getQueryParams(req: NextRequest) {
+  const url = new URL(req.url)
+  return {
+    nationalId: url.searchParams.get('nationalId') || undefined,
+    phoneNumber: url.searchParams.get('phoneNumber') || undefined,
+  }
+}
+
+async function queryNationalRegistry({
+  nationalId,
+  phoneNumber,
+}: {
+  nationalId?: string
+  phoneNumber?: string
+}) {
+  const conditions = []
+  if (nationalId) conditions.push(sql`national_id = ${nationalId}`)
+  if (phoneNumber) conditions.push(sql`phone_number = ${phoneNumber}`)
+
+  const where = conditions.length
+    ? conditions.reduce(
+        (acc, condition, i) =>
+          i === 0 ? sql`WHERE ${condition}` : sql`${acc} AND ${condition}`,
+        sql``,
+      )
+    : sql``
+
+  return await sql`
+    SELECT *
+    FROM national_registry
+    ${where}
+  `
+}
+
+function jsonError(message: string, status: number, reason?: unknown) {
+  return NextResponse.json({ error: message, reason }, { status })
 }

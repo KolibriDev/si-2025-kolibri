@@ -41,7 +41,5 @@ export async function fetchSubmittedTaxReturnByNationalId(nationalId: string) {
 
   const data = await res.json()
 
-  console.log('Submitted tax return data:', data, res)
-
   return data
 }
