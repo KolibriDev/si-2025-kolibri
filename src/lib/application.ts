@@ -15,7 +15,7 @@ export interface NationalRegistry {
   phoneNumber?: string
 }
 
-import { nullable, z } from 'zod'
+import { z } from 'zod'
 
 const deductionTypeSchema = z.enum(['OTHER'])
 const benefitTypeSchema = z.enum([
