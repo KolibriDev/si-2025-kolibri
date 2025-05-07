@@ -1,18 +1,7 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
 import ApolloWrapper from '@/lib/ApolloWrapper'
 import './globals.css'
 import { UserProvider } from '@/components/Utils/context/userContext'
-
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-})
 
 export const metadata: Metadata = {
   title: 'Skattframtal | Ísland.is',
@@ -26,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="is">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body>
         <ApolloWrapper>
           <UserProvider>{children}</UserProvider>
         </ApolloWrapper>

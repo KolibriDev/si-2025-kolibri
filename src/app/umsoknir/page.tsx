@@ -12,9 +12,17 @@ import { Logo } from '@/components/Logo/Logo'
 import { Input } from '@/components/Input/Input'
 import { ActionCard } from '@/components/ActionCard/ActionCard'
 import { useUserContext } from '@/components/Utils/context/userContext'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 export default function Home() {
-  const { user } = useUserContext()
+  const { user, fetchNationalRegister } = useUserContext()
+  const router = useRouter()
+
+  useEffect(() => {
+    fetchNationalRegister(user?.phoneNumber ?? '7884888')
+  }, [fetchNationalRegister, user?.phoneNumber])
+
   return (
     <div className={styles.page}>
       <Box paddingX={6}>
@@ -97,6 +105,7 @@ export default function Home() {
                 variant: 'ghost',
                 icon: undefined,
                 size: 'small',
+                onClick: () => router.push('/framtal/nytt/upplysingar'),
               }}
               progressMeter={{ currentProgress: 1, maxProgress: 8 }}
             />
