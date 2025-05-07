@@ -7,6 +7,7 @@ import {
   RealEstateInput,
   SalaryInput,
   VehicleInput,
+  Attachment,
 } from '@/generated/graphql'
 
 export function mapTaxReturnToUpdateInput(
@@ -77,6 +78,15 @@ export function mapTaxReturnToUpdateInput(
         appraisalAmount: v.appraisalAmount ?? undefined,
         registrationNumber: v.registrationNumber ?? undefined,
         yearOfPurchase: v.yearOfPurchase ?? undefined,
+      }
+      return result
+    }),
+
+    attachments: taxReturn.attachments?.map((f) => {
+      const result: Attachment = {
+        name: f.name ?? undefined,
+        size: f.size ?? undefined,
+        fileType: f.fileType ?? undefined,
       }
       return result
     }),

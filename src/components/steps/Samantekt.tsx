@@ -12,12 +12,15 @@ import {
   SalaryInput,
   DeductionInput,
   OtherDebt,
+  Attachment,
 } from '@/generated/graphql'
 import { SalaryEntries } from './Launagreidslur'
 import { Benefits } from './StyrkirOgHlunnindi'
 import { Fasteignir, Okutaeki } from './Eignir'
 import { Mortgages } from './Ibudalan'
 import { OtherDebts } from './AdrarSkuldir'
+import { TopicCard } from '../TopicCard/TopicCard'
+import { Stack } from '../Stack/Stack'
 
 const InfoSectionHeader = ({
   title,
@@ -145,11 +148,15 @@ const Ibudalan = () => {
 const AdrarSkuldir = ({ otherDebts }: { otherDebts: OtherDebt[] }) => {
   return <OtherDebts otherDebts={otherDebts} />
 }
-const Fylgiskjol = () => {
+const Fylgiskjol = ({ attachments }: { attachments: Attachment[] }) => {
   return (
-    <Box>
-      <Text variant="eyebrow">TODO</Text>
-    </Box>
+    <Stack space={2}>
+      {attachments.map((a, index) => (
+        <TopicCard key={`${a.name}-${index}`} colorScheme="blue" tag={'PDF'}>
+          {a.name ?? ''}
+        </TopicCard>
+      ))}
+    </Stack>
   )
 }
 
@@ -200,7 +207,7 @@ const Samantekt = () => {
     eignir: <Eignir />,
     ibudalan: <Ibudalan />,
     'adrar-skuldir': <AdrarSkuldir otherDebts={taxReturn?.otherDebts ?? []} />,
-    fylgiskjol: <Fylgiskjol />,
+    fylgiskjol: <Fylgiskjol attachments={taxReturn?.attachments ?? []} />,
   }
 
   return (

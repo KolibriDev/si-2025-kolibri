@@ -1,12 +1,23 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { Stack } from '../Stack/Stack'
-import { InputFileUpload } from '../InputFileUpload/InputFileUpload'
+import { InputFileUpload, UploadFile } from '../InputFileUpload/InputFileUpload'
+import { useTaxContext } from '../Utils/context/taxContext'
+import { TaxReturnQuery } from '@/generated/graphql'
+
+type Attachment = NonNullable<
+  NonNullable<TaxReturnQuery['taxReturn']>['attachments']
+>[number]
 
 const Fylgiskjol = () => {
-  const [files, setFiles] = useState<File[]>([])
+  const { taxReturn, updateTaxReturn } = useTaxContext()
+  const files = taxReturn?.attachments || []
+
+  if (!taxReturn) {
+    return <Text>Gögn vantar</Text>
+  }
 
   return (
     <Stack space={4}>
@@ -19,17 +30,31 @@ const Fylgiskjol = () => {
         title="Dragðu skjöl hingað til að hlaða upp"
         description="Tekið er við skjölum með endingu: .pdf, .docx, .rtf"
         buttonLabel="Velja skjöl til að hlaða upp"
-        files={files}
+        files={files as UploadFile[]}
         onChange={(newFiles) => {
-          setFiles((prev) => {
-            const uniqueNewFiles = newFiles.filter(
-              (newFile) => !prev.some((x) => x.name === newFile.name),
+          const currentFiles = taxReturn?.attachments || []
+          const uniqueNewFiles: Attachment[] = newFiles
+            .filter(
+              (newFile) => !currentFiles.some((x) => x.name === newFile.name),
             )
-            return [...prev, ...uniqueNewFiles]
+            .map((x) => ({
+              __typename: 'Attachment',
+              name: x.name,
+              size: x.size,
+              fileType: x.type,
+            }))
+
+          updateTaxReturn({
+            ...taxReturn,
+            attachments: [...currentFiles, ...uniqueNewFiles],
           })
         }}
         onRemove={(x) => {
-          setFiles((prev) => prev.filter((f) => f.name !== x.name))
+          const currentFiles = taxReturn?.attachments || []
+          updateTaxReturn({
+            ...taxReturn,
+            attachments: currentFiles.filter((f) => f.name !== x.name),
+          })
         }}
       />
     </Stack>

@@ -51,5 +51,10 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
       interestPayments
       remainingBalance
     }
+    attachments {
+      name
+      size
+      fileType
+    }
   }
 }

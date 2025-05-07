@@ -15,7 +15,7 @@ export interface NationalRegistry {
   phoneNumber?: string
 }
 
-import { z } from 'zod'
+import { nullable, z } from 'zod'
 
 const deductionTypeSchema = z.enum(['OTHER'])
 const benefitTypeSchema = z.enum([
@@ -76,6 +76,12 @@ const otherDebtSchema = z.object({
   remainingBalance: z.number().optional(),
 })
 
+const attachmentSchema = z.object({
+  name: z.string().optional(),
+  size: z.number().optional(),
+  fileType: z.string().optional(),
+})
+
 export const taxReturnSchema = z.object({
   nationalId: z.string().nullable(),
   name: z.string().optional().nullable(),
@@ -91,6 +97,7 @@ export const taxReturnSchema = z.object({
   vehicles: z.array(vehicleSchema).optional().nullable(),
   mortgages: z.array(mortgageSchema).optional().nullable(),
   otherDebts: z.array(otherDebtSchema).optional().nullable(),
+  attachments: z.array(attachmentSchema).optional().nullable(),
 })
 
 export type Salary = z.infer<typeof salarySchema>
@@ -100,4 +107,5 @@ export type RealEstate = z.infer<typeof realEstateSchema>
 export type Vehicle = z.infer<typeof vehicleSchema>
 export type Mortgage = z.infer<typeof mortgageSchema>
 export type OtherDebt = z.infer<typeof otherDebtSchema>
+export type Attachment = z.infer<typeof attachmentSchema>
 export type TaxReturn = z.infer<typeof taxReturnSchema>

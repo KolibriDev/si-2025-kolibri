@@ -51,5 +51,10 @@ query TaxReturn($nationalId: String!) {
       interestPayments
       remainingBalance
     }
+    attachments {
+      name
+      size
+      fileType
+    }
   }
 }
