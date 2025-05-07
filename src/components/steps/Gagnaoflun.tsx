@@ -6,12 +6,20 @@ import { Icon } from '../IconRC/Icon'
 import { Box } from '../Box/Box'
 import { Checkbox } from '../Checkbox/Checkbox'
 
+import * as styles from './Gagnaoflun.css'
+
 const Gagnaoflun = () => {
   const [isAcceptingTerms, setIsAcceptingTerms] = useState<boolean>(false)
   return (
     <div>
       <Box display="flex" alignItems="center" columnGap={2} marginBottom={5}>
-        <Icon icon="fileTrayFull" type="outline" color="blue400" />
+        <Icon
+          className={styles.iconFileTrayFull}
+          size={'large'}
+          icon="fileTrayFull"
+          type="outline"
+          color="blue400"
+        />
         <Text variant="h4" as="h2">
           Eftirfarandi gögn verða sótt rafrænt með þínu samþykki
         </Text>
