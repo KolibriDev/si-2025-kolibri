@@ -191,6 +191,8 @@ export const typeDefs = /* GraphQL */ `
   Input type for updating tax return information
   """
   input TaxReturnUpdateInput {
+    "List of uploaded attachments"
+    attachments: [AttachmentInput!]
     "Current residential address"
     address: String
     "Contact email address"
@@ -304,6 +306,30 @@ export const typeDefs = /* GraphQL */ `
   }
 
   """
+  Type representing an uploaded attachment file
+  """
+  type Attachment {
+    "Name of the uploaded file"
+    name: String
+    "Size of the file in bytes"
+    size: Float
+    "Type/format of the file (e.g. 'application/pdf')"
+    fileType: String
+  }
+
+  """
+  Input type for attachment file information
+  """
+  input AttachmentInput {
+    "Name of the uploaded file"
+    name: String
+    "Size of the file in bytes"
+    size: Float
+    "Type/format of the file (e.g. 'application/pdf')"
+    fileType: String
+  }
+
+  """
   Type representing other debts and loans not tied to real estate
   """
   type OtherDebt {
@@ -321,6 +347,8 @@ export const typeDefs = /* GraphQL */ `
   Type representing a complete tax return for an individual
   """
   type TaxReturn {
+    "List of uploaded attachments"
+    attachments: [Attachment!]
     "National ID (kennitala) of the tax payer"
     nationalId: String!
     "Full name of the tax payer"

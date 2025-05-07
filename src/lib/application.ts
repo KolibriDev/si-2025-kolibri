@@ -64,6 +64,12 @@ const otherDebtSchema = z.object({
   remainingBalance: z.number().optional(),
 })
 
+const attachmentSchema = z.object({
+  name: z.string().optional(),
+  size: z.number().optional(),
+  fileType: z.string().optional(),
+})
+
 export const taxReturnSchema = z.object({
   nationalId: z.string(),
   name: z.string().optional(),
@@ -79,6 +85,7 @@ export const taxReturnSchema = z.object({
   vehicles: z.array(vehicleSchema).optional(),
   mortgages: z.array(mortgageSchema).optional(),
   otherDebts: z.array(otherDebtSchema).optional(),
+  attachments: z.array(attachmentSchema).optional(),
 })
 
 export type Salary = z.infer<typeof salarySchema>
@@ -88,4 +95,5 @@ export type RealEstate = z.infer<typeof realEstateSchema>
 export type Vehicle = z.infer<typeof vehicleSchema>
 export type Mortgage = z.infer<typeof mortgageSchema>
 export type OtherDebt = z.infer<typeof otherDebtSchema>
+export type Attachment = z.infer<typeof attachmentSchema>
 export type TaxReturn = z.infer<typeof taxReturnSchema>

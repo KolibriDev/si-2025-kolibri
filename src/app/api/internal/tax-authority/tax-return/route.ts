@@ -89,6 +89,12 @@ export async function POST(req: NextRequest) {
         VALUES (${taxReturnId}, ${otherDebt.lenderNationalId ?? null}, ${otherDebt.lenderName ?? null}, ${otherDebt.interestPayments ?? null}, ${otherDebt.remainingBalance ?? null})
       `
       }
+      for (const attachment of parsed.data.attachments ?? []) {
+        await sql`
+        INSERT INTO tax_authority_attatchments (tax_return_id, name, size, file_type)
+        VALUES (${taxReturnId}, ${attachment.name ?? null}, ${attachment.size ?? null} ${attachment.fileType ?? null})
+      `
+      }
     })
     .catch((error) => {
       console.error('Error creating record:', error)
@@ -169,6 +175,12 @@ export async function GET(req: NextRequest) {
     taxReturn.otherDebts = await sql`
       SELECT lender_national_id, lender_name, interest_payments, remaining_balance
       FROM tax_authority_other_debts
+      WHERE tax_return_id = ${taxReturn.id}
+    `
+
+    taxReturn.attachments = await sql`
+      SELECT name, size, file_type
+      FROM tax_authority_attatchments
       WHERE tax_return_id = ${taxReturn.id}
     `
 
