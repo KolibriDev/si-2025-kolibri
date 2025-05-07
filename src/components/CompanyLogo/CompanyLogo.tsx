@@ -7,11 +7,10 @@ import { Hidden } from '../Hidden/Hidden'
 
 interface Props {
   href?: string
-  center?: boolean
 }
 
 const CompanyLogo: FC<Props> = (props) => {
-  const { href, center } = props
+  const { href } = props
 
   const renderCompanyName = () => {
     return href ? (
@@ -31,7 +30,6 @@ const CompanyLogo: FC<Props> = (props) => {
       columnGap={2}
       padding={4}
       borderRadius="large"
-      justifyContent={center ? 'center' : 'flexStart'}
       alignItems="center"
     >
       <Image
