@@ -185,6 +185,8 @@ export type Mutation = {
   /** Test mutation that returns a greeting */
   sayHi?: Maybe<Scalars['String']['output']>;
   /** Update an existing tax return with new information */
+  submitTaxReturn?: Maybe<TaxReturn>;
+  /** Update an existing tax return with new information */
   updateTaxReturn?: Maybe<TaxReturn>;
 };
 
@@ -196,6 +198,11 @@ export type MutationCreateTaxReturnArgs = {
 
 export type MutationSayHiArgs = {
   name: Scalars['String']['input'];
+};
+
+
+export type MutationSubmitTaxReturnArgs = {
+  nationalId: Scalars['String']['input'];
 };
 
 
@@ -422,6 +429,13 @@ export type NationalRegisterQueryVariables = Exact<{
 
 export type NationalRegisterQuery = { __typename?: 'Query', individual?: { __typename?: 'NationalRegistry', nationalId: string, name?: string | null, phoneNumber?: string | null } | null };
 
+export type SubmitTaxReturnMutationVariables = Exact<{
+  nationalId: Scalars['String']['input'];
+}>;
+
+
+export type SubmitTaxReturnMutation = { __typename?: 'Mutation', submitTaxReturn?: { __typename?: 'TaxReturn', nationalId: string } | null };
+
 export type TaxReturnQueryVariables = Exact<{
   nationalId: Scalars['String']['input'];
 }>;
@@ -594,6 +608,39 @@ export type NationalRegisterQueryHookResult = ReturnType<typeof useNationalRegis
 export type NationalRegisterLazyQueryHookResult = ReturnType<typeof useNationalRegisterLazyQuery>;
 export type NationalRegisterSuspenseQueryHookResult = ReturnType<typeof useNationalRegisterSuspenseQuery>;
 export type NationalRegisterQueryResult = Apollo.QueryResult<NationalRegisterQuery, NationalRegisterQueryVariables>;
+export const SubmitTaxReturnDocument = gql`
+    mutation SubmitTaxReturn($nationalId: String!) {
+  submitTaxReturn(nationalId: $nationalId) {
+    nationalId
+  }
+}
+    `;
+export type SubmitTaxReturnMutationFn = Apollo.MutationFunction<SubmitTaxReturnMutation, SubmitTaxReturnMutationVariables>;
+
+/**
+ * __useSubmitTaxReturnMutation__
+ *
+ * To run a mutation, you first call `useSubmitTaxReturnMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubmitTaxReturnMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [submitTaxReturnMutation, { data, loading, error }] = useSubmitTaxReturnMutation({
+ *   variables: {
+ *      nationalId: // value for 'nationalId'
+ *   },
+ * });
+ */
+export function useSubmitTaxReturnMutation(baseOptions?: Apollo.MutationHookOptions<SubmitTaxReturnMutation, SubmitTaxReturnMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SubmitTaxReturnMutation, SubmitTaxReturnMutationVariables>(SubmitTaxReturnDocument, options);
+      }
+export type SubmitTaxReturnMutationHookResult = ReturnType<typeof useSubmitTaxReturnMutation>;
+export type SubmitTaxReturnMutationResult = Apollo.MutationResult<SubmitTaxReturnMutation>;
+export type SubmitTaxReturnMutationOptions = Apollo.BaseMutationOptions<SubmitTaxReturnMutation, SubmitTaxReturnMutationVariables>;
 export const TaxReturnDocument = gql`
     query TaxReturn($nationalId: String!) {
   taxReturn(nationalId: $nationalId) {

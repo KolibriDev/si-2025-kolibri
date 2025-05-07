@@ -714,6 +714,35 @@
             "deprecationReason": null
           },
           {
+            "name": "submitTaxReturn",
+            "description": "Update an existing tax return with new information",
+            "args": [
+              {
+                "name": "nationalId",
+                "description": "National ID (kennitala) of the tax payer",
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TaxReturn",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "updateTaxReturn",
             "description": "Update an existing tax return with new information",
             "args": [
