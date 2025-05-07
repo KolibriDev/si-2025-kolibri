@@ -5,7 +5,6 @@ import { responsiveStyleMap } from '../Utils/responsiveStyleMap'
 
 export const headerContainer = responsiveStyleMap({
   height: { xs: 80, md: 112 },
-  padding: { xs: '0 16px', md: '0 48px' },
 })
 
 export const verticalLine = style({

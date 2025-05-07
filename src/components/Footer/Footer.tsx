@@ -62,7 +62,7 @@ export const Footer = ({
   languageSwitchOnClick,
 }: FooterProps) => {
   return (
-    <footer>
+    <Box component="footer" background="blue100" paddingX={[2, 2, 2, 6]}>
       <Box width="full" background="blue100" paddingY={6}>
         <GridContainer>
           <GridRow>
@@ -266,7 +266,7 @@ export const Footer = ({
           </Box>
         </GridContainer>
       </Box>
-    </footer>
+    </Box>
   )
 }
 
