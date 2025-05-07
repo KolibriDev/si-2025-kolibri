@@ -21,9 +21,15 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
   const isFirstStep = currentStep === 'upplysingar'
-  const isLastStep = currentStep === 'samantekt'
-  const { taxReturn, createTaxReturn, isLoading } = useTaxContext()
+  const {
+    taxReturn,
+    createTaxReturn,
+    submitTaxReturn,
+    isLoading,
+    isSubmitting,
+  } = useTaxContext()
   const { user } = useUserContext()
+  const isFinalStep = currentStep === 'samantekt'
 
   const handleNext = async () => {
     if (!nextStep) return
@@ -40,25 +46,43 @@ export const StepsFooter = () => {
     if (prevStep) {
       router.push(`${prevStep}`)
     } else {
-      router.push('/')
+      router.push(`${nextStep}`)
+    }
+  }
+
+  const handleSubmit = async () => {
+    if (user?.nationalId) {
+      await submitTaxReturn(user.nationalId)
+      router.push(`${nextStep}`)
     }
   }
 
   return (
     <Box display="flex" className={styles.footer}>
-      <Button
-        variant="primary"
-        onClick={handleNext}
-        disabled={!nextStep}
-        loading={isLoading}
-      >
-        <div className={styles.primaryButton}>
-          <Text variant="h5">
-            {isLastStep ? 'Skila framtali' : 'Halda áfram'}
-          </Text>
-          <Icon icon="arrowForward" />
-        </div>
-      </Button>
+      {!isFinalStep ? (
+        <Button
+          variant="primary"
+          onClick={handleNext}
+          disabled={!nextStep}
+          loading={isLoading}
+        >
+          <div className={styles.primaryButton}>
+            <Text variant="h5">Halda áfram</Text>
+            <Icon icon="arrowForward" />
+          </div>
+        </Button>
+      ) : (
+        <Button
+          variant="primary"
+          onClick={handleSubmit}
+          disabled={!nextStep}
+          loading={isSubmitting}
+        >
+          <div className={styles.primaryButton}>
+            <Text variant="h5">{`Senda framtal`}</Text>
+          </div>
+        </Button>
+      )}
       <Button
         variant="ghost"
         colorScheme={isFirstStep ? 'destructive' : 'default'}
