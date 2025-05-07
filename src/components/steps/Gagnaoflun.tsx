@@ -42,6 +42,7 @@ const Gagnaoflun = () => {
         </Box>
       </Box>
       <Checkbox
+        name="gagnaoflun-samthyggi"
         backgroundColor="blue"
         label="Ég skil að ofangreindra gagna verður aflað í ferlinu"
         onChange={(evt) => setIsAcceptingTerms(evt.target.checked)}
