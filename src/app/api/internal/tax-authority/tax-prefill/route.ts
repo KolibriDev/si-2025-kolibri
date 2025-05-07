@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nationalIdQuerySchema, validateSecret } from '@/lib/apiHelper'
-import { BenefitType, TaxReturn, taxReturnSchema } from '@/lib/application'
+import { TaxReturn, taxReturnSchema } from '@/lib/application'
+import { BenefitType } from '@/generated/graphql'
 
 export async function GET(req: NextRequest) {
   if (!validateSecret(req)) {

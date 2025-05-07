@@ -19,14 +19,24 @@ export const Benefits = ({
 }) => {
   const mapBenefitType = (benefitType?: BenefitType | null) => {
     switch (benefitType) {
-      case BenefitType.DailyAllowance:
+      case BenefitType.DAILY_ALLOWANCE:
         return 'Dagpeningar'
-      case BenefitType.SportAllowance:
+      case BenefitType.DRIVING_ALLOWANCE:
+        return 'Ökutækjastyrkur'
+      case BenefitType.CAR_ALLOWANCE:
+        return 'Bílahlunnindi'
+      case BenefitType.HOUSING_ALLOWANCE:
+        return 'Húsnæðishlunnindi'
+      case BenefitType.SPORT_ALLOWANCE:
         return 'Íþróttastyrkur'
-      case BenefitType.StudyAllowance:
-        return 'Starfsmenntastyrkur'
-      case BenefitType.Other:
-        return 'Annað'
+      case BenefitType.TRANSPORT_ALLOWANCE:
+        return 'Samgöngustyrkur'
+      case BenefitType.STUDY_ALLOWANCE:
+        return 'Námsstyrkur'
+      case BenefitType.RESEARCH_ALLOWANCE:
+        return 'Rannsóknar- eða vísindastyrkur'
+      case BenefitType.OTHER_ALLOWANCE:
+        return 'Aðrir styrkir eða hlunnindi'
       default:
         return 'Ekki skráð'
     }
