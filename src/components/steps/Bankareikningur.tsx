@@ -82,6 +82,7 @@ const Bankareikningur = () => {
             value={hb.value}
             onChange={onHbChange}
             errorMessage={hb.errorMessage}
+            maxLength={1}
           />
         </div>
         <div className={styles.rn}>
