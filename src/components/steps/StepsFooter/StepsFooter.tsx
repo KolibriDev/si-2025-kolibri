@@ -21,6 +21,7 @@ export const StepsFooter = () => {
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
   const isFirstStep = currentStep === 'upplysingar'
+  const isLastStep = currentStep === 'samantekt'
   const { taxReturn, createTaxReturn, isLoading } = useTaxContext()
   const { user } = useUserContext()
 
@@ -28,7 +29,7 @@ export const StepsFooter = () => {
     if (!nextStep) return
 
     if (currentStep === 'gagnaoflun' && !taxReturn && user?.nationalId) {
-      await createTaxReturn(user.nationalId)
+      createTaxReturn(user.nationalId)
       router.push(`${nextStep}`)
     } else {
       router.push(`${nextStep}`)
@@ -52,7 +53,9 @@ export const StepsFooter = () => {
         loading={isLoading}
       >
         <div className={styles.primaryButton}>
-          <Text variant="h5">Halda áfram</Text>
+          <Text variant="h5">
+            {isLastStep ? 'Skila framtali' : 'Halda áfram'}
+          </Text>
           <Icon icon="arrowForward" />
         </div>
       </Button>
