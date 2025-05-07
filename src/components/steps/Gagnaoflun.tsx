@@ -1,13 +1,18 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text } from '@/components/Text/Text'
 import { Icon } from '../IconRC/Icon'
 import { Box } from '../Box/Box'
 import { Checkbox } from '../Checkbox/Checkbox'
+import { useError } from '../Utils/context/errorContext'
+import { useUserContext } from '../Utils/context/userContext'
 
 const Gagnaoflun = () => {
+  const error = useError()
+  const user = useUserContext()
   const [isAcceptingTerms, setIsAcceptingTerms] = useState<boolean>(false)
+
   return (
     <div>
       <Box display="flex" alignItems="center" columnGap={2} marginBottom={5}>

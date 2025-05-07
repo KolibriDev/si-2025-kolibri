@@ -12,11 +12,11 @@ import {
   useCallback,
 } from 'react'
 
+type User = NationalRegisterQuery['individual'] | undefined | null
+
 interface UserContextType {
-  user: NationalRegisterQuery['individual'] | undefined | null
-  setUser: (
-    user: NationalRegisterQuery['individual'] | undefined | null,
-  ) => void
+  user: User
+  setUser: (user: User) => void
   fetchNationalRegister: (phoneNumber: string) => void
   isLoading: boolean
 }
@@ -24,9 +24,7 @@ interface UserContextType {
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<
-    NationalRegisterQuery['individual'] | undefined | null
-  >(undefined)
+  const [user, setUser] = useState<User>(undefined)
 
   const [executeFetchNationalRegister, { loading }] =
     useNationalRegisterLazyQuery({
@@ -46,8 +44,8 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   )
 
   const value: UserContextType = {
-    user: user,
-    setUser: setUser,
+    user,
+    setUser,
     fetchNationalRegister,
     isLoading: loading,
   }

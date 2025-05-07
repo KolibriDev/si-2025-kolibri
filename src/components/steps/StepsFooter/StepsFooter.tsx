@@ -9,6 +9,7 @@ import { Icon } from '@/components/IconRC/Icon'
 import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
 import { useTaxContext } from '@/components/Utils/context/taxContext'
 import { useUserContext } from '@/components/Utils/context/userContext'
+import { useError } from '@/components/Utils/context/errorContext'
 
 export const StepsFooter = () => {
   const params = useParams()
@@ -17,6 +18,7 @@ export const StepsFooter = () => {
     return null
   }
 
+  const error = useError()
   const router = useRouter()
   const nextStep = getNextStep(currentStep)
   const prevStep = getPreviousStep(currentStep)
@@ -27,11 +29,18 @@ export const StepsFooter = () => {
   const handleNext = async () => {
     if (!nextStep) return
 
-    if (currentStep === 'gagnaoflun' && !taxReturn && user?.nationalId) {
+    if (
+      currentStep === 'gagnaoflun' &&
+      !taxReturn &&
+      user?.nationalId &&
+      !error?.errors.includes('ACCEPTING_TERMS')
+    ) {
       await createTaxReturn(user.nationalId)
       router.push(`${nextStep}`)
     } else {
-      router.push(`${nextStep}`)
+      console.log('asdas')
+      error?.setError('ACCEPTING_TERMS')
+      // router.push(`${nextStep}`)
     }
   }
 
