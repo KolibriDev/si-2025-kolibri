@@ -1,8 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css'
-import {
-  inputErrorState,
-  errorMessage as inputErrorMessage,
-} from '../Input/Input.mixins'
+import { errorMessage as inputErrorMessage } from '../Input/Input.mixins'
 import { theme } from '../Theme/theme'
 
 export const checkMarkWidth = theme.spacing[2]
@@ -19,6 +16,10 @@ export const filled = style({
 export const large = style({
   borderRadius: theme.border.radius.large,
   border: `1px solid ${theme.color.blue200}`,
+})
+
+export const error = style({
+  border: `1px solid ${theme.color.red200}`,
 })
 
 export const input = style({
@@ -99,7 +100,9 @@ export const checkboxLabelDisabled = style({
   color: theme.color.dark300,
 })
 
-export const checkboxError = style(inputErrorState)
+export const checkboxError = style({
+  borderColor: theme.color.red200,
+})
 export const errorMessage = style(inputErrorMessage)
 
 export const tooltipContainer = style({

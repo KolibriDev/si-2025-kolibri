@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import ApolloWrapper from '@/lib/ApolloWrapper'
 import './globals.css'
 import { UserProvider } from '@/components/Utils/context/userContext'
+import { ErrorProvider } from '@/components/Utils/context/errorContext'
 
 export const metadata: Metadata = {
   title: 'Skattframtal | Ísland.is',
@@ -17,7 +18,9 @@ export default function RootLayout({
     <html lang="is">
       <body>
         <ApolloWrapper>
-          <UserProvider>{children}</UserProvider>
+          <UserProvider>
+            <ErrorProvider>{children}</ErrorProvider>
+          </UserProvider>
         </ApolloWrapper>
       </body>
     </html>

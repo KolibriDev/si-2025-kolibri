@@ -22,6 +22,7 @@ import { OtherDebts } from './AdrarSkuldir'
 import { TopicCard } from '../TopicCard/TopicCard'
 import { Stack } from '../Stack/Stack'
 import { AlertMessage } from '../AlertMessage/AlertMessage'
+import { formatPhoneNr } from '../Utils/utils'
 
 const InfoSectionHeader = ({
   title,
@@ -78,7 +79,7 @@ const Personuupplysingar = ({
       </Box>
       <Box display="flex" flexDirection="column" rowGap={1}>
         <Text variant="eyebrow">Símanúmer</Text>
-        <Text variant="default">{phoneNumber}</Text>
+        <Text variant="default">{formatPhoneNr(phoneNumber)}</Text>
       </Box>
     </Box>
   </Box>
@@ -100,7 +101,7 @@ const Slysatrygging = ({
     <Text variant="eyebrow">
       Ég óska eftir slysatryggingu vegna heimilisstarfa
     </Text>
-    <Text fontWeight="regular">{hasAccidentInsurance ? 'Já' : 'Nei'}</Text>
+    <Text>{hasAccidentInsurance ? 'Já' : 'Nei'}</Text>
   </Box>
 )
 
