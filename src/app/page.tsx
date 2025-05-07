@@ -18,6 +18,7 @@ import { useEffect } from 'react'
 import { Hidden } from '@/components/Hidden/Hidden'
 import { Tag } from '@/components/Tag/Tag'
 import IconButton from '@/components/IconButton/IconButton'
+import FakeLink from '@/components/FakeLink/FakeLink'
 
 export default function Home() {
   const router = useRouter()
@@ -197,10 +198,7 @@ export default function Home() {
             <Text marginBottom={10}>
               Ef þú þarft að skila rekstrar- eða erfðafjárskýrslum þarftu eins
               og er að opna
-              <span
-                className={styles.link}
-              >{` almennt framtal hjá Skattinum`}</span>
-              .
+              <FakeLink>{` almennt framtal hjá Skattinum `}</FakeLink>.
             </Text>
             <div className={styles.cta}>
               <Box

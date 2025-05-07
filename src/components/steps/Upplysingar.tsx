@@ -3,6 +3,7 @@
 import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { Bullet, BulletList } from '../BulletList/BulletList'
+import FakeLink from '../FakeLink/FakeLink'
 
 const Upplysingar = () => {
   return (
@@ -19,8 +20,9 @@ const Upplysingar = () => {
         </Bullet>
         <Bullet>
           Til að gera aðrar leiðréttingar eða fylla út rekstrareyðublöð þarftu
-          að opna almennt skattframtal á þjónustuvef Skattsins og skila því þar.
-          <span>asd</span>
+          að opna
+          <FakeLink>{` almennt skattframtal á þjónustuvef Skattsins `}</FakeLink>
+          og skila því þar.
         </Bullet>
         <Bullet>
           Samþykkt skattframtal á Ísland.is er sent í vinnslu til Skattsins.
