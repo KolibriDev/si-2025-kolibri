@@ -54,3 +54,8 @@ export const fileName = style({
     },
   },
 })
+
+export const closeButton = style({
+  all: 'unset',
+  cursor: 'pointer',
+})
