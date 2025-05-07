@@ -18,8 +18,6 @@ export async function GET(req: NextRequest) {
     )
   }
 
-  console.log('Parsed nationalId:', parsed.data.nationalId)
-
   try {
     let data: TaxReturn = { nationalId: parsed.data.nationalId }
 

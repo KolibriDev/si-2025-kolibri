@@ -27,3 +27,21 @@ export async function fetchTaxPrefillByNationalId(nationalId: string) {
 
   return data
 }
+
+export async function fetchSubmittedTaxReturnByNationalId(nationalId: string) {
+  const res = await fetch(
+    `${process.env.INTERNAL_API_BASE_URL}/api/internal/tax-authority/tax-return?nationalId=${nationalId}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-internal-secret': process.env.INTERNAL_API_SECRET ?? '',
+      },
+    },
+  )
+
+  const data = await res.json()
+
+  console.log('Submitted tax return data:', data, res)
+
+  return data
+}
