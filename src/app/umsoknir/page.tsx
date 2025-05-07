@@ -23,7 +23,10 @@ export default function Home() {
   const router = useRouter()
 
   const flatSteps = getFlatRouteSteps()
-  const savedStep = localStorage.getItem('currentStep') ?? 'upplysingar'
+  const savedStep =
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('currentStep') ?? 'upplysingar')
+      : 'upplysingar'
   const currentIndex = flatSteps.indexOf(savedStep)
   const currentProgress = currentIndex !== -1 ? currentIndex + 1 : 1
   const maxProgress = flatSteps.length
