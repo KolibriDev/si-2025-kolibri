@@ -13,14 +13,14 @@ const Stadfesting = () => {
 
   return (
     <div>
-      <Box marginBottom={5}>
+      <Box marginBottom={5} marginTop={3}>
         <AlertMessage
           title="Framtali skilað"
           message="Framtalið þitt hefur verið sent í vinnslu til Skattsins."
           type="success"
         />
       </Box>
-      <Text marginBottom={5}>
+      <Text marginBottom={3}>
         Samkvæmt bráðabirgðaútreikningi ert þú í <strong>inneign</strong>{' '}
         gagnvart Skattinum og færð greiddar <strong>117.244 kr.</strong> þann 1.
         júní nk. Þessi tala er með fyrirvara um endanlega álagningu.
