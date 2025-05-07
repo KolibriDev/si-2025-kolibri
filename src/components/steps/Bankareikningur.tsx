@@ -104,6 +104,7 @@ const Bankareikningur = () => {
             label="Banki"
             name="Banki"
             type="number"
+            placeholder="0000"
             value={formatDisplay(bank.value, 4)}
             onChange={onBankiChange}
             errorMessage={bank.errorMessage}
@@ -114,6 +115,7 @@ const Bankareikningur = () => {
             label="Hb."
             name="Hb."
             type="number"
+            placeholder="00"
             value={formatDisplay(hb.value, 2)}
             onChange={onHbChange}
             errorMessage={hb.errorMessage}
@@ -126,6 +128,7 @@ const Bankareikningur = () => {
             label="Reikningsnúmer."
             name="Reikningsnúmer"
             type="number"
+            placeholder="000000"
             value={formatDisplay(accountNumber.value, 6)}
             onChange={onAccuntNumberChange}
             errorMessage={accountNumber.errorMessage}
