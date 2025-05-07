@@ -64,6 +64,7 @@ export async function GET(req: NextRequest) {
             number: '210-9876',
             address: 'Bláfjallagata 12',
             appraisalAmount: 52000000,
+            yearOfPurchase: 2021,
           },
         ],
         vehicles: [

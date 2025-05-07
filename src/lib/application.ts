@@ -56,6 +56,7 @@ const realEstateSchema = z.object({
   number: z.string().optional(),
   address: z.string().optional(),
   appraisalAmount: z.number().optional(),
+  yearOfPurchase: z.number().optional(),
 })
 
 const vehicleSchema = z.object({
