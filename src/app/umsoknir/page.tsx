@@ -16,10 +16,20 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import { Hidden } from '@/components/Hidden/Hidden'
 import IconButton from '@/components/IconButton/IconButton'
+import { getFlatRouteSteps } from '../framtal/routeSections'
 
 export default function Home() {
   const { user, fetchNationalRegister } = useUserContext()
   const router = useRouter()
+
+  const flatSteps = getFlatRouteSteps()
+  const savedStep =
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('currentStep') ?? 'upplysingar')
+      : 'upplysingar'
+  const currentIndex = flatSteps.indexOf(savedStep)
+  const currentProgress = currentIndex !== -1 ? currentIndex + 1 : 1
+  const maxProgress = flatSteps.length
 
   useEffect(() => {
     fetchNationalRegister(user?.phoneNumber ?? '7884888')
@@ -121,16 +131,18 @@ export default function Home() {
             </Text>
             <ActionCard
               heading="Skattaskýrsla 2025"
-              text="Þú hefur lokið 9 skrefum af 16"
+              text={`Þú hefur lokið ${currentProgress} skrefum af ${maxProgress}`}
               tag={{ label: 'Opin', outlined: false }}
               cta={{
                 label: 'Opna umsókn',
                 variant: 'ghost',
                 icon: undefined,
                 size: 'small',
-                onClick: () => router.push('/framtal/nytt/upplysingar'),
+                onClick: () => {
+                  router.push(`/framtal/nytt/${savedStep}`)
+                },
               }}
-              progressMeter={{ currentProgress: 1, maxProgress: 8 }}
+              progressMeter={{ currentProgress, maxProgress }}
             />
           </Box>
         </main>
