@@ -24,7 +24,7 @@ export const StepsFooter = () => {
   const prevStep = getPreviousStep(currentStep)
   const isFirstStep = currentStep === 'upplysingar'
   const { taxReturn, createTaxReturn, isLoading } = useTaxContext()
-  const { user } = useUserContext()
+  const { user, isAcceptingTerms } = useUserContext()
 
   const handleNext = async () => {
     if (!nextStep) return
@@ -33,12 +33,11 @@ export const StepsFooter = () => {
       currentStep === 'gagnaoflun' &&
       !taxReturn &&
       user?.nationalId &&
-      !error?.errors.includes('ACCEPTING_TERMS')
+      isAcceptingTerms
     ) {
       await createTaxReturn(user.nationalId)
       router.push(`${nextStep}`)
     } else {
-      console.log('asdas')
       error?.setError('ACCEPTING_TERMS')
       // router.push(`${nextStep}`)
     }

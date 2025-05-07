@@ -7,11 +7,17 @@ import { Box } from '../Box/Box'
 import { Checkbox } from '../Checkbox/Checkbox'
 import { useError } from '../Utils/context/errorContext'
 import { useUserContext } from '../Utils/context/userContext'
+import { useTaxContext } from '../Utils/context/taxContext'
 
 const Gagnaoflun = () => {
   const error = useError()
   const user = useUserContext()
   const [isAcceptingTerms, setIsAcceptingTerms] = useState<boolean>(false)
+  const taxReturn = useTaxContext()
+
+  useEffect(() => {
+    user.setIsAcceptingTerms((prev) => !prev)
+  }, [isAcceptingTerms])
 
   return (
     <div>
@@ -51,7 +57,8 @@ const Gagnaoflun = () => {
         backgroundColor="blue"
         label="Ég skil að ofangreindra gagna verður aflað í ferlinu"
         onChange={(evt) => setIsAcceptingTerms(evt.target.checked)}
-        checked={isAcceptingTerms}
+        checked={!!taxReturn}
+        disabled={!!taxReturn}
         large
       />
     </div>
