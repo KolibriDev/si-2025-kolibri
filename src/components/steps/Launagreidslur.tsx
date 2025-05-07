@@ -50,7 +50,9 @@ export const SalaryEntries = ({
                 <T.Data>
                   {formatNationalId(salaryEntry.employerNationalId)}
                 </T.Data>
-                <T.Data align="right">{formatISK(salaryEntry.amount)}</T.Data>
+                <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
+                  {formatISK(salaryEntry.amount)}
+                </T.Data>
               </T.Row>
             ))}
           </T.Body>
@@ -62,7 +64,7 @@ export const SalaryEntries = ({
               {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
               <T.Data noBorderBottom>{/* empty */}</T.Data>
               <T.Data
-                text={{ fontWeight: 'bold' }}
+                text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
                 align="right"
                 noBorderBottom
               >

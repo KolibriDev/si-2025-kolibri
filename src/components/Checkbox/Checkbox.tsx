@@ -64,8 +64,11 @@ export const Checkbox = ({
       }
     : {}
 
-  const background =
-    backgroundColor && backgroundColor === 'blue' ? 'blue100' : undefined
+  const background = hasError
+    ? 'red100'
+    : backgroundColor && backgroundColor === 'blue'
+      ? 'blue100'
+      : undefined
 
   // If defaultCheck is specified, we will use it as our initial state.
   const [internalChecked, setInternalChecked] = useState(
@@ -86,94 +89,93 @@ export const Checkbox = ({
   }
 
   return (
-    <Box
-      className={cn(styles.container, large, {
-        [styles.large]: large,
-        [styles.filled]: filled,
-      })}
-      background={background}
-    >
-      <input
-        className={cn(styles.input, { [styles.inputLarge]: large })}
-        type="checkbox"
-        name={name}
-        disabled={disabled}
-        id={id}
-        onChange={onChangeHandler}
-        value={value}
-        checked={checked}
-        aria-label={ariaLabel}
-        {...(ariaError as AriaError)}
-      />
-      <label
-        className={cn(styles.label, {
-          [styles.checkboxLabelDisabled]: disabled,
-          [styles.largeLabel]: large,
+    <>
+      <Box
+        className={cn(styles.container, large, {
+          [styles.large]: large,
+          [styles.filled]: filled,
+          [styles.error]: background === 'red100',
         })}
-        htmlFor={id}
+        background={background}
       >
-        <div
-          className={cn(styles.checkbox, {
-            [styles.checkboxChecked]: checked,
-            [styles.checkboxError]: hasError,
-            [styles.checkboxDisabled]: disabled,
+        <input
+          className={cn(styles.input, { [styles.inputLarge]: large })}
+          type="checkbox"
+          name={name}
+          disabled={disabled}
+          id={id}
+          onChange={onChangeHandler}
+          value={value}
+          checked={checked}
+          aria-label={ariaLabel}
+          {...(ariaError as AriaError)}
+        />
+        <label
+          className={cn(styles.label, {
+            [styles.checkboxLabelDisabled]: disabled,
+            [styles.largeLabel]: large,
           })}
+          htmlFor={id}
         >
-          <Icon
-            icon="checkmark"
-            color={checked ? 'white' : 'transparent'}
-            ariaHidden
-          />
-        </div>
-        <span className={styles.labelText}>
           <div
-            className={cn({
-              [styles.labelChildrenFontWeightToggle]: checked || strong,
+            className={cn(styles.checkbox, {
+              [styles.checkboxChecked]: checked,
+              [styles.checkboxError]: hasError,
+              [styles.checkboxDisabled]: disabled,
             })}
           >
-            <Text as="span" variant={labelVariant}>
-              {label}
-            </Text>
+            <Icon
+              icon="checkmark"
+              color={checked ? 'white' : 'transparent'}
+              ariaHidden
+            />
           </div>
-          <div
-            aria-hidden="true"
-            className={styles.fixJumpingContentFromFontWeightToggle}
-          >
-            <Text as="span" variant={labelVariant} fontWeight="semiBold">
-              {label}
-            </Text>
-          </div>
-          {subLabel && large && (
-            <Text
-              as="span"
-              marginTop="smallGutter"
-              fontWeight="regular"
-              variant="small"
+          <span className={styles.labelText}>
+            <div
+              className={cn({
+                [styles.labelChildrenFontWeightToggle]: checked || strong,
+              })}
             >
-              {subLabel}
-            </Text>
+              <Text as="span" variant={labelVariant}>
+                {label}
+              </Text>
+            </div>
+            <div
+              aria-hidden="true"
+              className={styles.fixJumpingContentFromFontWeightToggle}
+            >
+              <Text as="span" variant={labelVariant} fontWeight="semiBold">
+                {label}
+              </Text>
+            </div>
+            {subLabel && large && (
+              <Text
+                as="span"
+                marginTop="smallGutter"
+                fontWeight="regular"
+                variant="small"
+              >
+                {subLabel}
+              </Text>
+            )}
+          </span>
+          {rightContent && large && <div>{rightContent}</div>}
+          {tooltip && (
+            <div
+              className={cn(styles.tooltipContainer, {
+                [styles.tooltipLargeContainer]: large,
+              })}
+            >
+              <Tooltip text={tooltip} />
+            </div>
           )}
-        </span>
-        {rightContent && large && <div>{rightContent}</div>}
-        {tooltip && (
-          <div
-            className={cn(styles.tooltipContainer, {
-              [styles.tooltipLargeContainer]: large,
-            })}
-          >
-            <Tooltip text={tooltip} />
-          </div>
-        )}
-        {hasError && errorMessage && (
-          <div
-            id={errorId}
-            className={styles.errorMessage}
-            aria-live="assertive"
-          >
-            {errorMessage}
-          </div>
-        )}
-      </label>
-    </Box>
+        </label>
+      </Box>
+      {hasError && errorMessage && (
+        <div id={errorId} className={styles.errorMessage} aria-live="assertive">
+          {errorMessage}
+        </div>
+      )}
+    </>
   )
 }

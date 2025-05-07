@@ -10,23 +10,26 @@ import {
   ReactNode,
   useState,
   useCallback,
+  Dispatch,
+  SetStateAction,
 } from 'react'
 
+type User = NationalRegisterQuery['individual'] | undefined | null
+
 interface UserContextType {
-  user: NationalRegisterQuery['individual'] | undefined | null
-  setUser: (
-    user: NationalRegisterQuery['individual'] | undefined | null,
-  ) => void
+  user: User
+  setUser: (user: User) => void
   fetchNationalRegister: (phoneNumber: string) => void
   isLoading: boolean
+  isAcceptingTerms: boolean
+  setIsAcceptingTerms: Dispatch<SetStateAction<boolean>>
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined)
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<
-    NationalRegisterQuery['individual'] | undefined | null
-  >(undefined)
+  const [user, setUser] = useState<User>(undefined)
+  const [isAcceptingTerms, setIsAcceptingTerms] = useState<boolean>(false)
 
   const [executeFetchNationalRegister, { loading }] =
     useNationalRegisterLazyQuery({
@@ -46,10 +49,12 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   )
 
   const value: UserContextType = {
-    user: user,
-    setUser: setUser,
+    user,
+    setUser,
     fetchNationalRegister,
     isLoading: loading,
+    isAcceptingTerms,
+    setIsAcceptingTerms,
   }
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }
