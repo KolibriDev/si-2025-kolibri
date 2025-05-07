@@ -211,6 +211,7 @@ export const UploadedFile: FC<UploadedFileProps> = (props) => {
             </button>
           ) : (
             <button
+              className={styles.closeButton}
               onClick={(evt) => handleClick(evt, onRemoveClick)}
               aria-label="Fjarlægja skrá"
             >

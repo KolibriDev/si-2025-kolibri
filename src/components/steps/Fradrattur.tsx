@@ -8,6 +8,28 @@ import { Button } from '../Button/Button'
 import { formatISK } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { InputFileUpload } from '../InputFileUpload/InputFileUpload'
+import { DeductionType } from '@/generated/graphql'
+
+export function mapDeductionType(deduction: DeductionType): string {
+  const map: Record<DeductionType, string> = {
+    [DeductionType.OTHER]: 'Aðrir frádrættir',
+    [DeductionType.SPORT_ALLOWANCE_DEDUCTION]:
+      'Frádráttur á móti líkamsræktarstyrk',
+    [DeductionType.PENSION_FUND_DEDUCTION]:
+      'Frádráttur á móti lífeyrisiðgjaldi',
+    [DeductionType.DAILY_ALLOWANCE_DEDUCTION]: 'Frádráttur á móti dagpeningum',
+    [DeductionType.PRIVATE_PENSION_FUND_DEDUCTION]:
+      'Frádráttur á móti séreignarsjóðsiðgjaldi',
+    [DeductionType.CHARITY_DEDUCTION]:
+      'Frádráttur vegna framlaga til almannaheillafélaga',
+    [DeductionType.DRIVING_ALLOWANCE_DEDUCTION]:
+      'Frádráttur á móti ökutækjastyrk',
+    [DeductionType.TRANSPORT_ALLOWANCE_DEDUCTION]:
+      'Frádráttur á móti samgöngustyrk',
+  }
+
+  return map[deduction] || deduction
+}
 
 const Fradrattur = () => {
   const { taxReturn } = useTaxContext()
@@ -49,6 +71,11 @@ const Fradrattur = () => {
                         onClick={() => {}}
                       />
                     </T.Data>
+                    <T.Data>
+                      {deduction.deductionType
+                        ? mapDeductionType(deduction.deductionType)
+                        : ''}
+                    </T.Data>
                     <T.Data align="right">{formatISK(deduction.amount)}</T.Data>
                   </T.Row>
                 ))}
@@ -59,24 +86,24 @@ const Fradrattur = () => {
                     Samtals:
                   </T.Data>
                   <T.Data noBorderBottom>{/* empty */}</T.Data>
-                  <T.Data noBorderBottom>{/* empty */}</T.Data>
                   <T.Data
                     text={{ fontWeight: 'bold' }}
                     align="right"
                     noBorderBottom
                   >
                     {formatISK(
-                      // TODO: FIX ! below
-                      deductions.reduce((v, a) => v + a.amount! || 0, 0),
+                      deductions.reduce((v, a) => v + (a.amount ?? 0), 0),
                     )}
                   </T.Data>
                 </T.Row>
               </T.Foot>
             </T.Table>
           </Box>
-          <Button variant="ghost" size="small" icon="add" onClick={() => {}}>
-            Bæta við
-          </Button>
+          <Box display="flex" justifyContent="flexEnd" marginBottom={3}>
+            <Button variant="ghost" size="small" icon="add" onClick={() => {}}>
+              Bæta við
+            </Button>
+          </Box>
         </>
       )}
       <Text variant="h3" as="h2">

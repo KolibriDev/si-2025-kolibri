@@ -64,33 +64,37 @@ const Bankareikningur = () => {
       </Text>
 
       <div className={styles.inputContainer}>
-        <Input
-          backgroundColor="blue"
-          label="Banki"
-          name="Banki"
-          type="number"
-          value={bank.value}
-          onChange={onBankiChange}
-          errorMessage={bank.errorMessage}
-        />
-        <Input
-          backgroundColor="blue"
-          label="Hb."
-          name="Hb."
-          type="number"
-          value={hb.value}
-          onChange={onHbChange}
-          errorMessage={hb.errorMessage}
-        />
-        <Input
-          backgroundColor="blue"
-          label="Reikningsnúmer."
-          name="Reikningsnúmer"
-          type="number"
-          value={accountNumber.value}
-          onChange={onAccuntNumberChange}
-          errorMessage={accountNumber.errorMessage}
-        />
+        <div className={styles.bankAndHBContainer}>
+          <Input
+            backgroundColor="blue"
+            label="Banki"
+            name="Banki"
+            type="number"
+            value={bank.value}
+            onChange={onBankiChange}
+            errorMessage={bank.errorMessage}
+          />
+          <Input
+            backgroundColor="blue"
+            label="Hb."
+            name="Hb."
+            type="number"
+            value={hb.value}
+            onChange={onHbChange}
+            errorMessage={hb.errorMessage}
+          />
+        </div>
+        <div className={styles.rn}>
+          <Input
+            backgroundColor="blue"
+            label="Reikningsnúmer."
+            name="Reikningsnúmer"
+            type="number"
+            value={accountNumber.value}
+            onChange={onAccuntNumberChange}
+            errorMessage={accountNumber.errorMessage}
+          />
+        </div>
       </div>
     </div>
   )

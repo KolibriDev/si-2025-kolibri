@@ -140,6 +140,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "CAR_ALLOWANCE",
+            "description": "Car allowance payments",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "DAILY_ALLOWANCE",
             "description": "Daily allowance payments",
             "isDeprecated": false,
@@ -147,7 +153,7 @@
           },
           {
             "name": "OTHER",
-            "description": "Other miscellaneous benefits",
+            "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -159,7 +165,7 @@
           },
           {
             "name": "STUDY_ALLOWANCE",
-            "description": "Educational and study-related allowance",
+            "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -259,8 +265,26 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "CHARITY_DEDUCTION",
+            "description": "Deduction for charity contributions\n(Frádráttur vegna framlaga til almannaheillafélaga)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DAILY_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for daily allowances\n(Frádráttur á móti dagpeningum)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "DRIVING_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for driving allowances\n(Frádráttur á móti ökutækjastyrk)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "OTHER",
-            "description": "Other miscellaneous deductions",
+            "description": null,
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -831,6 +855,96 @@
         "inputFields": null,
         "interfaces": [],
         "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "OtherIncomeType",
+        "description": "Types of other income that may be tax-exempt",
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "FOREIGN_INCOME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OTHER_TAX_EXEMPT_INCOME",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_LOTTERY_PRIZES",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_SOCIAL_SECURITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "possibleTypes": null
+      },
+      {
+        "kind": "ENUM",
+        "name": "PensionType",
+        "description": "Types of pension and social security benefits",
+        "isOneOf": null,
+        "fields": null,
+        "inputFields": null,
+        "interfaces": null,
+        "enumValues": [
+          {
+            "name": "MUNICIPAL_FINANCIAL_AID",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRIVATE_PENSION_FUND",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SOCIAL_SECURITY",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "UNEMPLOYMENT_BENEFITS",
+            "description": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
         "possibleTypes": null
       },
       {

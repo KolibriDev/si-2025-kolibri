@@ -44,17 +44,12 @@ export type BenefitInput = {
 
 /** Types of benefits received from employers or other entities */
 export enum BenefitType {
-  /** Daily allowance payments */
   DailyAllowance = 'DAILY_ALLOWANCE',
-  /** Other miscellaneous benefits */
   Other = 'OTHER',
-  /** Sport and wellness allowance */
   SportAllowance = 'SPORT_ALLOWANCE',
-  /** Educational and study-related allowance */
   StudyAllowance = 'STUDY_ALLOWANCE'
 }
 
-/** Type representing tax deductions */
 export type Deduction = {
   __typename?: 'Deduction';
   /** Amount of the deduction */
@@ -73,11 +68,9 @@ export type DeductionInput = {
 
 /** Types of deductions that can be claimed on a tax return */
 export enum DeductionType {
-  /** Other miscellaneous deductions */
   Other = 'OTHER'
 }
 
-/** Type representing mortgage loan information */
 export type Mortgage = {
   __typename?: 'Mortgage';
   /** Interest payments made during the tax year */
@@ -136,9 +129,6 @@ export type Mutation = {
   createTaxReturn?: Maybe<TaxReturn>;
   /** Test mutation that returns a greeting */
   sayHi?: Maybe<Scalars['String']['output']>;
-  /** Update an existing tax return with new information */
-  submitTaxReturn?: Maybe<TaxReturn>;
-  /** Update an existing tax return with new information */
   updateTaxReturn?: Maybe<TaxReturn>;
 };
 
@@ -186,6 +176,25 @@ export type OtherDebt = {
   /** Remaining balance of the loan */
   remainingBalance?: Maybe<Scalars['Float']['output']>;
 };
+
+/** Types of other income that may be tax-exempt */
+export enum OtherIncomeType {
+  FOREIGN_INCOME = 'FOREIGN_INCOME',
+  OTHER_TAX_EXEMPT_INCOME = 'OTHER_TAX_EXEMPT_INCOME',
+  TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND = 'TAX_EXEMPT_DISPOSAL_FROM_PRIVATE_PENSION_FUND',
+  TAX_EXEMPT_LOTTERY_PRIZES = 'TAX_EXEMPT_LOTTERY_PRIZES',
+  TAX_EXEMPT_SOCIAL_SECURITY = 'TAX_EXEMPT_SOCIAL_SECURITY',
+  TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND = 'TAX_EXEMPT_WITHDRAWAL_FROM_PRIVATE_PENSION_FUND'
+}
+
+/** Types of pension and social security benefits */
+export enum PensionType {
+  MUNICIPAL_FINANCIAL_AID = 'MUNICIPAL_FINANCIAL_AID',
+  PENSION_FUND = 'PENSION_FUND',
+  PRIVATE_PENSION_FUND = 'PRIVATE_PENSION_FUND',
+  SOCIAL_SECURITY = 'SOCIAL_SECURITY',
+  UNEMPLOYMENT_BENEFITS = 'UNEMPLOYMENT_BENEFITS'
+}
 
 export type Query = {
   __typename?: 'Query';

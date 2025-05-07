@@ -7,6 +7,7 @@ import { Hidden } from '../Hidden/Hidden'
 import { UserMenu } from './UserMenu/UserMenu'
 import * as styles from './Header.css'
 import { Divider } from '../Divider/Divider'
+import { Link } from '../Link/Link'
 
 export interface HeaderProps {
   info?: {
@@ -133,9 +134,7 @@ export const Header = ({
     >
       <Box display="flex" columnGap={2} alignItems="center" flexWrap="nowrap">
         <Box display="flex" alignItems="center">
-          <Box flexShrink={0} paddingRight={0}>
-            {renderLogo()}
-          </Box>
+          <Link href="/umsoknir">{renderLogo()}</Link>
           <div className={styles.verticalLine}>
             <Divider thickness="thick" weight="purple100" />
           </div>
