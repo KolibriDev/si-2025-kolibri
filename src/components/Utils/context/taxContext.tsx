@@ -7,6 +7,7 @@ import {
   useTaxReturnLazyQuery,
   useUpdateTaxReturnMutation,
   useSubmitTaxReturnMutation,
+  SubmitTaxReturnMutation,
 } from '@/generated/graphql'
 import {
   createContext,
@@ -19,6 +20,8 @@ import {
 import { mapTaxReturnToUpdateInput } from './mappers'
 import { useApolloClient } from '@apollo/client'
 
+type SubmitTaxReturnResult = SubmitTaxReturnMutation['submitTaxReturn']
+
 interface TaxReturnContextType {
   taxReturn: TaxReturnQuery['taxReturn'] | undefined | null
   setTaxReturn: (
@@ -27,7 +30,7 @@ interface TaxReturnContextType {
   fetchTaxReturn: (nationalId: string) => void
   createTaxReturn: (nationalId: string) => void
   updateTaxReturn: (taxReturn: TaxReturnQuery['taxReturn']) => void
-  submitTaxReturn: (nationalId: string) => Promise<any>
+  submitTaxReturn: (nationalId: string) => Promise<SubmitTaxReturnResult>
   isLoading: boolean
   isSubmitting: boolean
 }
@@ -118,7 +121,7 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
   )
 
   const submitTaxReturn = useCallback(
-    async (nationalId: string): Promise<{ nationalId: string } | undefined> => {
+    async (nationalId: string): Promise<SubmitTaxReturnResult> => {
       const result = await executeSubmitTaxReturn({
         variables: { nationalId },
       })
