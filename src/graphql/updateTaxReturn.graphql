@@ -30,7 +30,7 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
     vehicles {
       registrationNumber
       yearOfPurchase
-      purchasePrice
+      appraisalAmount
     }
     mortgages {
       realEstateNumber

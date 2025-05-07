@@ -1765,7 +1765,7 @@
         "isOneOf": null,
         "fields": [
           {
-            "name": "purchasePrice",
+            "name": "appraisalAmount",
             "description": "Original purchase price of the vehicle",
             "args": [],
             "type": {
@@ -1814,7 +1814,7 @@
         "fields": null,
         "inputFields": [
           {
-            "name": "purchasePrice",
+            "name": "appraisalAmount",
             "description": "Original purchase price of the vehicle",
             "type": {
               "kind": "SCALAR",

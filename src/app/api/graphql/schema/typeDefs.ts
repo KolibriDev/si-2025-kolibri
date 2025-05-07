@@ -156,7 +156,7 @@ export const typeDefs = /* GraphQL */ `
     "Year the vehicle was purchased"
     yearOfPurchase: Int
     "Original purchase price of the vehicle"
-    purchasePrice: Float
+    appraisalAmount: Float
   }
 
   """
@@ -272,7 +272,7 @@ export const typeDefs = /* GraphQL */ `
     "Year the vehicle was purchased"
     yearOfPurchase: Int
     "Original purchase price of the vehicle"
-    purchasePrice: Float
+    appraisalAmount: Float
   }
 
   """
