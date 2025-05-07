@@ -12,7 +12,9 @@ import {
   useCallback,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react'
+import { useError } from './errorContext'
 
 type User = NationalRegisterQuery['individual'] | undefined | null
 

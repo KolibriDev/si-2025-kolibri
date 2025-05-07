@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { Text } from '@/components/Text/Text'
 import { Icon } from '../IconRC/Icon'
 import { Box } from '../Box/Box'
@@ -12,12 +12,12 @@ import { useTaxContext } from '../Utils/context/taxContext'
 const Gagnaoflun = () => {
   const error = useError()
   const user = useUserContext()
-  const [isAcceptingTerms, setIsAcceptingTerms] = useState<boolean>(false)
-  const taxReturn = useTaxContext()
+  const { taxReturn } = useTaxContext()
+  const hasError = error?.errors.includes('ACCEPTING_TERMS')
 
   useEffect(() => {
-    user.setIsAcceptingTerms((prev) => !prev)
-  }, [isAcceptingTerms])
+    error?.clearAllErrors()
+  }, [user.isAcceptingTerms])
 
   return (
     <div>
@@ -54,10 +54,12 @@ const Gagnaoflun = () => {
       </Box>
       <Checkbox
         name="gagnaoflun-samthyggi"
-        backgroundColor="blue"
+        hasError={hasError}
+        errorMessage="Samþykkja þarf gagnaöflun"
+        backgroundColor={hasError ? 'red' : 'blue'}
         label="Ég skil að ofangreindra gagna verður aflað í ferlinu"
-        onChange={(evt) => setIsAcceptingTerms(evt.target.checked)}
-        checked={!!taxReturn}
+        onChange={(evt) => user.setIsAcceptingTerms(evt.target.checked)}
+        checked={!!taxReturn || user.isAcceptingTerms}
         disabled={!!taxReturn}
         large
       />

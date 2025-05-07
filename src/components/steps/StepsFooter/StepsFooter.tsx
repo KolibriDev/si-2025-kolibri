@@ -32,14 +32,20 @@ export const StepsFooter = () => {
     if (
       currentStep === 'gagnaoflun' &&
       !taxReturn &&
-      user?.nationalId &&
-      isAcceptingTerms
+      isAcceptingTerms &&
+      user?.nationalId
     ) {
       await createTaxReturn(user.nationalId)
       router.push(`${nextStep}`)
-    } else {
+    }
+
+    if (taxReturn) {
+      router.push(`${nextStep}`)
+      return
+    }
+
+    if (!isAcceptingTerms) {
       error?.setError('ACCEPTING_TERMS')
-      // router.push(`${nextStep}`)
     }
   }
 

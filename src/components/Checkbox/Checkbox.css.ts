@@ -21,6 +21,10 @@ export const large = style({
   border: `1px solid ${theme.color.blue200}`,
 })
 
+export const error = style({
+  border: `1px solid ${theme.color.red200}`,
+})
+
 export const input = style({
   height: checkboxSize,
   left: 0,
@@ -99,7 +103,9 @@ export const checkboxLabelDisabled = style({
   color: theme.color.dark300,
 })
 
-export const checkboxError = style(inputErrorState)
+export const checkboxError = style({
+  borderColor: theme.color.red200,
+})
 export const errorMessage = style(inputErrorMessage)
 
 export const tooltipContainer = style({
