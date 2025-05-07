@@ -43,6 +43,19 @@ export const StepsFooter = () => {
     }
   }
 
+  if (currentStep === 'stadfesting') {
+    return (
+      <Box display="flex" className={styles.footer}>
+        <Button variant="primary" onClick={() => router.push('/umsoknir')}>
+          <div className={styles.primaryButton}>
+            <Text variant="h5">Mínar síður</Text>
+            <Icon icon="arrowForward" />
+          </div>
+        </Button>
+      </Box>
+    )
+  }
+
   return (
     <Box display="flex" className={styles.footer}>
       <Button
