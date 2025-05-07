@@ -17,76 +17,149 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+/** Type representing benefits received from employers or other entities */
 export type Benefit = {
   __typename?: 'Benefit';
+  /** Total benefit amount for the tax year */
   amount?: Maybe<Scalars['Float']['output']>;
+  /** Type of benefit received */
   benefitType?: Maybe<BenefitType>;
+  /** Name of the benefit payer */
   payerName?: Maybe<Scalars['String']['output']>;
+  /** National ID (kennitala) of the benefit payer */
   payerNationalId?: Maybe<Scalars['String']['output']>;
 };
 
+/** Input type for benefits received from employers or other entities */
 export type BenefitInput = {
+  /** Total benefit amount for the tax year */
   amount?: InputMaybe<Scalars['Float']['input']>;
+  /** Type of benefit received */
   benefitType?: InputMaybe<BenefitType>;
+  /** Name of the benefit payer */
   payerName?: InputMaybe<Scalars['String']['input']>;
+  /** National ID (kennitala) of the benefit payer */
   payerNationalId?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Types of benefits received from employers or other entities */
 export enum BenefitType {
+  /** Daily allowance payments */
   DailyAllowance = 'DAILY_ALLOWANCE',
+  /** Other miscellaneous benefits */
   Other = 'OTHER',
+  /** Sport and wellness allowance */
   SportAllowance = 'SPORT_ALLOWANCE',
+  /** Educational and study-related allowance */
   StudyAllowance = 'STUDY_ALLOWANCE'
 }
 
+/** Type representing tax deductions */
 export type Deduction = {
   __typename?: 'Deduction';
+  /** Amount of the deduction */
   amount?: Maybe<Scalars['Float']['output']>;
+  /** Type of deduction being claimed */
   deductionType?: Maybe<DeductionType>;
 };
 
+/** Input type for tax deductions */
 export type DeductionInput = {
+  /** Amount of the deduction */
   amount?: InputMaybe<Scalars['Float']['input']>;
+  /** Type of deduction being claimed */
   deductionType?: InputMaybe<DeductionType>;
 };
 
+/** Types of deductions that can be claimed on a tax return */
 export enum DeductionType {
-  Other = 'OTHER'
+  /**
+   * Deduction against fitness/wellness grants
+   * (Frádráttur á móti líkamsræktarstyrk)
+   */
+  FitnessGrantOffset = 'FITNESS_GRANT_OFFSET',
+  /**
+   * Other miscellaneous deductions
+   * (Aðrir ýmsir frádrættir)
+   */
+  Other = 'OTHER',
+  /**
+   * Deduction against pension fund contributions
+   * (Frádráttur á móti lífeyrisiðgjaldi)
+   */
+  PensionOffset = 'PENSION_OFFSET',
+  /**
+   * Deduction against per diem allowances
+   * (Frádráttur á móti dagpeningum)
+   */
+  PerDiemOffset = 'PER_DIEM_OFFSET',
+  /**
+   * Deduction against private pension fund contributions
+   * (Frádráttur á móti séreignarsjóðsiðgjaldi)
+   */
+  PrivatePensionOffset = 'PRIVATE_PENSION_OFFSET'
 }
 
+/** Type representing mortgage loan information */
 export type Mortgage = {
   __typename?: 'Mortgage';
+  /** Interest payments made during the tax year */
   interestPayments?: Maybe<Scalars['Float']['output']>;
+  /** Name of the lending institution */
   lenderName?: Maybe<Scalars['String']['output']>;
+  /** National ID (kennitala) of the lending institution */
   lenderNationalId?: Maybe<Scalars['String']['output']>;
+  /** Original loan amount */
   loanAmount?: Maybe<Scalars['Float']['output']>;
+  /** Loan identification number */
   loanNumber?: Maybe<Scalars['String']['output']>;
+  /** Date when the loan was initiated (YYYY-MM-DD) */
   loanStartDate?: Maybe<Scalars['String']['output']>;
+  /** Total term of the loan in years */
   loanTermYears?: Maybe<Scalars['Int']['output']>;
+  /** Principal payments made during the tax year */
   principalPayments?: Maybe<Scalars['Float']['output']>;
+  /** Property number (fasteignanúmer) associated with the mortgage */
   realEstateNumber?: Maybe<Scalars['String']['output']>;
+  /** Remaining balance of the loan */
   remainingBalance?: Maybe<Scalars['Float']['output']>;
+  /** Total payments made during the tax year */
   totalAnnualPayments?: Maybe<Scalars['Float']['output']>;
 };
 
+/** Input type for mortgage loan information */
 export type MortgageInput = {
+  /** Interest payments made during the tax year */
   interestPayments?: InputMaybe<Scalars['Float']['input']>;
+  /** Name of the lending institution */
   lenderName?: InputMaybe<Scalars['String']['input']>;
+  /** National ID (kennitala) of the lending institution */
   lenderNationalId?: InputMaybe<Scalars['String']['input']>;
+  /** Original loan amount */
   loanAmount?: InputMaybe<Scalars['Float']['input']>;
+  /** Loan identification number */
   loanNumber?: InputMaybe<Scalars['String']['input']>;
+  /** Date when the loan was initiated (YYYY-MM-DD) */
   loanStartDate?: InputMaybe<Scalars['String']['input']>;
+  /** Total term of the loan in years */
   loanTermYears?: InputMaybe<Scalars['Int']['input']>;
+  /** Principal payments made during the tax year */
   principalPayments?: InputMaybe<Scalars['Float']['input']>;
+  /** Property number (fasteignanúmer) associated with the mortgage */
   realEstateNumber?: InputMaybe<Scalars['String']['input']>;
+  /** Remaining balance of the loan */
   remainingBalance?: InputMaybe<Scalars['Float']['input']>;
+  /** Total payments made during the tax year */
   totalAnnualPayments?: InputMaybe<Scalars['Float']['input']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
+  /** Create a new tax return for an individual */
   createTaxReturn?: Maybe<TaxReturn>;
+  /** Test mutation that returns a greeting */
   sayHi?: Maybe<Scalars['String']['output']>;
+  /** Update an existing tax return with new information */
   updateTaxReturn?: Maybe<TaxReturn>;
 };
 
@@ -106,31 +179,50 @@ export type MutationUpdateTaxReturnArgs = {
   nationalId: Scalars['String']['input'];
 };
 
+/** Type representing basic information from the National Registry */
 export type NationalRegistry = {
   __typename?: 'NationalRegistry';
+  /** Full name of the individual */
   name?: Maybe<Scalars['String']['output']>;
+  /** National ID (kennitala) of the individual */
   nationalId: Scalars['String']['output'];
+  /** Contact phone number */
   phoneNumber?: Maybe<Scalars['String']['output']>;
 };
 
+/** Type representing other debts and loans not tied to real estate */
 export type OtherDebt = {
   __typename?: 'OtherDebt';
+  /** Interest payments made during the tax year */
   interestPayments?: Maybe<Scalars['Float']['output']>;
+  /** Name of the lending institution */
   lenderName?: Maybe<Scalars['String']['output']>;
+  /** National ID (kennitala) of the lending institution */
   lenderNationalId?: Maybe<Scalars['String']['output']>;
+  /** Remaining balance of the loan */
   remainingBalance?: Maybe<Scalars['Float']['output']>;
 };
 
 export type Query = {
   __typename?: 'Query';
+  /** Look up an individual in the National Registry by phone number */
   individual?: Maybe<NationalRegistry>;
+  /** Retrieve the submitted version of a tax return */
+  submittedTaxReturn?: Maybe<TaxReturn>;
+  /** Retrieve a tax return by national ID */
   taxReturn?: Maybe<TaxReturn>;
+  /** Get pre-filled tax return data for an individual */
   taxReturnPrefill?: Maybe<TaxReturn>;
 };
 
 
 export type QueryIndividualArgs = {
   phoneNumber: Scalars['String']['input'];
+};
+
+
+export type QuerySubmittedTaxReturnArgs = {
+  nationalId: Scalars['String']['input'];
 };
 
 
@@ -143,74 +235,125 @@ export type QueryTaxReturnPrefillArgs = {
   nationalId: Scalars['String']['input'];
 };
 
+/** Type representing real estate property information */
 export type RealEstate = {
   __typename?: 'RealEstate';
+  /** Physical address of the property */
   address?: Maybe<Scalars['String']['output']>;
+  /** Official property appraisal amount */
   appraisalAmount?: Maybe<Scalars['Float']['output']>;
+  /** Property number (fasteignanúmer) */
   number?: Maybe<Scalars['String']['output']>;
 };
 
+/** Input type for real estate property information */
 export type RealEstateInput = {
+  /** Physical address of the property */
   address?: InputMaybe<Scalars['String']['input']>;
+  /** Official property appraisal amount */
   appraisalAmount?: InputMaybe<Scalars['Float']['input']>;
+  /** Property number (fasteignanúmer) */
   number?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Type representing salary information from an employer */
 export type Salary = {
   __typename?: 'Salary';
+  /** Total salary amount for the tax year */
   amount?: Maybe<Scalars['Float']['output']>;
+  /** Name of the employer */
   employerName?: Maybe<Scalars['String']['output']>;
+  /** National ID (kennitala) of the employer */
   employerNationalId?: Maybe<Scalars['String']['output']>;
 };
 
+/** Input type for salary information from an employer */
 export type SalaryInput = {
+  /** Total salary amount for the tax year */
   amount?: InputMaybe<Scalars['Float']['input']>;
+  /** Name of the employer */
   employerName?: InputMaybe<Scalars['String']['input']>;
+  /** National ID (kennitala) of the employer */
   employerNationalId?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** Type representing a complete tax return for an individual */
 export type TaxReturn = {
   __typename?: 'TaxReturn';
+  /** Current residential address */
   address?: Maybe<Scalars['String']['output']>;
+  /** Bank account number for tax refunds */
   bankAccount?: Maybe<Scalars['String']['output']>;
+  /** List of benefits received during the tax year */
   benefits?: Maybe<Array<Benefit>>;
+  /** List of tax deductions being claimed */
   deductions?: Maybe<Array<Deduction>>;
+  /** Contact email address */
   email?: Maybe<Scalars['String']['output']>;
+  /** Indicates if the individual has accident insurance */
   hasAccidentInsurance?: Maybe<Scalars['Boolean']['output']>;
+  /** List of mortgages and housing loans */
   mortgages?: Maybe<Array<Mortgage>>;
+  /** Full name of the tax payer */
   name?: Maybe<Scalars['String']['output']>;
+  /** National ID (kennitala) of the tax payer */
   nationalId: Scalars['String']['output'];
+  /** List of other debts not tied to real estate */
   otherDebts?: Maybe<Array<OtherDebt>>;
+  /** Contact phone number */
   phoneNumber?: Maybe<Scalars['String']['output']>;
+  /** List of real estate properties owned */
   realEstates?: Maybe<Array<RealEstate>>;
+  /** List of salaries received during the tax year */
   salaries?: Maybe<Array<Salary>>;
+  /** List of vehicles owned */
   vehicles?: Maybe<Array<Vehicle>>;
 };
 
+/** Input type for updating tax return information */
 export type TaxReturnUpdateInput = {
+  /** Current residential address */
   address?: InputMaybe<Scalars['String']['input']>;
+  /** Bank account number for tax refunds */
   bankAccount?: InputMaybe<Scalars['String']['input']>;
+  /** List of benefits received during the tax year */
   benefits?: InputMaybe<Array<BenefitInput>>;
+  /** List of tax deductions being claimed */
   deductions?: InputMaybe<Array<DeductionInput>>;
+  /** Contact email address */
   email?: InputMaybe<Scalars['String']['input']>;
+  /** Indicates if the individual has accident insurance */
   hasAccidentInsurance?: InputMaybe<Scalars['Boolean']['input']>;
+  /** List of mortgages and housing loans */
   mortgages?: InputMaybe<Array<MortgageInput>>;
+  /** Contact phone number */
   phoneNumber?: InputMaybe<Scalars['String']['input']>;
+  /** List of real estate properties owned */
   realEstates?: InputMaybe<Array<RealEstateInput>>;
+  /** List of salaries received during the tax year */
   salaries?: InputMaybe<Array<SalaryInput>>;
+  /** List of vehicles owned */
   vehicles?: InputMaybe<Array<VehicleInput>>;
 };
 
+/** Type representing vehicle information */
 export type Vehicle = {
   __typename?: 'Vehicle';
+  /** Original purchase price of the vehicle */
   purchasePrice?: Maybe<Scalars['Float']['output']>;
+  /** Vehicle registration number */
   registrationNumber?: Maybe<Scalars['String']['output']>;
+  /** Year the vehicle was purchased */
   yearOfPurchase?: Maybe<Scalars['Int']['output']>;
 };
 
+/** Input type for vehicle information */
 export type VehicleInput = {
+  /** Original purchase price of the vehicle */
   purchasePrice?: InputMaybe<Scalars['Float']['input']>;
+  /** Vehicle registration number */
   registrationNumber?: InputMaybe<Scalars['String']['input']>;
+  /** Year the vehicle was purchased */
   yearOfPurchase?: InputMaybe<Scalars['Int']['input']>;
 };
 

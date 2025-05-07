@@ -12,7 +12,12 @@ import { DeductionType } from '@/generated/graphql'
 
 export function mapDeductionType(deduction: DeductionType): string {
   const map: Record<DeductionType, string> = {
-    [DeductionType.Other]: 'Annað',
+    [DeductionType.Other]: 'Aðrir frádrættir',
+    [DeductionType.FitnessGrantOffset]: 'Frádráttur á móti líkamsræktarstyrk',
+    [DeductionType.PensionOffset]: 'Frádráttur á móti lífeyrisiðgjaldi',
+    [DeductionType.PerDiemOffset]: 'Frádráttur á móti dagpeningum',
+    [DeductionType.PrivatePensionOffset]:
+      'Frádráttur á móti séreignarsjóðsiðgjaldi',
   }
 
   return map[deduction] || deduction
@@ -20,12 +25,7 @@ export function mapDeductionType(deduction: DeductionType): string {
 
 const Fradrattur = () => {
   const { taxReturn } = useTaxContext()
-  const deductions = taxReturn?.deductions ?? [
-    {
-      deductionType: DeductionType.Other,
-      amount: 150_000,
-    },
-  ]
+  const deductions = taxReturn?.deductions
 
   return (
     <div>

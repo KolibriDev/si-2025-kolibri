@@ -13,12 +13,12 @@
       {
         "kind": "OBJECT",
         "name": "Benefit",
-        "description": null,
+        "description": "Type representing benefits received from employers or other entities",
         "isOneOf": null,
         "fields": [
           {
             "name": "amount",
-            "description": null,
+            "description": "Total benefit amount for the tax year",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -30,7 +30,7 @@
           },
           {
             "name": "benefitType",
-            "description": null,
+            "description": "Type of benefit received",
             "args": [],
             "type": {
               "kind": "ENUM",
@@ -42,7 +42,7 @@
           },
           {
             "name": "payerName",
-            "description": null,
+            "description": "Name of the benefit payer",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -54,7 +54,7 @@
           },
           {
             "name": "payerNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the benefit payer",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -73,13 +73,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "BenefitInput",
-        "description": null,
+        "description": "Input type for benefits received from employers or other entities",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "amount",
-            "description": null,
+            "description": "Total benefit amount for the tax year",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -91,7 +91,7 @@
           },
           {
             "name": "benefitType",
-            "description": null,
+            "description": "Type of benefit received",
             "type": {
               "kind": "ENUM",
               "name": "BenefitType",
@@ -103,7 +103,7 @@
           },
           {
             "name": "payerName",
-            "description": null,
+            "description": "Name of the benefit payer",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -115,7 +115,7 @@
           },
           {
             "name": "payerNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the benefit payer",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -133,7 +133,7 @@
       {
         "kind": "ENUM",
         "name": "BenefitType",
-        "description": null,
+        "description": "Types of benefits received from employers or other entities",
         "isOneOf": null,
         "fields": null,
         "inputFields": null,
@@ -141,25 +141,25 @@
         "enumValues": [
           {
             "name": "DAILY_ALLOWANCE",
-            "description": null,
+            "description": "Daily allowance payments",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "OTHER",
-            "description": null,
+            "description": "Other miscellaneous benefits",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SPORT_ALLOWANCE",
-            "description": null,
+            "description": "Sport and wellness allowance",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "STUDY_ALLOWANCE",
-            "description": null,
+            "description": "Educational and study-related allowance",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -180,12 +180,12 @@
       {
         "kind": "OBJECT",
         "name": "Deduction",
-        "description": null,
+        "description": "Type representing tax deductions",
         "isOneOf": null,
         "fields": [
           {
             "name": "amount",
-            "description": null,
+            "description": "Amount of the deduction",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -197,7 +197,7 @@
           },
           {
             "name": "deductionType",
-            "description": null,
+            "description": "Type of deduction being claimed",
             "args": [],
             "type": {
               "kind": "ENUM",
@@ -216,13 +216,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "DeductionInput",
-        "description": null,
+        "description": "Input type for tax deductions",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "amount",
-            "description": null,
+            "description": "Amount of the deduction",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -234,7 +234,7 @@
           },
           {
             "name": "deductionType",
-            "description": null,
+            "description": "Type of deduction being claimed",
             "type": {
               "kind": "ENUM",
               "name": "DeductionType",
@@ -252,15 +252,39 @@
       {
         "kind": "ENUM",
         "name": "DeductionType",
-        "description": null,
+        "description": "Types of deductions that can be claimed on a tax return",
         "isOneOf": null,
         "fields": null,
         "inputFields": null,
         "interfaces": null,
         "enumValues": [
           {
+            "name": "FITNESS_GRANT_OFFSET",
+            "description": "Deduction against fitness/wellness grants\n(Frádráttur á móti líkamsræktarstyrk)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "OTHER",
-            "description": null,
+            "description": "Other miscellaneous deductions\n(Aðrir ýmsir frádrættir)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENSION_OFFSET",
+            "description": "Deduction against pension fund contributions\n(Frádráttur á móti lífeyrisiðgjaldi)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PER_DIEM_OFFSET",
+            "description": "Deduction against per diem allowances\n(Frádráttur á móti dagpeningum)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRIVATE_PENSION_OFFSET",
+            "description": "Deduction against private pension fund contributions\n(Frádráttur á móti séreignarsjóðsiðgjaldi)",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -292,12 +316,12 @@
       {
         "kind": "OBJECT",
         "name": "Mortgage",
-        "description": null,
+        "description": "Type representing mortgage loan information",
         "isOneOf": null,
         "fields": [
           {
             "name": "interestPayments",
-            "description": null,
+            "description": "Interest payments made during the tax year",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -309,7 +333,7 @@
           },
           {
             "name": "lenderName",
-            "description": null,
+            "description": "Name of the lending institution",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -321,7 +345,7 @@
           },
           {
             "name": "lenderNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the lending institution",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -333,7 +357,7 @@
           },
           {
             "name": "loanAmount",
-            "description": null,
+            "description": "Original loan amount",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -345,7 +369,7 @@
           },
           {
             "name": "loanNumber",
-            "description": null,
+            "description": "Loan identification number",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -357,7 +381,7 @@
           },
           {
             "name": "loanStartDate",
-            "description": null,
+            "description": "Date when the loan was initiated (YYYY-MM-DD)",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -369,7 +393,7 @@
           },
           {
             "name": "loanTermYears",
-            "description": null,
+            "description": "Total term of the loan in years",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -381,7 +405,7 @@
           },
           {
             "name": "principalPayments",
-            "description": null,
+            "description": "Principal payments made during the tax year",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -393,7 +417,7 @@
           },
           {
             "name": "realEstateNumber",
-            "description": null,
+            "description": "Property number (fasteignanúmer) associated with the mortgage",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -405,7 +429,7 @@
           },
           {
             "name": "remainingBalance",
-            "description": null,
+            "description": "Remaining balance of the loan",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -417,7 +441,7 @@
           },
           {
             "name": "totalAnnualPayments",
-            "description": null,
+            "description": "Total payments made during the tax year",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -436,13 +460,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "MortgageInput",
-        "description": null,
+        "description": "Input type for mortgage loan information",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "interestPayments",
-            "description": null,
+            "description": "Interest payments made during the tax year",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -454,7 +478,7 @@
           },
           {
             "name": "lenderName",
-            "description": null,
+            "description": "Name of the lending institution",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -466,7 +490,7 @@
           },
           {
             "name": "lenderNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the lending institution",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -478,7 +502,7 @@
           },
           {
             "name": "loanAmount",
-            "description": null,
+            "description": "Original loan amount",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -490,7 +514,7 @@
           },
           {
             "name": "loanNumber",
-            "description": null,
+            "description": "Loan identification number",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -502,7 +526,7 @@
           },
           {
             "name": "loanStartDate",
-            "description": null,
+            "description": "Date when the loan was initiated (YYYY-MM-DD)",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -514,7 +538,7 @@
           },
           {
             "name": "loanTermYears",
-            "description": null,
+            "description": "Total term of the loan in years",
             "type": {
               "kind": "SCALAR",
               "name": "Int",
@@ -526,7 +550,7 @@
           },
           {
             "name": "principalPayments",
-            "description": null,
+            "description": "Principal payments made during the tax year",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -538,7 +562,7 @@
           },
           {
             "name": "realEstateNumber",
-            "description": null,
+            "description": "Property number (fasteignanúmer) associated with the mortgage",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -550,7 +574,7 @@
           },
           {
             "name": "remainingBalance",
-            "description": null,
+            "description": "Remaining balance of the loan",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -562,7 +586,7 @@
           },
           {
             "name": "totalAnnualPayments",
-            "description": null,
+            "description": "Total payments made during the tax year",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -585,11 +609,11 @@
         "fields": [
           {
             "name": "createTaxReturn",
-            "description": null,
+            "description": "Create a new tax return for an individual",
             "args": [
               {
                 "name": "nationalId",
-                "description": null,
+                "description": "National ID (kennitala) of the tax payer",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -614,7 +638,7 @@
           },
           {
             "name": "sayHi",
-            "description": null,
+            "description": "Test mutation that returns a greeting",
             "args": [
               {
                 "name": "name",
@@ -643,11 +667,11 @@
           },
           {
             "name": "updateTaxReturn",
-            "description": null,
+            "description": "Update an existing tax return with new information",
             "args": [
               {
                 "name": "input",
-                "description": null,
+                "description": "Updated tax return information",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -663,7 +687,7 @@
               },
               {
                 "name": "nationalId",
-                "description": null,
+                "description": "National ID (kennitala) of the tax payer",
                 "type": {
                   "kind": "NON_NULL",
                   "name": null,
@@ -695,12 +719,12 @@
       {
         "kind": "OBJECT",
         "name": "NationalRegistry",
-        "description": null,
+        "description": "Type representing basic information from the National Registry",
         "isOneOf": null,
         "fields": [
           {
             "name": "name",
-            "description": null,
+            "description": "Full name of the individual",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -712,7 +736,7 @@
           },
           {
             "name": "nationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the individual",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -728,7 +752,7 @@
           },
           {
             "name": "phoneNumber",
-            "description": null,
+            "description": "Contact phone number",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -747,12 +771,12 @@
       {
         "kind": "OBJECT",
         "name": "OtherDebt",
-        "description": null,
+        "description": "Type representing other debts and loans not tied to real estate",
         "isOneOf": null,
         "fields": [
           {
             "name": "interestPayments",
-            "description": null,
+            "description": "Interest payments made during the tax year",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -764,7 +788,7 @@
           },
           {
             "name": "lenderName",
-            "description": null,
+            "description": "Name of the lending institution",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -776,7 +800,7 @@
           },
           {
             "name": "lenderNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the lending institution",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -788,7 +812,7 @@
           },
           {
             "name": "remainingBalance",
-            "description": null,
+            "description": "Remaining balance of the loan",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -812,7 +836,7 @@
         "fields": [
           {
             "name": "individual",
-            "description": null,
+            "description": "Look up an individual in the National Registry by phone number",
             "args": [
               {
                 "name": "phoneNumber",
@@ -840,8 +864,37 @@
             "deprecationReason": null
           },
           {
+            "name": "submittedTaxReturn",
+            "description": "Retrieve the submitted version of a tax return",
+            "args": [
+              {
+                "name": "nationalId",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  }
+                },
+                "defaultValue": null,
+                "isDeprecated": false,
+                "deprecationReason": null
+              }
+            ],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TaxReturn",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "taxReturn",
-            "description": null,
+            "description": "Retrieve a tax return by national ID",
             "args": [
               {
                 "name": "nationalId",
@@ -870,7 +923,7 @@
           },
           {
             "name": "taxReturnPrefill",
-            "description": null,
+            "description": "Get pre-filled tax return data for an individual",
             "args": [
               {
                 "name": "nationalId",
@@ -906,12 +959,12 @@
       {
         "kind": "OBJECT",
         "name": "RealEstate",
-        "description": null,
+        "description": "Type representing real estate property information",
         "isOneOf": null,
         "fields": [
           {
             "name": "address",
-            "description": null,
+            "description": "Physical address of the property",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -923,7 +976,7 @@
           },
           {
             "name": "appraisalAmount",
-            "description": null,
+            "description": "Official property appraisal amount",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -935,7 +988,7 @@
           },
           {
             "name": "number",
-            "description": null,
+            "description": "Property number (fasteignanúmer)",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -954,13 +1007,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "RealEstateInput",
-        "description": null,
+        "description": "Input type for real estate property information",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "address",
-            "description": null,
+            "description": "Physical address of the property",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -972,7 +1025,7 @@
           },
           {
             "name": "appraisalAmount",
-            "description": null,
+            "description": "Official property appraisal amount",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -984,7 +1037,7 @@
           },
           {
             "name": "number",
-            "description": null,
+            "description": "Property number (fasteignanúmer)",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1002,12 +1055,12 @@
       {
         "kind": "OBJECT",
         "name": "Salary",
-        "description": null,
+        "description": "Type representing salary information from an employer",
         "isOneOf": null,
         "fields": [
           {
             "name": "amount",
-            "description": null,
+            "description": "Total salary amount for the tax year",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1019,7 +1072,7 @@
           },
           {
             "name": "employerName",
-            "description": null,
+            "description": "Name of the employer",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1031,7 +1084,7 @@
           },
           {
             "name": "employerNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the employer",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1050,13 +1103,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "SalaryInput",
-        "description": null,
+        "description": "Input type for salary information from an employer",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "amount",
-            "description": null,
+            "description": "Total salary amount for the tax year",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -1068,7 +1121,7 @@
           },
           {
             "name": "employerName",
-            "description": null,
+            "description": "Name of the employer",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1080,7 +1133,7 @@
           },
           {
             "name": "employerNationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the employer",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1109,12 +1162,12 @@
       {
         "kind": "OBJECT",
         "name": "TaxReturn",
-        "description": null,
+        "description": "Type representing a complete tax return for an individual",
         "isOneOf": null,
         "fields": [
           {
             "name": "address",
-            "description": null,
+            "description": "Current residential address",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1126,7 +1179,7 @@
           },
           {
             "name": "bankAccount",
-            "description": null,
+            "description": "Bank account number for tax refunds",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1138,7 +1191,7 @@
           },
           {
             "name": "benefits",
-            "description": null,
+            "description": "List of benefits received during the tax year",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1158,7 +1211,7 @@
           },
           {
             "name": "deductions",
-            "description": null,
+            "description": "List of tax deductions being claimed",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1178,7 +1231,7 @@
           },
           {
             "name": "email",
-            "description": null,
+            "description": "Contact email address",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1190,7 +1243,7 @@
           },
           {
             "name": "hasAccidentInsurance",
-            "description": null,
+            "description": "Indicates if the individual has accident insurance",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1202,7 +1255,7 @@
           },
           {
             "name": "mortgages",
-            "description": null,
+            "description": "List of mortgages and housing loans",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1222,7 +1275,7 @@
           },
           {
             "name": "name",
-            "description": null,
+            "description": "Full name of the tax payer",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1234,7 +1287,7 @@
           },
           {
             "name": "nationalId",
-            "description": null,
+            "description": "National ID (kennitala) of the tax payer",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -1250,7 +1303,7 @@
           },
           {
             "name": "otherDebts",
-            "description": null,
+            "description": "List of other debts not tied to real estate",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1270,7 +1323,7 @@
           },
           {
             "name": "phoneNumber",
-            "description": null,
+            "description": "Contact phone number",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1282,7 +1335,7 @@
           },
           {
             "name": "realEstates",
-            "description": null,
+            "description": "List of real estate properties owned",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1302,7 +1355,7 @@
           },
           {
             "name": "salaries",
-            "description": null,
+            "description": "List of salaries received during the tax year",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1322,7 +1375,7 @@
           },
           {
             "name": "vehicles",
-            "description": null,
+            "description": "List of vehicles owned",
             "args": [],
             "type": {
               "kind": "LIST",
@@ -1349,13 +1402,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "TaxReturnUpdateInput",
-        "description": null,
+        "description": "Input type for updating tax return information",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "address",
-            "description": null,
+            "description": "Current residential address",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1367,7 +1420,7 @@
           },
           {
             "name": "bankAccount",
-            "description": null,
+            "description": "Bank account number for tax refunds",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1379,7 +1432,7 @@
           },
           {
             "name": "benefits",
-            "description": null,
+            "description": "List of benefits received during the tax year",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1399,7 +1452,7 @@
           },
           {
             "name": "deductions",
-            "description": null,
+            "description": "List of tax deductions being claimed",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1419,7 +1472,7 @@
           },
           {
             "name": "email",
-            "description": null,
+            "description": "Contact email address",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1431,7 +1484,7 @@
           },
           {
             "name": "hasAccidentInsurance",
-            "description": null,
+            "description": "Indicates if the individual has accident insurance",
             "type": {
               "kind": "SCALAR",
               "name": "Boolean",
@@ -1443,7 +1496,7 @@
           },
           {
             "name": "mortgages",
-            "description": null,
+            "description": "List of mortgages and housing loans",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1463,7 +1516,7 @@
           },
           {
             "name": "phoneNumber",
-            "description": null,
+            "description": "Contact phone number",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1475,7 +1528,7 @@
           },
           {
             "name": "realEstates",
-            "description": null,
+            "description": "List of real estate properties owned",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1495,7 +1548,7 @@
           },
           {
             "name": "salaries",
-            "description": null,
+            "description": "List of salaries received during the tax year",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1515,7 +1568,7 @@
           },
           {
             "name": "vehicles",
-            "description": null,
+            "description": "List of vehicles owned",
             "type": {
               "kind": "LIST",
               "name": null,
@@ -1541,12 +1594,12 @@
       {
         "kind": "OBJECT",
         "name": "Vehicle",
-        "description": null,
+        "description": "Type representing vehicle information",
         "isOneOf": null,
         "fields": [
           {
             "name": "purchasePrice",
-            "description": null,
+            "description": "Original purchase price of the vehicle",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1558,7 +1611,7 @@
           },
           {
             "name": "registrationNumber",
-            "description": null,
+            "description": "Vehicle registration number",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1570,7 +1623,7 @@
           },
           {
             "name": "yearOfPurchase",
-            "description": null,
+            "description": "Year the vehicle was purchased",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -1589,13 +1642,13 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "VehicleInput",
-        "description": null,
+        "description": "Input type for vehicle information",
         "isOneOf": false,
         "fields": null,
         "inputFields": [
           {
             "name": "purchasePrice",
-            "description": null,
+            "description": "Original purchase price of the vehicle",
             "type": {
               "kind": "SCALAR",
               "name": "Float",
@@ -1607,7 +1660,7 @@
           },
           {
             "name": "registrationNumber",
-            "description": null,
+            "description": "Vehicle registration number",
             "type": {
               "kind": "SCALAR",
               "name": "String",
@@ -1619,7 +1672,7 @@
           },
           {
             "name": "yearOfPurchase",
-            "description": null,
+            "description": "Year the vehicle was purchased",
             "type": {
               "kind": "SCALAR",
               "name": "Int",

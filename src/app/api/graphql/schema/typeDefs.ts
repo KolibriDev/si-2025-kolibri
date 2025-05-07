@@ -3,8 +3,35 @@ export const typeDefs = /* GraphQL */ `
   Types of deductions that can be claimed on a tax return
   """
   enum DeductionType {
-    "Other miscellaneous deductions"
+    """
+    Other miscellaneous deductions
+    (Aðrir ýmsir frádrættir)
+    """
     OTHER
+
+    """
+    Deduction against per diem allowances
+    (Frádráttur á móti dagpeningum)
+    """
+    PER_DIEM_OFFSET
+
+    """
+    Deduction against fitness/wellness grants
+    (Frádráttur á móti líkamsræktarstyrk)
+    """
+    FITNESS_GRANT_OFFSET
+
+    """
+    Deduction against pension fund contributions
+    (Frádráttur á móti lífeyrisiðgjaldi)
+    """
+    PENSION_OFFSET
+
+    """
+    Deduction against private pension fund contributions
+    (Frádráttur á móti séreignarsjóðsiðgjaldi)
+    """
+    PRIVATE_PENSION_OFFSET
   }
 
   """
