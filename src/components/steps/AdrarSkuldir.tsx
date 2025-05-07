@@ -24,7 +24,7 @@ export const OtherDebts = ({
           <T.Row>
             {isEditable && <T.HeadData>{/* empty */}</T.HeadData>}
             <T.HeadData>{'Nafn lánveitanda'}</T.HeadData>
-            <T.HeadData>{'Vaxtagjöld'}</T.HeadData>
+            <T.HeadData align="right">{'Vaxtagjöld'}</T.HeadData>
             <T.HeadData align="right">{'Eftirstöðvar skulda'}</T.HeadData>
           </T.Row>
         </T.Head>
