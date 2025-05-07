@@ -1,13 +1,5 @@
-export enum DeductionType {
-  OTHER = 'OTHER',
-}
-
-export enum BenefitType {
-  DAILY_ALLOWANCE = 'DAILY_ALLOWANCE',
-  SPORT_ALLOWANCE = 'SPORT_ALLOWANCE',
-  STUDY_ALLOWANCE = 'STUDY_ALLOWANCE',
-  OTHER = 'OTHER',
-}
+import { BenefitType, DeductionType } from '@/generated/graphql'
+import { z } from 'zod'
 
 export interface Salary {
   employerNationalId?: string
@@ -82,15 +74,12 @@ export interface NationalRegistry {
   name: string
   phoneNumber?: string
 }
-import { z } from 'zod'
 
-const deductionTypeSchema = z.enum(['OTHER'])
-const benefitTypeSchema = z.enum([
-  'DAILY_ALLOWANCE',
-  'SPORT_ALLOWANCE',
-  'STUDY_ALLOWANCE',
-  'OTHER',
-])
+const deductionType = Object.values(DeductionType) as [string, ...string[]]
+const deductionTypeSchema = z.enum(deductionType)
+
+const benefitType = Object.values(BenefitType) as [string, ...string[]]
+const benefitTypeSchema = z.enum(benefitType)
 
 const salarySchema = z.object({
   employerNationalId: z.string().optional(),
