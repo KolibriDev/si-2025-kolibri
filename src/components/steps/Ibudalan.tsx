@@ -32,7 +32,7 @@ const Ibudalan = () => {
       <Text variant="h3" marginBottom={2}>
         {taxReturn.realEstates?.[0]?.address}
       </Text>
-      <Mortgages isEditable={true} />
+      <Mortgages isEditable />
 
       <Box marginTop={6}>
         <Button variant="ghost" size="small" icon="add">
@@ -74,7 +74,7 @@ export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
         </T.Head>
         <T.Body>
           {taxReturn?.mortgages?.map((x) => (
-            <Mortgage key={x.loanNumber} mortgage={x} />
+            <Mortgage key={x.loanNumber} mortgage={x} isEditable={isEditable} />
           ))}
         </T.Body>
         <T.Foot>
