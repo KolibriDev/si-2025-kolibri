@@ -9,6 +9,7 @@ import { Divider } from '../Divider/Divider'
 import * as styles from './PersonuUpplysingar.css'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { formatPhoneNr } from '../Utils/utils'
+import { Stack } from '../Stack/Stack'
 
 const PersonuUpplysingar = () => {
   const { taxReturn, updateTaxReturn } = useTaxContext()
@@ -55,22 +56,24 @@ const PersonuUpplysingar = () => {
       </Box>
 
       <div className={styles.tranparentCard}>
-        <div>
+        <Stack space={1}>
           <Text variant="h4">{'Lögheimili'}</Text>
           <Text>{taxReturn.address ?? 'Lögheimili fannst ekki'}</Text>
-        </div>
+        </Stack>
 
         <Box paddingY={4}>
           <Divider />
         </Box>
 
         <Box paddingBottom={4}>
-          <Text variant="h4">{'Tengslaupplýsingar'}</Text>
-          <Text>
-            {
-              'Netfang og símanúmer er sótt á mínar síður á Ísland.is. Ef upplýsingarnar eru ekki réttar eða vantar setur þú þær inn hér.'
-            }
-          </Text>
+          <Stack space={1}>
+            <Text variant="h4">{'Tengslaupplýsingar'}</Text>
+            <Text>
+              {
+                'Netfang og símanúmer er sótt á mínar síður á Ísland.is. Ef upplýsingarnar eru ekki réttar eða vantar setur þú þær inn hér.'
+              }
+            </Text>
+          </Stack>
         </Box>
 
         <div className={styles.inputContainer}>
