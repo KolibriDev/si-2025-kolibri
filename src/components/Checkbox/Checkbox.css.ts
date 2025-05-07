@@ -1,8 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css'
-import {
-  inputErrorState,
-  errorMessage as inputErrorMessage,
-} from '../Input/Input.mixins'
+import { errorMessage as inputErrorMessage } from '../Input/Input.mixins'
 import { theme } from '../Theme/theme'
 
 export const checkMarkWidth = theme.spacing[2]
