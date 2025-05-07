@@ -3,13 +3,15 @@ import Image from 'next/image'
 import { Box } from '../Box/Box'
 import { Text } from '../Text/Text'
 import { Button } from '../Button/Button'
+import { Hidden } from '../Hidden/Hidden'
 
 interface Props {
   href?: string
+  center?: boolean
 }
 
 const CompanyLogo: FC<Props> = (props) => {
-  const { href } = props
+  const { href, center } = props
 
   const renderCompanyName = () => {
     return href ? (
@@ -29,6 +31,8 @@ const CompanyLogo: FC<Props> = (props) => {
       columnGap={2}
       padding={4}
       borderRadius="large"
+      justifyContent={center ? 'center' : 'flexStart'}
+      alignItems="center"
     >
       <Image
         src="/logo.svg"
@@ -37,12 +41,14 @@ const CompanyLogo: FC<Props> = (props) => {
         height={80}
         priority
       />
-      <Box display="flex" flexDirection="column" justifyContent="center">
-        <Text variant="eyebrow" color="purple600">
-          Þjónustuaðili
-        </Text>
-        {renderCompanyName()}
-      </Box>
+      <Hidden below="lg">
+        <Box display="flex" flexDirection="column" justifyContent="center">
+          <Text variant="eyebrow" color="purple600">
+            Þjónustuaðili
+          </Text>
+          {renderCompanyName()}
+        </Box>
+      </Hidden>
     </Box>
   )
 }

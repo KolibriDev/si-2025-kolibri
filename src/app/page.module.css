@@ -60,7 +60,7 @@
 
 .cta {
   position: sticky;
-  bottom: 0px;
+  bottom: 8px;
 
   @media (min-width: 772px) {
     display: none;
