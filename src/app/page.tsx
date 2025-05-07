@@ -1,7 +1,6 @@
 'use client'
 
 import styles from './page.module.css'
-
 import { Header } from '@/components/Header/Header'
 import { Footer } from '@/components/Footer/Footer'
 import { Box } from '@/components/Box/Box'
@@ -10,7 +9,6 @@ import { Button } from '@/components/Button/Button'
 import CompanyLogo from '@/components/CompanyLogo/CompanyLogo'
 import TableOfContents from '@/components/TableOfContents/TableOfContents'
 import { Breadcrumbs } from '@/components/Breadcrumbs/Breadcrumbs'
-import { Bullet, BulletList } from '@/components/BulletList/BulletList'
 import { useRouter } from 'next/navigation'
 import {
   UserProvider,
