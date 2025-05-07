@@ -53,6 +53,9 @@ export const Select = <
   filterConfig,
   isLoading = false,
   hideSelectedOptions,
+  menuIsOpen,
+  onInputChange,
+  onBlur,
 }: SelectProps<OptionType<Value>, IsMulti, Group>) => {
   const errorId = `${id}-error`
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -116,6 +119,9 @@ export const Select = <
         isClearable={isClearable}
         backspaceRemovesValue={isClearable}
         menuShouldScrollIntoView={false}
+        menuIsOpen={menuIsOpen}
+        onInputChange={onInputChange}
+        onBlur={onBlur}
       />
       {hasError && errorMessage && (
         <div id={errorId} className={styles.errorMessage} aria-live="assertive">
