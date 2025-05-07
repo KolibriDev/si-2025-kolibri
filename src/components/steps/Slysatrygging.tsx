@@ -50,10 +50,8 @@ const Slysatrygging = () => {
         <Box marginBottom={3}>
           <Inline space={1}>
             <Text variant="h4">
-              Má bjóða þér slysatryggingu vegna heimilisstarfa?
-            </Text>
-            <Text variant="h4" color="red400">
-              {'*'}
+              Má bjóða þér slysatryggingu vegna heimilisstarfa?{' '}
+              <span className={styles.requiredStar}>*</span>
             </Text>
           </Inline>
         </Box>

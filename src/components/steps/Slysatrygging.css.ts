@@ -6,3 +6,7 @@ export const inputContainer = style({
   gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
   gap: theme.spacing[2],
 })
+
+export const requiredStar = style({
+  color: theme.color.red400,
+})
