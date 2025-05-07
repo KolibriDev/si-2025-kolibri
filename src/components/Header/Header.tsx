@@ -125,6 +125,7 @@ export const Header = ({
   return (
     <Box
       className={styles.headerContainer}
+      paddingX={[2, 2, 2, 6]}
       width="full"
       display="flex"
       alignItems="center"
@@ -138,16 +139,21 @@ export const Header = ({
           <div className={styles.verticalLine}>
             <Divider thickness="thick" weight="purple100" />
           </div>
-          <Box
-            display="flex"
-            justifyContent="center"
-            flexDirection="column"
-            paddingLeft={0}
-            paddingRight={2}
-          >
-            <Text variant="eyebrow">Skatturinn</Text>
-            <Text fontWeight="semiBold">Skattframtal einstaklinga</Text>
-          </Box>
+          <Hidden
+            below="lg"
+            children={
+              <Box
+                display="flex"
+                justifyContent="center"
+                flexDirection="column"
+                paddingLeft={0}
+                paddingRight={2}
+              >
+                <Text variant="eyebrow">Skatturinn</Text>
+                <Text fontWeight="semiBold">Skattframtal einstaklinga</Text>
+              </Box>
+            }
+          />
         </Box>
         {renderInfo()}
       </Box>

@@ -17,6 +17,9 @@ import {
   useUserContext,
 } from '@/components/Utils/context/userContext'
 import { useEffect } from 'react'
+import { Hidden } from '@/components/Hidden/Hidden'
+import { Tag } from '@/components/Tag/Tag'
+import IconButton from '@/components/IconButton/IconButton'
 
 export default function Home() {
   const router = useRouter()
@@ -29,30 +32,40 @@ export default function Home() {
   return (
     <UserProvider>
       <div className={styles.page}>
-        <Box paddingX={6}>
-          <Header
-            userName={user?.name ?? 'Notandi fannst ekki'}
-            authenticated
-          />
-        </Box>
+        <Header userName={user?.name ?? 'Notandi fannst ekki'} authenticated />
         <div className={styles.grid}>
+          <div className={styles.grid_info_mobile}>
+            <Button variant="text" size="small" preTextIcon="arrowBack">
+              Fjármál og skattar
+            </Button>
+            <Tag outlined={false} variant="purple">
+              Skatturinn
+            </Tag>
+          </div>
           <aside className={styles.grid_item_side}>
-            <Box marginBottom={3}>
-              <Button variant="text" size="small" preTextIcon="arrowBack">
-                Fjármál og skattar
-              </Button>
-            </Box>
-            <Box marginBottom={3}>
-              <CompanyLogo />
-            </Box>
-            <TableOfContents
-              title="Efnisyfirlit"
-              items={[
-                'Skattframtal einstaklinga',
-                'Ítarlegar leiðbeiningar',
-                'Álagning og forsendur hennar',
-                'Eftir skil á framtali',
-              ]}
+            <Hidden
+              below="md"
+              children={
+                <>
+                  <Box marginBottom={3}>
+                    <Button variant="text" size="small" preTextIcon="arrowBack">
+                      Fjármál og skattar
+                    </Button>
+                  </Box>
+                  <Box marginBottom={3}>
+                    <CompanyLogo />
+                  </Box>
+                  <TableOfContents
+                    title="Efnisyfirlit"
+                    items={[
+                      'Skattframtal einstaklinga',
+                      'Ítarlegar leiðbeiningar',
+                      'Álagning og forsendur hennar',
+                      'Eftir skil á framtali',
+                    ]}
+                  />
+                </>
+              }
             />
             <Box
               display="flex"
@@ -83,45 +96,69 @@ export default function Home() {
             </Box>
           </aside>
           <main className={styles.main}>
-            <Box marginBottom={4}>
-              <Breadcrumbs
-                items={[
-                  { title: 'Ísland.is' },
-                  { title: 'Fjármál og skattar' },
-                  { title: 'Skattframtal einstaklinga', isTag: true },
-                ]}
-              />
-            </Box>
-            <Text variant="h1" as="h1" marginBottom={4}>
+            <Hidden
+              below="md"
+              children={
+                <Box marginBottom={4}>
+                  <Breadcrumbs
+                    items={[
+                      { title: 'Ísland.is' },
+                      { title: 'Fjármál og skattar' },
+                      { title: 'Skattframtal einstaklinga', isTag: true },
+                    ]}
+                  />
+                </Box>
+              }
+            />
+            <Text variant="h1" as="h1" marginBottom={[5, 4]}>
               Skattframtal einstaklinga
             </Text>
-            <Box
-              display="flex"
-              background="blue100"
-              borderRadius="large"
-              padding={4}
-              marginBottom={4}
-            >
+            <Hidden above="sm">
               <Box
+                borderRadius="large"
+                background="blue100"
                 display="flex"
-                alignItems="center"
                 justifyContent="spaceBetween"
-                width="full"
+                padding={2}
+                marginBottom={5}
               >
-                <Text variant="h3" color="blue600">
+                <Text variant="h4" color="blue400">
                   Skattframtal einstaklinga
                 </Text>
-                <Button
-                  size="small"
-                  icon="open"
-                  iconType="outline"
-                  onClick={() => router.push('/login')}
-                >
-                  Skila framtali
-                </Button>
+                <IconButton icon="chevronDown" colorScheme="blue" />
               </Box>
-            </Box>
-            <Text marginBottom={6}>
+            </Hidden>
+            <Hidden below="md">
+              <Box
+                display="flex"
+                background="blue100"
+                borderRadius="large"
+                padding={[2, 4]}
+                marginBottom={4}
+              >
+                <Box
+                  display="flex"
+                  alignItems={['flexStart', 'flexStart', 'flexStart', 'center']}
+                  justifyContent="spaceBetween"
+                  width="full"
+                  flexDirection={['column', 'column', 'column', 'row']}
+                  rowGap={[1, 1, 1, 0]}
+                >
+                  <Text variant="h3" color="blue600">
+                    Skattframtal einstaklinga
+                  </Text>
+                  <Button
+                    size="small"
+                    icon="open"
+                    iconType="outline"
+                    onClick={() => router.push('/login')}
+                  >
+                    Opna framtal
+                  </Button>
+                </Box>
+              </Box>
+            </Hidden>
+            <Text marginBottom={[5, 6]}>
               Allir einstaklingar 16 ára og eldri þurfa að skila skattframtali
               árlega. Fyrir flesta einstaklinga er nóg að yfirfara forskráðar
               upplýsingar og staðfesta að þær séu réttar.
@@ -129,7 +166,7 @@ export default function Home() {
             <Text variant="h2" as="h2" marginBottom={2}>
               Skil á skattframtali og álagning
             </Text>
-            <Text marginBottom={6}>
+            <Text marginBottom={[5, 6]}>
               Opnað er fyrir skil á skattframtali í febrúar ár hvert. Frestur
               til að skila framtali fyrir árið 2024 er til{' '}
               <strong>14. mars 2025.</strong> Álagning og útborgun inneignar fer
@@ -141,7 +178,7 @@ export default function Home() {
             <Text marginBottom={1}>
               Hjón eru samsköttuð og er nóg er að annað hjóna skili framtali.
             </Text>
-            <Text marginBottom={6}>
+            <Text marginBottom={[5, 6]}>
               Pör skráð í sambúð geta valið að telja fram saman og þá eru þau
               samsköttuð frá og með því framtali sem það er valið.
             </Text>
@@ -162,7 +199,7 @@ export default function Home() {
               almennt framtal hjá Skattinum.
             </Text>
             <Text marginBottom={2}>Til dæmis:</Text>
-            <Box marginBottom={10}>
+            <Box marginBottom={4}>
               <BulletList>
                 <Bullet>
                   Ef þú keyptir eða seldir fasteign, ökutæki eða verðbréf á
@@ -174,7 +211,38 @@ export default function Home() {
                 </Bullet>
               </BulletList>
             </Box>
-            <CompanyLogo href="href" />
+            <div className={styles.cta}>
+              <Box
+                display="flex"
+                background="blue100"
+                padding={2}
+                marginBottom={4}
+                borderRadius="large"
+              >
+                <Box
+                  display="flex"
+                  alignItems={['flexStart']}
+                  flexDirection={'column'}
+                  rowGap={1}
+                  width="full"
+                >
+                  <Text variant="h5" color="blue600">
+                    Skattframtal einstaklinga
+                  </Text>
+                  <Button
+                    size="small"
+                    icon="open"
+                    iconType="outline"
+                    onClick={() => router.push('/login')}
+                  >
+                    Opna framtal
+                  </Button>
+                </Box>
+              </Box>
+            </div>
+            <Hidden below="lg">
+              <CompanyLogo href="href" />
+            </Hidden>
           </main>
         </div>
         <Footer
