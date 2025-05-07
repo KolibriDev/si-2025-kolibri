@@ -328,6 +328,8 @@ export type RealEstateInput = {
   appraisalAmount?: InputMaybe<Scalars['Float']['input']>;
   /** Property number (fasteignanúmer) */
   number?: InputMaybe<Scalars['String']['input']>;
+  /** Year the property was purchased */
+  yearOfPurchase?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** Type representing salary information from an employer */
