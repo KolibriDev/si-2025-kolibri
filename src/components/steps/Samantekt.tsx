@@ -70,14 +70,20 @@ const Personuupplysingar = ({
       <Text variant="h5" fontWeight="semiBold">
         {name}
       </Text>
-      <Text variant="default">Lögheimili: {address} </Text>
+      <Text variant="default">Lögheimili: {address}</Text>
     </Box>
-    <Box display="flex" justifyContent="spaceBetween">
-      <Box display="flex" flexDirection="column" rowGap={1}>
+    <Box
+      display="flex"
+      flexWrap="wrap"
+      columnGap={3}
+      rowGap={2}
+      alignItems="flexStart"
+    >
+      <Box display="flex" flexDirection="column" rowGap={1} width="half">
         <Text variant="eyebrow">Netfang</Text>
         <Text variant="default">{email}</Text>
       </Box>
-      <Box display="flex" flexDirection="column" rowGap={1}>
+      <Box display="flex" flexDirection="column" rowGap={1} flexShrink={0}>
         <Text variant="eyebrow">Símanúmer</Text>
         <Text variant="default">{formatPhoneNr(phoneNumber)}</Text>
       </Box>

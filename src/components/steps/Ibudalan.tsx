@@ -60,6 +60,8 @@ export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
       0,
     ) ?? 0
 
+  const realEstateYearOfPurchase = taxReturn?.realEstates?.[0]?.yearOfPurchase
+
   return (
     <>
       <T.Table>
@@ -76,7 +78,12 @@ export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
         </T.Head>
         <T.Body>
           {taxReturn?.mortgages?.map((x) => (
-            <Mortgage key={x.loanNumber} mortgage={x} isEditable={isEditable} />
+            <Mortgage
+              key={x.loanNumber}
+              mortgage={x}
+              isEditable={isEditable}
+              realEstateYearOfPurchase={realEstateYearOfPurchase}
+            />
           ))}
         </T.Body>
         <T.Foot>
@@ -122,7 +129,7 @@ const Mortgage = ({
 }: {
   mortgage: mortgage
   isEditable?: boolean
-  realEstateYearOfPurchase?: number
+  realEstateYearOfPurchase?: number | null
 }) => {
   const [expanded, setExpanded] = useState(!isEditable)
   return (
