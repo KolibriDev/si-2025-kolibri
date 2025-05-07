@@ -60,6 +60,7 @@ export function mapTaxReturnToUpdateInput(
         address: r.address ?? undefined,
         appraisalAmount: r.appraisalAmount ?? undefined,
         number: r.number ?? undefined,
+        yearOfPurchase: r.yearOfPurchase ?? undefined,
       }
       return result
     }),

@@ -26,6 +26,7 @@ mutation CreateTaxReturn($nationalId: String!) {
       number
       address
       appraisalAmount
+      yearOfPurchase
     }
     vehicles {
       registrationNumber
