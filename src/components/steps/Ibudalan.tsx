@@ -84,10 +84,18 @@ export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
             </T.Data>
             {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
             <T.Data noBorderBottom>{/* empty */}</T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+            <T.Data
+              text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+              align="right"
+              noBorderBottom
+            >
               {formatISK(sumInterestPayments)}
             </T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+            <T.Data
+              text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+              align="right"
+              noBorderBottom
+            >
               {formatISK(sumRemainingBalance)}
             </T.Data>
           </T.Row>
@@ -131,10 +139,10 @@ const Mortgage = ({
         )}
         <T.Data>{mortgage.lenderName}</T.Data>
         <T.Data>{mortgage.loanNumber}</T.Data>
-        <T.Data align="right">
+        <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
           {formatISK(mortgage.interestPayments ?? 0)}
         </T.Data>
-        <T.Data align="right">
+        <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
           {formatISK(mortgage.remainingBalance ?? 0)}
         </T.Data>
       </T.Row>

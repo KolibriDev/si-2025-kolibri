@@ -55,6 +55,7 @@ const DisplaySection: FC<SectionProps> = ({
             component="button"
             onClick={subSection.onClick}
             className={cn(
+              linkStyles.pointer,
               linkStyles.underlineVisibilities['hover'],
               linkStyles.underlines['small'],
             )}
