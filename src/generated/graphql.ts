@@ -83,19 +83,45 @@ export type DeductionInput = {
 
 /** Types of deductions that can be claimed on a tax return */
 export enum DeductionType {
-  /** Deduction for charity contributions */
+  /**
+   * Deduction for charity contributions
+   * (Frádráttur vegna framlaga til almannaheillafélaga)
+   */
   CHARITY_DEDUCTION = 'CHARITY_DEDUCTION',
-  /** Deduction for daily allowances */
+  /**
+   * Deduction for daily allowances
+   * (Frádráttur á móti dagpeningum)
+   */
   DAILY_ALLOWANCE_DEDUCTION = 'DAILY_ALLOWANCE_DEDUCTION',
-  /** Deduction for driving allowances */
+  /**
+   * Deduction for driving allowances
+   * (Frádráttur á móti ökutækjastyrk)
+   */
   DRIVING_ALLOWANCE_DEDUCTION = 'DRIVING_ALLOWANCE_DEDUCTION',
-  /** Deduction for pension fund contributions */
+  /**
+   * Other miscellaneous deductions
+   * (Aðrir ýmsir frádrættir)
+   */
+  OTHER = 'OTHER',
+  /**
+   * Deduction for pension fund contributions
+   * (Frádráttur á móti iðgjaldi í lífeyrissjóð)
+   */
   PENSION_FUND_DEDUCTION = 'PENSION_FUND_DEDUCTION',
-  /** Deduction for private pension fund contributions */
+  /**
+   * Deduction for private pension fund contributions
+   * (Frádráttur á móti iðgjaldi í séreignarsjóð)
+   */
   PRIVATE_PENSION_FUND_DEDUCTION = 'PRIVATE_PENSION_FUND_DEDUCTION',
-  /** Deduction for sport and wellness allowances */
+  /**
+   * Deduction for sport and wellness allowances
+   * (Frádráttur á móti íþróttastyrk)
+   */
   SPORT_ALLOWANCE_DEDUCTION = 'SPORT_ALLOWANCE_DEDUCTION',
-  /** Deduction for transport allowances */
+  /**
+   * Deduction for transport allowances
+   * (Frádráttur á móti samgöngustyrk)
+   */
   TRANSPORT_ALLOWANCE_DEDUCTION = 'TRANSPORT_ALLOWANCE_DEDUCTION'
 }
 

@@ -3,19 +3,52 @@ export const typeDefs = /* GraphQL */ `
   Types of deductions that can be claimed on a tax return
   """
   enum DeductionType {
-    "Deduction for daily allowances"
+    """
+    Other miscellaneous deductions
+    (Aðrir ýmsir frádrættir)
+    """
+    OTHER
+
+    """
+    Deduction for daily allowances
+    (Frádráttur á móti dagpeningum)
+    """
     DAILY_ALLOWANCE_DEDUCTION
-    "Deduction for driving allowances"
+
+    """
+    Deduction for driving allowances
+    (Frádráttur á móti ökutækjastyrk)
+    """
     DRIVING_ALLOWANCE_DEDUCTION
-    "Deduction for pension fund contributions"
+
+    """
+    Deduction for pension fund contributions
+    (Frádráttur á móti iðgjaldi í lífeyrissjóð)
+    """
     PENSION_FUND_DEDUCTION
-    "Deduction for private pension fund contributions"
+
+    """
+    Deduction for private pension fund contributions
+    (Frádráttur á móti iðgjaldi í séreignarsjóð)
+    """
     PRIVATE_PENSION_FUND_DEDUCTION
-    "Deduction for sport and wellness allowances"
+
+    """
+    Deduction for sport and wellness allowances
+    (Frádráttur á móti íþróttastyrk)
+    """
     SPORT_ALLOWANCE_DEDUCTION
-    "Deduction for transport allowances"
+
+    """
+    Deduction for transport allowances
+    (Frádráttur á móti samgöngustyrk)
+    """
     TRANSPORT_ALLOWANCE_DEDUCTION
-    "Deduction for charity contributions"
+
+    """
+    Deduction for charity contributions
+    (Frádráttur vegna framlaga til almannaheillafélaga)
+    """
     CHARITY_DEDUCTION
   }
 

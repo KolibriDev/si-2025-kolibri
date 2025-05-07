@@ -290,43 +290,49 @@
         "enumValues": [
           {
             "name": "CHARITY_DEDUCTION",
-            "description": "Deduction for charity contributions",
+            "description": "Deduction for charity contributions\n(Frádráttur vegna framlaga til almannaheillafélaga)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "DAILY_ALLOWANCE_DEDUCTION",
-            "description": "Deduction for daily allowances",
+            "description": "Deduction for daily allowances\n(Frádráttur á móti dagpeningum)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "DRIVING_ALLOWANCE_DEDUCTION",
-            "description": "Deduction for driving allowances",
+            "description": "Deduction for driving allowances\n(Frádráttur á móti ökutækjastyrk)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OTHER",
+            "description": "Other miscellaneous deductions\n(Aðrir ýmsir frádrættir)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "PENSION_FUND_DEDUCTION",
-            "description": "Deduction for pension fund contributions",
+            "description": "Deduction for pension fund contributions\n(Frádráttur á móti iðgjaldi í lífeyrissjóð)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "PRIVATE_PENSION_FUND_DEDUCTION",
-            "description": "Deduction for private pension fund contributions",
+            "description": "Deduction for private pension fund contributions\n(Frádráttur á móti iðgjaldi í séreignarsjóð)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "SPORT_ALLOWANCE_DEDUCTION",
-            "description": "Deduction for sport and wellness allowances",
+            "description": "Deduction for sport and wellness allowances\n(Frádráttur á móti íþróttastyrk)",
             "isDeprecated": false,
             "deprecationReason": null
           },
           {
             "name": "TRANSPORT_ALLOWANCE_DEDUCTION",
-            "description": "Deduction for transport allowances",
+            "description": "Deduction for transport allowances\n(Frádráttur á móti samgöngustyrk)",
             "isDeprecated": false,
             "deprecationReason": null
           }
