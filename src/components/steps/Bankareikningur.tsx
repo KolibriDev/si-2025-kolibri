@@ -100,6 +100,7 @@ const Bankareikningur = () => {
       <div className={styles.inputContainer}>
         <div className={styles.bankAndHBContainer}>
           <Input
+            required
             backgroundColor="blue"
             label="Banki"
             name="Banki"
@@ -111,6 +112,7 @@ const Bankareikningur = () => {
             onBlur={onBlur}
           />
           <Input
+            required
             backgroundColor="blue"
             label="Hb."
             name="Hb."
@@ -124,6 +126,7 @@ const Bankareikningur = () => {
         </div>
         <div className={styles.rn}>
           <Input
+            required
             backgroundColor="blue"
             label="Reikningsnúmer."
             name="Reikningsnúmer"

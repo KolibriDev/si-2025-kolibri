@@ -193,7 +193,9 @@ const Samantekt = () => {
       />
     ),
     bankareikningur: (
-      <Bankareikningur bankAccount={taxReturn?.bankAccount ?? ''} />
+      <Bankareikningur
+        bankAccount={`${taxReturn?.bankAccount?.substring(0, 4) ?? ''}-${taxReturn?.bankAccount?.substring(4, 6) ?? ' '}-${taxReturn?.bankAccount?.substring(6) ?? ''}`}
+      />
     ),
     slysatrygging: (
       <Slysatrygging hasAccidentInsurance={!!taxReturn?.hasAccidentInsurance} />
@@ -227,6 +229,11 @@ const Samantekt = () => {
             {sectionContentMap[item.href] || null}
           </InfoSectionHeader>
         ))}
+        <AlertMessage
+          type="success"
+          title="Framtalið stóðst prófun"
+          message="Engar villur fundust í framtalinu. Þú getur skilað því inn ef þú telur allar upplýsingar hér að ofan vera réttar."
+        />
       </Box>
       <Box marginTop={6}>
         <AlertMessage

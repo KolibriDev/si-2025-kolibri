@@ -67,6 +67,7 @@ const PersonuUpplysingar = () => {
 
         <div className={styles.inputContainer}>
           <Input
+            required
             backgroundColor="blue"
             label="Netfang"
             name="email"
@@ -77,6 +78,7 @@ const PersonuUpplysingar = () => {
             onBlur={onBlur}
           />
           <Input
+            required
             backgroundColor="blue"
             label="Símanúmer"
             name="phoneNumber"

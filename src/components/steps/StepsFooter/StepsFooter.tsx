@@ -35,7 +35,7 @@ export const StepsFooter = () => {
     if (!nextStep) return
 
     if (currentStep === 'gagnaoflun' && !taxReturn && user?.nationalId) {
-      await createTaxReturn(user.nationalId)
+      createTaxReturn(user.nationalId)
       router.push(`${nextStep}`)
     } else {
       router.push(`${nextStep}`)
