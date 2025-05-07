@@ -34,16 +34,17 @@ export const residenceSchema = z.object({
 
 export const nationalRegistrySchema = z.object({
   national_id: z.string().length(10),
-  name: z.string(),
-  phone_number: z.string().optional(),
-  permanent_address: addressSchema.optional(),
-  legal_residence: residenceSchema.optional(),
-  family_national_id: z.string().optional(),
-  partner_national_id: z.string().optional(),
-  gender: z.string().optional(),
-  age: z.number().optional(),
-  type: z.string().optional(),
+  name: z.string().optional().nullable(),
+  phone_number: z.string().optional().nullable(),
+  permanent_address: addressSchema.optional().nullable(),
+  legal_residence: residenceSchema.optional().nullable(),
+  family_national_id: z.string().optional().nullable(),
+  partner_national_id: z.string().optional().nullable(),
+  gender: z.string().optional().nullable(),
+  age: z.number().optional().nullable(),
+  type: z.string().optional().nullable(),
 })
+
 export const taxpayerSchema = z.object({
   national_id: z.string(),
   email: z.string().email(),
