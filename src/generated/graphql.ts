@@ -44,12 +44,27 @@ export type BenefitInput = {
 
 /** Types of benefits received from employers or other entities */
 export enum BenefitType {
-  DailyAllowance = 'DAILY_ALLOWANCE',
-  Other = 'OTHER',
-  SportAllowance = 'SPORT_ALLOWANCE',
-  StudyAllowance = 'STUDY_ALLOWANCE'
+  /** Car allowance payments */
+  CAR_ALLOWANCE = 'CAR_ALLOWANCE',
+  /** Daily allowance payments */
+  DAILY_ALLOWANCE = 'DAILY_ALLOWANCE',
+  /** Driving allowance payments */
+  DRIVING_ALLOWANCE = 'DRIVING_ALLOWANCE',
+  /** Housing allowance payments */
+  HOUSING_ALLOWANCE = 'HOUSING_ALLOWANCE',
+  /** Other miscellaneous benefits */
+  OTHER_ALLOWANCE = 'OTHER_ALLOWANCE',
+  /** Research or scientific allowance */
+  RESEARCH_ALLOWANCE = 'RESEARCH_ALLOWANCE',
+  /** Sport and wellness allowance */
+  SPORT_ALLOWANCE = 'SPORT_ALLOWANCE',
+  /** Educational and study-related allowance */
+  STUDY_ALLOWANCE = 'STUDY_ALLOWANCE',
+  /** Transport allowance payments */
+  TRANSPORT_ALLOWANCE = 'TRANSPORT_ALLOWANCE'
 }
 
+/** Type representing tax deductions */
 export type Deduction = {
   __typename?: 'Deduction';
   /** Amount of the deduction */
@@ -68,9 +83,49 @@ export type DeductionInput = {
 
 /** Types of deductions that can be claimed on a tax return */
 export enum DeductionType {
-  Other = 'OTHER'
+  /**
+   * Deduction for charity contributions
+   * (Frádráttur vegna framlaga til almannaheillafélaga)
+   */
+  CHARITY_DEDUCTION = 'CHARITY_DEDUCTION',
+  /**
+   * Deduction for daily allowances
+   * (Frádráttur á móti dagpeningum)
+   */
+  DAILY_ALLOWANCE_DEDUCTION = 'DAILY_ALLOWANCE_DEDUCTION',
+  /**
+   * Deduction for driving allowances
+   * (Frádráttur á móti ökutækjastyrk)
+   */
+  DRIVING_ALLOWANCE_DEDUCTION = 'DRIVING_ALLOWANCE_DEDUCTION',
+  /**
+   * Other miscellaneous deductions
+   * (Aðrir ýmsir frádrættir)
+   */
+  OTHER = 'OTHER',
+  /**
+   * Deduction for pension fund contributions
+   * (Frádráttur á móti iðgjaldi í lífeyrissjóð)
+   */
+  PENSION_FUND_DEDUCTION = 'PENSION_FUND_DEDUCTION',
+  /**
+   * Deduction for private pension fund contributions
+   * (Frádráttur á móti iðgjaldi í séreignarsjóð)
+   */
+  PRIVATE_PENSION_FUND_DEDUCTION = 'PRIVATE_PENSION_FUND_DEDUCTION',
+  /**
+   * Deduction for sport and wellness allowances
+   * (Frádráttur á móti íþróttastyrk)
+   */
+  SPORT_ALLOWANCE_DEDUCTION = 'SPORT_ALLOWANCE_DEDUCTION',
+  /**
+   * Deduction for transport allowances
+   * (Frádráttur á móti samgöngustyrk)
+   */
+  TRANSPORT_ALLOWANCE_DEDUCTION = 'TRANSPORT_ALLOWANCE_DEDUCTION'
 }
 
+/** Type representing mortgage loan information */
 export type Mortgage = {
   __typename?: 'Mortgage';
   /** Interest payments made during the tax year */
@@ -129,6 +184,9 @@ export type Mutation = {
   createTaxReturn?: Maybe<TaxReturn>;
   /** Test mutation that returns a greeting */
   sayHi?: Maybe<Scalars['String']['output']>;
+  /** Update an existing tax return with new information */
+  submitTaxReturn?: Maybe<TaxReturn>;
+  /** Update an existing tax return with new information */
   updateTaxReturn?: Maybe<TaxReturn>;
 };
 

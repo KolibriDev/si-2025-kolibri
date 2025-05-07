@@ -152,8 +152,26 @@
             "deprecationReason": null
           },
           {
-            "name": "OTHER",
-            "description": null,
+            "name": "DRIVING_ALLOWANCE",
+            "description": "Driving allowance payments",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "HOUSING_ALLOWANCE",
+            "description": "Housing allowance payments",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "OTHER_ALLOWANCE",
+            "description": "Other miscellaneous benefits",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "RESEARCH_ALLOWANCE",
+            "description": "Research or scientific allowance",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -165,7 +183,13 @@
           },
           {
             "name": "STUDY_ALLOWANCE",
-            "description": null,
+            "description": "Educational and study-related allowance",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TRANSPORT_ALLOWANCE",
+            "description": "Transport allowance payments",
             "isDeprecated": false,
             "deprecationReason": null
           }
@@ -284,7 +308,31 @@
           },
           {
             "name": "OTHER",
-            "description": null,
+            "description": "Other miscellaneous deductions\n(Aðrir ýmsir frádrættir)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PENSION_FUND_DEDUCTION",
+            "description": "Deduction for pension fund contributions\n(Frádráttur á móti iðgjaldi í lífeyrissjóð)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "PRIVATE_PENSION_FUND_DEDUCTION",
+            "description": "Deduction for private pension fund contributions\n(Frádráttur á móti iðgjaldi í séreignarsjóð)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "SPORT_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for sport and wellness allowances\n(Frádráttur á móti íþróttastyrk)",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "TRANSPORT_ALLOWANCE_DEDUCTION",
+            "description": "Deduction for transport allowances\n(Frádráttur á móti samgöngustyrk)",
             "isDeprecated": false,
             "deprecationReason": null
           }
