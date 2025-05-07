@@ -29,6 +29,7 @@ export async function GET(req: NextRequest) {
         address: 'Bláfjallagata 12, 105 Reykjavík',
         email: 'jokull.thordarson@email.is',
         phoneNumber: '7728391',
+        bankAccount: '123426004321',
         salaries: [
           {
             employerName: 'Norðurljós Software ehf',

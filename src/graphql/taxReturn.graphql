@@ -30,7 +30,7 @@ query TaxReturn($nationalId: String!) {
     vehicles {
       registrationNumber
       yearOfPurchase
-      purchasePrice
+      appraisalAmount
     }
     mortgages {
       realEstateNumber

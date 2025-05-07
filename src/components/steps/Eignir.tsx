@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Text } from '@/components/Text/Text'
 import * as T from '@/components/Table/Table'
 import { useTaxContext } from '../Utils/context/taxContext'
@@ -99,32 +99,17 @@ export const Fasteignir = () => {
 }
 
 export const Okutaeki = () => {
-  const { taxReturn, setTaxReturn } = useTaxContext()
-
-  useEffect(() => {
-    if (!taxReturn) return
-
-    setTimeout(() => {
-      setTaxReturn({
-        ...taxReturn,
-        vehicles: [
-          {
-            registrationNumber: 'YV-V79',
-            yearOfPurchase: 2019,
-            purchasePrice: 2_200_000,
-          },
-        ],
-      })
-    }, 500)
-  }, [])
+  const { taxReturn } = useTaxContext()
 
   if (!taxReturn?.vehicles) {
     return <Text>Engin ökutæki eru skráð á þig.</Text>
   }
 
   const sum =
-    taxReturn?.vehicles?.reduce((acc, x) => acc + (x.purchasePrice ?? 0), 0) ??
-    0
+    taxReturn?.vehicles?.reduce(
+      (acc, x) => acc + (x.appraisalAmount ?? 0),
+      0,
+    ) ?? 0
 
   return (
     <T.Table>
@@ -140,7 +125,7 @@ export const Okutaeki = () => {
           <T.Row key={x.registrationNumber}>
             <T.Data>{x.registrationNumber}</T.Data>
             <T.Data>{x.yearOfPurchase}</T.Data>
-            <T.Data align="right">{formatISK(x.purchasePrice ?? 0)}</T.Data>
+            <T.Data align="right">{formatISK(x.appraisalAmount ?? 0)}</T.Data>
           </T.Row>
         ))}
       </T.Body>

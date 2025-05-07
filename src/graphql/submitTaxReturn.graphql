@@ -1,0 +1,5 @@
+mutation SubmitTaxReturn($nationalId: String!) {
+  submitTaxReturn(nationalId: $nationalId) {
+    nationalId
+  }
+}

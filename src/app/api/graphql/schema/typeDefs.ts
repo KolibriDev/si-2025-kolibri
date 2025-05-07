@@ -156,7 +156,7 @@ export const typeDefs = /* GraphQL */ `
     "Year the vehicle was purchased"
     yearOfPurchase: Int
     "Original purchase price of the vehicle"
-    purchasePrice: Float
+    appraisalAmount: Float
   }
 
   """
@@ -274,7 +274,7 @@ export const typeDefs = /* GraphQL */ `
     "Year the vehicle was purchased"
     yearOfPurchase: Int
     "Original purchase price of the vehicle"
-    purchasePrice: Float
+    appraisalAmount: Float
   }
 
   """
@@ -435,6 +435,14 @@ export const typeDefs = /* GraphQL */ `
       nationalId: String!
       "Updated tax return information"
       input: TaxReturnUpdateInput!
+    ): TaxReturn
+
+    """
+    Update an existing tax return with new information
+    """
+    submitTaxReturn(
+      "National ID (kennitala) of the tax payer"
+      nationalId: String!
     ): TaxReturn
   }
 `
