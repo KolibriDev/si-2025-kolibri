@@ -118,12 +118,14 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
   )
 
   const submitTaxReturn = useCallback(
-    async (nationalId: string) => {
+    async (nationalId: string): Promise<{ nationalId: string } | undefined> => {
       const result = await executeSubmitTaxReturn({
         variables: { nationalId },
       })
 
-      return result
+      return result.data?.submitTaxReturn
+        ? { nationalId: result.data.submitTaxReturn.nationalId }
+        : undefined
     },
     [executeSubmitTaxReturn],
   )

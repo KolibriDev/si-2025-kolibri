@@ -235,13 +235,6 @@ const Samantekt = () => {
           message="Engar villur fundust í framtalinu. Þú getur skilað því inn ef þú telur allar upplýsingar hér að ofan vera réttar."
         />
       </Box>
-      <Box marginTop={6}>
-        <AlertMessage
-          title="Framtalið stóðst prófun"
-          message="Engar villur fundust í framtalinu. Þú getur skilað því inn ef þú telur allar upplýsingar hér að ofan vera réttar."
-          type="success"
-        />
-      </Box>
     </div>
   )
 }
