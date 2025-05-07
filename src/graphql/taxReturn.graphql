@@ -26,6 +26,7 @@ query TaxReturn($nationalId: String!) {
       number
       address
       appraisalAmount
+      yearOfPurchase
     }
     vehicles {
       registrationNumber

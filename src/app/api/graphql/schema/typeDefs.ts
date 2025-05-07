@@ -263,6 +263,8 @@ export const typeDefs = /* GraphQL */ `
     address: String
     "Official property appraisal amount"
     appraisalAmount: Float
+    "Year the property was purchased"
+    yearOfPurchase: Int
   }
 
   """

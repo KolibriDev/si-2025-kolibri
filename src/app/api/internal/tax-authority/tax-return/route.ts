@@ -72,8 +72,8 @@ export async function POST(req: NextRequest) {
 
       for (const realEstate of parsed.data.realEstates ?? []) {
         await sql`
-        INSERT INTO tax_authority_real_estates (tax_return_id, number, address, appraisal_amount)
-        VALUES (${taxReturnId}, ${realEstate.number ?? null}, ${realEstate.address ?? null}, ${realEstate.appraisalAmount ?? null})
+        INSERT INTO tax_authority_real_estates (tax_return_id, number, address, appraisal_amount, year_of_purchase)
+        VALUES (${taxReturnId}, ${realEstate.number ?? null}, ${realEstate.address ?? null}, ${realEstate.appraisalAmount ?? null}, ${realEstate.yearOfPurchase ?? null})
       `
       }
 
@@ -168,7 +168,7 @@ export async function GET(req: NextRequest) {
     `
 
     taxReturn.realEstates = await sql`
-      SELECT number, address, appraisal_amount
+      SELECT number, address, appraisal_amount, year_of_purchase
       FROM tax_authority_real_estates
       WHERE tax_return_id = ${taxReturn.id}
     `

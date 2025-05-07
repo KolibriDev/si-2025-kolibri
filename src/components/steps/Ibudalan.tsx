@@ -21,6 +21,8 @@ const Ibudalan = () => {
     )
   }
 
+  const realEstate = taxReturn.realEstates?.[0]
+
   return (
     <Box marginBottom={10}>
       <Text marginBottom={6}>
@@ -30,7 +32,7 @@ const Ibudalan = () => {
       </Text>
 
       <Text variant="h3" marginBottom={2}>
-        {taxReturn.realEstates?.[0]?.address}
+        {realEstate?.address}
       </Text>
       <Mortgages isEditable />
 
@@ -116,9 +118,11 @@ type mortgage = mortgages[number]
 const Mortgage = ({
   mortgage,
   isEditable,
+  realEstateYearOfPurchase,
 }: {
   mortgage: mortgage
   isEditable?: boolean
+  realEstateYearOfPurchase?: number
 }) => {
   const [expanded, setExpanded] = useState(!isEditable)
   return (
@@ -163,7 +167,7 @@ const Mortgage = ({
                     useWhiteBackground: true,
                   },
                   {
-                    value: 'Vantar',
+                    value: realEstateYearOfPurchase?.toString() ?? 'Ekki skráð',
                     label: 'Kaupár',
                     useWhiteBackground: true,
                   },
