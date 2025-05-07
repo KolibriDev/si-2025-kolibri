@@ -50,7 +50,9 @@ const AdrarSkuldir = () => {
                     </T.Data>
                     <T.Data>{otherDept.lenderName}</T.Data>
                     <T.Data>{otherDept.lenderNationalId}</T.Data>
-                    <T.Data>{otherDept.interestPayments}</T.Data>
+                    <T.Data align="right">
+                      {formatISK(otherDept.interestPayments)}
+                    </T.Data>
                     <T.Data align="right">
                       {formatISK(otherDept.remainingBalance)}
                     </T.Data>
