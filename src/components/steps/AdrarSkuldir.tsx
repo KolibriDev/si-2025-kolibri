@@ -6,7 +6,7 @@ import { useTaxContext } from '../Utils/context/taxContext'
 import { Box } from '../Box/Box'
 import * as T from '@/components/Table/Table'
 import { Button } from '../Button/Button'
-import { formatISK } from '@/lib/utils'
+import { formatISK, formatNationalId } from '@/lib/utils'
 
 const AdrarSkuldir = () => {
   const { taxReturn } = useTaxContext()
@@ -49,7 +49,9 @@ const AdrarSkuldir = () => {
                       />
                     </T.Data>
                     <T.Data>{otherDept.lenderName}</T.Data>
-                    <T.Data>{otherDept.lenderNationalId}</T.Data>
+                    <T.Data>
+                      {formatNationalId(otherDept.lenderNationalId)}
+                    </T.Data>
                     <T.Data align="right">
                       {formatISK(otherDept.interestPayments)}
                     </T.Data>
