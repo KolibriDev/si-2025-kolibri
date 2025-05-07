@@ -8,15 +8,26 @@ import * as styles from './Slysatrygging.css'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { Inline } from '../Inline/Inline'
 import { Box } from '../Box/Box'
+import { useEffect, useState } from 'react'
 
 const Slysatrygging = () => {
   const { taxReturn, updateTaxReturn } = useTaxContext()
+  const [localAccidentInsurance, setLocalAccidentInsurance] = useState<
+    boolean | undefined | null
+  >(undefined)
 
-  if (!taxReturn) {
+  useEffect(() => {
+    if (taxReturn) {
+      setLocalAccidentInsurance(taxReturn.hasAccidentInsurance)
+    }
+  }, [taxReturn])
+
+  if (!taxReturn || localAccidentInsurance === undefined) {
     return null
   }
 
   const handleOnChange = (value: boolean) => () => {
+    setLocalAccidentInsurance(value)
     updateTaxReturn({
       ...taxReturn,
       hasAccidentInsurance: value,
@@ -53,7 +64,7 @@ const Slysatrygging = () => {
             label="Já, ég vil fá slysatryggingu"
             large
             onChange={handleOnChange(true)}
-            checked={taxReturn.hasAccidentInsurance === true}
+            checked={localAccidentInsurance === true}
           />
           <RadioButton
             name="no"
@@ -61,7 +72,7 @@ const Slysatrygging = () => {
             label="Nei, ég afþakka slysatryggingu"
             large
             onChange={handleOnChange(false)}
-            checked={taxReturn.hasAccidentInsurance === false}
+            checked={localAccidentInsurance === false}
           />
         </div>
       </div>
