@@ -16,6 +16,7 @@ import * as linkStyles from '@/components/Link/Link.css'
 import { TaxContextProvider } from '@/components/Utils/context/taxContext'
 import { useUserContext } from '@/components/Utils/context/userContext'
 import Image from 'next/image'
+import { Hidden } from '@/components/Hidden/Hidden'
 
 const SubsectionChild: FC<
   PropsWithChildren<{
@@ -115,7 +116,13 @@ const SidePanel: FC = () => {
 
   return (
     <GridColumn span={['12/12', '12/12', '4/12', '3/12']}>
-      <div className={styles.formStepperContainer}>
+      <Box
+        display="flex"
+        flexDirection="column"
+        justifyContent="spaceBetween"
+        height="full"
+        paddingBottom={4}
+      >
         <Box marginLeft={[0, 0, 2]}>
           <FormStepper
             sections={enhancedSections.map((section, index) => (
@@ -129,14 +136,16 @@ const SidePanel: FC = () => {
             ))}
           />
         </Box>
-      </div>
-      <Image
-        src="/companyLogo.svg"
-        alt="Logo skattsins"
-        width={288}
-        height={74}
-        priority
-      />
+        <Hidden below="md">
+          <Image
+            src="/companyLogo.svg"
+            alt="Logo skattsins"
+            width={288}
+            height={74}
+            priority
+          />
+        </Hidden>
+      </Box>
     </GridColumn>
   )
 }
