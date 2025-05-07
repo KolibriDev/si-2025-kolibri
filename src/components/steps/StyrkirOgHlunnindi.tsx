@@ -63,8 +63,8 @@ const StyrkirOgHlunnindi = () => {
                 </T.Row>
               </T.Head>
               <T.Body>
-                {benefits.map((benefit) => (
-                  <T.Row key={benefit.payerName}>
+                {benefits.map((benefit, index) => (
+                  <T.Row key={`${benefit.payerName}-${index}`}>
                     <T.Data>
                       <Button
                         circle

@@ -2,7 +2,7 @@
 import { notFound } from 'next/navigation'
 import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
-import { getFlatRouteSteps } from '../../routeSections'
+import { getFlatRouteSteps, findPageHeaderByStep } from '../../routeSections'
 import { useTaxContext } from '@/components/Utils/context/taxContext'
 import { useEffect } from 'react'
 import { useUserContext } from '@/components/Utils/context/userContext'
@@ -48,6 +48,15 @@ export default function StepPage() {
   useEffect(() => {
     fetchNationalRegister(user?.phoneNumber ?? '7884888')
   }, [fetchNationalRegister, user?.phoneNumber])
+
+  useEffect(() => {
+    if (step) {
+      const pageHeader = findPageHeaderByStep(step)
+      document.title = pageHeader
+        ? `${pageHeader} | Skattframtal | Ísland.is`
+        : 'Skattframtal | Ísland.is'
+    }
+  }, [step])
 
   if (!step || !validSteps.includes(step)) {
     notFound()

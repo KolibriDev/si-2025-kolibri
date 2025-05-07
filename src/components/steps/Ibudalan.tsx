@@ -4,7 +4,7 @@ import React, { Fragment, useState } from 'react'
 import { Text } from '@/components/Text/Text'
 import { useTaxContext } from '../Utils/context/taxContext'
 import * as T from '../Table/Table'
-import { formatDateIS, formatISK } from '@/lib/utils'
+import { formatDateIS, formatISK, formatNationalId } from '@/lib/utils'
 import AnimateHeight from 'react-animate-height'
 import SubTable from '../SubTable/SubTable'
 import { Button } from '../Button/Button'
@@ -136,7 +136,7 @@ const Mortgage = ({ mortgage }: { mortgage: mortgage }) => {
               <SubTable
                 data={[
                   {
-                    value: mortgage.lenderNationalId ?? '',
+                    value: formatNationalId(mortgage.lenderNationalId),
                     label: 'Kennitala lánveitanda',
                     useWhiteBackground: true,
                   },

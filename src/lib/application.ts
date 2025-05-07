@@ -1,74 +1,6 @@
 import { BenefitType, DeductionType } from '@/generated/graphql'
 import { z } from 'zod'
 
-export interface Salary {
-  employerNationalId?: string
-  employerName?: string
-  amount?: number
-}
-
-export interface Benefit {
-  benefitType?: BenefitType
-  payerNationalId?: string
-  payerName?: string
-  amount?: number
-}
-
-export interface Deduction {
-  deductionType?: DeductionType
-  amount?: number
-}
-
-export interface RealEstate {
-  number?: string
-  address?: string
-  appraisalAmount?: number
-}
-
-export interface Vehicle {
-  registrationNumber?: string
-  yearOfPurchase?: number
-  appraisalAmount?: number
-}
-
-export interface Mortgage {
-  realEstateNumber?: string
-  lenderNationalId?: string
-  lenderName?: string
-  loanNumber?: string
-  loanStartDate?: Date
-  loanAmount?: number
-  loanTermYears?: number
-  totalAnnualPayments?: number
-  principalPayments?: number
-  interestPayments?: number
-  remainingBalance?: number
-}
-
-export interface OtherDebt {
-  lenderNationalId?: string
-  lenderName?: string
-  interestPayments?: number
-  remainingBalance?: number
-}
-
-export interface TaxReturn {
-  nationalId: string
-  name?: string
-  address?: string
-  email?: string
-  phoneNumber?: string
-  hasAccidentInsurance?: boolean
-  bankAccount?: string
-  salaries?: Salary[]
-  benefits?: Benefit[]
-  deductions?: Deduction[]
-  realEstates?: RealEstate[]
-  vehicles?: Vehicle[]
-  mortgages?: Mortgage[]
-  otherDebts?: OtherDebt[]
-}
-
 export interface NationalRegistry {
   nationalId: string
   name: string
@@ -148,3 +80,12 @@ export const taxReturnSchema = z.object({
   mortgages: z.array(mortgageSchema).optional(),
   otherDebts: z.array(otherDebtSchema).optional(),
 })
+
+export type Salary = z.infer<typeof salarySchema>
+export type Benefit = z.infer<typeof benefitSchema>
+export type Deduction = z.infer<typeof deductionSchema>
+export type RealEstate = z.infer<typeof realEstateSchema>
+export type Vehicle = z.infer<typeof vehicleSchema>
+export type Mortgage = z.infer<typeof mortgageSchema>
+export type OtherDebt = z.infer<typeof otherDebtSchema>
+export type TaxReturn = z.infer<typeof taxReturnSchema>

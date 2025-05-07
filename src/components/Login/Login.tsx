@@ -48,7 +48,10 @@ export const Login = () => {
                 evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
               ) => setPhoneNr(evt.target.value)}
             />
-            <Checkbox label={<Text fontWeight="light">Muna símanúmer</Text>} />
+            <Checkbox
+              name="muna simanumer"
+              label={<Text fontWeight="light">Muna símanúmer</Text>}
+            />
 
             <div className={styles.buttonContainerInner}>
               <Button

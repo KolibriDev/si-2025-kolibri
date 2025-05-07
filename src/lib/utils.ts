@@ -1,6 +1,8 @@
 export function formatISK(amount?: number | null): string {
-  if (!amount) return ''
-  return amount.toLocaleString('is-IS', { maximumFractionDigits: 0 }) + ' kr.'
+  if (!amount) return '0 kr.'
+  const formatted =
+    amount.toLocaleString('is-IS', { maximumFractionDigits: 0 }) + ' kr.'
+  return formatted.replace(/,/g, '.')
 }
 
 export function formatDateIS(date: Date): string {
@@ -9,4 +11,12 @@ export function formatDateIS(date: Date): string {
     month: '2-digit',
     year: 'numeric',
   })
+}
+
+export function formatNationalId(nationalId?: string | null): string {
+  if (!nationalId) return ''
+
+  const cleaned = nationalId.replace(/\D/g, '')
+  if (cleaned.length !== 10) return nationalId
+  return `${cleaned.slice(0, 6)}-${cleaned.slice(6)}`
 }

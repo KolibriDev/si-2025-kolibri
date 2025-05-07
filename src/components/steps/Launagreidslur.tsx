@@ -5,7 +5,7 @@ import { Text } from '@/components/Text/Text'
 import { Box } from '@/components/Box/Box'
 import * as T from '@/components/Table/Table'
 import { Button } from '@/components/Button/Button'
-import { formatISK } from '@/lib/utils'
+import { formatISK, formatNationalId } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
 
 const Launagreidslur = () => {
@@ -50,7 +50,9 @@ const Launagreidslur = () => {
                       />
                     </T.Data>
                     <T.Data>{salaryEntry.employerName}</T.Data>
-                    <T.Data>{salaryEntry.employerNationalId}</T.Data>
+                    <T.Data>
+                      {formatNationalId(salaryEntry.employerNationalId)}
+                    </T.Data>
                     <T.Data align="right">
                       {formatISK(salaryEntry.amount)}
                     </T.Data>
