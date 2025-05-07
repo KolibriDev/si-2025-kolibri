@@ -12,6 +12,7 @@ import { Input } from '../Input/Input'
 import { Icon } from '../IconRC/Icon'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { Tag } from '../Tag/Tag'
+import * as styles from './Steps.css'
 
 const mapBenefitType = (benefitType?: BenefitType | null) => {
   switch (benefitType) {
@@ -168,8 +169,6 @@ const StyrkirOgHlunnindi = () => {
     handleClear()
   }
 
-  console.log('newBenefit', newBenefit)
-
   const benefitPayers = [
     { label: 'Norðurljós Software ehf', value: '5408898990' },
     { label: 'Mús & Merki ehf.', value: '5605086019' },
@@ -180,8 +179,6 @@ const StyrkirOgHlunnindi = () => {
     { label: 'Íslenskir aðalverktakar ehf.', value: '5408898996' },
     { label: 'Íslenskir aðalverktakar ehf.', value: '5408898997' },
   ]
-
-  console.log('isMenuopen', menuIsOpen)
 
   const handleOnInputChange = (value: string) => {
     if (value != '') {
@@ -263,81 +260,88 @@ const StyrkirOgHlunnindi = () => {
               </Text>
             </Tag>
           </Box>
-          <Box display="flex" columnGap={1}>
-            <Select
-              name="benefitPayer"
-              label="Greiðandi"
-              options={benefitPayers}
-              onChange={(option) => {
-                setNewBenefit({
-                  ...newBenefit,
-                  payerName: option?.label ?? '',
-                  payerNationalId: option?.value ?? '',
-                })
-                setMenuIsOpen(false)
-              }}
-              onInputChange={handleOnInputChange}
-              backgroundColor="blue"
-              placeholder="Greiðandi"
-              icon="search"
-              value={
-                newBenefit.payerName
-                  ? {
-                      label: newBenefit.payerName,
-                      value: newBenefit.payerNationalId,
-                    }
-                  : undefined
-              }
-              menuIsOpen={menuIsOpen}
-            />
-            <Input
-              name="payerSsn"
-              label="Kennitala greiðanda"
-              backgroundColor="blue"
-              placeholder=""
-              value={formatNationalId(newBenefit.payerNationalId)}
-              readOnly
-            />
+          <Box display="flex" columnGap={3}>
+            <Box position="relative" width="full">
+              <Select
+                name="benefitPayer"
+                label="Greiðandi"
+                options={benefitPayers}
+                onChange={(option) => {
+                  setNewBenefit({
+                    ...newBenefit,
+                    payerName: option?.label ?? '',
+                    payerNationalId: option?.value ?? '',
+                  })
+                  setMenuIsOpen(false)
+                }}
+                onInputChange={handleOnInputChange}
+                backgroundColor="blue"
+                placeholder="Greiðandi"
+                icon="search"
+                value={
+                  newBenefit.payerName
+                    ? {
+                        label: newBenefit.payerName,
+                        value: newBenefit.payerNationalId,
+                      }
+                    : undefined
+                }
+                menuIsOpen={menuIsOpen}
+              />
+            </Box>
+            <Box position="relative" className={styles.smallBox}>
+              <Input
+                name="payerSsn"
+                label="Kennitala greiðanda"
+                backgroundColor="blue"
+                placeholder=""
+                value={formatNationalId(newBenefit.payerNationalId)}
+                readOnly
+                width="full"
+              />
+            </Box>
           </Box>
+          <Box display="flex" columnGap={3} width="full">
+            <Box position="relative" width="full">
+              <Select
+                name="benefitType"
+                label="Bæta við styrk eða hlunnindum"
+                options={Object.values(BenefitType).map((value) => ({
+                  label: mapBenefitType(value),
+                  value,
+                }))}
+                onChange={(option) => {
+                  setNewBenefit({
+                    ...newBenefit,
+                    benefitType: option?.value ?? null,
+                  })
+                }}
+                backgroundColor="blue"
+                placeholder="Veldu styrk eða hlunnindi"
+                value={
+                  newBenefit.benefitType
+                    ? {
+                        label: mapBenefitType(newBenefit.benefitType),
+                        value: newBenefit.benefitType,
+                      }
+                    : undefined
+                }
+              />
+            </Box>
 
-          <Select
-            name="benefitType"
-            label="Bæta við styrk eða hlunnindum"
-            options={Object.values(BenefitType).map((value) => ({
-              label: mapBenefitType(value),
-              value,
-            }))}
-            onChange={(option) => {
-              setNewBenefit({
-                ...newBenefit,
-                benefitType: option?.value ?? null,
-              })
-            }}
-            backgroundColor="blue"
-            placeholder="Veldu styrk eða hlunnindi"
-            icon="search"
-            value={
-              newBenefit.benefitType
-                ? {
-                    label: mapBenefitType(newBenefit.benefitType),
-                    value: newBenefit.benefitType,
-                  }
-                : undefined
-            }
-          />
-
-          <Box position="relative">
-            <Input
-              name="amount"
-              label="Upphæð"
-              backgroundColor="blue"
-              placeholder="0"
-              value={formatWithoutKr(newBenefit.amount ?? 0)}
-              onChange={handleAmountChange}
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              inputMode="numeric"
-            />
+            <Box position="relative" className={styles.smallBox}>
+              <Input
+                name="amount"
+                label="Upphæð"
+                backgroundColor="blue"
+                placeholder="0"
+                value={formatWithoutKr(newBenefit.amount ?? 0)}
+                onChange={handleAmountChange}
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                inputMode="numeric"
+              />
+            </Box>
           </Box>
 
           <Box display="flex" flexDirection="rowReverse" columnGap={3}>

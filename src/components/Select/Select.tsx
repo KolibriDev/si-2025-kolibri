@@ -56,6 +56,7 @@ export const Select = <
   menuIsOpen,
   onInputChange,
   onBlur,
+  icon,
 }: SelectProps<OptionType<Value>, IsMulti, Group>) => {
   const errorId = `${id}-error`
   const [isMounted, setIsMounted] = useState<boolean>(false)
@@ -88,7 +89,7 @@ export const Select = <
         // @ts-expect-error: extra props
         label={label}
         value={value}
-        // icon={icon}
+        icon={icon}
         placeholder={placeholder}
         isMulti={isMulti}
         closeMenuOnSelect={closeMenuOnSelect}
