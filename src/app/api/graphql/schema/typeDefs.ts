@@ -330,5 +330,13 @@ export const typeDefs = /* GraphQL */ `
       "Updated tax return information"
       input: TaxReturnUpdateInput!
     ): TaxReturn
+
+    """
+    Update an existing tax return with new information
+    """
+    submitTaxReturn(
+      "National ID (kennitala) of the tax payer"
+      nationalId: String!
+    ): TaxReturn
   }
 `

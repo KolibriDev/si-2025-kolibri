@@ -60,7 +60,7 @@ const mortgageSchema = z.object({
   lenderNationalId: z.string().optional(),
   lenderName: z.string().optional(),
   loanNumber: z.string().optional(),
-  loanStartDate: z.date().optional(),
+  loanStartDate: z.coerce.date().optional(),
   loanAmount: z.number().optional(),
   loanTermYears: z.number().optional(),
   totalAnnualPayments: z.number().optional(),
@@ -77,20 +77,20 @@ const otherDebtSchema = z.object({
 })
 
 export const taxReturnSchema = z.object({
-  nationalId: z.string(),
-  name: z.string().optional(),
-  address: z.string().optional(),
-  email: z.string().optional(),
-  phoneNumber: z.string().optional(),
-  hasAccidentInsurance: z.boolean().optional(),
-  bankAccount: z.string().optional(),
-  salaries: z.array(salarySchema).optional(),
-  benefits: z.array(benefitSchema).optional(),
-  deductions: z.array(deductionSchema).optional(),
-  realEstates: z.array(realEstateSchema).optional(),
-  vehicles: z.array(vehicleSchema).optional(),
-  mortgages: z.array(mortgageSchema).optional(),
-  otherDebts: z.array(otherDebtSchema).optional(),
+  nationalId: z.string().nullable(),
+  name: z.string().optional().nullable(),
+  address: z.string().optional().nullable(),
+  email: z.string().optional().nullable(),
+  phoneNumber: z.string().optional().nullable(),
+  hasAccidentInsurance: z.boolean().optional().nullable(),
+  bankAccount: z.string().optional().nullable(),
+  salaries: z.array(salarySchema).optional().nullable(),
+  benefits: z.array(benefitSchema).optional().nullable(),
+  deductions: z.array(deductionSchema).optional().nullable(),
+  realEstates: z.array(realEstateSchema).optional().nullable(),
+  vehicles: z.array(vehicleSchema).optional().nullable(),
+  mortgages: z.array(mortgageSchema).optional().nullable(),
+  otherDebts: z.array(otherDebtSchema).optional().nullable(),
 })
 
 export type Salary = z.infer<typeof salarySchema>
