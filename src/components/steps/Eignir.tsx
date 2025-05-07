@@ -79,7 +79,9 @@ export const Fasteignir = () => {
           <T.Row key={x.number}>
             <T.Data>{x.number}</T.Data>
             <T.Data>{x.address}</T.Data>
-            <T.Data align="right">{formatISK(x.appraisalAmount ?? 0)}</T.Data>
+            <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
+              {formatISK(x.appraisalAmount ?? 0)}
+            </T.Data>
           </T.Row>
         ))}
       </T.Body>
@@ -89,7 +91,11 @@ export const Fasteignir = () => {
             Samtals
           </T.Data>
           <T.Data noBorderBottom>{/* empty */}</T.Data>
-          <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+          <T.Data
+            text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+            align="right"
+            noBorderBottom
+          >
             {formatISK(sum)}
           </T.Data>
         </T.Row>
@@ -125,7 +131,9 @@ export const Okutaeki = () => {
           <T.Row key={x.registrationNumber}>
             <T.Data>{x.registrationNumber}</T.Data>
             <T.Data>{x.yearOfPurchase}</T.Data>
-            <T.Data align="right">{formatISK(x.appraisalAmount ?? 0)}</T.Data>
+            <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
+              {formatISK(x.appraisalAmount ?? 0)}
+            </T.Data>
           </T.Row>
         ))}
       </T.Body>
@@ -135,7 +143,11 @@ export const Okutaeki = () => {
             Samtals
           </T.Data>
           <T.Data noBorderBottom>{/* empty */}</T.Data>
-          <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+          <T.Data
+            text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+            align="right"
+            noBorderBottom
+          >
             {formatISK(sum)}
           </T.Data>
         </T.Row>

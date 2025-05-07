@@ -8,6 +8,7 @@ import { Divider } from '../Divider/Divider'
 
 import * as styles from './PersonuUpplysingar.css'
 import { useTaxContext } from '../Utils/context/taxContext'
+import { formatPhoneNr } from '../Utils/utils'
 
 const PersonuUpplysingar = () => {
   const { taxReturn, updateTaxReturn } = useTaxContext()
@@ -29,6 +30,13 @@ const PersonuUpplysingar = () => {
   /* TODO: update the fields when pressing continue */
   const onBlur = () => {
     updateTaxReturn({ ...taxReturn, email, phoneNumber })
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const onlyDigits = e.target.value.replace(/\D/g, '').slice(0, 7)
+    setPhoneNumber(onlyDigits)
   }
 
   return (
@@ -82,10 +90,10 @@ const PersonuUpplysingar = () => {
             backgroundColor="blue"
             label="Símanúmer"
             name="phoneNumber"
-            onChange={(x) => setPhoneNumber(x.target.value)}
-            placeholder="5812345"
+            onChange={handleChange}
+            placeholder="581-2345"
             type="tel"
-            value={phoneNumber}
+            value={formatPhoneNr(phoneNumber)}
             onBlur={onBlur}
           />
         </div>

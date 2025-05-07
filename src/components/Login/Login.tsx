@@ -8,18 +8,13 @@ import { Logo } from '@/components/Logo/Logo'
 import { Checkbox } from '@/components/Checkbox/Checkbox'
 import { useRouter } from 'next/navigation'
 import { useUserContext } from '../Utils/context/userContext'
+import { formatPhoneNr } from '../Utils/utils'
 
 export const Login = () => {
   const router = useRouter()
   const [rawPhone, setRawPhone] = useState<string>('')
   const [loading, setLoading] = useState(false) // New local loading state
   const { fetchNationalRegister } = useUserContext()
-
-  const formatDisplay = (digits: string) => {
-    const a = digits.slice(0, 3)
-    const b = digits.slice(3, 7)
-    return b ? `${a}-${b}` : a
-  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -63,7 +58,7 @@ export const Login = () => {
               label="Símanúmer"
               backgroundColor="blue"
               placeholder="000-0000"
-              value={formatDisplay(rawPhone)}
+              value={formatPhoneNr(rawPhone)}
               onChange={handleChange}
               onFocus={(e) => e.currentTarget.select()}
               inputMode="numeric"

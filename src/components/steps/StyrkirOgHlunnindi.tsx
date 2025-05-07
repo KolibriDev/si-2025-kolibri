@@ -70,7 +70,9 @@ export const Benefits = ({
                 )}
                 <T.Data>{benefit.payerName}</T.Data>
                 <T.Data>{mapBenefitType(benefit.benefitType)}</T.Data>
-                <T.Data align="right">{formatISK(benefit.amount)}</T.Data>
+                <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
+                  {formatISK(benefit.amount)}
+                </T.Data>
               </T.Row>
             ))}
           </T.Body>
@@ -82,7 +84,7 @@ export const Benefits = ({
               {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
               <T.Data noBorderBottom>{/* empty */}</T.Data>
               <T.Data
-                text={{ fontWeight: 'bold' }}
+                text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
                 align="right"
                 noBorderBottom
               >
