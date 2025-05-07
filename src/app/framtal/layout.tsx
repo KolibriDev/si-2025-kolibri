@@ -122,7 +122,6 @@ const SidePanel: FC = () => {
         flexDirection="column"
         justifyContent="spaceBetween"
         height="full"
-        paddingBottom={4}
       >
         <Box marginLeft={[0, 0, 2]}>
           <FormStepper
