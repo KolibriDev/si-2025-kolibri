@@ -1,8 +1,6 @@
 export function formatISK(amount?: number | null): string {
   if (!amount) return '0 kr.'
-  const formatted =
-    amount.toLocaleString('is-IS', { maximumFractionDigits: 0 }) + ' kr.'
-  return formatted.replace(/,/g, '.')
+  return amount.toLocaleString('nl-NL', { maximumFractionDigits: 0 }) + ' kr.'
 }
 
 export function formatDateIS(date: Date): string {

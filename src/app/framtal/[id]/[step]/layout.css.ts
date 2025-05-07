@@ -11,9 +11,10 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
-  minHeight: '576px',
   borderTopRightRadius: theme.border.radius.large,
   borderTopLeftRadius: theme.border.radius.large,
+  height: '976px',
+  overflow: 'scroll',
 })
 
 export const content = style({
