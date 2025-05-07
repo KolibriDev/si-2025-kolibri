@@ -6,6 +6,7 @@ import {
   useCreateTaxReturnMutation,
   useTaxReturnLazyQuery,
   useUpdateTaxReturnMutation,
+  useSubmitTaxReturnMutation,
 } from '@/generated/graphql'
 import {
   createContext,
@@ -26,7 +27,9 @@ interface TaxReturnContextType {
   fetchTaxReturn: (nationalId: string) => void
   createTaxReturn: (nationalId: string) => void
   updateTaxReturn: (taxReturn: TaxReturnQuery['taxReturn']) => void
+  submitTaxReturn: (nationalId: string) => Promise<any>
   isLoading: boolean
+  isSubmitting: boolean
 }
 
 const TaxContext = createContext<TaxReturnContextType | undefined>(undefined)
@@ -72,6 +75,17 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
       console.error('Error updating tax return:', error)
     },
   })
+
+  const [executeSubmitTaxReturn, { loading: isSubmitting }] =
+    useSubmitTaxReturnMutation({
+      onCompleted: (data) => {
+        return data?.submitTaxReturn?.nationalId
+      },
+      onError: (error) => {
+        console.error('Error submitting tax return:', error)
+      },
+    })
+
   const updateTaxReturn = useCallback(
     (taxReturn: TaxReturnQuery['taxReturn']) => {
       if (!taxReturn) {
@@ -103,6 +117,17 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
     [executeFetchTaxReturn],
   )
 
+  const submitTaxReturn = useCallback(
+    async (nationalId: string) => {
+      const result = await executeSubmitTaxReturn({
+        variables: { nationalId },
+      })
+
+      return result
+    },
+    [executeSubmitTaxReturn],
+  )
+
   const value = useMemo(
     () => ({
       taxReturn,
@@ -110,9 +135,11 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
       fetchTaxReturn,
       createTaxReturn,
       updateTaxReturn,
+      submitTaxReturn,
       isLoading: loading,
+      isSubmitting,
     }),
-    [taxReturn, fetchTaxReturn, loading],
+    [taxReturn, fetchTaxReturn, loading, isSubmitting],
   )
 
   return <TaxContext.Provider value={value}>{children}</TaxContext.Provider>

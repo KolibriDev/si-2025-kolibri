@@ -21,6 +21,7 @@ import { Mortgages } from './Ibudalan'
 import { OtherDebts } from './AdrarSkuldir'
 import { TopicCard } from '../TopicCard/TopicCard'
 import { Stack } from '../Stack/Stack'
+import { AlertMessage } from '../AlertMessage/AlertMessage'
 
 const InfoSectionHeader = ({
   title,
@@ -226,6 +227,13 @@ const Samantekt = () => {
             {sectionContentMap[item.href] || null}
           </InfoSectionHeader>
         ))}
+      </Box>
+      <Box marginTop={6}>
+        <AlertMessage
+          title="Framtalið stóðst prófun"
+          message="Engar villur fundust í framtalinu. Þú getur skilað því inn ef þú telur allar upplýsingar hér að ofan vera réttar."
+          type="success"
+        />
       </Box>
     </div>
   )
