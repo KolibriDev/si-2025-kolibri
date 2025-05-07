@@ -6,6 +6,8 @@ import { RadioButton } from '../RadioButton/RadioButton'
 
 import * as styles from './Slysatrygging.css'
 import { useTaxContext } from '../Utils/context/taxContext'
+import { Inline } from '../Inline/Inline'
+import { Box } from '../Box/Box'
 
 const Slysatrygging = () => {
   const { taxReturn, updateTaxReturn } = useTaxContext()
@@ -34,9 +36,16 @@ const Slysatrygging = () => {
       </Text>
 
       <div>
-        <Text variant="h4" marginBottom={2}>
-          Má bjóða þér slysatryggingu vegna heimilisstarfa?
-        </Text>
+        <Box marginBottom={3}>
+          <Inline space={1}>
+            <Text variant="h4">
+              Má bjóða þér slysatryggingu vegna heimilisstarfa?
+            </Text>
+            <Text variant="h4" color="red400">
+              {'*'}
+            </Text>
+          </Inline>
+        </Box>
         <div className={styles.inputContainer}>
           <RadioButton
             name="yes"
