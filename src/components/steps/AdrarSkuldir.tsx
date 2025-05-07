@@ -6,7 +6,7 @@ import { useTaxContext } from '../Utils/context/taxContext'
 import { Box } from '../Box/Box'
 import * as T from '@/components/Table/Table'
 import { Button } from '../Button/Button'
-import { formatISK, formatNationalId } from '@/lib/utils'
+import { formatISK } from '@/lib/utils'
 import { OtherDebt } from '@/generated/graphql'
 import { Icon } from '../IconRC/Icon'
 
@@ -24,7 +24,6 @@ export const OtherDebts = ({
           <T.Row>
             {isEditable && <T.HeadData>{/* empty */}</T.HeadData>}
             <T.HeadData>{'Nafn lánveitanda'}</T.HeadData>
-            <T.HeadData>{'Kennitala lánveitanda'}</T.HeadData>
             <T.HeadData>{'Vaxtagjöld'}</T.HeadData>
             <T.HeadData align="right">{'Eftirstöðvar skulda'}</T.HeadData>
           </T.Row>
@@ -45,7 +44,6 @@ export const OtherDebts = ({
                 </T.Data>
               )}
               <T.Data>{otherDept.lenderName}</T.Data>
-              <T.Data>{formatNationalId(otherDept.lenderNationalId)}</T.Data>
               <T.Data align="right">
                 {formatISK(otherDept.interestPayments)}
               </T.Data>
@@ -61,7 +59,6 @@ export const OtherDebts = ({
               Samtals:
             </T.Data>
             {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
-            <T.Data noBorderBottom>{/* empty */}</T.Data>
             <T.Data
               text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
               noBorderBottom

@@ -38,6 +38,8 @@ export const StepsFooter = () => {
   const handleBack = () => {
     if (prevStep) {
       router.push(`${prevStep}`)
+    } else {
+      router.push('/')
     }
   }
 

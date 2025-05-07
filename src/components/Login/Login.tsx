@@ -11,15 +11,35 @@ import { useUserContext } from '../Utils/context/userContext'
 
 export const Login = () => {
   const router = useRouter()
-  const [phoneNr, setPhoneNr] = useState<string>('')
-  const { fetchNationalRegister, isLoading } = useUserContext()
+  const [rawPhone, setRawPhone] = useState<string>('')
+  const [loading, setLoading] = useState(false) // New local loading state
+  const { fetchNationalRegister } = useUserContext()
+
+  const formatDisplay = (digits: string) => {
+    const a = digits.slice(0, 3)
+    const b = digits.slice(3, 7)
+    return b ? `${a}-${b}` : a
+  }
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const onlyDigits = e.target.value.replace(/\D/g, '').slice(0, 7)
+    setRawPhone(onlyDigits)
+  }
 
   const handleLogin = async () => {
-    if (phoneNr.length === 7) {
-      await fetchNationalRegister(phoneNr)
+    if (rawPhone.length === 7) {
+      setLoading(true)
+      await fetchNationalRegister(rawPhone)
+
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       router.push('/framtal/nytt/upplysingar')
     }
   }
+
+  const isValid = rawPhone.length === 7
 
   return (
     <div className={styles.container}>
@@ -43,22 +63,23 @@ export const Login = () => {
               label="Símanúmer"
               backgroundColor="blue"
               placeholder="000-0000"
-              maxLength={7}
-              onChange={(
-                evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-              ) => setPhoneNr(evt.target.value)}
+              value={formatDisplay(rawPhone)}
+              onChange={handleChange}
+              onFocus={(e) => e.currentTarget.select()}
+              inputMode="numeric"
             />
+
             <Checkbox
-              name="muna simanumer"
+              name="remember-phone"
               label={<Text fontWeight="light">Muna símanúmer</Text>}
             />
 
             <div className={styles.buttonContainerInner}>
               <Button
-                disabled={phoneNr.length !== 7}
+                disabled={!isValid}
                 onClick={handleLogin}
                 fluid
-                loading={isLoading}
+                loading={loading}
               >
                 Auðkenna
               </Button>

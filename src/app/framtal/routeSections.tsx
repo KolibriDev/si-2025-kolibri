@@ -116,13 +116,13 @@ export const routeSections: RouteSection[] = [
         showInSummary: true,
       },
       {
-        name: 'Lífeyrir og bótagreiðslur',
-        href: 'lifeyrir-og-botagreidslur',
-      },
-      {
         name: 'Frádráttur',
         href: 'fradrattur',
         showInSummary: true,
+      },
+      {
+        name: 'Lífeyrir og bótagreiðslur',
+        href: 'lifeyrir-og-botagreidslur',
       },
       {
         name: 'Aðrar tekjur',

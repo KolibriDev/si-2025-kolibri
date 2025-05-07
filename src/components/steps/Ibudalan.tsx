@@ -32,7 +32,7 @@ const Ibudalan = () => {
       <Text variant="h3" marginBottom={2}>
         {taxReturn.realEstates?.[0]?.address}
       </Text>
-      <Mortgages isEditable={true} />
+      <Mortgages isEditable />
 
       <Box marginTop={6}>
         <Button variant="ghost" size="small" icon="add">
@@ -74,7 +74,7 @@ export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
         </T.Head>
         <T.Body>
           {taxReturn?.mortgages?.map((x) => (
-            <Mortgage key={x.loanNumber} mortgage={x} />
+            <Mortgage key={x.loanNumber} mortgage={x} isEditable={isEditable} />
           ))}
         </T.Body>
         <T.Foot>
@@ -84,10 +84,18 @@ export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
             </T.Data>
             {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
             <T.Data noBorderBottom>{/* empty */}</T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+            <T.Data
+              text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+              align="right"
+              noBorderBottom
+            >
               {formatISK(sumInterestPayments)}
             </T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+            <T.Data
+              text={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}
+              align="right"
+              noBorderBottom
+            >
               {formatISK(sumRemainingBalance)}
             </T.Data>
           </T.Row>
@@ -131,10 +139,10 @@ const Mortgage = ({
         )}
         <T.Data>{mortgage.lenderName}</T.Data>
         <T.Data>{mortgage.loanNumber}</T.Data>
-        <T.Data align="right">
+        <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
           {formatISK(mortgage.interestPayments ?? 0)}
         </T.Data>
-        <T.Data align="right">
+        <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
           {formatISK(mortgage.remainingBalance ?? 0)}
         </T.Data>
       </T.Row>
