@@ -1,4 +1,5 @@
 import { style } from '@vanilla-extract/css'
+import { theme } from '@/components/Theme/theme'
 
 export const stepLayout = style({
   display: 'flex',
@@ -11,8 +12,23 @@ export const container = style({
   flexDirection: 'column',
   gap: '16px',
   minHeight: '576px',
+  borderTopRightRadius: theme.border.radius.large,
+  borderTopLeftRadius: theme.border.radius.large,
 })
 
 export const content = style({
   flex: 1,
+})
+
+export const footerContainer = style({
+  background: 'white',
+  padding: theme.spacing[3],
+  borderBottomRightRadius: theme.border.radius.large,
+  borderBottomLeftRadius: theme.border.radius.large,
+
+  '@media': {
+    [`screen and (min-width: ${theme.breakpoints.lg}px)`]: {
+      padding: `${theme.spacing[5]}px ${theme.spacing[14]}px`,
+    },
+  },
 })
