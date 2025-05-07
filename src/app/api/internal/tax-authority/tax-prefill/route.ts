@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { nationalIdQuerySchema, validateSecret } from '@/lib/apiHelper'
 import { TaxReturn, taxReturnSchema } from '@/lib/application'
-import { BenefitType } from '@/generated/graphql'
+import { BenefitType, DeductionType } from '@/generated/graphql'
 
 export async function GET(req: NextRequest) {
   if (!validateSecret(req)) {
@@ -75,7 +75,7 @@ export async function GET(req: NextRequest) {
           },
           {
             registrationNumber: 'JU-329',
-            yearOfPurchase: 2021,
+            yearOfPurchase: 2012,
             appraisalAmount: 430000,
           },
         ],
@@ -91,6 +91,24 @@ export async function GET(req: NextRequest) {
             principalPayments: 1360000,
             interestPayments: 920000,
             remainingBalance: 28540000,
+          },
+        ],
+        deductions: [
+          {
+            deductionType: DeductionType.DAILY_ALLOWANCE_DEDUCTION,
+            amount: 120000,
+          },
+          {
+            deductionType: DeductionType.SPORT_ALLOWANCE_DEDUCTION,
+            amount: 75000,
+          },
+          {
+            deductionType: DeductionType.PENSION_FUND_DEDUCTION,
+            amount: 130000,
+          },
+          {
+            deductionType: DeductionType.PRIVATE_PENSION_FUND_DEDUCTION,
+            amount: 50000,
           },
         ],
         otherDebts: [
