@@ -21,6 +21,7 @@ type DataField = {
   borderColor?: keyof typeof theme.color
   align?: 'left' | 'right' | 'center'
   disabled?: boolean
+  noBorderBottom?: boolean
 }
 
 type Table = {
@@ -94,6 +95,7 @@ export const Data = ({
   borderColor = 'blue200',
   align,
   disabled,
+  noBorderBottom,
   ...props
 }: DataField & Omit<AllHTMLAttributes<HTMLTableCellElement>, 'className'>) => {
   const classNames = cn(
@@ -108,7 +110,7 @@ export const Data = ({
       paddingRight: 3,
       paddingTop: 'p5',
       paddingBottom: 'p5',
-      borderBottomWidth: 'standard',
+      borderBottomWidth: noBorderBottom ? undefined : 'standard',
       borderColor,
       textAlign: align,
       ...box,

@@ -11,6 +11,16 @@ import { Button } from '../Button/Button'
 import { Box } from '../Box/Box'
 
 const Ibudalan = () => {
+  const { taxReturn } = useTaxContext()
+
+  if (!taxReturn?.mortgages) {
+    return (
+      <>
+        <Text>Engin íbúðarlán eru skráðar á þig.</Text>
+      </>
+    )
+  }
+
   return (
     <Box marginBottom={10}>
       <Text marginBottom={6}>
@@ -19,7 +29,10 @@ const Ibudalan = () => {
         breyttir skilmálum eða endurfjármagnaðir lán, geturðu bætt þeim við.
       </Text>
 
-      <Mortgages />
+      <Text variant="h3" marginBottom={2}>
+        {taxReturn.realEstates?.[0]?.address}
+      </Text>
+      <Mortgages isEditable={true} />
 
       <Box marginTop={6}>
         <Button variant="ghost" size="small" icon="add">
@@ -30,16 +43,8 @@ const Ibudalan = () => {
   )
 }
 
-const Mortgages = () => {
+export const Mortgages = ({ isEditable }: { isEditable?: boolean }) => {
   const { taxReturn } = useTaxContext()
-
-  if (!taxReturn?.mortgages) {
-    return (
-      <>
-        <Text>Engin íbúðarlán eru skráðar á þig.</Text>
-      </>
-    )
-  }
 
   const sumRemainingBalance =
     taxReturn?.mortgages?.reduce(
@@ -55,13 +60,12 @@ const Mortgages = () => {
 
   return (
     <>
-      <Text variant="h3" marginBottom={2}>
-        {taxReturn.realEstates?.[0]?.address}
-      </Text>
       <T.Table>
         <T.Head>
           <T.Row>
-            <T.HeadData>{/* empty for expand button */}</T.HeadData>
+            {isEditable && (
+              <T.HeadData>{/* empty for expand button */}</T.HeadData>
+            )}
             <T.HeadData>{'Lánveitandi'}</T.HeadData>
             <T.HeadData>{'Lánsnúmer'}</T.HeadData>
             <T.HeadData align="right">{'Vaxtagjöld'}</T.HeadData>
@@ -75,13 +79,15 @@ const Mortgages = () => {
         </T.Body>
         <T.Foot>
           <T.Row>
-            <T.Data text={{ fontWeight: 'bold' }}>Samtals</T.Data>
-            <T.Data>{/* empty */}</T.Data>
-            <T.Data>{/* empty */}</T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right">
+            <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
+              Samtals
+            </T.Data>
+            {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
+            <T.Data noBorderBottom>{/* empty */}</T.Data>
+            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
               {formatISK(sumInterestPayments)}
             </T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right">
+            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
               {formatISK(sumRemainingBalance)}
             </T.Data>
           </T.Row>
@@ -99,22 +105,30 @@ type mortgages = NonNullable<
 
 type mortgage = mortgages[number]
 
-const Mortgage = ({ mortgage }: { mortgage: mortgage }) => {
-  const [expanded, setExpanded] = useState(false)
+const Mortgage = ({
+  mortgage,
+  isEditable,
+}: {
+  mortgage: mortgage
+  isEditable?: boolean
+}) => {
+  const [expanded, setExpanded] = useState(!isEditable)
   return (
     <Fragment key={mortgage.loanNumber}>
       <T.Row>
-        <T.Data>
-          <Button
-            circle
-            size="small"
-            title="Expand"
-            type="light"
-            variant="ghost"
-            icon={expanded ? 'remove' : 'add'}
-            onClick={() => setExpanded((prev) => !prev)}
-          />
-        </T.Data>
+        {isEditable && (
+          <T.Data>
+            <Button
+              circle
+              size="small"
+              title="Expand"
+              type="light"
+              variant="ghost"
+              icon={expanded ? 'remove' : 'add'}
+              onClick={() => setExpanded((prev) => !prev)}
+            />
+          </T.Data>
+        )}
         <T.Data>{mortgage.lenderName}</T.Data>
         <T.Data>{mortgage.loanNumber}</T.Data>
         <T.Data align="right">

@@ -24,9 +24,19 @@ const Eignir = () => {
       </Text>
 
       <Stack space={6}>
-        <Fasteignir />
+        <Box>
+          <Text variant="h3" marginBottom={2}>
+            Fasteignir
+          </Text>
+          <Fasteignir />
+        </Box>
 
-        <Okutaeki />
+        <Box>
+          <Text variant="h3" marginBottom={2}>
+            Ökutæki
+          </Text>
+          <Okutaeki />
+        </Box>
 
         <Box marginBottom={8}>
           <Text variant="h3" marginBottom={2}>
@@ -42,18 +52,11 @@ const Eignir = () => {
   )
 }
 
-const Fasteignir = () => {
+export const Fasteignir = () => {
   const { taxReturn } = useTaxContext()
 
   if (!taxReturn?.realEstates) {
-    return (
-      <>
-        <Text variant="h3" marginBottom={2}>
-          Fasteignir
-        </Text>
-        <Text>Engar fasteignir eru skráðar á þig.</Text>
-      </>
-    )
+    return <Text>Engar fasteignir eru skráðar á þig.</Text>
   }
 
   const sum =
@@ -63,42 +66,39 @@ const Fasteignir = () => {
     ) ?? 0
 
   return (
-    <>
-      <Text variant="h3" marginBottom={2}>
-        Fasteignir
-      </Text>
-      <T.Table>
-        <T.Head>
-          <T.Row>
-            <T.HeadData>{'Fasteignarnúmer'}</T.HeadData>
-            <T.HeadData>{'Heimilisfang'}</T.HeadData>
-            <T.HeadData align="right">{'Fasteignamat'}</T.HeadData>
+    <T.Table>
+      <T.Head>
+        <T.Row>
+          <T.HeadData>{'Fasteignarnúmer'}</T.HeadData>
+          <T.HeadData>{'Heimilisfang'}</T.HeadData>
+          <T.HeadData align="right">{'Fasteignamat'}</T.HeadData>
+        </T.Row>
+      </T.Head>
+      <T.Body>
+        {taxReturn?.realEstates?.map((x) => (
+          <T.Row key={x.number}>
+            <T.Data>{x.number}</T.Data>
+            <T.Data>{x.address}</T.Data>
+            <T.Data align="right">{formatISK(x.appraisalAmount ?? 0)}</T.Data>
           </T.Row>
-        </T.Head>
-        <T.Body>
-          {taxReturn?.realEstates?.map((x) => (
-            <T.Row key={x.number}>
-              <T.Data>{x.number}</T.Data>
-              <T.Data>{x.address}</T.Data>
-              <T.Data align="right">{formatISK(x.appraisalAmount ?? 0)}</T.Data>
-            </T.Row>
-          ))}
-        </T.Body>
-        <T.Foot>
-          <T.Row>
-            <T.Data text={{ fontWeight: 'bold' }}>Samtals</T.Data>
-            <T.Data>{/* empty */}</T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right">
-              {formatISK(sum)}
-            </T.Data>
-          </T.Row>
-        </T.Foot>
-      </T.Table>
-    </>
+        ))}
+      </T.Body>
+      <T.Foot>
+        <T.Row>
+          <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
+            Samtals
+          </T.Data>
+          <T.Data noBorderBottom>{/* empty */}</T.Data>
+          <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+            {formatISK(sum)}
+          </T.Data>
+        </T.Row>
+      </T.Foot>
+    </T.Table>
   )
 }
 
-const Okutaeki = () => {
+export const Okutaeki = () => {
   const { taxReturn, setTaxReturn } = useTaxContext()
 
   useEffect(() => {
@@ -119,14 +119,7 @@ const Okutaeki = () => {
   }, [])
 
   if (!taxReturn?.vehicles) {
-    return (
-      <>
-        <Text variant="h3" marginBottom={2}>
-          Ökutæki
-        </Text>
-        <Text>Engin ökutæki eru skráð á þig.</Text>
-      </>
-    )
+    return <Text>Engin ökutæki eru skráð á þig.</Text>
   }
 
   const sum =
@@ -134,38 +127,35 @@ const Okutaeki = () => {
     0
 
   return (
-    <>
-      <Text variant="h3" marginBottom={2}>
-        Ökutæki
-      </Text>
-      <T.Table>
-        <T.Head>
-          <T.Row>
-            <T.HeadData>{'Bílnúmer'}</T.HeadData>
-            <T.HeadData>{'Kaupár'}</T.HeadData>
-            <T.HeadData align="right">{'Kaupverð'}</T.HeadData>
+    <T.Table>
+      <T.Head>
+        <T.Row>
+          <T.HeadData>{'Bílnúmer'}</T.HeadData>
+          <T.HeadData>{'Kaupár'}</T.HeadData>
+          <T.HeadData align="right">{'Kaupverð'}</T.HeadData>
+        </T.Row>
+      </T.Head>
+      <T.Body>
+        {taxReturn?.vehicles?.map((x) => (
+          <T.Row key={x.registrationNumber}>
+            <T.Data>{x.registrationNumber}</T.Data>
+            <T.Data>{x.yearOfPurchase}</T.Data>
+            <T.Data align="right">{formatISK(x.purchasePrice ?? 0)}</T.Data>
           </T.Row>
-        </T.Head>
-        <T.Body>
-          {taxReturn?.vehicles?.map((x) => (
-            <T.Row key={x.registrationNumber}>
-              <T.Data>{x.registrationNumber}</T.Data>
-              <T.Data>{x.yearOfPurchase}</T.Data>
-              <T.Data align="right">{formatISK(x.purchasePrice ?? 0)}</T.Data>
-            </T.Row>
-          ))}
-        </T.Body>
-        <T.Foot>
-          <T.Row>
-            <T.Data text={{ fontWeight: 'bold' }}>Samtals</T.Data>
-            <T.Data>{/* empty */}</T.Data>
-            <T.Data text={{ fontWeight: 'bold' }} align="right">
-              {formatISK(sum)}
-            </T.Data>
-          </T.Row>
-        </T.Foot>
-      </T.Table>
-    </>
+        ))}
+      </T.Body>
+      <T.Foot>
+        <T.Row>
+          <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
+            Samtals
+          </T.Data>
+          <T.Data noBorderBottom>{/* empty */}</T.Data>
+          <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+            {formatISK(sum)}
+          </T.Data>
+        </T.Row>
+      </T.Foot>
+    </T.Table>
   )
 }
 

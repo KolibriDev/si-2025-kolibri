@@ -55,10 +55,16 @@ const Fradrattur = () => {
               </T.Body>
               <T.Foot>
                 <T.Row>
-                  <T.Data text={{ fontWeight: 'bold' }}>Samtals:</T.Data>
-                  <T.Data>{/* empty */}</T.Data>
-                  <T.Data>{/* empty */}</T.Data>
-                  <T.Data text={{ fontWeight: 'bold' }} align="right">
+                  <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
+                    Samtals:
+                  </T.Data>
+                  <T.Data noBorderBottom>{/* empty */}</T.Data>
+                  <T.Data noBorderBottom>{/* empty */}</T.Data>
+                  <T.Data
+                    text={{ fontWeight: 'bold' }}
+                    align="right"
+                    noBorderBottom
+                  >
                     {formatISK(
                       // TODO: FIX ! below
                       deductions.reduce((v, a) => v + a.amount! || 0, 0),

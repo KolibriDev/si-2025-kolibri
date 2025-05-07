@@ -3,8 +3,10 @@ export interface RouteSection {
   href?: string
   isActive?: boolean
   pageHeader?: string
+  showInSummary?: boolean
   children: {
     pageHeader?: string
+    showInSummary?: boolean
     name: string
     href: string
     isActive?: boolean
@@ -85,15 +87,18 @@ export const routeSections: RouteSection[] = [
       {
         name: 'Persónuupplýsingar',
         href: 'personuupplysingar',
+        showInSummary: true,
       },
       {
         name: 'Bankareikningur',
         href: 'bankareikningur',
+        showInSummary: true,
       },
       {
         name: 'Slysatrygging',
         href: 'slysatrygging',
         pageHeader: 'Slysatrygging vegna heimilisstarfa',
+        showInSummary: true,
       },
     ],
   },
@@ -103,10 +108,12 @@ export const routeSections: RouteSection[] = [
       {
         name: 'Launagreiðslur',
         href: 'launagreidslur',
+        showInSummary: true,
       },
       {
         name: 'Styrkir og hlunnindi',
         href: 'styrkir-og-hlunnindi',
+        showInSummary: true,
       },
       {
         name: 'Lífeyrir og bótagreiðslur',
@@ -115,6 +122,7 @@ export const routeSections: RouteSection[] = [
       {
         name: 'Frádráttur',
         href: 'fradrattur',
+        showInSummary: true,
       },
       {
         name: 'Aðrar tekjur',
@@ -126,6 +134,7 @@ export const routeSections: RouteSection[] = [
     name: 'Eignir',
     href: 'eignir',
     children: [],
+    showInSummary: true,
   },
   {
     name: 'Skuldir',
@@ -133,10 +142,12 @@ export const routeSections: RouteSection[] = [
       {
         name: 'Íbúðalán',
         href: 'ibudalan',
+        showInSummary: true,
       },
       {
         name: 'Aðrar skuldir',
         href: 'adrar-skuldir',
+        showInSummary: true,
       },
     ],
   },
@@ -144,6 +155,7 @@ export const routeSections: RouteSection[] = [
     name: 'Fylgiskjöl',
     href: 'fylgiskjol',
     children: [],
+    showInSummary: true,
   },
   {
     name: 'Samantekt',

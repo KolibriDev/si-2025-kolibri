@@ -7,6 +7,77 @@ import * as T from '@/components/Table/Table'
 import { Button } from '@/components/Button/Button'
 import { formatISK, formatNationalId } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
+import { SalaryInput } from '@/generated/graphql'
+import { Icon } from '../IconRC/Icon'
+
+export const SalaryEntries = ({
+  salaryEntries,
+  isEditable = false,
+}: {
+  salaryEntries: SalaryInput[]
+
+  isEditable?: boolean
+}) => {
+  return (
+    <>
+      <Box marginBottom={3}>
+        <T.Table>
+          <T.Head>
+            <T.Row>
+              {isEditable && <T.HeadData>{/* empty */}</T.HeadData>}
+              <T.HeadData>{'Launagreiðandi'}</T.HeadData>
+              <T.HeadData>{'Kennitala'}</T.HeadData>
+              <T.HeadData align="right">{'Launafjárhæð'}</T.HeadData>
+            </T.Row>
+          </T.Head>
+          <T.Body>
+            {salaryEntries.map((salaryEntry) => (
+              <T.Row key={salaryEntry.employerName}>
+                {isEditable && (
+                  <T.Data>
+                    <Button
+                      circle
+                      colorScheme="negative"
+                      title="Expand"
+                      type="icon"
+                      icon={'pencil'}
+                      size="small"
+                      onClick={() => {}}
+                    />
+                  </T.Data>
+                )}
+                <T.Data>{salaryEntry.employerName}</T.Data>
+                <T.Data>
+                  {formatNationalId(salaryEntry.employerNationalId)}
+                </T.Data>
+                <T.Data align="right">{formatISK(salaryEntry.amount)}</T.Data>
+              </T.Row>
+            ))}
+          </T.Body>
+          <T.Foot>
+            <T.Row>
+              <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
+                Samtals:
+              </T.Data>
+              {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
+              <T.Data noBorderBottom>{/* empty */}</T.Data>
+              <T.Data
+                text={{ fontWeight: 'bold' }}
+                align="right"
+                noBorderBottom
+              >
+                {formatISK(
+                  // TODO: FIX ! below
+                  salaryEntries.reduce((v, a) => v + a.amount! || 0, 0),
+                )}
+              </T.Data>
+            </T.Row>
+          </T.Foot>
+        </T.Table>
+      </Box>
+    </>
+  )
+}
 
 const Launagreidslur = () => {
   const { taxReturn } = useTaxContext()
@@ -24,61 +95,15 @@ const Launagreidslur = () => {
         Ef þú fékkst fleiri launa- eða verktakagreiðslur á árinu þarftu að skrá
         þær til að framtalið sé rétt.
       </Text>
-      {salaryEntries && (
-        <>
-          <Box marginBottom={3}>
-            <T.Table>
-              <T.Head>
-                <T.Row>
-                  <T.HeadData>{/* empty */}</T.HeadData>
-                  <T.HeadData>{'Launagreiðandi'}</T.HeadData>
-                  <T.HeadData>{'Kennitala'}</T.HeadData>
-                  <T.HeadData align="right">{'Launafjárhæð'}</T.HeadData>
-                </T.Row>
-              </T.Head>
-              <T.Body>
-                {salaryEntries.map((salaryEntry) => (
-                  <T.Row key={salaryEntry.employerName}>
-                    <T.Data>
-                      <Button
-                        circle
-                        colorScheme="negative"
-                        title="Expand"
-                        type="icon"
-                        icon={'pencil'}
-                        onClick={() => {}}
-                      />
-                    </T.Data>
-                    <T.Data>{salaryEntry.employerName}</T.Data>
-                    <T.Data>
-                      {formatNationalId(salaryEntry.employerNationalId)}
-                    </T.Data>
-                    <T.Data align="right">
-                      {formatISK(salaryEntry.amount)}
-                    </T.Data>
-                  </T.Row>
-                ))}
-              </T.Body>
-              <T.Foot>
-                <T.Row>
-                  <T.Data text={{ fontWeight: 'bold' }}>Samtals:</T.Data>
-                  <T.Data>{/* empty */}</T.Data>
-                  <T.Data>{/* empty */}</T.Data>
-                  <T.Data text={{ fontWeight: 'bold' }} align="right">
-                    {formatISK(
-                      // TODO: FIX ! below
-                      salaryEntries.reduce((v, a) => v + a.amount! || 0, 0),
-                    )}
-                  </T.Data>
-                </T.Row>
-              </T.Foot>
-            </T.Table>
-          </Box>
-          <Button variant="ghost" size="small" icon="add" onClick={() => {}}>
+      <SalaryEntries salaryEntries={salaryEntries ?? []} isEditable={true} />
+      <Button variant="ghost" size="small" onClick={() => {}}>
+        <Box display="flex" columnGap={1} alignItems="center">
+          <Text variant="h5" fontWeight="semiBold" color="blue400">
             Bæta við
-          </Button>
-        </>
-      )}
+          </Text>
+          <Icon icon="add" size="small" />
+        </Box>
+      </Button>
     </div>
   )
 }
