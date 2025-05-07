@@ -6,8 +6,11 @@ import { AlertMessage } from '../AlertMessage/AlertMessage'
 import Image from 'next/image'
 import { useWindowSize } from 'react-use'
 import { Box } from '../Box/Box'
+import { Button } from '../Button/Button'
+import { useRouter } from 'next/navigation'
 
 const Stadfesting = () => {
+  const router = useRouter()
   const { width } = useWindowSize()
   const dynamicWidth = Math.min(width * 0.4, 337) // adjust 0.5 as needed
 
@@ -25,6 +28,16 @@ const Stadfesting = () => {
         gagnvart Skattinum og færð greiddar <strong>117.244 kr.</strong> þann 1.
         júní nk. Þessi tala er með fyrirvara um endanlega álagningu.
       </Text>
+      <Box marginBottom={5}>
+        <Button
+          variant="text"
+          iconType="outline"
+          icon="open"
+          onClick={() => router.back()}
+        >
+          Skoða útreikning
+        </Button>
+      </Box>
       <Box position="relative" style={{ height: dynamicWidth }}>
         <Image
           src="/success.svg"
