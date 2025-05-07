@@ -14,6 +14,7 @@ import { ActionCard } from '@/components/ActionCard/ActionCard'
 import { useUserContext } from '@/components/Utils/context/userContext'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import { Hidden } from '@/components/Hidden/Hidden'
 
 export default function Home() {
   const { user, fetchNationalRegister } = useUserContext()
@@ -25,26 +26,26 @@ export default function Home() {
 
   return (
     <div className={styles.page}>
-      <Box paddingX={6}>
-        <Header userName={user?.name ?? 'Notandi fannst ekki '} authenticated />
-      </Box>
+      <Header userName={user?.name ?? 'Notandi fannst ekki '} authenticated />
       <div className={styles.grid}>
         <aside className={styles.grid_item_side}>
-          <Box marginBottom={3}>
-            <Button variant="text" size="small" preTextIcon="arrowBack">
-              Til baka í yfirlit
-            </Button>
-          </Box>
-          <TableOfContents
-            title="Umsóknir"
-            titleIcon="fileTrayFull"
-            items={[
-              'Mínar umsóknir',
-              'Umsóknir í vinnslu',
-              'Ókláraðar umsóknir',
-              'Kláraðar umsóknir',
-            ]}
-          />
+          <Hidden below="md">
+            <Box marginBottom={3}>
+              <Button variant="text" size="small" preTextIcon="arrowBack">
+                Til baka í yfirlit
+              </Button>
+            </Box>
+            <TableOfContents
+              title="Umsóknir"
+              titleIcon="fileTrayFull"
+              items={[
+                'Mínar umsóknir',
+                'Umsóknir í vinnslu',
+                'Ókláraðar umsóknir',
+                'Kláraðar umsóknir',
+              ]}
+            />
+          </Hidden>
         </aside>
         <main className={styles.main}>
           <Box marginBottom={4}>
@@ -70,7 +71,13 @@ export default function Home() {
               <Logo id="island-is-logo" width={64} height={64} iconOnly />
             </div>
           </div>
-          <Box display="flex" columnGap={4} marginBottom={4}>
+          <Box
+            display="flex"
+            flexDirection={['column', 'row']}
+            columnGap={4}
+            rowGap={3}
+            marginBottom={4}
+          >
             <Input
               name="Umsókn"
               size="xs"
