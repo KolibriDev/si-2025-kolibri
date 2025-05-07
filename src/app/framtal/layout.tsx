@@ -137,13 +137,15 @@ const SidePanel: FC = () => {
           />
         </Box>
         <Hidden below="md">
-          <Image
-            src="/companyLogo.svg"
-            alt="Logo skattsins"
-            width={288}
-            height={74}
-            priority
-          />
+          <Box marginBottom={4}>
+            <Image
+              src="/companyLogo.svg"
+              alt="Logo skattsins"
+              width={288}
+              height={74}
+              priority
+            />
+          </Box>
         </Hidden>
       </Box>
     </GridColumn>
