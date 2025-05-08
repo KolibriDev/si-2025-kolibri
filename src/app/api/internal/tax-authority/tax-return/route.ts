@@ -41,9 +41,7 @@ export async function POST(req: NextRequest) {
       `
 
       const taxReturnId = result[0].id
-      console.log('Inserted tax return ID:', taxReturnId)
 
-      console.log(parsed.data.salaries)
       for (const salary of parsed.data.salaries ?? []) {
         await sql`
         INSERT INTO tax_authority_salaries (tax_return_id, employer_national_id, employer_name, amount)
