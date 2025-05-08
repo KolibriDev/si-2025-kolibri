@@ -45,6 +45,7 @@ mutation UpdateTaxReturn($nationalId: String!, $input: TaxReturnUpdateInput!) {
       principalPayments
       interestPayments
       remainingBalance
+      yearOfPurchase
     }
     otherDebts {
       lenderNationalId

@@ -174,7 +174,7 @@ const Mortgage = ({
                     useWhiteBackground: true,
                   },
                   {
-                    value: realEstateYearOfPurchase?.toString() ?? 'Ekki skráð',
+                    value: mortgage.yearOfPurchase?.toString() ?? '',
                     label: 'Kaupár',
                     useWhiteBackground: true,
                   },
