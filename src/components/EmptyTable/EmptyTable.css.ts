@@ -22,7 +22,7 @@ export const emptyTable = style({
 })
 
 export const emptyTableText = style({
-  paddingInline: 2,
+  paddingInline: 40,
   position: 'relative',
   textAlign: 'center',
   zIndex: 10,
