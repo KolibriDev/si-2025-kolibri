@@ -24,6 +24,7 @@ import { Stack } from '../Stack/Stack'
 import { AlertMessage } from '../AlertMessage/AlertMessage'
 import { formatPhoneNr } from '../Utils/utils'
 import { DeductionEntries } from './Fradrattur'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 const InfoSectionHeader = ({
   title,
@@ -223,15 +224,27 @@ const Samantekt = () => {
         eru réttar geturðu skilað inn framtalinu.
       </Text>
       <Box display="flex" flexDirection="column" rowGap={6}>
-        {items.map((item) => (
-          <InfoSectionHeader
-            key={item.href}
-            title={item.name}
-            onEdit={() => handleClick(item.href)}
+        {taxReturn ? (
+          items.map((item) => (
+            <InfoSectionHeader
+              key={item.href}
+              title={item.name}
+              onEdit={() => handleClick(item.href)}
+            >
+              {sectionContentMap[item.href] || null}
+            </InfoSectionHeader>
+          ))
+        ) : (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            style={{ height: '377px' }}
           >
-            {sectionContentMap[item.href] || null}
-          </InfoSectionHeader>
-        ))}
+            <LoadingDots />
+          </Box>
+        )}
+
         <AlertMessage
           type="success"
           title="Framtalið stóðst prófun"
