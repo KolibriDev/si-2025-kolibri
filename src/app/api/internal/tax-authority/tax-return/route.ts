@@ -20,17 +20,13 @@ function snakeToCamel(obj: unknown): unknown {
 }
 
 export async function POST(req: NextRequest) {
-  console.log('POST request received')
-
   if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const body = await req.json()
-  console.log('Request body:', body)
   const parsed = taxReturnSchema.safeParse(body)
 
-  console.log('Parsed data:', parsed)
   if (!parsed.success) {
     console.error('Validation error:', parsed.error)
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
