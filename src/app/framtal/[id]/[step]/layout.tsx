@@ -1,21 +1,43 @@
 'use client'
+import cn from 'classnames'
 import { Box } from '@/components/Box/Box'
 import * as styles from './layout.css'
 import { useParams } from 'next/navigation'
 import { findPageHeaderByStep } from '../../routeSections'
 import { Text } from '@/components/Text/Text'
 import { StepsFooter } from '@/components/steps/StepsFooter/StepsFooter'
+import { useState } from 'react'
+import { useKey } from 'react-use'
+import Image from 'next/image'
+import { AlertMessage } from '@/components/AlertMessage/AlertMessage'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function StepLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const [showError, setShowError] = useState<boolean>(false)
+  const [showErrorMessage, setShowErrorMessage] = useState<boolean>(false)
   const params = useParams()
+
   const step = params?.step as string | undefined
   if (!step) {
     return null
   }
+
+  useKey('e', () => {
+    if (step === 'gagnaoflun') {
+      setShowError((prev) => !prev)
+    }
+  })
+
+  useKey('b', () => {
+    if (step === 'gagnaoflun') {
+      setShowErrorMessage((prev) => !prev)
+    }
+  })
+
   const headerText = findPageHeaderByStep(step)
 
   return (
@@ -27,6 +49,31 @@ export default function StepLayout({
         paddingX={[3, 3, 14, 14]}
         className={styles.container}
       >
+        <AnimatePresence>
+          {showErrorMessage && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: '90px',
+                opacity: 1,
+                transition: { opacity: { delay: 0.2 } },
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+                transition: { height: { delay: 0.2 } },
+              }}
+            >
+              <Box marginBottom={2}>
+                <AlertMessage
+                  title="Villa kom upp"
+                  message="Ekki tókst að sækja gögn frá Skattinum. Reyndu aftur síðar."
+                  type="error"
+                />
+              </Box>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <Text variant="h2" as="h1">
           {headerText}
         </Text>
@@ -35,6 +82,19 @@ export default function StepLayout({
       <div className={styles.footerContainer}>
         <StepsFooter />
       </div>
+      <span
+        className={cn(styles.a, {
+          [styles.b]: showError,
+        })}
+      >
+        <Image
+          src="/AlertToast.svg"
+          alt="Villa"
+          width={432}
+          height={120}
+          priority
+        />
+      </span>
     </div>
   )
 }

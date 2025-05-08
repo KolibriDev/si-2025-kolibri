@@ -215,13 +215,13 @@ const StyrkirOgHlunnindi = () => {
   return (
     <div ref={topRef}>
       <Text marginBottom={2}>
-        Allir styrkir og starfstengd hlunnind sem þú hefur fengið greidd koma
-        fram hér. Dæmi um þetta eru greiðslur frá vinnuveitendum, styrkir í
-        gegnum stéttarfélög og náms- og vísindastyrkir.
+        Allir styrkir og starfstengd hlunnindi sem þú hefur fengið greidd
+        samkvæmt upplýsingum frá Skattinum koma fram hér. Ef þú fékkst styrk eða
+        hlunnindi sem ekki koma fram á yfirlitinu þarftu að skrá það til að
+        framtalið sé rétt.
       </Text>
       <Text marginBottom={6}>
-        Ef þú fékkst greiddan styrk sem ekki kemur fram hér fyrir neðan þarftu
-        að skrá hann til að framtalið sé rétt.
+        Frádráttur vegna styrkja og hlunninda er skráður á næstu síðu.
       </Text>
       {taxReturn ? (
         <Benefits benefits={taxReturn.benefits ?? []} isEditable={true} />

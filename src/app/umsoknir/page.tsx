@@ -130,7 +130,7 @@ export default function Home() {
               Ókláraðar umsóknir
             </Text>
             <ActionCard
-              heading="Skattaskýrsla 2025"
+              heading="Skattframtal"
               text={`Þú hefur lokið ${currentProgress} skrefum af ${maxProgress}`}
               tag={{ label: 'Opin', outlined: false }}
               cta={{

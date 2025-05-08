@@ -8,6 +8,8 @@ import { useWindowSize } from 'react-use'
 import { Box } from '../Box/Box'
 import { Button } from '../Button/Button'
 import { useRouter } from 'next/navigation'
+import { Stack } from '../Stack/Stack'
+import FakeLink from '../FakeLink/FakeLink'
 
 const Stadfesting = () => {
   const router = useRouter()
@@ -28,7 +30,7 @@ const Stadfesting = () => {
         gagnvart Skattinum og færð greiddar <strong>117.244 kr.</strong> þann 1.
         júní nk. Þessi tala er með fyrirvara um endanlega álagningu.
       </Text>
-      <Box marginBottom={5}>
+      <Box marginBottom={3}>
         <Button
           variant="text"
           iconType="outline"
@@ -41,6 +43,19 @@ const Stadfesting = () => {
         >
           Skoða útreikning
         </Button>
+      </Box>
+      <Box marginBottom={4}>
+        <Stack space={2}>
+          <Text>
+            Ef þú þarft að uppfæra framtalið eftir sendingu þarftu að senda
+            beiðni um leiðréttingu á
+            <FakeLink>{` þjónustuvef Skattsins `}</FakeLink>.
+          </Text>
+          <Text>
+            Staðfest afrit verður aðgengilegt á Mínum síðum Ísland.is um leið og
+            framtalið hefur verið yfirfarið og samþykkt af Skattinum.
+          </Text>
+        </Stack>
       </Box>
       <Box position="relative" style={{ height: dynamicWidth }}>
         <Image
