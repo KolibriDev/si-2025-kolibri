@@ -9,8 +9,10 @@ import { Stack } from '../Stack/Stack'
 import { Box } from '../Box/Box'
 import { Button } from '../Button/Button'
 import LoadingDots from '../LoadingDots/LoadingDots'
+import { EmptyTable } from '../EmptyTable/EmptyTable'
 
 const Eignir = () => {
+  const { isLoading } = useTaxContext()
   return (
     <div>
       <Text marginBottom={6}>
@@ -39,10 +41,27 @@ const Eignir = () => {
           <Text variant="h3" marginBottom={2}>
             Aðrir eignir
           </Text>
-          <Text marginBottom={4}>Engar aðrar eignir eru skráðar á þig.</Text>
-          <Button variant="ghost" icon="add" size="small">
-            Skrá kaup eða sölu eignar
-          </Button>
+          {isLoading ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              style={{ height: '100px' }}
+            >
+              <LoadingDots />
+            </Box>
+          ) : (
+            <>
+              <Box marginBottom={7}>
+                <EmptyTable message={'Engar aðrar eignir eru skráðar á þig'} />
+              </Box>
+              <Box display="flex" justifyContent="flexEnd">
+                <Button variant="ghost" icon="add" size="small">
+                  {'Skrá kaup eða sölu eignar'}
+                </Button>
+              </Box>
+            </>
+          )}
         </Box>
       </Stack>
     </div>
