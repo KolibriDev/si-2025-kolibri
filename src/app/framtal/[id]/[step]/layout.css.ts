@@ -15,7 +15,24 @@ export const container = style({
   borderTopLeftRadius: theme.border.radius.large,
   // 100% - header - paddingTop - paddingBottom - footer - 2px buffer
   height: 'calc(100vh - 112px - 48px - 48px - 144px - 2px)',
-  overflow: 'scroll',
+  overflow: 'auto',
+
+  selectors: {
+    '&::-webkit-scrollbar': {
+      width: '4px',
+    },
+    '&::-webkit-scrollbar-track': {
+      background: 'transparent',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: '#d4d4d4',
+      borderRadius: '8px',
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: '#d4d4d4',
+      width: '6px',
+    },
+  },
 })
 
 export const content = style({
