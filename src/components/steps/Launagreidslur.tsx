@@ -12,6 +12,7 @@ import { Icon } from '../IconRC/Icon'
 import LoadingDots from '../LoadingDots/LoadingDots'
 import { Select } from '../Select/Select'
 import { Input } from '../Input/Input'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export const SalaryEntries = ({
   salaryEntries,
@@ -34,30 +35,38 @@ export const SalaryEntries = ({
             </T.Row>
           </T.Head>
           <T.Body>
-            {salaryEntries.map((salaryEntry, index) => (
-              <T.Row key={`${salaryEntry.employerName} - ${index}`}>
-                {isEditable && (
+            <AnimatePresence initial={false}>
+              {salaryEntries.map((salaryEntry, index) => (
+                <motion.tr
+                  key={`${salaryEntry.employerName}-${index}`}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isEditable && (
+                    <T.Data>
+                      <Button
+                        circle
+                        colorScheme="negative"
+                        title="Expand"
+                        type="icon"
+                        icon={'pencil'}
+                        size="small"
+                        onClick={() => {}}
+                      />
+                    </T.Data>
+                  )}
+                  <T.Data>{salaryEntry.employerName}</T.Data>
                   <T.Data>
-                    <Button
-                      circle
-                      colorScheme="negative"
-                      title="Expand"
-                      type="icon"
-                      icon={'pencil'}
-                      size="small"
-                      onClick={() => {}}
-                    />
+                    {formatNationalId(salaryEntry.employerNationalId)}
                   </T.Data>
-                )}
-                <T.Data>{salaryEntry.employerName}</T.Data>
-                <T.Data>
-                  {formatNationalId(salaryEntry.employerNationalId)}
-                </T.Data>
-                <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
-                  {formatISK(salaryEntry.amount)}
-                </T.Data>
-              </T.Row>
-            ))}
+                  <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
+                    {formatISK(salaryEntry.amount)}
+                  </T.Data>
+                </motion.tr>
+              ))}
+            </AnimatePresence>
           </T.Body>
           <T.Foot>
             <T.Row>
@@ -93,6 +102,7 @@ const Launagreidslur = () => {
     employerNationalId: '',
     amount: 0,
   })
+  const topRef = React.useRef<HTMLDivElement | null>(null)
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -161,21 +171,30 @@ const Launagreidslur = () => {
       employerNationalId: '',
       amount: 0,
     })
+
+    setTimeout(() => {
+      topRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, 0)
   }
 
   const handleSave = () => {
     if (!taxReturn) return
-
-    updateTaxReturn({
-      ...taxReturn,
-      salaries: [...(taxReturn?.salaries ?? []), newSalary],
-    })
-
     handleClear()
+    setTimeout(() => {
+      setTimeout(() => {
+        updateTaxReturn({
+          ...taxReturn,
+          salaries: [...(taxReturn?.salaries ?? []), newSalary],
+        })
+        handleClear()
+      }, 400)
+    }, 0)
   }
 
+  const formRef = React.useRef<HTMLDivElement | null>(null)
+
   return (
-    <div>
+    <div ref={topRef}>
       <Text marginBottom={2}>
         Hér eru forskráðar allar launa- og verktakagreiðslur sem þú fékkst á
         síðasta ári. Gögnin eru byggð á því sem launagreiðendur þínir skiluðu
@@ -197,95 +216,125 @@ const Launagreidslur = () => {
           <LoadingDots />
         </Box>
       )}
-      <Box display="flex" justifyContent="flexEnd">
-        <Button
-          variant="ghost"
-          size="small"
-          onClick={() => setShowNewBenefit(true)}
-        >
-          <Box display="flex" columnGap={1} alignItems="center">
-            <Text variant="h5" fontWeight="semiBold" color="blue400">
-              Bæta við
-            </Text>
-            <Icon icon="add" size="small" />
-          </Box>
-        </Button>
-      </Box>
-      {showNewBenefit && (
-        <Box marginTop={4} display="flex" flexDirection="column" rowGap={3}>
-          <Box display="flex" columnGap={3}>
-            <Box position="relative" width="half">
-              <Select
-                name="benefitPayer"
-                label="Launagreiðandi"
-                options={salaryPayers}
-                onChange={(option) => {
-                  setNewSalary({
-                    ...newSalary,
-                    employerName: option?.label ?? '',
-                    employerNationalId: option?.value ?? '',
-                  })
-                  setMenuIsOpen(false)
-                }}
-                onInputChange={handleOnInputChange}
-                backgroundColor="blue"
-                placeholder="Launagreiðandi"
-                icon="search"
-                value={
-                  newSalary.employerName
-                    ? {
-                        label: newSalary.employerName,
-                        value: newSalary.employerNationalId,
-                      }
-                    : undefined
-                }
-                menuIsOpen={menuIsOpen}
-              />
-            </Box>
-            <Box position="relative" width="half">
-              <Input
-                name="payerSsn"
-                label="Kennitala greiðanda"
-                backgroundColor="blue"
-                placeholder=""
-                value={formatNationalId(newSalary.employerNationalId)}
-                readOnly
-              />
-            </Box>
-          </Box>
-
-          <Box display="flex" columnGap={3}>
-            <Box position="relative" width="half">
-              <Input
-                name="amount"
-                label="Launafjárhæð"
-                backgroundColor="blue"
-                placeholder="0"
-                value={formatWithoutKr(newSalary.amount ?? 0)}
-                onChange={handleAmountChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                inputMode="numeric"
-              />
-            </Box>
-            <Box position="relative" width="half" />
-          </Box>
-
-          <Box display="flex" flexDirection="rowReverse" columnGap={3}>
-            <Button variant="primary" size="small" onClick={handleSave}>
-              <Text variant="h5" fontWeight="semiBold" color="white">
-                Vista
-              </Text>
+      <AnimatePresence>
+        {!showNewBenefit && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={() => {
+                setShowNewBenefit(true)
+                setTimeout(() => {
+                  formRef.current?.scrollIntoView({ behavior: 'smooth' })
+                }, 0)
+              }}
+            >
+              <Box display="flex" columnGap={1} alignItems="center">
+                <Text variant="h5" fontWeight="semiBold" color="blue400">
+                  Bæta við
+                </Text>
+                <Icon icon="add" size="small" />
+              </Box>
             </Button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showNewBenefit && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Box
+              marginTop={4}
+              display="flex"
+              flexDirection="column"
+              rowGap={3}
+              ref={formRef}
+              marginBottom={14}
+            >
+              <Box display="flex" columnGap={3}>
+                <Box position="relative" width="half">
+                  <Select
+                    name="benefitPayer"
+                    label="Launagreiðandi"
+                    options={salaryPayers}
+                    onChange={(option) => {
+                      setNewSalary({
+                        ...newSalary,
+                        employerName: option?.label ?? '',
+                        employerNationalId: option?.value ?? '',
+                      })
+                      setMenuIsOpen(false)
+                    }}
+                    onInputChange={handleOnInputChange}
+                    backgroundColor="blue"
+                    placeholder="Launagreiðandi"
+                    icon="search"
+                    value={
+                      newSalary.employerName
+                        ? {
+                            label: newSalary.employerName,
+                            value: newSalary.employerNationalId,
+                          }
+                        : undefined
+                    }
+                    menuIsOpen={menuIsOpen}
+                  />
+                </Box>
+                <Box position="relative" width="half">
+                  <Input
+                    name="payerSsn"
+                    label="Kennitala greiðanda"
+                    backgroundColor="blue"
+                    placeholder=""
+                    value={formatNationalId(newSalary.employerNationalId)}
+                    readOnly
+                  />
+                </Box>
+              </Box>
 
-            <Button variant="ghost" size="small" onClick={handleClear}>
-              <Text variant="h5" fontWeight="semiBold">
-                Hætta við
-              </Text>
-            </Button>
-          </Box>
-        </Box>
-      )}
+              <Box display="flex" columnGap={3}>
+                <Box position="relative" width="half">
+                  <Input
+                    name="amount"
+                    label="Launafjárhæð"
+                    backgroundColor="blue"
+                    placeholder="0"
+                    value={formatWithoutKr(newSalary.amount ?? 0)}
+                    onChange={handleAmountChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    inputMode="numeric"
+                  />
+                </Box>
+                <Box position="relative" width="half" />
+              </Box>
+
+              <Box display="flex" flexDirection="rowReverse" columnGap={3}>
+                <Button variant="primary" size="small" onClick={handleSave}>
+                  <Text variant="h5" fontWeight="semiBold" color="white">
+                    Vista
+                  </Text>
+                </Button>
+
+                <Button variant="ghost" size="small" onClick={handleClear}>
+                  <Text variant="h5" fontWeight="semiBold">
+                    Hætta við
+                  </Text>
+                </Button>
+              </Box>
+            </Box>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

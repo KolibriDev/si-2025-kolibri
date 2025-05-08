@@ -55,12 +55,6 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
           return
         }
         setTaxReturn(data?.taxReturn)
-
-        apolloClient.writeQuery({
-          query: TaxReturnDocument,
-          variables: { nationalId: data.taxReturn.nationalId },
-          data: { taxReturn: data.taxReturn },
-        })
       },
       onError: (error) => {
         console.error('Error fetching tax return:', error)
@@ -178,6 +172,7 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
       isFetching,
       isSubmitting,
       isCreating,
+      isPuting,
       createTaxReturn,
       updateTaxReturn,
       submitTaxReturn,
