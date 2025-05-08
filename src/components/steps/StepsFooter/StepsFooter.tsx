@@ -111,7 +111,7 @@ export const StepsFooter = () => {
           loading={isSubmitting}
         >
           <div className={styles.primaryButton}>
-            <Text variant="h5">{`Senda framtal`}</Text>
+            <Text variant="h5">{`Skila framtali`}</Text>
           </div>
         </Button>
       )}
