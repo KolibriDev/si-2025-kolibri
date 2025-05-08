@@ -14,7 +14,7 @@ export const container = style({
   borderTopRightRadius: theme.border.radius.large,
   borderTopLeftRadius: theme.border.radius.large,
   // 100% - header - paddingTop - paddingBottom - footer - 2px buffer
-  height: 'calc(100vh - 112px - 48px - 48px - 144px - 2px)',
+  height: 'calc(100vh - 112px - 48px - 48px - 112px - 2px)',
   overflow: 'auto',
 
   selectors: {
@@ -47,7 +47,7 @@ export const footerContainer = style({
 
   '@media': {
     [`screen and (min-width: ${theme.breakpoints.lg}px)`]: {
-      padding: `${theme.spacing[5]}px ${theme.spacing[14]}px`,
+      padding: `${theme.spacing[3]}px ${theme.spacing[14]}px`,
     },
   },
 })

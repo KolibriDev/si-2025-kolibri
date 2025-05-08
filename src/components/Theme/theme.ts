@@ -8,6 +8,7 @@ export const UNIT = 8
 
 // TODO: spacing will be further updated in the followup PR
 export const spacing = {
+  0.5: spacingPrimitives['8'].$value ?? UNIT * 0.5,
   0: spacingPrimitives['0'].$value ?? UNIT * 0,
   1: spacingPrimitives['8'].$value ?? UNIT * 1,
   2: spacingPrimitives['16'].$value ?? UNIT * 2,

@@ -297,7 +297,7 @@ const StyrkirOgHlunnindi = () => {
               flexDirection="column"
               rowGap={3}
               ref={formRef}
-              marginBottom={24}
+              marginBottom={14}
             >
               <Text variant="h5" fontWeight="semiBold">
                 Þínir greiðendur:

@@ -137,11 +137,11 @@ const SidePanel: FC = () => {
           />
         </Box>
         <Hidden below="md">
-          <Box marginLeft={2} marginBottom={4}>
+          <Box marginLeft={2} marginX={1}>
             <Image
               src="/companyLogo.svg"
               alt="Logo skattsins"
-              width={288}
+              width={260}
               height={74}
               priority
             />
