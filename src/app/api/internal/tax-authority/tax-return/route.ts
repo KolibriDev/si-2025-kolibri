@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
       for (const attachment of parsed.data.attachments ?? []) {
         await sql`
         INSERT INTO tax_authority_attatchments (tax_return_id, name, size, file_type)
-        VALUES (${taxReturnId}, ${attachment.name ?? null}, ${attachment.size ?? null} ${attachment.fileType ?? null})
+        VALUES (${taxReturnId}, ${attachment.name ?? null}, ${attachment.size ?? null}, ${attachment.fileType ?? null})
       `
       }
     })
