@@ -171,10 +171,8 @@ const Launagreidslur = () => {
 
   const handleSave = () => {
     if (!taxReturn) return
-
+    handleClear()
     setTimeout(() => {
-      topRef.current?.scrollIntoView({ behavior: 'smooth' })
-
       setTimeout(() => {
         updateTaxReturn({
           ...taxReturn,

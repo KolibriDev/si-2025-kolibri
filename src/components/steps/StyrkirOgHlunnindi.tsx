@@ -176,9 +176,10 @@ const StyrkirOgHlunnindi = () => {
 
   const handleSave = () => {
     if (!taxReturn) return
+    handleClear()
 
     setTimeout(() => {
-      topRef.current?.scrollIntoView({ behavior: 'smooth' })
+      //topRef.current?.scrollIntoView({ behavior: 'smooth' })
 
       setTimeout(() => {
         updateTaxReturn({
@@ -240,7 +241,7 @@ const StyrkirOgHlunnindi = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.15 }}
           >
             <Button
               variant="ghost"
@@ -268,10 +269,23 @@ const StyrkirOgHlunnindi = () => {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+          >
+            {' '}
+            <Box size={48} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showNewBenefit && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
             <Box
-              marginTop={4}
+              //marginTop={4}
               display="flex"
               flexDirection="column"
               rowGap={3}
