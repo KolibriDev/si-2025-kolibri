@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { useKey } from 'react-use'
 import Image from 'next/image'
 import { AlertMessage } from '@/components/AlertMessage/AlertMessage'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function StepLayout({
   children,
@@ -24,6 +25,7 @@ export default function StepLayout({
   if (!step) {
     return null
   }
+
   useKey('e', () => {
     if (step === 'gagnaoflun') {
       setShowError((prev) => !prev)
@@ -47,15 +49,31 @@ export default function StepLayout({
         paddingX={[3, 3, 14, 14]}
         className={styles.container}
       >
-        {showErrorMessage && (
-          <Box marginBottom={2}>
-            <AlertMessage
-              title="Villa"
-              message="Ekki tókst að sækja gögn frá Skattinum. Reyndu aftur síðar."
-              type="error"
-            />
-          </Box>
-        )}
+        <AnimatePresence>
+          {showErrorMessage && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{
+                height: '90px',
+                opacity: 1,
+                transition: { opacity: { delay: 0.2 } },
+              }}
+              exit={{
+                height: 0,
+                opacity: 0,
+                transition: { height: { delay: 0.2 } },
+              }}
+            >
+              <Box marginBottom={2}>
+                <AlertMessage
+                  title="Villa"
+                  message="Ekki tókst að sækja gögn frá Skattinum. Reyndu aftur síðar."
+                  type="error"
+                />
+              </Box>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <Text variant="h2" as="h1">
           {headerText}
         </Text>
