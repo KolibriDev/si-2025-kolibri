@@ -51,3 +51,15 @@ export const footerContainer = style({
     },
   },
 })
+
+export const a = style({
+  transition: 'right 150ms ease-in-out',
+  position: 'fixed',
+  bottom: '22px',
+  right: '-500px',
+  zIndex: 1000,
+})
+
+export const b = style({
+  right: 30,
+})
