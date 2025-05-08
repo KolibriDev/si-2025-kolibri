@@ -243,23 +243,25 @@ const StyrkirOgHlunnindi = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
           >
-            <Button
-              variant="ghost"
-              size="small"
-              onClick={() => {
-                setShowNewBenefit(true)
-                setTimeout(() => {
-                  formRef.current?.scrollIntoView({ behavior: 'smooth' })
-                }, 0)
-              }}
-            >
-              <Box display="flex" columnGap={1} alignItems="center">
-                <Text variant="h5" fontWeight="semiBold" color="blue400">
-                  Bæta við
-                </Text>
-                <Icon icon="add" size="small" />
-              </Box>
-            </Button>
+            <Box display="flex" justifyContent="flexEnd">
+              <Button
+                variant="ghost"
+                size="small"
+                onClick={() => {
+                  setShowNewBenefit(true)
+                  setTimeout(() => {
+                    formRef.current?.scrollIntoView({ behavior: 'smooth' })
+                  }, 0)
+                }}
+              >
+                <Box display="flex" columnGap={1} alignItems="center">
+                  <Text variant="h5" fontWeight="semiBold" color="blue400">
+                    Bæta við
+                  </Text>
+                  <Icon icon="add" size="small" />
+                </Box>
+              </Button>
+            </Box>
           </motion.div>
         )}
       </AnimatePresence>
