@@ -25,14 +25,17 @@ import { formatPhoneNr } from '../Utils/utils'
 import { DeductionEntries } from './Fradrattur'
 import LoadingDots from '../LoadingDots/LoadingDots'
 import { StaticIcon } from '../IconRC/StaticIcon'
+import { EmptyTable } from '../EmptyTable/EmptyTable'
 
 const InfoSectionHeader = ({
   title,
   onEdit,
   children,
+  showDivider,
 }: {
   title: string
   onEdit: () => void
+  showDivider?: boolean
   children?: React.ReactNode
 }) => {
   return (
@@ -51,7 +54,7 @@ const InfoSectionHeader = ({
       <Box marginTop={4} marginBottom={3}>
         {children}
       </Box>
-      <Divider />
+      {showDivider ? <Divider /> : null}
     </Box>
   )
 }
@@ -154,6 +157,9 @@ const AdrarSkuldir = ({ otherDebts }: { otherDebts: OtherDebt[] }) => {
   return <OtherDebts otherDebts={otherDebts} />
 }
 const Fylgiskjol = ({ attachments }: { attachments: Attachment[] }) => {
+  if (attachments.length === 0) {
+    return <EmptyTable message="Engin fylgiskjöl í framtali" />
+  }
   return (
     <Stack space={2}>
       {attachments.map((a, index) => (
@@ -225,15 +231,23 @@ const Samantekt = () => {
       </Text>
       <Box display="flex" flexDirection="column" rowGap={6}>
         {taxReturn ? (
-          items.map((item) => (
-            <InfoSectionHeader
-              key={item.href}
-              title={item.name}
-              onEdit={() => handleClick(item.href)}
-            >
-              {sectionContentMap[item.href] || null}
-            </InfoSectionHeader>
-          ))
+          <>
+            {items.map((item, index) => (
+              <InfoSectionHeader
+                key={item.href}
+                title={item.name}
+                onEdit={() => handleClick(item.href)}
+                showDivider={index < items.length - 1}
+              >
+                {sectionContentMap[item.href] || null}
+              </InfoSectionHeader>
+            ))}
+            <AlertMessage
+              type="success"
+              title="Framtalið stóðst prófun"
+              message="Engar villur fundust í framtalinu. Þú getur skilað því inn ef þú telur allar upplýsingar hér að ofan vera réttar."
+            />
+          </>
         ) : (
           <Box
             display="flex"
@@ -244,12 +258,6 @@ const Samantekt = () => {
             <LoadingDots />
           </Box>
         )}
-
-        <AlertMessage
-          type="success"
-          title="Framtalið stóðst prófun"
-          message="Engar villur fundust í framtalinu. Þú getur skilað því inn ef þú telur allar upplýsingar hér að ofan vera réttar."
-        />
       </Box>
     </div>
   )
