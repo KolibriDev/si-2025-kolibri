@@ -12,6 +12,7 @@ import { Input } from '../Input/Input'
 import { Icon } from '../IconRC/Icon'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { Tag } from '../Tag/Tag'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 const mapBenefitType = (benefitType?: BenefitType | null) => {
   switch (benefitType) {
@@ -202,7 +203,18 @@ const StyrkirOgHlunnindi = () => {
         Ef þú fékkst greiddan styrk sem ekki kemur fram hér fyrir neðan þarftu
         að skrá hann til að framtalið sé rétt.
       </Text>
-      <Benefits benefits={taxReturn?.benefits ?? []} isEditable={true} />
+      {taxReturn ? (
+        <Benefits benefits={taxReturn.benefits ?? []} isEditable={true} />
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: '377px' }}
+        >
+          <LoadingDots />
+        </Box>
+      )}
       {!showNewBenefit && (
         <Button
           variant="ghost"

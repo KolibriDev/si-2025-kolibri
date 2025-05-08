@@ -9,6 +9,7 @@ import { formatISK } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { InputFileUpload } from '../InputFileUpload/InputFileUpload'
 import { DeductionType } from '@/generated/graphql'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 export function mapDeductionType(deduction: DeductionType): string {
   const map: Record<DeductionType, string> = {
@@ -47,7 +48,7 @@ const Fradrattur = () => {
         greiða ekki skatt af styrknum þá þarftu að skrá kostnaðinn hér og skila
         inn fylgiskjölum.
       </Text>
-      {deductions && (
+      {deductions ? (
         <>
           <Box marginBottom={3}>
             <T.Table>
@@ -105,6 +106,15 @@ const Fradrattur = () => {
             </Button>
           </Box>
         </>
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: '377px' }}
+        >
+          <LoadingDots />
+        </Box>
       )}
       <Text variant="h3" as="h2">
         Fylgiskjöl

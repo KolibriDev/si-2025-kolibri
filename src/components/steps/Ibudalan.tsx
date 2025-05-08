@@ -9,19 +9,12 @@ import AnimateHeight from 'react-animate-height'
 import SubTable from '../SubTable/SubTable'
 import { Button } from '../Button/Button'
 import { Box } from '../Box/Box'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 const Ibudalan = () => {
   const { taxReturn } = useTaxContext()
 
-  if (!taxReturn?.mortgages) {
-    return (
-      <>
-        <Text>Engin íbúðarlán eru skráð á þig.</Text>
-      </>
-    )
-  }
-
-  const realEstate = taxReturn.realEstates?.[0]
+  const realEstate = taxReturn?.realEstates?.[0]
 
   return (
     <Box marginBottom={10}>
@@ -30,11 +23,23 @@ const Ibudalan = () => {
         gögnum frá lánveitendum. Ef það vantar gögn í yfirlitið, t.d. ef þú
         breyttir skilmálum eða endurfjármagnaðir lán, geturðu bætt þeim við.
       </Text>
-
-      <Text variant="h3" marginBottom={2}>
-        {realEstate?.address}
-      </Text>
-      <Mortgages isEditable />
+      {taxReturn ? (
+        <>
+          <Text variant="h3" marginBottom={2}>
+            {realEstate?.address}
+          </Text>
+          <Mortgages isEditable />
+        </>
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: '190px' }}
+        >
+          <LoadingDots />
+        </Box>
+      )}
 
       <Box marginTop={6}>
         <Button variant="ghost" size="small" icon="add">
