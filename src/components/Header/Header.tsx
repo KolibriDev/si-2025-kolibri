@@ -138,7 +138,7 @@ export const Header = ({
           <div className={styles.verticalLine}>
             <Divider thickness="thick" weight="purple100" />
           </div>
-          <Link href={'/'}>
+          <Link href={'/'} aria-label="Yfirlitssíða">
             <Hidden
               below="lg"
               children={
