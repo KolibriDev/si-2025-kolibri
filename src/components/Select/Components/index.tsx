@@ -182,7 +182,8 @@ export const DropdownIndicator = <
     >
       <Icon
         icon={icon}
-        size="large"
+        size="medium"
+        type="outline"
         color={hasError ? 'red600' : 'blue400'}
         className={cn(styles.icon, {
           [styles.iconExtraSmall]: size === 'xs',

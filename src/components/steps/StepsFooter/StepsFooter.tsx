@@ -36,6 +36,7 @@ export const StepsFooter = () => {
   const handleNext = async () => {
     if (!nextStep) return
 
+    localStorage.setItem('currentStep', nextStep)
     if (
       currentStep === 'gagnaoflun' &&
       !taxReturn &&
@@ -57,17 +58,20 @@ export const StepsFooter = () => {
   }
 
   const handleBack = () => {
-    if (prevStep) {
-      router.push(`${prevStep}`)
-    } else {
-      router.push(`${nextStep}`)
+    const targetStep = prevStep ?? nextStep
+    if (targetStep) {
+      localStorage.setItem('currentStep', targetStep)
+      router.push(`${targetStep}`)
     }
   }
 
   const handleSubmit = async () => {
     if (user?.nationalId) {
       await submitTaxReturn(user.nationalId)
-      router.push(`${nextStep}`)
+      if (nextStep) {
+        localStorage.setItem('currentStep', nextStep)
+        router.push(`${nextStep}`)
+      }
     }
   }
 

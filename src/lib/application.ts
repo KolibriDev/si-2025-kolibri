@@ -77,6 +77,7 @@ const mortgageSchema = z.object({
   principalPayments: z.number().optional(),
   interestPayments: z.number().optional(),
   remainingBalance: z.number().optional(),
+  yearOfPurchase: z.number().optional(),
 })
 
 const otherDebtSchema = z.object({

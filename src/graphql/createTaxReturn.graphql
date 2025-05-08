@@ -45,6 +45,7 @@ mutation CreateTaxReturn($nationalId: String!) {
       principalPayments
       interestPayments
       remainingBalance
+      yearOfPurchase
     }
     otherDebts {
       lenderNationalId

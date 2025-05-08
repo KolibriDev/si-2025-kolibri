@@ -187,6 +187,8 @@ export const typeDefs = /* GraphQL */ `
     interestPayments: Float
     "Remaining balance of the loan"
     remainingBalance: Float
+    "Year the property was purchased"
+    yearOfPurchase: Int
   }
 
   """
@@ -307,6 +309,8 @@ export const typeDefs = /* GraphQL */ `
     interestPayments: Float
     "Remaining balance of the loan"
     remainingBalance: Float
+    "Year the property was purchased"
+    yearOfPurchase: Int
   }
 
   """
