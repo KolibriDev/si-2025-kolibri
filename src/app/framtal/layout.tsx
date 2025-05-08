@@ -78,8 +78,8 @@ const DisplaySection: FC<SectionProps> = ({
 }
 
 const SidePanel: FC = () => {
-  const params = useParams()
   const router = useRouter()
+  const params = useParams()
 
   const step = params?.step as string | undefined
 
