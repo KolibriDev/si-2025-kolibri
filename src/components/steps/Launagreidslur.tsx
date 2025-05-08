@@ -9,6 +9,7 @@ import { formatISK, formatNationalId } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { SalaryInput } from '@/generated/graphql'
 import { Icon } from '../IconRC/Icon'
+import LoadingDots from '../LoadingDots/LoadingDots'
 import { Select } from '../Select/Select'
 import { Input } from '../Input/Input'
 
@@ -176,7 +177,18 @@ const Launagreidslur = () => {
         Ef þú fékkst fleiri launa- eða verktakagreiðslur á árinu þarftu að skrá
         þær til að framtalið sé rétt.
       </Text>
-      <SalaryEntries salaryEntries={salaryEntries ?? []} isEditable={true} />
+      {taxReturn ? (
+        <SalaryEntries salaryEntries={salaryEntries ?? []} isEditable={true} />
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: '277px' }}
+        >
+          <LoadingDots />
+        </Box>
+      )}
       <Button
         variant="ghost"
         size="small"
