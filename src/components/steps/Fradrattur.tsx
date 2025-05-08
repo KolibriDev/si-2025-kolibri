@@ -8,7 +8,8 @@ import { Button } from '../Button/Button'
 import { formatISK } from '@/lib/utils'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { InputFileUpload } from '../InputFileUpload/InputFileUpload'
-import { DeductionType } from '@/generated/graphql'
+import { DeductionInput, DeductionType } from '@/generated/graphql'
+
 import LoadingDots from '../LoadingDots/LoadingDots'
 
 export function mapDeductionType(deduction: DeductionType): string {
@@ -32,6 +33,66 @@ export function mapDeductionType(deduction: DeductionType): string {
   return map[deduction] || deduction
 }
 
+export const DeductionEntries = ({
+  deductions,
+  isEditable = false,
+}: {
+  deductions: DeductionInput[]
+  isEditable?: boolean
+}) => {
+  return (
+    <Box marginBottom={3}>
+      <T.Table>
+        <T.Head>
+          <T.Row>
+            {isEditable && <T.HeadData>{/* empty */}</T.HeadData>}
+
+            <T.HeadData>{'Tegund frádráttar'}</T.HeadData>
+            <T.HeadData align="right">{'Upphæð'}</T.HeadData>
+          </T.Row>
+        </T.Head>
+        <T.Body>
+          {deductions.map((deduction) => (
+            <T.Row key={deduction.deductionType}>
+              {isEditable && (
+                <T.Data>
+                  <Button
+                    circle
+                    size="small"
+                    colorScheme="negative"
+                    title="Breyta"
+                    type="icon"
+                    icon={'pencil'}
+                    onClick={() => {}}
+                  />
+                </T.Data>
+              )}
+
+              <T.Data>
+                {deduction.deductionType
+                  ? mapDeductionType(deduction.deductionType)
+                  : ''}
+              </T.Data>
+              <T.Data align="right">{formatISK(deduction.amount)}</T.Data>
+            </T.Row>
+          ))}
+        </T.Body>
+        <T.Foot>
+          <T.Row>
+            <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
+              Samtals:
+            </T.Data>
+            {isEditable && <T.Data noBorderBottom>{/* empty */}</T.Data>}
+            <T.Data text={{ fontWeight: 'bold' }} align="right" noBorderBottom>
+              {formatISK(deductions.reduce((v, a) => v + (a.amount ?? 0), 0))}
+            </T.Data>
+          </T.Row>
+        </T.Foot>
+      </T.Table>
+    </Box>
+  )
+}
+
 const Fradrattur = () => {
   const { taxReturn } = useTaxContext()
   const deductions = taxReturn?.deductions
@@ -49,64 +110,7 @@ const Fradrattur = () => {
         inn fylgiskjölum.
       </Text>
       {deductions ? (
-        <>
-          <Box marginBottom={3}>
-            <T.Table>
-              <T.Head>
-                <T.Row>
-                  <T.HeadData>{/* empty */}</T.HeadData>
-                  <T.HeadData>{'Tegund frádráttar'}</T.HeadData>
-                  <T.HeadData align="right">{'Upphæð'}</T.HeadData>
-                </T.Row>
-              </T.Head>
-              <T.Body>
-                {deductions.map((deduction) => (
-                  <T.Row key={deduction.deductionType}>
-                    <T.Data>
-                      <Button
-                        circle
-                        size="small"
-                        colorScheme="negative"
-                        title="Breyta"
-                        type="icon"
-                        icon={'pencil'}
-                        onClick={() => {}}
-                      />
-                    </T.Data>
-                    <T.Data>
-                      {deduction.deductionType
-                        ? mapDeductionType(deduction.deductionType)
-                        : ''}
-                    </T.Data>
-                    <T.Data align="right">{formatISK(deduction.amount)}</T.Data>
-                  </T.Row>
-                ))}
-              </T.Body>
-              <T.Foot>
-                <T.Row>
-                  <T.Data text={{ fontWeight: 'bold' }} noBorderBottom>
-                    Samtals:
-                  </T.Data>
-                  <T.Data noBorderBottom>{/* empty */}</T.Data>
-                  <T.Data
-                    text={{ fontWeight: 'bold' }}
-                    align="right"
-                    noBorderBottom
-                  >
-                    {formatISK(
-                      deductions.reduce((v, a) => v + (a.amount ?? 0), 0),
-                    )}
-                  </T.Data>
-                </T.Row>
-              </T.Foot>
-            </T.Table>
-          </Box>
-          <Box display="flex" justifyContent="flexEnd" marginBottom={3}>
-            <Button variant="ghost" size="small" icon="add" onClick={() => {}}>
-              Bæta við
-            </Button>
-          </Box>
-        </>
+        <DeductionEntries deductions={deductions} isEditable={true} />
       ) : (
         <Box
           display="flex"
@@ -117,6 +121,11 @@ const Fradrattur = () => {
           <LoadingDots />
         </Box>
       )}
+      <Box display="flex" justifyContent="flexEnd" marginBottom={3}>
+        <Button variant="ghost" size="small" icon="add" onClick={() => {}}>
+          Bæta við
+        </Button>
+      </Box>
       <Text variant="h3" as="h2">
         Fylgiskjöl
       </Text>

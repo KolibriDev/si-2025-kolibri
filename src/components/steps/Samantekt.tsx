@@ -23,6 +23,7 @@ import { TopicCard } from '../TopicCard/TopicCard'
 import { Stack } from '../Stack/Stack'
 import { AlertMessage } from '../AlertMessage/AlertMessage'
 import { formatPhoneNr } from '../Utils/utils'
+import { DeductionEntries } from './Fradrattur'
 import LoadingDots from '../LoadingDots/LoadingDots'
 
 const InfoSectionHeader = ({
@@ -125,12 +126,7 @@ const StyrkirOgHlunnindi = ({ benefits }: { benefits: BenefitInput[] }) => {
 }
 
 const Fradrattur = ({ deductions }: { deductions: DeductionInput[] }) => {
-  console.log('Fradrattur', deductions)
-  return (
-    <Box>
-      <Text variant="eyebrow">TODO</Text>
-    </Box>
-  )
+  return <DeductionEntries deductions={deductions} />
 }
 
 const Eignir = () => {
