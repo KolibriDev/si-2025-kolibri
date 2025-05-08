@@ -271,8 +271,7 @@ const StyrkirOgHlunnindi = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
           >
-            {' '}
-            <Box size={48} />
+            <Box marginBottom={6} />
           </motion.div>
         )}
       </AnimatePresence>
