@@ -62,6 +62,11 @@ export const Login = () => {
               onChange={handleChange}
               onFocus={(e) => e.currentTarget.select()}
               inputMode="numeric"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && isValid && !loading) {
+                  handleLogin()
+                }
+              }}
             />
 
             <Checkbox
