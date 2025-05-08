@@ -100,14 +100,12 @@ const Fradrattur = () => {
   return (
     <div>
       <Text marginBottom={2}>
-        Starfstengd hlunnindi, t.d. dagpeningar og ökutækjastyrkur, eru
-        skattfrjáls upp að vissu marki. Í flestum tilfellum sendir
-        launagreiðandi gögn til Skattsins sem endurspegla þetta.
+        Hér fyrir neðan skráirðu allt sem er hægt að draga frá heildartekjum
+        þínum (skattstofni) áður en skattur er reiknaður af þeim.{' '}
       </Text>
       <Text marginBottom={6}>
-        Ef þú fékkst náms- eða vísindastyrk og vilt færa kostnað á móti til að
-        greiða ekki skatt af styrknum þá þarftu að skrá kostnaðinn hér og skila
-        inn fylgiskjölum.
+        Skatturinn hefur forskráð neðangreinda frádráttarliði. Ef frádráttur
+        kemur ekki fram þarftu að bæta honum við og skila inn fylgiskjölum.
       </Text>
       {deductions ? (
         <DeductionEntries deductions={deductions} isEditable={true} />
@@ -130,8 +128,8 @@ const Fradrattur = () => {
         Fylgiskjöl
       </Text>
       <Text marginBottom={2}>
-        Hér vantar texta sem útskýrir að ef viðkomandi þarf að láta fylgja með
-        gögn þá sé hægt að hlaða þeim upp hér.
+        Ef þú skráðir frádrátt vegna styrks eða hlunninda þarftu að hlaða upp
+        reikningum (nótum) hér.
       </Text>
       <InputFileUpload
         name={'upload'}
