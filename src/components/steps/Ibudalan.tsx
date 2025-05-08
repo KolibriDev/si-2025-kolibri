@@ -41,7 +41,7 @@ const Ibudalan = () => {
         </Box>
       )}
 
-      <Box marginTop={6}>
+      <Box marginTop={6} display="flex" justifyContent="flexEnd">
         <Button variant="ghost" size="small" icon="add">
           Bæta við íbúðaláni
         </Button>
