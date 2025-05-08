@@ -14,6 +14,7 @@ import { useTaxContext } from '../Utils/context/taxContext'
 import { Tag } from '../Tag/Tag'
 import LoadingDots from '../LoadingDots/LoadingDots'
 import * as styles from './Steps.css'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const mapBenefitType = (benefitType?: BenefitType | null) => {
   switch (benefitType) {
@@ -60,28 +61,36 @@ export const Benefits = ({
             </T.Row>
           </T.Head>
           <T.Body>
-            {benefits.map((benefit, index) => (
-              <T.Row key={`${benefit.payerName}-${index}`}>
-                {isEditable && (
-                  <T.Data>
-                    <Button
-                      circle
-                      colorScheme="negative"
-                      title="Breyta"
-                      type="icon"
-                      icon={'pencil'}
-                      size="small"
-                      onClick={() => {}}
-                    />
+            <AnimatePresence initial={false}>
+              {benefits.map((benefit, index) => (
+                <motion.tr
+                  key={`${benefit.payerName}-${index}`}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {isEditable && (
+                    <T.Data>
+                      <Button
+                        circle
+                        colorScheme="negative"
+                        title="Breyta"
+                        type="icon"
+                        icon={'pencil'}
+                        size="small"
+                        onClick={() => {}}
+                      />
+                    </T.Data>
+                  )}
+                  <T.Data>{benefit.payerName}</T.Data>
+                  <T.Data>{mapBenefitType(benefit.benefitType)}</T.Data>
+                  <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
+                    {formatISK(benefit.amount)}
                   </T.Data>
-                )}
-                <T.Data>{benefit.payerName}</T.Data>
-                <T.Data>{mapBenefitType(benefit.benefitType)}</T.Data>
-                <T.Data align="right" text={{ whiteSpace: 'nowrap' }}>
-                  {formatISK(benefit.amount)}
-                </T.Data>
-              </T.Row>
-            ))}
+                </motion.tr>
+              ))}
+            </AnimatePresence>
           </T.Body>
           <T.Foot>
             <T.Row>
@@ -118,6 +127,7 @@ const StyrkirOgHlunnindi = () => {
     amount: 0,
   })
   const [menuIsOpen, setMenuIsOpen] = React.useState(false)
+  const topRef = React.useRef<HTMLDivElement | null>(null)
 
   const handleAmountChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -158,17 +168,27 @@ const StyrkirOgHlunnindi = () => {
       payerNationalId: '',
       amount: 0,
     })
+
+    setTimeout(() => {
+      topRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, 0)
   }
 
   const handleSave = () => {
     if (!taxReturn) return
-
-    updateTaxReturn({
-      ...taxReturn,
-      benefits: [...(taxReturn?.benefits ?? []), newBenefit],
-    })
-
     handleClear()
+
+    setTimeout(() => {
+      //topRef.current?.scrollIntoView({ behavior: 'smooth' })
+
+      setTimeout(() => {
+        updateTaxReturn({
+          ...taxReturn,
+          benefits: [...(taxReturn?.benefits ?? []), newBenefit],
+        })
+        handleClear()
+      }, 400)
+    }, 0)
   }
 
   const benefitPayers = [
@@ -190,8 +210,10 @@ const StyrkirOgHlunnindi = () => {
     }
   }
 
+  const formRef = React.useRef<HTMLDivElement | null>(null)
+
   return (
-    <div>
+    <div ref={topRef}>
       <Text marginBottom={2}>
         Allir styrkir og starfstengd hlunnindi sem þú hefur fengið greidd
         samkvæmt upplýsingum frá Skattinum koma fram hér. Ef þú fékkst styrk eða
@@ -213,167 +235,207 @@ const StyrkirOgHlunnindi = () => {
           <LoadingDots />
         </Box>
       )}
-      {!showNewBenefit && (
-        <Box display="flex" justifyContent="flexEnd">
-          <Button
-            variant="ghost"
-            size="small"
-            onClick={() => setShowNewBenefit(true)}
+      <AnimatePresence>
+        {!showNewBenefit && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
           >
-            <Box display="flex" columnGap={1} alignItems="center">
-              <Text variant="h5" fontWeight="semiBold" color="blue400">
-                Bæta við
-              </Text>
-              <Icon icon="add" size="small" />
-            </Box>
-          </Button>
-        </Box>
-      )}
-      {showNewBenefit && (
-        <Box marginTop={4} display="flex" flexDirection="column" rowGap={3}>
-          <Text variant="h5" fontWeight="semiBold">
-            Þínir greiðendur:
-          </Text>
-          <Box display="flex" columnGap={2}>
-            <Tag
-              onClick={() =>
-                setNewBenefit({
-                  ...newBenefit,
-                  payerName: 'Mús & Merki ehf.',
-                  payerNationalId: '5605086019',
-                })
-              }
+            <Button
+              variant="ghost"
+              size="small"
+              onClick={() => {
+                setShowNewBenefit(true)
+                setTimeout(() => {
+                  formRef.current?.scrollIntoView({ behavior: 'smooth' })
+                }, 0)
+              }}
             >
-              <Text variant="h5" fontWeight="semiBold">
-                Mús & Merki ehf.
-              </Text>
-            </Tag>
-            <Tag
-              onClick={() =>
-                setNewBenefit({
-                  ...newBenefit,
-                  payerName: 'Norðurljós Software ehf',
-                  payerNationalId: '5408898990',
-                })
-              }
-            >
-              <Text variant="h5" fontWeight="semiBold">
-                Norðurljós Software ehf
-              </Text>
-            </Tag>
-            <Tag
-              onClick={() =>
-                setNewBenefit({
-                  ...newBenefit,
-                  payerName: 'VR',
-                  payerNationalId: '6902692019',
-                })
-              }
-            >
-              <Text variant="h5" fontWeight="semiBold">
-                VR
-              </Text>
-            </Tag>
-          </Box>
-          <Box display="flex" columnGap={3}>
-            <Box position="relative" width="full">
-              <Select
-                name="benefitPayer"
-                label="Greiðandi"
-                options={benefitPayers}
-                onChange={(option) => {
-                  setNewBenefit({
-                    ...newBenefit,
-                    payerName: option?.label ?? '',
-                    payerNationalId: option?.value ?? '',
-                  })
-                  setMenuIsOpen(false)
-                }}
-                onInputChange={handleOnInputChange}
-                backgroundColor="blue"
-                placeholder="Greiðandi"
-                icon="search"
-                value={
-                  newBenefit.payerName
-                    ? {
-                        label: newBenefit.payerName,
-                        value: newBenefit.payerNationalId,
-                      }
-                    : undefined
-                }
-                menuIsOpen={menuIsOpen}
-              />
-            </Box>
-            <Box position="relative" className={styles.smallBox}>
-              <Input
-                name="payerSsn"
-                label="Kennitala greiðanda"
-                backgroundColor="blue"
-                placeholder=""
-                value={formatNationalId(newBenefit.payerNationalId)}
-                readOnly
-                width="full"
-              />
-            </Box>
-          </Box>
-          <Box display="flex" columnGap={3} width="full">
-            <Box position="relative" width="full">
-              <Select
-                name="benefitType"
-                label="Bæta við styrk eða hlunnindum"
-                options={Object.values(BenefitType).map((value) => ({
-                  label: mapBenefitType(value),
-                  value,
-                }))}
-                onChange={(option) => {
-                  setNewBenefit({
-                    ...newBenefit,
-                    benefitType: option?.value ?? null,
-                  })
-                }}
-                backgroundColor="blue"
-                placeholder="Veldu styrk eða hlunnindi"
-                value={
-                  newBenefit.benefitType
-                    ? {
-                        label: mapBenefitType(newBenefit.benefitType),
-                        value: newBenefit.benefitType,
-                      }
-                    : undefined
-                }
-              />
-            </Box>
-
-            <Box position="relative" className={styles.smallBox}>
-              <Input
-                name="amount"
-                label="Upphæð"
-                backgroundColor="blue"
-                placeholder="0"
-                value={formatWithoutKr(newBenefit.amount ?? 0)}
-                onChange={handleAmountChange}
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                inputMode="numeric"
-              />
-            </Box>
-          </Box>
-
-          <Box display="flex" flexDirection="rowReverse" columnGap={3}>
-            <Button variant="primary" size="small" onClick={handleSave}>
-              <Text variant="h5" fontWeight="semiBold" color="white">
-                Vista
-              </Text>
+              <Box display="flex" columnGap={1} alignItems="center">
+                <Text variant="h5" fontWeight="semiBold" color="blue400">
+                  Bæta við
+                </Text>
+                <Icon icon="add" size="small" />
+              </Box>
             </Button>
-
-            <Button variant="ghost" size="small" onClick={handleClear}>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showNewBenefit && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+          >
+            <Box marginBottom={6} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {showNewBenefit && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <Box
+              //marginTop={4}
+              display="flex"
+              flexDirection="column"
+              rowGap={3}
+              ref={formRef}
+              marginBottom={24}
+            >
               <Text variant="h5" fontWeight="semiBold">
-                Hætta við
+                Þínir greiðendur:
               </Text>
-            </Button>
-          </Box>
-        </Box>
-      )}
+              <Box display="flex" columnGap={2}>
+                <Tag
+                  onClick={() =>
+                    setNewBenefit({
+                      ...newBenefit,
+                      payerName: 'Mús & Merki ehf.',
+                      payerNationalId: '5605086019',
+                    })
+                  }
+                >
+                  <Text variant="h5" fontWeight="semiBold">
+                    Mús & Merki ehf.
+                  </Text>
+                </Tag>
+                <Tag
+                  onClick={() =>
+                    setNewBenefit({
+                      ...newBenefit,
+                      payerName: 'Norðurljós Software ehf',
+                      payerNationalId: '5408898990',
+                    })
+                  }
+                >
+                  <Text variant="h5" fontWeight="semiBold">
+                    Norðurljós Software ehf
+                  </Text>
+                </Tag>
+                <Tag
+                  onClick={() =>
+                    setNewBenefit({
+                      ...newBenefit,
+                      payerName: 'VR',
+                      payerNationalId: '6902692019',
+                    })
+                  }
+                >
+                  <Text variant="h5" fontWeight="semiBold">
+                    VR
+                  </Text>
+                </Tag>
+              </Box>
+              <Box display="flex" columnGap={3}>
+                <Box position="relative" width="full">
+                  <Select
+                    name="benefitPayer"
+                    label="Greiðandi"
+                    options={benefitPayers}
+                    onChange={(option) => {
+                      setNewBenefit({
+                        ...newBenefit,
+                        payerName: option?.label ?? '',
+                        payerNationalId: option?.value ?? '',
+                      })
+                      setMenuIsOpen(false)
+                    }}
+                    onInputChange={handleOnInputChange}
+                    backgroundColor="blue"
+                    placeholder="Greiðandi"
+                    icon="search"
+                    value={
+                      newBenefit.payerName
+                        ? {
+                            label: newBenefit.payerName,
+                            value: newBenefit.payerNationalId,
+                          }
+                        : undefined
+                    }
+                    menuIsOpen={menuIsOpen}
+                  />
+                </Box>
+                <Box position="relative" className={styles.smallBox}>
+                  <Input
+                    name="payerSsn"
+                    label="Kennitala greiðanda"
+                    backgroundColor="blue"
+                    placeholder=""
+                    value={formatNationalId(newBenefit.payerNationalId)}
+                    readOnly
+                    width="full"
+                  />
+                </Box>
+              </Box>
+              <Box display="flex" columnGap={3} width="full">
+                <Box position="relative" width="full">
+                  <Select
+                    name="benefitType"
+                    label="Bæta við styrk eða hlunnindum"
+                    options={Object.values(BenefitType).map((value) => ({
+                      label: mapBenefitType(value),
+                      value,
+                    }))}
+                    onChange={(option) => {
+                      setNewBenefit({
+                        ...newBenefit,
+                        benefitType: option?.value ?? null,
+                      })
+                    }}
+                    backgroundColor="blue"
+                    placeholder="Veldu styrk eða hlunnindi"
+                    value={
+                      newBenefit.benefitType
+                        ? {
+                            label: mapBenefitType(newBenefit.benefitType),
+                            value: newBenefit.benefitType,
+                          }
+                        : undefined
+                    }
+                  />
+                </Box>
+
+                <Box position="relative" className={styles.smallBox}>
+                  <Input
+                    name="amount"
+                    label="Upphæð"
+                    backgroundColor="blue"
+                    placeholder="0"
+                    value={formatWithoutKr(newBenefit.amount ?? 0)}
+                    onChange={handleAmountChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    inputMode="numeric"
+                  />
+                </Box>
+              </Box>
+
+              <Box display="flex" flexDirection="rowReverse" columnGap={3}>
+                <Button variant="primary" size="small" onClick={handleSave}>
+                  <Text variant="h5" fontWeight="semiBold" color="white">
+                    Vista
+                  </Text>
+                </Button>
+
+                <Button variant="ghost" size="small" onClick={handleClear}>
+                  <Text variant="h5" fontWeight="semiBold">
+                    Hætta við
+                  </Text>
+                </Button>
+              </Box>
+            </Box>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
