@@ -66,7 +66,7 @@ export default function StepLayout({
             >
               <Box marginBottom={2}>
                 <AlertMessage
-                  title="Villa"
+                  title="Villa kom upp"
                   message="Ekki tókst að sækja gögn frá Skattinum. Reyndu aftur síðar."
                   type="error"
                 />
