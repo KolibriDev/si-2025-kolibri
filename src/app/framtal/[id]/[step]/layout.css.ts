@@ -13,7 +13,7 @@ export const container = style({
   gap: '16px',
   borderTopRightRadius: theme.border.radius.large,
   borderTopLeftRadius: theme.border.radius.large,
-  height: '976px',
+  height: 'calc(100vh - 112px - 48px - 48px - 144px - 2px)',
   overflow: 'scroll',
 })
 
