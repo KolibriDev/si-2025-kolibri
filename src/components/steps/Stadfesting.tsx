@@ -3,8 +3,6 @@
 import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { AlertMessage } from '../AlertMessage/AlertMessage'
-import Image from 'next/image'
-import { useWindowSize } from 'react-use'
 import { Box } from '../Box/Box'
 import { Button } from '../Button/Button'
 import { useRouter } from 'next/navigation'
@@ -13,8 +11,6 @@ import FakeLink from '../FakeLink/FakeLink'
 
 const Stadfesting = () => {
   const router = useRouter()
-  const { width } = useWindowSize()
-  const dynamicWidth = Math.min(width * 0.4, 337) // adjust 0.5 as needed
 
   return (
     <div>
@@ -56,17 +52,6 @@ const Stadfesting = () => {
             framtalið hefur verið yfirfarið og samþykkt af Skattinum.
           </Text>
         </Stack>
-      </Box>
-      <Box position="relative" style={{ height: dynamicWidth }}>
-        <Image
-          src="/success.svg"
-          alt=""
-          fill
-          style={{
-            objectFit: 'contain',
-          }}
-          priority
-        />
       </Box>
     </div>
   )
