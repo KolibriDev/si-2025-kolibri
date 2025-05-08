@@ -1,7 +1,6 @@
 import React from 'react'
 import { Text } from '@/components/Text/Text'
 import { Box } from '../Box/Box'
-import { Icon } from '../IconRC/Icon'
 import { Button } from '../Button/Button'
 import { routeSections } from '@/app/framtal/routeSections'
 import { useRouter } from 'next/navigation'
@@ -25,6 +24,7 @@ import { AlertMessage } from '../AlertMessage/AlertMessage'
 import { formatPhoneNr } from '../Utils/utils'
 import { DeductionEntries } from './Fradrattur'
 import LoadingDots from '../LoadingDots/LoadingDots'
+import { StaticIcon } from '../IconRC/StaticIcon'
 
 const InfoSectionHeader = ({
   title,
@@ -44,7 +44,7 @@ const InfoSectionHeader = ({
         <Button onClick={onEdit} variant="ghost" size="small">
           <Box display="flex" columnGap={1} alignItems="center">
             <Text variant="eyebrow">Breyta</Text>
-            <Icon icon="pencil" color="blue400" size="small" />
+            <StaticIcon icon="pencil" color="#0061ff" size="small" />
           </Box>
         </Button>
       </Box>

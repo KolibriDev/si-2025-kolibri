@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react'
 import { Text } from '@/components/Text/Text'
-import { Icon } from '../IconRC/Icon'
 import { Box } from '../Box/Box'
 import { Checkbox } from '../Checkbox/Checkbox'
 import { useError } from '../Utils/context/errorContext'
@@ -10,6 +9,7 @@ import { useUserContext } from '../Utils/context/userContext'
 import { useTaxContext } from '../Utils/context/taxContext'
 
 import * as styles from './Gagnaoflun.css'
+import { StaticIcon } from '../IconRC/StaticIcon'
 
 const Gagnaoflun = () => {
   const error = useError()
@@ -24,12 +24,11 @@ const Gagnaoflun = () => {
   return (
     <div>
       <Box display="flex" alignItems="center" columnGap={2} marginBottom={5}>
-        <Icon
+        <StaticIcon
           className={styles.iconFileTrayFull}
           size={'large'}
-          icon="fileTrayFull"
-          type="outline"
-          color="blue400"
+          icon="fileTrayFullOutline"
+          color="#0061ff"
         />
         <Text variant="h4" as="h2">
           Eftirfarandi gögn verða sótt rafrænt með þínu samþykki

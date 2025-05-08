@@ -7,6 +7,7 @@ import * as styles from './Button.css'
 import { Icon } from '../IconRC/Icon'
 import type { IconProps } from '../IconRC/types'
 import type { ButtonProps, ButtonTypes } from './types'
+import { StaticIcon } from '../IconRC/StaticIcon'
 
 export type ButtonBaseProps = ButtonProps & ButtonTypes
 
@@ -119,15 +120,39 @@ type ButtonIconProps = {
   preText?: boolean
 }
 
-const ButtonIcon = ({ icon, type, transparent, preText }: ButtonIconProps) => (
-  <Icon
-    icon={icon}
-    type={type}
-    color={transparent ? 'transparent' : 'currentColor'}
-    className={cn(
-      styles.icon,
-      preText ? styles.iconPreText : styles.iconPostText,
-    )}
-    skipPlaceholderSize
-  />
-)
+const staticIconNames = new Set([
+  'pencil',
+  'arrowForward',
+  'add',
+  'fileTrayFull',
+  'attach',
+  'open',
+])
+
+const ButtonIcon = ({ icon, type, transparent, preText }: ButtonIconProps) => {
+  if (staticIconNames.has(icon)) {
+    return (
+      <StaticIcon
+        icon={icon}
+        color={transparent ? 'transparent' : 'currentColor'}
+        className={cn(
+          styles.icon,
+          preText ? styles.iconPreText : styles.iconPostText,
+        )}
+      />
+    )
+  }
+
+  return (
+    <Icon
+      icon={icon}
+      type={type}
+      color={transparent ? 'transparent' : 'currentColor'}
+      className={cn(
+        styles.icon,
+        preText ? styles.iconPreText : styles.iconPostText,
+      )}
+      skipPlaceholderSize
+    />
+  )
+}

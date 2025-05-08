@@ -10,6 +10,7 @@ import { getNextStep, getPreviousStep } from '@/app/framtal/routeSections'
 import { useTaxContext } from '@/components/Utils/context/taxContext'
 import { useUserContext } from '@/components/Utils/context/userContext'
 import { useError } from '@/components/Utils/context/errorContext'
+import { StaticIcon } from '@/components/IconRC/StaticIcon'
 
 export const StepsFooter = () => {
   const params = useParams()
@@ -99,7 +100,7 @@ export const StepsFooter = () => {
         >
           <div className={styles.primaryButton}>
             <Text variant="h5">Halda áfram</Text>
-            <Icon icon="arrowForward" />
+            <StaticIcon icon="arrowForward" />
           </div>
         </Button>
       ) : (
