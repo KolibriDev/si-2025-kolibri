@@ -8,6 +8,7 @@ import {
   useUpdateTaxReturnMutation,
   useSubmitTaxReturnMutation,
   SubmitTaxReturnMutation,
+  CreateTaxReturnMutationResult,
 } from '@/generated/graphql'
 import {
   createContext,
@@ -28,7 +29,10 @@ interface TaxReturnContextType {
     taxReturn: TaxReturnQuery['taxReturn'] | undefined | null,
   ) => void
   fetchTaxReturn: (nationalId: string) => void
-  createTaxReturn: (nationalId: string) => void
+  createTaxReturn: (
+    nationalId: string,
+  ) => Promise<CreateTaxReturnMutationResult | undefined>
+
   updateTaxReturn: (taxReturn: TaxReturnQuery['taxReturn']) => void
   submitTaxReturn: (nationalId: string) => Promise<SubmitTaxReturnResult>
   isLoading: boolean
@@ -42,42 +46,56 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
   >(undefined)
   const apolloClient = useApolloClient()
 
-  const [executeFetchTaxReturn, { loading }] = useTaxReturnLazyQuery({
-    onCompleted: (data) => {
-      console.log('Fetched tax return:', data)
-      setTaxReturn(data?.taxReturn)
-    },
-    onError: (error) => {
-      console.error('Error fetching tax return:', error)
-    },
-  })
+  const [executeFetchTaxReturn, { loading: isFetching }] =
+    useTaxReturnLazyQuery({
+      onCompleted: (data) => {
+        console.log('Fetched tax return:', data)
+        if (!data?.taxReturn) {
+          console.error('No tax return data returned')
+          return
+        }
+        setTaxReturn(data?.taxReturn)
 
-  const [executeCreateTaxReturn] = useCreateTaxReturnMutation({
-    onCompleted: (data) => {
-      setTaxReturn(data?.createTaxReturn)
-    },
-    onError: (error) => {
-      console.error('Error creating tax return:', error)
-    },
-  })
+        apolloClient.writeQuery({
+          query: TaxReturnDocument,
+          variables: { nationalId: data.taxReturn.nationalId },
+          data: { taxReturn: data.taxReturn },
+        })
+      },
+      onError: (error) => {
+        console.error('Error fetching tax return:', error)
+      },
+    })
 
-  const [executePutTaxReturn] = useUpdateTaxReturnMutation({
-    onCompleted: (data) => {
-      setTaxReturn(data?.updateTaxReturn)
-      if (!data?.updateTaxReturn) {
-        console.error('No tax return data returned from update')
-        return
-      }
-      apolloClient.writeQuery({
-        query: TaxReturnDocument,
-        variables: { nationalId: data.updateTaxReturn.nationalId },
-        data: { taxReturn: data.updateTaxReturn },
-      })
-    },
-    onError: (error) => {
-      console.error('Error updating tax return:', error)
-    },
-  })
+  const [executeCreateTaxReturn, { loading: isCreating }] =
+    useCreateTaxReturnMutation({
+      onCompleted: (data) => {
+        console.log('Created tax return:', data)
+        setTaxReturn(data?.createTaxReturn)
+      },
+      onError: (error) => {
+        console.error('Error creating tax return:', error)
+      },
+    })
+
+  const [executePutTaxReturn, { loading: isPuting }] =
+    useUpdateTaxReturnMutation({
+      onCompleted: (data) => {
+        setTaxReturn(data?.updateTaxReturn)
+        if (!data?.updateTaxReturn) {
+          console.error('No tax return data returned from update')
+          return
+        }
+        apolloClient.writeQuery({
+          query: TaxReturnDocument,
+          variables: { nationalId: data.updateTaxReturn.nationalId },
+          data: { taxReturn: data.updateTaxReturn },
+        })
+      },
+      onError: (error) => {
+        console.error('Error updating tax return:', error)
+      },
+    })
 
   const [executeSubmitTaxReturn, { loading: isSubmitting }] =
     useSubmitTaxReturnMutation({
@@ -107,8 +125,18 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
   )
 
   const createTaxReturn = useCallback(
-    (nationalId: string) => {
-      executeCreateTaxReturn({ variables: { nationalId } })
+    async (
+      nationalId: string,
+    ): Promise<CreateTaxReturnMutationResult | undefined> => {
+      try {
+        const result = await executeCreateTaxReturn({
+          variables: { nationalId },
+        })
+        return result as CreateTaxReturnMutationResult
+      } catch (error) {
+        console.error('Error creating tax return:', error)
+        return undefined
+      }
     },
     [executeCreateTaxReturn],
   )
@@ -141,10 +169,19 @@ export const TaxContextProvider = ({ children }: { children: ReactNode }) => {
       createTaxReturn,
       updateTaxReturn,
       submitTaxReturn,
-      isLoading: loading,
+      isLoading: isFetching || isCreating || isPuting || isSubmitting,
       isSubmitting,
     }),
-    [taxReturn, fetchTaxReturn, loading, isSubmitting],
+    [
+      taxReturn,
+      fetchTaxReturn,
+      isFetching,
+      isSubmitting,
+      isCreating,
+      createTaxReturn,
+      updateTaxReturn,
+      submitTaxReturn,
+    ],
   )
 
   return <TaxContext.Provider value={value}>{children}</TaxContext.Provider>
