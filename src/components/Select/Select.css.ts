@@ -184,13 +184,8 @@ globalStyle(`${wrapper}  .island-select__menu-list`, {
 })
 
 export const icon = style({
-  width: theme.spacing[3],
-  height: theme.spacing[3],
   ...themeUtils.responsiveStyle({
-    md: {
-      width: theme.spacing[4],
-      height: theme.spacing[4],
-    },
+    md: {},
   }),
 })
 
