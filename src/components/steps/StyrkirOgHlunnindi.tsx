@@ -192,14 +192,22 @@ const StyrkirOgHlunnindi = () => {
   }
 
   const benefitPayers = [
-    { label: 'Norðurljós Software ehf', value: '5408898990' },
+    { label: 'Advania Ísland ehf.', value: '5902697199' },
+    { label: 'Foodco hf', value: '6603022630' },
+    { label: 'Norðurljós Software ehf.', value: '5408898990' },
+    { label: 'Heit gólf ehf.', value: '4502071600' },
+    { label: 'Heitir pottar ehf.', value: '5612201230' },
+    { label: 'Hagar hf.', value: '6702032120' },
+    { label: 'Kolibri ehf.', value: '5505071960' },
+    { label: 'Norðurorka hf.', value: '5509780169' },
     { label: 'Mús & Merki ehf.', value: '5605086019' },
     { label: 'VR', value: '6902692019' },
     { label: 'SÍBS', value: '5408898993' },
-    { label: 'Ísland.is', value: '5408898994' },
+    { label: 'Icelandair ehf.', value: '4712992359' },
     { label: 'Íslensk erfðagreining', value: '5408898995' },
     { label: 'Íslenskir aðalverktakar ehf.', value: '5408898996' },
     { label: 'Íslenskir aðalverktakar ehf.', value: '5408898997' },
+    { label: 'Ístak hf.', value: '4302140190' },
   ]
 
   const handleOnInputChange = (value: string) => {
@@ -243,23 +251,25 @@ const StyrkirOgHlunnindi = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.15 }}
           >
-            <Button
-              variant="ghost"
-              size="small"
-              onClick={() => {
-                setShowNewBenefit(true)
-                setTimeout(() => {
-                  formRef.current?.scrollIntoView({ behavior: 'smooth' })
-                }, 0)
-              }}
-            >
-              <Box display="flex" columnGap={1} alignItems="center">
-                <Text variant="h5" fontWeight="semiBold" color="blue400">
-                  Bæta við
-                </Text>
-                <Icon icon="add" size="small" />
-              </Box>
-            </Button>
+            <Box display="flex" justifyContent="flexEnd">
+              <Button
+                variant="ghost"
+                size="small"
+                onClick={() => {
+                  setShowNewBenefit(true)
+                  setTimeout(() => {
+                    formRef.current?.scrollIntoView({ behavior: 'smooth' })
+                  }, 0)
+                }}
+              >
+                <Box display="flex" columnGap={1} alignItems="center">
+                  <Text variant="h5" fontWeight="semiBold" color="blue400">
+                    Bæta við
+                  </Text>
+                  <Icon icon="add" size="small" />
+                </Box>
+              </Button>
+            </Box>
           </motion.div>
         )}
       </AnimatePresence>
