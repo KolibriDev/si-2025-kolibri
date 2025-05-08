@@ -91,6 +91,7 @@ export async function GET(req: NextRequest) {
             principalPayments: 1360000,
             interestPayments: 920000,
             remainingBalance: 28540000,
+            yearOfPurchase: 2021,
           },
         ],
         deductions: [

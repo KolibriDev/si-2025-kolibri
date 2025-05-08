@@ -20,17 +20,13 @@ function snakeToCamel(obj: unknown): unknown {
 }
 
 export async function POST(req: NextRequest) {
-  console.log('POST request received')
-
   if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   const body = await req.json()
-  console.log('Request body:', body)
   const parsed = taxReturnSchema.safeParse(body)
 
-  console.log('Parsed data:', parsed)
   if (!parsed.success) {
     console.error('Validation error:', parsed.error)
     return NextResponse.json({ error: 'Invalid input' }, { status: 400 })
@@ -45,15 +41,12 @@ export async function POST(req: NextRequest) {
       `
 
       const taxReturnId = result[0].id
-      console.log('Inserted tax return ID:', taxReturnId)
 
-      console.log(parsed.data.salaries)
       for (const salary of parsed.data.salaries ?? []) {
         await sql`
         INSERT INTO tax_authority_salaries (tax_return_id, employer_national_id, employer_name, amount)
         VALUES (${taxReturnId}, ${salary.employerNationalId ?? null}, ${salary.employerName ?? null}, ${salary.amount ?? null})
       `
-        console.log('Inserted salary:', salary)
       }
 
       for (const benefit of parsed.data.benefits ?? []) {
@@ -119,8 +112,6 @@ export async function GET(req: NextRequest) {
   if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-
-  console.log('GET request received')
 
   const url = new URL(req.url)
   const nationalId = url.searchParams.get('nationalId')

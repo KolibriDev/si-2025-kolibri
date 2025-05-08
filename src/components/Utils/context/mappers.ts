@@ -51,6 +51,7 @@ export function mapTaxReturnToUpdateInput(
         realEstateNumber: m.realEstateNumber ?? undefined,
         remainingBalance: m.remainingBalance ?? undefined,
         totalAnnualPayments: m.totalAnnualPayments ?? undefined,
+        yearOfPurchase: m.yearOfPurchase ?? undefined,
       }
       return result
     }),
