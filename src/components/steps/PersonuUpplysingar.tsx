@@ -10,6 +10,7 @@ import * as styles from './PersonuUpplysingar.css'
 import { useTaxContext } from '../Utils/context/taxContext'
 import { formatPhoneNr } from '../Utils/utils'
 import { Stack } from '../Stack/Stack'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 const PersonuUpplysingar = () => {
   const { taxReturn, updateTaxReturn } = useTaxContext()
@@ -24,12 +25,9 @@ const PersonuUpplysingar = () => {
     }
   }, [taxReturn])
 
-  if (!taxReturn) {
-    return <Text>Gögn vantar</Text>
-  }
-
   /* TODO: update the fields when pressing continue */
   const onBlur = () => {
+    if (!taxReturn) return
     updateTaxReturn({ ...taxReturn, email, phoneNumber })
   }
 
@@ -58,7 +56,13 @@ const PersonuUpplysingar = () => {
       <div className={styles.tranparentCard}>
         <Stack space={1}>
           <Text variant="h4">{'Lögheimili'}</Text>
-          <Text>{taxReturn.address ?? 'Lögheimili fannst ekki'}</Text>
+          {taxReturn?.address ? (
+            <Text>{taxReturn.address}</Text>
+          ) : (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <LoadingDots />
+            </Box>
+          )}
         </Stack>
 
         <Box paddingY={4}>
@@ -75,31 +79,43 @@ const PersonuUpplysingar = () => {
             </Text>
           </Stack>
         </Box>
-
-        <div className={styles.inputContainer}>
-          <Input
-            required
-            backgroundColor="blue"
-            label="Netfang"
-            name="email"
-            onChange={(x) => setEmail(x.target.value)}
-            placeholder="jon.jonsson@gmail.com"
-            type="email"
-            value={email}
-            onBlur={onBlur}
-          />
-          <Input
-            required
-            backgroundColor="blue"
-            label="Símanúmer"
-            name="phoneNumber"
-            onChange={handleChange}
-            placeholder="581-2345"
-            type="tel"
-            value={formatPhoneNr(phoneNumber)}
-            onBlur={onBlur}
-          />
-        </div>
+        {taxReturn ? (
+          <>
+            <div className={styles.inputContainer}>
+              <Input
+                required
+                backgroundColor="blue"
+                label="Netfang"
+                name="email"
+                onChange={(x) => setEmail(x.target.value)}
+                placeholder="jon.jonsson@gmail.com"
+                type="email"
+                value={email}
+                onBlur={onBlur}
+              />
+              <Input
+                required
+                backgroundColor="blue"
+                label="Símanúmer"
+                name="phoneNumber"
+                onChange={handleChange}
+                placeholder="581-2345"
+                type="tel"
+                value={formatPhoneNr(phoneNumber)}
+                onBlur={onBlur}
+              />
+            </div>
+          </>
+        ) : (
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            style={{ height: '77px' }}
+          >
+            <LoadingDots />
+          </Box>
+        )}
       </div>
     </div>
   )

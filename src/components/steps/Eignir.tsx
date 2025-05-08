@@ -8,12 +8,9 @@ import { formatISK } from '@/lib/utils'
 import { Stack } from '../Stack/Stack'
 import { Box } from '../Box/Box'
 import { Button } from '../Button/Button'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 const Eignir = () => {
-  const { taxReturn } = useTaxContext()
-  if (!taxReturn) {
-    return <Text>Vantar gögn</Text>
-  }
   return (
     <div>
       <Text marginBottom={6}>
@@ -55,17 +52,13 @@ const Eignir = () => {
 export const Fasteignir = () => {
   const { taxReturn } = useTaxContext()
 
-  if (!taxReturn?.realEstates) {
-    return <Text>Engar fasteignir eru skráðar á þig.</Text>
-  }
-
   const sum =
     taxReturn?.realEstates?.reduce(
       (acc, x) => acc + (x.appraisalAmount ?? 0),
       0,
     ) ?? 0
 
-  return (
+  return taxReturn?.realEstates ? (
     <T.Table>
       <T.Head>
         <T.Row>
@@ -101,15 +94,20 @@ export const Fasteignir = () => {
         </T.Row>
       </T.Foot>
     </T.Table>
+  ) : (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      style={{ height: '100px' }}
+    >
+      <LoadingDots />
+    </Box>
   )
 }
 
 export const Okutaeki = () => {
   const { taxReturn } = useTaxContext()
-
-  if (!taxReturn?.vehicles) {
-    return <Text>Engin ökutæki eru skráð á þig.</Text>
-  }
 
   const sum =
     taxReturn?.vehicles?.reduce(
@@ -117,7 +115,7 @@ export const Okutaeki = () => {
       0,
     ) ?? 0
 
-  return (
+  return taxReturn?.vehicles ? (
     <T.Table>
       <T.Head>
         <T.Row>
@@ -153,6 +151,15 @@ export const Okutaeki = () => {
         </T.Row>
       </T.Foot>
     </T.Table>
+  ) : (
+    <Box
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      style={{ height: '100px' }}
+    >
+      <LoadingDots />
+    </Box>
   )
 }
 

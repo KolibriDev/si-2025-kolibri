@@ -9,6 +9,7 @@ import { Button } from '../Button/Button'
 import { formatISK } from '@/lib/utils'
 import { OtherDebt } from '@/generated/graphql'
 import { Icon } from '../IconRC/Icon'
+import LoadingDots from '../LoadingDots/LoadingDots'
 
 export const OtherDebts = ({
   otherDebts,
@@ -100,7 +101,18 @@ const AdrarSkuldir = () => {
         Ef þú skuldar öðrum lánveitendum en það sem fram kemur hér þarftu að
         bæta skuldinni við til að framtalið sé rétt.
       </Text>
-      <OtherDebts otherDebts={otherDepts ?? []} isEditable />
+      {otherDepts ? (
+        <OtherDebts otherDebts={otherDepts ?? []} isEditable />
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          style={{ height: '377px' }}
+        >
+          <LoadingDots />
+        </Box>
+      )}
       <Button variant="ghost" size="small" onClick={() => {}}>
         <Box display="flex" columnGap={1} alignItems="center">
           <Text variant="h5" fontWeight="semiBold" color="blue400">
