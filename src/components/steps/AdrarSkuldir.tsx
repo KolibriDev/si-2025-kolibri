@@ -35,6 +35,7 @@ export const OtherDebts = ({
                 <T.Data>
                   <Button
                     circle
+                    size="small"
                     colorScheme="negative"
                     title="Breyta"
                     type="icon"

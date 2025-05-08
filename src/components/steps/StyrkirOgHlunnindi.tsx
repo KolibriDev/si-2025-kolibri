@@ -69,6 +69,7 @@ export const Benefits = ({
                       title="Breyta"
                       type="icon"
                       icon={'pencil'}
+                      size="small"
                       onClick={() => {}}
                     />
                   </T.Data>
