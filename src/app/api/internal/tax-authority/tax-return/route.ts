@@ -47,7 +47,6 @@ export async function POST(req: NextRequest) {
         INSERT INTO tax_authority_salaries (tax_return_id, employer_national_id, employer_name, amount)
         VALUES (${taxReturnId}, ${salary.employerNationalId ?? null}, ${salary.employerName ?? null}, ${salary.amount ?? null})
       `
-        console.log('Inserted salary:', salary)
       }
 
       for (const benefit of parsed.data.benefits ?? []) {
@@ -113,8 +112,6 @@ export async function GET(req: NextRequest) {
   if (!validateSecret(req)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
-
-  console.log('GET request received')
 
   const url = new URL(req.url)
   const nationalId = url.searchParams.get('nationalId')
