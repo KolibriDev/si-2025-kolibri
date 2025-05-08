@@ -7,6 +7,7 @@ export const container = style({
   alignItems: 'center',
   justifyContent: 'center',
   minHeight: '100vh',
+  padding: theme.spacing[2],
 })
 
 export const content = style({
