@@ -113,14 +113,16 @@ const AdrarSkuldir = () => {
           <LoadingDots />
         </Box>
       )}
-      <Button variant="ghost" size="small" onClick={() => {}}>
-        <Box display="flex" columnGap={1} alignItems="center">
-          <Text variant="h5" fontWeight="semiBold" color="blue400">
-            Bæta við
-          </Text>
-          <Icon icon="add" size="small" />
-        </Box>
-      </Button>
+      <Box display="flex" justifyContent="flexEnd">
+        <Button variant="ghost" size="small" onClick={() => {}}>
+          <Box display="flex" columnGap={1} alignItems="center">
+            <Text variant="h5" fontWeight="semiBold" color="blue400">
+              Bæta við
+            </Text>
+            <Icon icon="add" size="small" />
+          </Box>
+        </Button>
+      </Box>
     </div>
   )
 }

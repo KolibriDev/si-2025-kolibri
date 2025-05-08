@@ -5,6 +5,7 @@ import { Text } from '@/components/Text/Text'
 import { Bullet, BulletList } from '../BulletList/BulletList'
 import { Box } from '../Box/Box'
 import { Button } from '../Button/Button'
+import { EmptyTable } from '../EmptyTable/EmptyTable'
 
 const AdrarTekjur = () => {
   return (
@@ -21,9 +22,14 @@ const AdrarTekjur = () => {
           </Bullet>
         </BulletList>
       </Box>
-      <Button variant="ghost" icon="add" size="small">
-        Bæta við
-      </Button>
+      <Box marginBottom={7}>
+        <EmptyTable message={'Engar aðrar tekjur eru skráðar á þig'} />
+      </Box>
+      <Box display="flex" justifyContent="flexEnd">
+        <Button variant="ghost" icon="add" size="small">
+          Bæta við
+        </Button>
+      </Box>
     </div>
   )
 }

@@ -1,13 +1,23 @@
-export enum DeductionType {
-  OTHER = 'OTHER',
-}
+import { DeductionType, BenefitType } from '@/generated/graphql'
+import { z } from 'zod'
+const deductionType = Object.values(DeductionType) as [string, ...string[]]
 
-export enum BenefitType {
-  DAILY_ALLOWANCE = 'DAILY_ALLOWANCE',
-  SPORT_ALLOWANCE = 'SPORT_ALLOWANCE',
-  STUDY_ALLOWANCE = 'STUDY_ALLOWANCE',
-  OTHER = 'OTHER',
-}
+const deductionTypeSchema = z.enum(deductionType)
+
+const benefitType = Object.values(BenefitType) as [string, ...string[]]
+
+const benefitTypeSchema = z.enum(benefitType)
+
+// export enum DeductionType {
+//   OTHER = 'OTHER',
+// }
+
+// export enum BenefitType {
+//   DAILY_ALLOWANCE = 'DAILY_ALLOWANCE',
+//   SPORT_ALLOWANCE = 'SPORT_ALLOWANCE',
+//   STUDY_ALLOWANCE = 'STUDY_ALLOWANCE',
+//   OTHER = 'OTHER',
+// }
 
 export interface NationalRegistry {
   nationalId: string
@@ -15,24 +25,23 @@ export interface NationalRegistry {
   phoneNumber?: string
 }
 
-import { z } from 'zod'
+// const deductionTypeSchema = z.enum([
+//   'OTHER',
+//   'SPORT_ALLOWANCE_DEDUCTION',
+//   'PENSION_FUND_DEDUCTION',
+//   'DAILY_ALLOWANCE_DEDUCTION',
+//   'PRIVATE_PENSION_FUND_DEDUCTION',
+//   'CHARITY_DEDUCTION',
+//   'DRIVING_ALLOWANCE_DEDUCTION',
+//   'TRANSPORT_ALLOWANCE_DEDUCTION',
+// ])
+// const benefitTypeSchema = z.enum([
+//   'DAILY_ALLOWANCE',
+//   'SPORT_ALLOWANCE',
+//   'STUDY_ALLOWANCE',
+//   'OTHER',
 
-const deductionTypeSchema = z.enum([
-  'OTHER',
-  'SPORT_ALLOWANCE_DEDUCTION',
-  'PENSION_FUND_DEDUCTION',
-  'DAILY_ALLOWANCE_DEDUCTION',
-  'PRIVATE_PENSION_FUND_DEDUCTION',
-  'CHARITY_DEDUCTION',
-  'DRIVING_ALLOWANCE_DEDUCTION',
-  'TRANSPORT_ALLOWANCE_DEDUCTION',
-])
-const benefitTypeSchema = z.enum([
-  'DAILY_ALLOWANCE',
-  'SPORT_ALLOWANCE',
-  'STUDY_ALLOWANCE',
-  'OTHER',
-])
+// ])
 
 const salarySchema = z.object({
   employerNationalId: z.string().optional(),

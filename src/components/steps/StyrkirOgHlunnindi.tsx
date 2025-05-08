@@ -214,18 +214,20 @@ const StyrkirOgHlunnindi = () => {
         </Box>
       )}
       {!showNewBenefit && (
-        <Button
-          variant="ghost"
-          size="small"
-          onClick={() => setShowNewBenefit(true)}
-        >
-          <Box display="flex" columnGap={1} alignItems="center">
-            <Text variant="h5" fontWeight="semiBold" color="blue400">
-              Bæta við
-            </Text>
-            <Icon icon="add" size="small" />
-          </Box>
-        </Button>
+        <Box display="flex" justifyContent="flexEnd">
+          <Button
+            variant="ghost"
+            size="small"
+            onClick={() => setShowNewBenefit(true)}
+          >
+            <Box display="flex" columnGap={1} alignItems="center">
+              <Text variant="h5" fontWeight="semiBold" color="blue400">
+                Bæta við
+              </Text>
+              <Icon icon="add" size="small" />
+            </Box>
+          </Button>
+        </Box>
       )}
       {showNewBenefit && (
         <Box marginTop={4} display="flex" flexDirection="column" rowGap={3}>
